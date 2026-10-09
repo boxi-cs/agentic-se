@@ -1,0 +1,469 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.778
+Here is the complete record of an AI agent fixing a bug.
+
+2
+00:00:03.778 --> 00:00:04.790
+It read a file.
+
+3
+00:00:04.790 --> 00:00:05.870
+It wrote a file.
+
+4
+00:00:05.870 --> 00:00:07.152
+Then it said: done.
+
+5
+00:00:07.500 --> 00:00:09.149
+So, is the bug fixed?
+
+6
+00:00:09.483 --> 00:00:11.714
+Nothing in this record can tell us.
+
+7
+00:00:11.714 --> 00:00:15.985
+By the end of this video, you'll see exactly which line is missing,
+
+8
+00:00:15.985 --> 00:00:19.619
+and why an agent saying "done" is a claim, not a verdict.
+
+9
+00:00:20.667 --> 00:00:24.579
+First, let's separate two things we usually blur together.
+
+10
+00:00:24.917 --> 00:00:27.113
+A language model produces text.
+
+11
+00:00:27.113 --> 00:00:28.459
+That's all it does.
+
+12
+00:00:28.459 --> 00:00:34.126
+Sometimes that text is shaped like a request: use this tool, with this argument.
+
+13
+00:00:34.126 --> 00:00:36.039
+We'll call that a proposal.
+
+14
+00:00:36.383 --> 00:00:41.220
+The program around the model, the controller, decides what happens next.
+
+15
+00:00:41.220 --> 00:00:45.989
+It checks the proposal: exactly the fields it expects, a tool it knows,
+
+16
+00:00:45.989 --> 00:00:48.407
+a path it allows, a size it accepts.
+
+17
+00:00:48.407 --> 00:00:51.430
+Only then does the proposal become an action.
+
+18
+00:00:51.767 --> 00:00:55.244
+And when a proposal fails those checks, nothing runs.
+
+19
+00:00:55.244 --> 00:00:56.753
+The controller refuses.
+
+20
+00:00:56.753 --> 00:00:58.787
+The model can ask for anything.
+
+21
+00:00:58.787 --> 00:01:01.937
+The controller decides what is actually allowed.
+
+22
+00:01:02.983 --> 00:01:07.598
+Let's watch the loop on the smallest task we could think of.
+
+23
+00:01:07.598 --> 00:01:11.059
+A file, result.txt, contains the number five.
+
+24
+00:01:11.059 --> 00:01:12.828
+It should contain four.
+
+25
+00:01:13.166 --> 00:01:16.576
+In round one, the model proposes: read the file.
+
+26
+00:01:16.576 --> 00:01:22.258
+The controller validates it, runs it, and records what actually came back: five.
+
+27
+00:01:22.258 --> 00:01:27.940
+That observation goes into the next round: not the model's guess about the file,
+
+28
+00:01:27.940 --> 00:01:28.863
+but the file.
+
+29
+00:01:29.200 --> 00:01:32.185
+In round two, the proposal is: write four.
+
+30
+00:01:32.185 --> 00:01:36.166
+The controller writes it, and the tool reports: written.
+
+31
+00:01:36.500 --> 00:01:37.645
+Should we stop now?
+
+32
+00:01:37.645 --> 00:01:38.489
+It's tempting.
+
+33
+00:01:38.489 --> 00:01:40.177
+The file probably says four.
+
+34
+00:01:40.177 --> 00:01:43.252
+But "written" only tells us a side effect happened.
+
+35
+00:01:43.252 --> 00:01:46.507
+It doesn't tell us the result meets the specification.
+
+36
+00:01:46.850 --> 00:01:50.201
+In round three, the proposal is: run the check.
+
+37
+00:01:50.201 --> 00:01:55.121
+A fixed program compares the file to the spec, and reports: verified.
+
+38
+00:01:55.121 --> 00:01:58.402
+Now the controller has evidence, and it stops.
+
+39
+00:01:58.750 --> 00:02:00.995
+Propose, validate, act, observe.
+
+40
+00:02:00.995 --> 00:02:03.169
+Then decide: continue, or stop.
+
+41
+00:02:03.169 --> 00:02:05.835
+That circle is the core of this agent.
+
+42
+00:02:05.835 --> 00:02:08.641
+The rest is what goes into each station.
+
+43
+00:02:09.681 --> 00:02:12.787
+Now rewind, and let the model make a mistake.
+
+44
+00:02:12.787 --> 00:02:15.892
+In round two, it writes five instead of four.
+
+45
+00:02:15.892 --> 00:02:17.617
+The write still succeeds.
+
+46
+00:02:17.617 --> 00:02:19.687
+The tool still says "written".
+
+47
+00:02:19.687 --> 00:02:21.965
+Only the check notices: it fails.
+
+48
+00:02:22.315 --> 00:02:26.191
+And here's the rule that makes the whole thing trustworthy:
+
+49
+00:02:26.191 --> 00:02:30.134
+the controller must not report success after a failed check.
+
+50
+00:02:30.134 --> 00:02:31.776
+Not if the model insists.
+
+51
+00:02:31.776 --> 00:02:34.470
+Not if its explanation sounds convincing.
+
+52
+00:02:34.815 --> 00:02:37.709
+You could even rewrite the success message itself.
+
+53
+00:02:37.709 --> 00:02:39.446
+The file would still say five.
+
+54
+00:02:39.446 --> 00:02:41.414
+A message can describe the result.
+
+55
+00:02:41.414 --> 00:02:42.977
+Only the check observes it.
+
+56
+00:02:44.013 --> 00:02:47.984
+So a loop can end in more than one way, and the difference matters.
+
+57
+00:02:48.330 --> 00:02:50.449
+Verified: a real check passed.
+
+58
+00:02:50.449 --> 00:02:56.240
+Failed: a check ran and didn't pass, and that failure must be kept, not forgotten.
+
+59
+00:02:56.240 --> 00:02:59.984
+In the Week 2 core, a failed check is an observation,
+
+60
+00:02:59.984 --> 00:03:02.668
+and the loop goes on to its next step.
+
+61
+00:03:02.668 --> 00:03:05.705
+Refused: the controller blocked a proposal.
+
+62
+00:03:05.705 --> 00:03:07.824
+Exhausted: the budget ran out.
+
+63
+00:03:07.824 --> 00:03:11.991
+A model that never decides to stop could go around forever,
+
+64
+00:03:11.991 --> 00:03:14.533
+so the controller counts every step.
+
+65
+00:03:14.880 --> 00:03:17.138
+There's one more ending worth naming.
+
+66
+00:03:17.138 --> 00:03:21.533
+Sometimes the model simply stops asking for tools and replies with text:
+
+67
+00:03:21.533 --> 00:03:23.914
+"All done!" That ends the conversation.
+
+68
+00:03:23.914 --> 00:03:26.722
+It doesn't establish that the task is correct.
+
+69
+00:03:27.063 --> 00:03:29.601
+Final means the conversation stopped.
+
+70
+00:03:29.601 --> 00:03:32.003
+Verified means the evidence passed.
+
+71
+00:03:32.003 --> 00:03:33.855
+Keep those two words apart.
+
+72
+00:03:34.895 --> 00:03:39.505
+One station deserves a closer look: what the model actually gets to see.
+
+73
+00:03:39.845 --> 00:03:42.542
+Each request has to fit in a limited window.
+
+74
+00:03:42.542 --> 00:03:46.649
+Keep every old observation, and the goal itself can get pushed out.
+
+75
+00:03:46.649 --> 00:03:51.246
+Keep only the newest one, and you might forget that a check already failed.
+
+76
+00:03:51.595 --> 00:03:56.283
+A better habit is a small working record: the goal, the allowed tools,
+
+77
+00:03:56.283 --> 00:04:01.708
+the current state of the file, the last verification result, and the budget left.
+
+78
+00:04:02.045 --> 00:04:05.239
+And when you summarize, tie every claim to its evidence.
+
+79
+00:04:05.239 --> 00:04:09.174
+"Tests passed" means little unless you know which version was tested.
+
+80
+00:04:10.211 --> 00:04:12.791
+Now look at the tools themselves.
+
+81
+00:04:12.791 --> 00:04:15.214
+Each one has a narrow contract.
+
+82
+00:04:15.214 --> 00:04:17.325
+Read takes only result.txt.
+
+83
+00:04:17.325 --> 00:04:22.562
+Write takes at most thirty-two characters, and only for result.txt.
+
+84
+00:04:22.562 --> 00:04:26.001
+And bash runs only the fixed verify program.
+
+85
+00:04:26.345 --> 00:04:30.070
+Each action has exactly a tool and an argument.
+
+86
+00:04:30.070 --> 00:04:33.400
+Extra fields, invented tools, other paths,
+
+87
+00:04:33.400 --> 00:04:37.522
+shell commands and oversized writes all fail closed.
+
+88
+00:04:37.522 --> 00:04:42.278
+In our run of the fixture, each of these stopped as refused,
+
+89
+00:04:42.278 --> 00:04:44.735
+and result.txt still held five.
+
+90
+00:04:45.078 --> 00:04:47.649
+So the name bash does not grant a shell.
+
+91
+00:04:47.649 --> 00:04:50.863
+The adapter runs the literal verification program,
+
+92
+00:04:50.863 --> 00:04:53.884
+and never puts model text into a shell command.
+
+93
+00:04:53.884 --> 00:04:56.584
+The launcher supplies the outer isolation.
+
+94
+00:04:57.628 --> 00:05:01.034
+When a project publishes its agent's instructions,
+
+95
+00:05:01.034 --> 00:05:04.576
+read them as an engineer reads a configuration file,
+
+96
+00:05:04.576 --> 00:05:07.573
+not as a description of guaranteed behavior.
+
+97
+00:05:07.573 --> 00:05:12.681
+Sort every sentence into one of four bins: a role or goal, a tool contract,
+
+98
+00:05:12.681 --> 00:05:16.564
+a stopping or escalation rule, and a request for caution.
+
+99
+00:05:16.911 --> 00:05:19.804
+Then ask of each one: what enforces this?
+
+100
+00:05:19.804 --> 00:05:24.108
+A schema validator, a sandbox and an approval prompt enforce.
+
+101
+00:05:24.108 --> 00:05:27.001
+A sentence that begins "never" only asks.
+
+102
+00:05:27.001 --> 00:05:32.010
+Our loop makes the same split: the validation before dispatch enforces,
+
+103
+00:05:32.010 --> 00:05:34.338
+while the prompt merely proposes.
+
+104
+00:05:34.678 --> 00:05:36.092
+Two habits carry over.
+
+105
+00:05:36.092 --> 00:05:38.664
+A tool definition is part of the prompt,
+
+106
+00:05:38.664 --> 00:05:41.621
+so a vague description is a vague instruction.
+
+107
+00:05:41.621 --> 00:05:46.314
+And long instructions are not evidence of safety: count what is enforced,
+
+108
+00:05:46.314 --> 00:05:47.600
+not what is written.
+
+109
+00:05:48.644 --> 00:05:52.905
+So, back to where we started: read, write, done.
+
+110
+00:05:53.244 --> 00:05:56.677
+The missing line was the check, and its actual result.
+
+111
+00:05:56.677 --> 00:05:58.902
+With it, "done" becomes "verified".
+
+112
+00:05:58.902 --> 00:06:01.127
+Without it, "done" is just a claim.
+
+113
+00:06:01.461 --> 00:06:04.541
+One question to try before you compare with a partner.
+
+114
+00:06:04.541 --> 00:06:06.822
+The file is correct when you look at it,
+
+115
+00:06:06.822 --> 00:06:09.616
+but the step budget ran out before the check ran.
+
+116
+00:06:09.616 --> 00:06:11.498
+What should the final status say?
+
+117
+00:06:11.498 --> 00:06:14.464
+Write your answer, and the next check you would run.

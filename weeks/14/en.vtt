@@ -1,0 +1,409 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.456
+The agreed policy permits an edit exactly when two things hold.
+
+2
+00:00:04.456 --> 00:00:07.709
+Owner or staff is true, and archived is false.
+
+3
+00:00:07.709 --> 00:00:10.751
+A guest means both role booleans are false.
+
+4
+00:00:11.100 --> 00:00:15.673
+Snapshot B computes allowed as owner or staff, and not archived.
+
+5
+00:00:15.673 --> 00:00:18.530
+If allowed, it sets the requested title.
+
+6
+00:00:18.867 --> 00:00:23.564
+The supplied evidence matrix covers an active owner and active staff,
+
+7
+00:00:23.564 --> 00:00:28.602
+both allowed with the new title, and an archived owner and archived staff,
+
+8
+00:00:28.602 --> 00:00:30.712
+both denied with the old title.
+
+9
+00:00:30.712 --> 00:00:32.278
+Guest cases are absent.
+
+10
+00:00:32.278 --> 00:00:36.839
+Predict an active guest's decision and final title before going on.
+
+11
+00:00:37.883 --> 00:00:40.209
+So what happens to an active guest?
+
+12
+00:00:40.209 --> 00:00:43.400
+The code predicts denial and an unchanged title.
+
+13
+00:00:43.400 --> 00:00:46.324
+But the provided matrix has not observed it.
+
+14
+00:00:46.667 --> 00:00:48.171
+State that distinction,
+
+15
+00:00:48.171 --> 00:00:52.748
+and propose the guest request with both response and state assertions.
+
+16
+00:00:52.748 --> 00:00:58.044
+If those checks then complete on B, acceptance can extend to those checked cases.
+
+17
+00:00:58.383 --> 00:01:03.155
+A phrase such as "all permission boundaries are safe" would exceed this packet.
+
+18
+00:01:04.200 --> 00:01:07.241
+Before that real check, a quick one of our own.
+
+19
+00:01:07.241 --> 00:01:10.995
+We wrapped Snapshot B's three lines in a scratch function,
+
+20
+00:01:10.995 --> 00:01:14.231
+and ran it for an active guest with the old title.
+
+21
+00:01:14.566 --> 00:01:17.576
+It denies the edit, and the title stays Old.
+
+22
+00:01:17.576 --> 00:01:22.844
+The archived guest gets the same, and the four matrix cases match the record.
+
+23
+00:01:23.183 --> 00:01:25.684
+Would this check notice a bad change?
+
+24
+00:01:25.684 --> 00:01:29.266
+We broke the rule on purpose, dropping the role test.
+
+25
+00:01:29.266 --> 00:01:33.254
+Now the active guest is allowed, and the title becomes New.
+
+26
+00:01:33.254 --> 00:01:36.093
+The check fails, so it can see that fault.
+
+27
+00:01:36.433 --> 00:01:39.927
+This run supports only these cases on B's three lines.
+
+28
+00:01:39.927 --> 00:01:44.328
+The response and the stored title still need the real guest request.
+
+29
+00:01:45.366 --> 00:01:49.122
+A concise account links a user need to a source change,
+
+30
+00:01:49.122 --> 00:01:51.717
+a discriminating check and a revision.
+
+31
+00:01:52.066 --> 00:01:54.247
+Archived content needs protection.
+
+32
+00:01:54.247 --> 00:01:56.556
+The old owner term bypassed archive.
+
+33
+00:01:56.556 --> 00:01:59.570
+The new grouping applies archive to both roles.
+
+34
+00:01:59.570 --> 00:02:03.932
+And the archived-owner regression checks denial and unchanged state.
+
+35
+00:02:04.266 --> 00:02:07.958
+A complete spoken explanation does not create missing evidence.
+
+36
+00:02:09.000 --> 00:02:13.917
+When you rehearse, a peer changes one condition, and you answer it yourself.
+
+37
+00:02:13.917 --> 00:02:19.029
+Staff may now edit archived builds, but owners who are not staff still may not.
+
+38
+00:02:19.029 --> 00:02:22.911
+A changed role policy needs its own authorization and cases,
+
+39
+00:02:22.911 --> 00:02:25.823
+not a silent rewrite of the old expectations.
+
+40
+00:02:26.166 --> 00:02:29.070
+The output changes from yes or no to JSON.
+
+41
+00:02:29.070 --> 00:02:33.286
+That needs a new accepted contract and matching scorer tests.
+
+42
+00:02:33.286 --> 00:02:36.673
+A prior pass remains evidence for the old format.
+
+43
+00:02:37.016 --> 00:02:40.683
+A timeout occurs before stored state is inspected.
+
+44
+00:02:40.683 --> 00:02:44.643
+It can mean no commit, or a lost reply after a commit.
+
+45
+00:02:44.643 --> 00:02:48.383
+Inspect the operation key and the persisted effect.
+
+46
+00:02:49.416 --> 00:02:53.704
+In the demonstration, show one user task, its visible behavior,
+
+47
+00:02:53.704 --> 00:02:55.814
+and the check that supports it.
+
+48
+00:02:55.814 --> 00:03:01.259
+Identify the actual revision, and explain a decision and the limit that remains.
+
+49
+00:03:01.600 --> 00:03:05.862
+If the live path fails, keep that result and state the next observation.
+
+50
+00:03:05.862 --> 00:03:09.710
+Use a labelled recording only if the announced format permits it,
+
+51
+00:03:09.710 --> 00:03:12.374
+and never relabel an older result as current.
+
+52
+00:03:12.716 --> 00:03:19.692
+And a later task taking less time than an earlier one does not isolate an agent's productivity effect.
+
+53
+00:03:19.692 --> 00:03:23.316
+Difficulty, familiarity and team practice may differ.
+
+54
+00:03:24.350 --> 00:03:28.095
+A software factory organizes requirements, generation,
+
+55
+00:03:28.095 --> 00:03:32.464
+verification and delivery into a repeatable production process.
+
+56
+00:03:32.464 --> 00:03:37.458
+The stronger claim is that its stages could run with little human input.
+
+57
+00:03:37.458 --> 00:03:40.232
+Treat that as a claim, not a conclusion.
+
+58
+00:03:40.566 --> 00:03:45.549
+Test it on the one pipeline you know in detail: your own ci-dashboard work.
+
+59
+00:03:45.549 --> 00:03:50.599
+Split it into stages, and for each one, ask whether it could run unattended,
+
+60
+00:03:50.599 --> 00:03:53.256
+and what evidence would be needed first.
+
+61
+00:03:53.600 --> 00:03:57.579
+For the test stage, the tests must fail on meaningful faults,
+
+62
+00:03:57.579 --> 00:04:00.449
+not only on the cases they were written for.
+
+63
+00:04:00.449 --> 00:04:05.080
+For the evaluate stage, the scorer has been challenged and still holds,
+
+64
+00:04:05.080 --> 00:04:07.625
+and Unknown is never counted as a pass.
+
+65
+00:04:08.666 --> 00:04:13.937
+A synthetic team proposes letting an agent merge two kinds of change unattended.
+
+66
+00:04:14.283 --> 00:04:19.093
+For dependency updates, tests and the evaluator rerun on every update,
+
+67
+00:04:19.093 --> 00:04:24.316
+and a deliberately broken update failed both before the team relied on them.
+
+68
+00:04:24.316 --> 00:04:27.752
+The recovery drill also rolled back a bad version.
+
+69
+00:04:27.752 --> 00:04:33.043
+That is a candidate for unattended merge, with a stop rule: any failed check,
+
+70
+00:04:33.043 --> 00:04:37.166
+refused cap or rollback stops the agent and pages the owner.
+
+71
+00:04:37.500 --> 00:04:40.292
+For the permission rule, the tests pass,
+
+72
+00:04:40.292 --> 00:04:44.969
+but an audit found an archived-owner bypass those tests had missed.
+
+73
+00:04:44.969 --> 00:04:50.693
+Not yet: a person reviews these changes until a regression for that bypass exists,
+
+74
+00:04:50.693 --> 00:04:53.905
+and has been seen to fail on the pre-fix code.
+
+75
+00:04:54.250 --> 00:04:56.975
+So the useful outcome is a bounded claim:
+
+76
+00:04:56.975 --> 00:05:00.764
+unattended for dependency updates under these stop rules,
+
+77
+00:05:00.764 --> 00:05:03.357
+and reviewed for authorization changes.
+
+78
+00:05:03.357 --> 00:05:06.614
+It is not a yes or no about factories in general.
+
+79
+00:05:07.649 --> 00:05:13.605
+A check that has never been seen to fail is not yet evidence that it would stop a bad change.
+
+80
+00:05:13.949 --> 00:05:20.924
+So a stage you mark unattended needs a check you have seen fail on a bad input and pass on a good one,
+
+81
+00:05:20.924 --> 00:05:23.864
+and a stop path that someone has exercised.
+
+82
+00:05:23.864 --> 00:05:29.402
+A stage supported only by passing runs is not yet, however many passes there are.
+
+83
+00:05:30.449 --> 00:05:35.908
+Before an agent runs unattended, answer three questions with something you can test.
+
+84
+00:05:35.908 --> 00:05:36.948
+Who can stop it?
+
+85
+00:05:36.948 --> 00:05:37.923
+A named person,
+
+86
+00:05:37.923 --> 00:05:42.862
+with a stop that works without a deploy and without the agent's cooperation.
+
+87
+00:05:42.862 --> 00:05:44.097
+What may it change?
+
+88
+00:05:44.097 --> 00:05:48.581
+Permitted actions and paths, granted in one place, with per-run caps.
+
+89
+00:05:48.581 --> 00:05:49.816
+How is it observed?
+
+90
+00:05:49.816 --> 00:05:53.391
+A minimal record of what it read, proposed and changed,
+
+91
+00:05:53.391 --> 00:05:55.666
+and an alert when a cap refuses it.
+
+92
+00:05:56.015 --> 00:06:01.928
+Then test the stop: stop the agent midway, and check that no partial effect remains.
+
+93
+00:06:01.928 --> 00:06:06.080
+That is the same idempotency question as a retried request.
+
+94
+00:06:06.080 --> 00:06:09.670
+And rerun the frozen evaluator cases on a schedule,
+
+95
+00:06:09.670 --> 00:06:15.160
+because a hosted model's name does not guarantee unchanged behavior over time.
+
+96
+00:06:15.499 --> 00:06:19.468
+If you cannot answer one of these for a stage of your pipeline,
+
+97
+00:06:19.468 --> 00:06:21.106
+that stage needs a person.
+
+98
+00:06:22.149 --> 00:06:24.132
+So claim only the scope you checked,
+
+99
+00:06:24.132 --> 00:06:27.547
+and count a check as evidence only once you have seen it fail.
+
+100
+00:06:27.882 --> 00:06:29.119
+One question to try.
+
+101
+00:06:29.119 --> 00:06:32.581
+Which observation changed one of your project decisions?
+
+102
+00:06:32.581 --> 00:06:35.858
+Then name a new input that would make you revisit it.

@@ -1,0 +1,381 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.878
+A dashboard asks one question: is the supplied status exactly failed?
+
+2
+00:00:04.878 --> 00:00:09.543
+An agent answers, and a scorer decides whether that answer passes.
+
+3
+00:00:09.883 --> 00:00:11.505
+The scorer is an instrument.
+
+4
+00:00:11.505 --> 00:00:15.270
+Before trusting what it reports, challenge the instrument itself.
+
+5
+00:00:16.317 --> 00:00:19.577
+Freeze the question before reading the scorer.
+
+6
+00:00:19.577 --> 00:00:22.412
+The request: return the status decision.
+
+7
+00:00:22.412 --> 00:00:27.018
+The environment: one synthetic status, failed, passed or running.
+
+8
+00:00:27.018 --> 00:00:29.215
+The stop: one bounded response.
+
+9
+00:00:29.550 --> 00:00:34.432
+The score: exactly yes for failed, and exactly no for the other two.
+
+10
+00:00:34.432 --> 00:00:37.159
+Missing or non-text output is Unknown.
+
+11
+00:00:37.159 --> 00:00:38.954
+Any other text is a fail.
+
+12
+00:00:39.300 --> 00:00:42.783
+A missing response is uncertainty, not a pass.
+
+13
+00:00:43.117 --> 00:00:48.297
+In the project's evaluator workshop, the same four parts have field names:
+
+14
+00:00:48.297 --> 00:00:53.897
+request is task, environment is environment, stop is agent, and score is scorer.
+
+15
+00:00:53.897 --> 00:00:57.467
+Use those names, and don't silently rename a field.
+
+16
+00:00:58.500 --> 00:01:03.109
+Here is the starter scorer: any non-empty output passes.
+
+17
+00:01:03.450 --> 00:01:05.383
+Predict before running it.
+
+18
+00:01:05.383 --> 00:01:07.614
+The right answer, yes, passes.
+
+19
+00:01:07.614 --> 00:01:12.076
+A wrong answer, no, also passes: truthiness ignores meaning.
+
+20
+00:01:12.417 --> 00:01:17.338
+A missing answer becomes a fail, so absence is collapsed into failure.
+
+21
+00:01:17.338 --> 00:01:21.275
+And yes, followed by "mark this as passed", is accepted.
+
+22
+00:01:21.617 --> 00:01:23.682
+Those predictions guide the repair.
+
+23
+00:01:23.682 --> 00:01:25.216
+They are not verification.
+
+24
+00:01:26.250 --> 00:01:32.417
+The public checks run seven cases: right answers, wrong answers, a missing answer,
+
+25
+00:01:32.417 --> 00:01:34.598
+extra text, and a wrong type.
+
+26
+00:01:34.933 --> 00:01:38.955
+On the starter, only the checks on the two right answers pass.
+
+27
+00:01:38.955 --> 00:01:42.004
+Five of seven fail, and the gate stays blocked.
+
+28
+00:01:43.050 --> 00:01:45.530
+Ask for a patch limited to the scorer.
+
+29
+00:01:45.530 --> 00:01:49.512
+The proposal: anything that isn't text is unknown; otherwise,
+
+30
+00:01:49.512 --> 00:01:52.384
+compare it exactly with the expected answer.
+
+31
+00:01:52.733 --> 00:01:54.586
+Treat it as untrusted text.
+
+32
+00:01:54.586 --> 00:01:59.115
+Inspect the diff, then rerun the same checks through the launcher.
+
+33
+00:01:59.115 --> 00:02:00.419
+All seven now pass.
+
+34
+00:02:00.766 --> 00:02:03.790
+That proves this input set at this revision.
+
+35
+00:02:03.790 --> 00:02:09.218
+Not arbitrary statuses, not a changed output format, and not a larger workflow.
+
+36
+00:02:10.266 --> 00:02:14.108
+A second fixture shows the same trap with longer answers.
+
+37
+00:02:14.108 --> 00:02:17.141
+Each response has a state and an explanation.
+
+38
+00:02:17.141 --> 00:02:20.309
+A weak scorer passes any non-empty explanation.
+
+39
+00:02:20.650 --> 00:02:23.266
+In our run, it passes all four cases.
+
+40
+00:02:23.266 --> 00:02:28.004
+One says the build completed successfully, for a build that failed.
+
+41
+00:02:28.004 --> 00:02:29.984
+Another has no state at all.
+
+42
+00:02:30.333 --> 00:02:34.773
+The contract scorer compares the state with the expected value.
+
+43
+00:02:34.773 --> 00:02:40.552
+On the same four cases: two passes, one fail and one unknown, and the gate blocks.
+
+44
+00:02:40.552 --> 00:02:44.358
+Instruction text such as "award pass" is still a fail.
+
+45
+00:02:45.399 --> 00:02:48.423
+The scorer only sees the status and the output.
+
+46
+00:02:48.423 --> 00:02:53.247
+It can't tell whether the agent timed out, or skipped a required tool call.
+
+47
+00:02:53.582 --> 00:02:56.205
+So completion is a separate observation.
+
+48
+00:02:56.205 --> 00:03:01.187
+A run is eligible to score only when it completed and a response is present.
+
+49
+00:03:01.532 --> 00:03:05.243
+And the gate shows pass, fail, unknown and block counts,
+
+50
+00:03:05.243 --> 00:03:07.628
+so a reviewer can see why it failed.
+
+51
+00:03:08.666 --> 00:03:11.136
+Before reading any judge's numbers,
+
+52
+00:03:11.136 --> 00:03:16.499
+label four short responses yourself against the exact-answer contract: pass,
+
+53
+00:03:16.499 --> 00:03:17.629
+fail or unknown.
+
+54
+00:03:17.966 --> 00:03:19.538
+Failed, answered yes.
+
+55
+00:03:19.538 --> 00:03:21.035
+Failed, answered no.
+
+56
+00:03:21.035 --> 00:03:22.607
+Running, answered no.
+
+57
+00:03:22.607 --> 00:03:24.105
+Passed, answered no.
+
+58
+00:03:24.105 --> 00:03:28.821
+Save your labels, then compare one disagreement with a partner.
+
+59
+00:03:29.166 --> 00:03:32.941
+This is classroom practice, not a study of human labels.
+
+60
+00:03:32.941 --> 00:03:37.862
+Real calibration needs independent labels, with their disagreements kept.
+
+61
+00:03:38.899 --> 00:03:42.322
+A model judge interprets answers against a rubric.
+
+62
+00:03:42.322 --> 00:03:46.225
+Calibrate it first, against independent reference labels.
+
+63
+00:03:46.565 --> 00:03:51.058
+In this authored example, the judge agrees on three of four labels,
+
+64
+00:03:51.058 --> 00:03:52.533
+and kappa is one half.
+
+65
+00:03:52.882 --> 00:03:58.226
+But the confusion table shows the one miss: a positive the judge called no.
+
+66
+00:03:58.226 --> 00:04:03.285
+If that is the unsafe case, the coefficient cannot authorize the judge.
+
+67
+00:04:04.332 --> 00:04:06.543
+Here is where one half comes from.
+
+68
+00:04:06.543 --> 00:04:11.680
+The reference says yes half the time; the judge says yes a quarter of the time.
+
+69
+00:04:11.680 --> 00:04:16.622
+So chance agreement is one half, and kappa is three quarters minus one half,
+
+70
+00:04:16.622 --> 00:04:17.532
+over one half.
+
+71
+00:04:17.882 --> 00:04:22.406
+Unknown labels stay out of kappa, but they stay in the report.
+
+72
+00:04:22.406 --> 00:04:26.127
+In the second fixture's ten pairs, two are unknown:
+
+73
+00:04:26.127 --> 00:04:31.307
+kappa uses the eight definite pairs, and the unknown rate, one in five,
+
+74
+00:04:31.307 --> 00:04:32.402
+sits beside it.
+
+75
+00:04:32.402 --> 00:04:35.904
+If every label is one class, kappa is undefined;
+
+76
+00:04:35.904 --> 00:04:39.917
+report the counts and the consequential misses instead.
+
+77
+00:04:40.265 --> 00:04:44.457
+Calibrate on examples you won't later use as held-out evidence,
+
+78
+00:04:44.457 --> 00:04:48.448
+and freeze the rubric and the judge before the held-out run.
+
+79
+00:04:48.448 --> 00:04:51.376
+A judge never directly assigns course marks.
+
+80
+00:04:52.415 --> 00:04:58.354
+Bind the gate to an exact revision, a locked environment, a fixed case manifest,
+
+81
+00:04:58.354 --> 00:05:03.328
+a scorer version and an unknown policy, and print one summary line.
+
+82
+00:05:03.665 --> 00:05:07.972
+It blocks when a required case is missing, when an unsafe case fails,
+
+83
+00:05:07.972 --> 00:05:12.279
+when an unknown has no review route, or when the run didn't complete.
+
+84
+00:05:12.615 --> 00:05:14.015
+Then try to break it.
+
+85
+00:05:14.015 --> 00:05:19.418
+In our run of the fixture's gate, three passes against four expected cases block.
+
+86
+00:05:19.418 --> 00:05:24.886
+Remove a required case in a scratch copy, confirm the gate blocks, and restore it.
+
+87
+00:05:25.931 --> 00:05:29.615
+So challenge the instrument before trusting its verdicts,
+
+88
+00:05:29.615 --> 00:05:32.136
+and keep a known-bad case in the suite.
+
+89
+00:05:32.136 --> 00:05:35.497
+Deleting a failing test must not make the gate pass.
+
+90
+00:05:35.831 --> 00:05:37.200
+One question to try.
+
+91
+00:05:37.200 --> 00:05:42.130
+A judge agrees with nine of ten labels, but misses the only unsafe case.
+
+92
+00:05:42.130 --> 00:05:46.443
+Write the expected behavior, the smallest discriminating check,
+
+93
+00:05:46.443 --> 00:05:50.003
+and the observation that would change your decision.
+
+94
+00:05:50.003 --> 00:05:55.275
+Then: is it suitable for a bounded diagnostic, a regression gate, or neither,
+
+95
+00:05:55.275 --> 00:05:55.823
+and why?

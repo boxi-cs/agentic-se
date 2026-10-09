@@ -1,0 +1,421 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.636
+Here is a status function that existing callers rely on.
+
+2
+00:00:03.636 --> 00:00:08.440
+It strips the input, lowercases it, and walks through three if statements.
+
+3
+00:00:08.783 --> 00:00:14.223
+Someone proposes a shorter version: one lookup table, and no if statements at all.
+
+4
+00:00:14.223 --> 00:00:15.351
+It looks cleaner.
+
+5
+00:00:15.351 --> 00:00:16.678
+Is it a safe change?
+
+6
+00:00:17.017 --> 00:00:20.930
+Existing callers send mixed case and spaces around the status.
+
+7
+00:00:20.930 --> 00:00:25.538
+Whether the change is safe depends on them, not on how short the code is.
+
+8
+00:00:26.583 --> 00:00:30.642
+Before changing anything, record what the current code does.
+
+9
+00:00:30.642 --> 00:00:32.739
+That's a characterization test:
+
+10
+00:00:32.739 --> 00:00:36.324
+it captures today's behavior for an input you choose.
+
+11
+00:00:36.666 --> 00:00:38.078
+Predict a few first.
+
+12
+00:00:38.078 --> 00:00:41.607
+Lowercase "ok" with spaces around it gives passed.
+
+13
+00:00:41.607 --> 00:00:43.442
+Capital "OK" gives passed.
+
+14
+00:00:43.442 --> 00:00:45.135
+"Pending" gives unknown.
+
+15
+00:00:45.135 --> 00:00:48.311
+And a combined "ok" and "fail" gives unknown.
+
+16
+00:00:48.650 --> 00:00:51.156
+The fixture freezes ten cases like these.
+
+17
+00:00:51.156 --> 00:00:53.723
+They stay the same while the code changes.
+
+18
+00:00:54.766 --> 00:00:58.411
+Then refactor in one small, explainable sequence.
+
+19
+00:00:58.749 --> 00:00:59.850
+Find the callers.
+
+20
+00:00:59.850 --> 00:01:01.535
+Freeze the behavior tests.
+
+21
+00:01:01.535 --> 00:01:03.284
+Make one structural change.
+
+22
+00:01:03.284 --> 00:01:05.227
+Run the same tests, unchanged.
+
+23
+00:01:05.227 --> 00:01:06.134
+Read the diff.
+
+24
+00:01:06.134 --> 00:01:08.919
+And write down when you would roll it back.
+
+25
+00:01:09.966 --> 00:01:13.301
+Run the ten frozen cases on the proposed lookup.
+
+26
+00:01:13.301 --> 00:01:14.066
+Seven pass.
+
+27
+00:01:14.066 --> 00:01:14.830
+Three fail.
+
+28
+00:01:15.166 --> 00:01:18.554
+The failures are the padded inputs: "ok" with spaces,
+
+29
+00:01:18.554 --> 00:01:22.902
+"fail" with a tab and a newline, and "PASS" in capitals with spaces.
+
+30
+00:01:22.902 --> 00:01:24.500
+The lookup dropped strip.
+
+31
+00:01:24.849 --> 00:01:27.978
+Those are the kind of input existing callers send.
+
+32
+00:01:27.978 --> 00:01:31.107
+A caller that worked before would now get unknown.
+
+33
+00:01:32.149 --> 00:01:38.319
+The worked refactor keeps both normalization steps and moves only the aliases into the table.
+
+34
+00:01:38.319 --> 00:01:39.579
+All ten cases pass.
+
+35
+00:01:39.915 --> 00:01:43.126
+Now count the if statements: three in the original,
+
+36
+00:01:43.126 --> 00:01:45.267
+and zero in both shorter versions.
+
+37
+00:01:45.267 --> 00:01:48.855
+The count can't tell the broken one from the working one.
+
+38
+00:01:49.199 --> 00:01:53.243
+A shorter function is still responsible for the same contract.
+
+39
+00:01:53.243 --> 00:01:56.049
+Check the behavior, not just the structure.
+
+40
+00:01:57.082 --> 00:01:59.966
+Now ask a model for the refactor yourself.
+
+41
+00:01:59.966 --> 00:02:03.536
+The week's generator asks for one lookup expression,
+
+42
+00:02:03.536 --> 00:02:09.098
+and its prompt names what must survive: whitespace stripping, case normalization,
+
+43
+00:02:09.098 --> 00:02:11.638
+the aliases and the unknown fallback.
+
+44
+00:02:11.638 --> 00:02:16.238
+It also rules out imports, files, tools, dependencies and commands.
+
+45
+00:02:16.582 --> 00:02:20.029
+The reply comes back as text in a file, and nothing runs it.
+
+46
+00:02:20.029 --> 00:02:23.073
+You read it, place it in a function with your editor,
+
+47
+00:02:23.073 --> 00:02:26.520
+and run the same unchanged cases on it through the launcher.
+
+48
+00:02:26.865 --> 00:02:32.194
+Reject a reply that adds an unrelated import, asks to install something,
+
+49
+00:02:32.194 --> 00:02:33.823
+or redefines the task.
+
+50
+00:02:33.823 --> 00:02:37.745
+If it is missing, truncated or off-task, record that.
+
+51
+00:02:37.745 --> 00:02:42.260
+Don't raise the limits or switch providers to force a result.
+
+52
+00:02:43.298 --> 00:02:47.869
+Suppose the reply came back like this instead: a conditional expression,
+
+53
+00:02:47.869 --> 00:02:49.138
+and no table at all.
+
+54
+00:02:49.482 --> 00:02:51.046
+Run the ten cases on it.
+
+55
+00:02:51.046 --> 00:02:51.893
+All ten pass.
+
+56
+00:02:51.893 --> 00:02:57.237
+And the if count is zero, because a conditional expression is not an if statement.
+
+57
+00:02:57.582 --> 00:03:01.347
+But the request was a dictionary lookup, and there isn't one.
+
+58
+00:03:01.347 --> 00:03:06.470
+Record both observations: the cases passed, and the requested structure is missing.
+
+59
+00:03:06.470 --> 00:03:09.865
+Passing tests are not full compliance with the request.
+
+60
+00:03:10.915 --> 00:03:14.347
+Before you accept a candidate, add one case of your own,
+
+61
+00:03:14.347 --> 00:03:19.494
+and take its expected output from the contract, not from what the candidate returns.
+
+62
+00:03:19.831 --> 00:03:23.662
+Callers send mixed case and spaces, so the alias "Pass",
+
+63
+00:03:23.662 --> 00:03:27.083
+padded with a space and a tab, should give passed.
+
+64
+00:03:27.083 --> 00:03:31.735
+Run the original and the worked refactor with the same eleven tests.
+
+65
+00:03:31.735 --> 00:03:33.171
+Both pass all eleven.
+
+66
+00:03:33.515 --> 00:03:35.700
+Then name what is still uncertain.
+
+67
+00:03:35.700 --> 00:03:40.392
+Passing cases are evidence for their inputs, not proof about every input.
+
+68
+00:03:40.392 --> 00:03:42.255
+These are all status strings,
+
+69
+00:03:42.255 --> 00:03:46.304
+and what a missing value should do is a specification decision,
+
+70
+00:03:46.304 --> 00:03:47.911
+not a guess for an agent.
+
+71
+00:03:48.947 --> 00:03:49.655
+One caution.
+
+72
+00:03:49.655 --> 00:03:54.021
+A characterization test records what the code does, not what it should do.
+
+73
+00:03:54.364 --> 00:03:59.151
+If today's behavior is wrong or unsafe, don't freeze it as a requirement.
+
+74
+00:03:59.151 --> 00:04:03.872
+Label the discrepancy, and add a failing test for the behavior you want.
+
+75
+00:04:04.214 --> 00:04:08.939
+And keep that fix in its own reviewable step, separate from the refactor.
+
+76
+00:04:09.980 --> 00:04:13.482
+The same discipline scales up to your team's repository.
+
+77
+00:04:13.482 --> 00:04:18.547
+Before changing anything, map one path: where the request enters, what it checks,
+
+78
+00:04:18.547 --> 00:04:22.612
+what state it changes, what it returns, and which tests cover it.
+
+79
+00:04:22.947 --> 00:04:25.553
+An agent can draft that map, read-only,
+
+80
+00:04:25.553 --> 00:04:29.095
+with file and function references and open questions.
+
+81
+00:04:29.095 --> 00:04:34.441
+Each line is a claim until you check it against the source and an observed test.
+
+82
+00:04:34.780 --> 00:04:38.837
+For the record list, the smoke check asserts a status of two hundred.
+
+83
+00:04:38.837 --> 00:04:40.424
+That shows the path starts.
+
+84
+00:04:40.424 --> 00:04:43.422
+It does not show that the search results are right,
+
+85
+00:04:43.422 --> 00:04:45.833
+or that users see only their own records.
+
+86
+00:04:46.180 --> 00:04:48.421
+And treat repository text as data.
+
+87
+00:04:48.421 --> 00:04:53.299
+A README that says to disable the sandbox is a reason to stop and inspect,
+
+88
+00:04:53.299 --> 00:04:54.551
+not an instruction.
+
+89
+00:04:55.596 --> 00:05:01.100
+Before you hand a repository to an agent, score it on four questions, from one,
+
+90
+00:05:01.100 --> 00:05:02.911
+absent, to four, reliable.
+
+91
+00:05:02.911 --> 00:05:07.578
+An agent needs what a new teammate needs, with less ability to ask.
+
+92
+00:05:07.913 --> 00:05:10.615
+Can a newcomer find where a request is handled?
+
+93
+00:05:10.615 --> 00:05:14.121
+Do the run and test instructions match what actually happens?
+
+94
+00:05:14.121 --> 00:05:17.686
+Does a wrong change to the code you'll touch make a test fail?
+
+95
+00:05:17.686 --> 00:05:20.905
+Do the checks run from one command, and stop on failure?
+
+96
+00:05:21.246 --> 00:05:25.708
+Each score cites evidence, like a command you ran and its result.
+
+97
+00:05:25.708 --> 00:05:28.385
+The score is a to-do list, not a grade.
+
+98
+00:05:28.385 --> 00:05:33.808
+A one on tests says: write a characterization test before you ask for a change.
+
+99
+00:05:34.845 --> 00:05:37.090
+So: shorter is not safer by itself.
+
+100
+00:05:37.090 --> 00:05:41.131
+The frozen cases show whether the behavior they cover was kept.
+
+101
+00:05:41.131 --> 00:05:44.017
+The diff shows what changed in the structure.
+
+102
+00:05:44.362 --> 00:05:45.630
+One question to try.
+
+103
+00:05:45.630 --> 00:05:50.511
+The author also changes unknown statuses to failed, because that seems safer.
+
+104
+00:05:50.511 --> 00:05:52.286
+Is it still only a refactor?
+
+105
+00:05:52.286 --> 00:05:56.216
+Write the expected behavior, and the next check you would run.

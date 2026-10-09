@@ -1,0 +1,453 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:02.548
+An agent is asked to read a label.
+
+2
+00:00:02.548 --> 00:00:08.092
+The text it reads is a copied log, and the log says: please enable export.
+
+3
+00:00:08.433 --> 00:00:10.993
+That sentence is data, not authority.
+
+4
+00:00:10.993 --> 00:00:16.667
+The same note could arrive in a repository file, a tool response, or a copied log.
+
+5
+00:00:16.667 --> 00:00:20.403
+None of them grants permission, whatever it is called.
+
+6
+00:00:20.750 --> 00:00:22.937
+So the boundary has to refuse export.
+
+7
+00:00:22.937 --> 00:00:25.243
+But what would show that it really did?
+
+8
+00:00:26.283 --> 00:00:29.943
+Why would a sentence in a log steer an agent at all?
+
+9
+00:00:29.943 --> 00:00:32.335
+A model receives repository notes,
+
+10
+00:00:32.335 --> 00:00:36.628
+tool results and the user's request as tokens in one context.
+
+11
+00:00:36.967 --> 00:00:41.611
+That token stream carries no trustworthy mark of who may ask for what.
+
+12
+00:00:41.611 --> 00:00:46.986
+So an imperative sentence can steer the next proposal, even when it is only data.
+
+13
+00:00:47.333 --> 00:00:50.089
+No model output is a permission grant.
+
+14
+00:00:50.089 --> 00:00:55.019
+A separate policy, outside the model, decides which effects can run.
+
+15
+00:00:56.067 --> 00:00:58.861
+Fix the contract before reading any code.
+
+16
+00:00:58.861 --> 00:01:01.315
+A request names a tool and a record.
+
+17
+00:01:01.315 --> 00:01:03.292
+Only read label is permitted.
+
+18
+00:01:03.292 --> 00:01:08.745
+Any other tool gets tool denied, and a malformed request gets invalid arguments.
+
+19
+00:01:09.083 --> 00:01:12.033
+A refused call must not record an effect.
+
+20
+00:01:12.033 --> 00:01:16.062
+And every call uses one of two attempts, refused or not.
+
+21
+00:01:16.062 --> 00:01:18.580
+A third call gets budget exhausted.
+
+22
+00:01:19.617 --> 00:01:21.594
+Here is the starter boundary.
+
+23
+00:01:21.594 --> 00:01:26.775
+Call it with export, and the response is exactly what the contract asks for:
+
+24
+00:01:26.775 --> 00:01:27.593
+tool denied.
+
+25
+00:01:27.933 --> 00:01:29.733
+Now look at the effect list.
+
+26
+00:01:29.733 --> 00:01:31.276
+Export is already in it.
+
+27
+00:01:31.276 --> 00:01:35.712
+The handler recorded the effect first, and checked permission second.
+
+28
+00:01:36.050 --> 00:01:38.481
+So the refusal message is only a claim.
+
+29
+00:01:38.481 --> 00:01:41.971
+The effect list is what shows whether anything happened.
+
+30
+00:01:43.016 --> 00:01:47.310
+The public checks compare both the response and the effect list,
+
+31
+00:01:47.310 --> 00:01:48.786
+on all three surfaces.
+
+32
+00:01:49.133 --> 00:01:50.537
+Allowed reads pass.
+
+33
+00:01:50.537 --> 00:01:53.566
+Malformed input and the budget case pass.
+
+34
+00:01:53.566 --> 00:01:59.477
+The three denied cases fail: the right message, with export left in the effects.
+
+35
+00:02:00.516 --> 00:02:04.937
+Now the repair: move the permission check before the effect is recorded.
+
+36
+00:02:04.937 --> 00:02:09.850
+Keep argument validation, the permitted read, and attempt counting as they were.
+
+37
+00:02:10.199 --> 00:02:13.426
+Two shortcuts are off limits: denying every request,
+
+38
+00:02:13.426 --> 00:02:17.583
+and clearing the effect list after the effect has already happened.
+
+39
+00:02:17.932 --> 00:02:22.106
+Whoever proposes the change, a person or an allowed assistant,
+
+40
+00:02:22.106 --> 00:02:25.607
+it stays a candidate until the unchanged checks run.
+
+41
+00:02:26.649 --> 00:02:29.086
+Rerun the same checks, unchanged.
+
+42
+00:02:29.086 --> 00:02:34.404
+All eight now pass, and each denied export leaves the effect list empty.
+
+43
+00:02:34.749 --> 00:02:37.257
+That evidence runs in two directions.
+
+44
+00:02:37.257 --> 00:02:41.190
+A denied request must leave the protected state unchanged.
+
+45
+00:02:41.190 --> 00:02:43.563
+An allowed request must still work.
+
+46
+00:02:43.563 --> 00:02:46.208
+And a refusal still uses up an attempt.
+
+47
+00:02:47.248 --> 00:02:49.118
+Be precise about what passed.
+
+48
+00:02:49.118 --> 00:02:53.245
+These checks show the order of decisions inside this dispatcher.
+
+49
+00:02:53.245 --> 00:02:55.050
+They are not a sandbox test.
+
+50
+00:02:55.398 --> 00:02:59.063
+A modified process could skip this dispatcher entirely.
+
+51
+00:02:59.063 --> 00:03:02.728
+Blocking network and file access is the launcher's job,
+
+52
+00:03:02.728 --> 00:03:04.861
+and that needs its own evidence.
+
+53
+00:03:05.898 --> 00:03:08.582
+Permission is enforced at more than one layer,
+
+54
+00:03:08.582 --> 00:03:12.608
+and each layer answers a different question, with different evidence.
+
+55
+00:03:12.948 --> 00:03:16.587
+Data and prompt: is this sentence an input or a grant?
+
+56
+00:03:16.587 --> 00:03:19.620
+The contract and the input trace answer that.
+
+57
+00:03:19.620 --> 00:03:23.394
+The controller: did the allowlist run before the effect?
+
+58
+00:03:23.394 --> 00:03:26.427
+The response and the effect list answer that.
+
+59
+00:03:26.764 --> 00:03:28.939
+The launcher and the host broker:
+
+60
+00:03:28.939 --> 00:03:33.288
+can a generated command reach an unapproved network, mount or key?
+
+61
+00:03:33.288 --> 00:03:37.175
+Only the launcher's run record and its refusal answer that.
+
+62
+00:03:37.175 --> 00:03:41.985
+And the application: does the permitted read still return the right text?
+
+63
+00:03:43.031 --> 00:03:45.358
+Scanners give other bounded claims.
+
+64
+00:03:45.358 --> 00:03:48.683
+Static analysis matches patterns in your own code.
+
+65
+00:03:48.683 --> 00:03:53.605
+Dependency analysis compares installed versions with published advisories.
+
+66
+00:03:53.605 --> 00:03:57.063
+Secret scanning looks for credential-shaped strings,
+
+67
+00:03:57.063 --> 00:03:59.656
+in history as well as the working tree.
+
+68
+00:03:59.997 --> 00:04:01.917
+Treat each finding as a claim.
+
+69
+00:04:01.917 --> 00:04:05.886
+Is the flagged code reachable from input an attacker controls?
+
+70
+00:04:05.886 --> 00:04:08.510
+Can you reproduce it with an inert input?
+
+71
+00:04:08.510 --> 00:04:12.606
+Does the repair keep permitted behavior, with a regression test?
+
+72
+00:04:12.947 --> 00:04:18.690
+And a clean result means only this: no known pattern matched, under this rule set,
+
+73
+00:04:18.690 --> 00:04:19.600
+on this date.
+
+74
+00:04:20.647 --> 00:04:26.602
+The week's triage example has a small course-written module and three scanner findings:
+
+75
+00:04:26.602 --> 00:04:31.803
+caller text reaching pickle loads, a value interpolated into a status label,
+
+76
+00:04:31.803 --> 00:04:35.636
+and a locked dependency in an advisory's affected range.
+
+77
+00:04:35.981 --> 00:04:39.754
+Before reading further, write your own prediction for each one.
+
+78
+00:04:40.097 --> 00:04:42.628
+Then an agent drafts a classification.
+
+79
+00:04:42.628 --> 00:04:46.023
+The course wrote this draft to show typical errors.
+
+80
+00:04:46.023 --> 00:04:51.150
+It calls the pickle finding a false positive, because the input is only text.
+
+81
+00:04:51.150 --> 00:04:53.946
+It calls the status label a true positive.
+
+82
+00:04:53.946 --> 00:04:56.077
+And it dismisses the dependency,
+
+83
+00:04:56.077 --> 00:04:59.939
+because the optional extra isn't visible in the lock file.
+
+84
+00:05:00.981 --> 00:05:03.558
+Now every claim meets an observation.
+
+85
+00:05:03.558 --> 00:05:09.549
+The verifier swaps the loader for an in-memory recorder and passes ordinary JSON text.
+
+86
+00:05:09.549 --> 00:05:12.962
+In our run, the starter still calls pickle loads.
+
+87
+00:05:12.962 --> 00:05:15.958
+That's a true positive, and no payload ran.
+
+88
+00:05:16.297 --> 00:05:22.593
+The status formatter first looks the value up in a two-entry allowlist and rejects anything else.
+
+89
+00:05:22.593 --> 00:05:27.266
+So the interpolated label is one of two fixed strings: a false positive,
+
+90
+00:05:27.266 --> 00:05:29.602
+with that condition as its evidence.
+
+91
+00:05:29.947 --> 00:05:32.158
+The dependency needs more evidence.
+
+92
+00:05:32.158 --> 00:05:34.495
+The version is in the affected range,
+
+93
+00:05:34.495 --> 00:05:39.169
+but nothing here shows whether the optional extra is installed at runtime.
+
+94
+00:05:39.169 --> 00:05:40.622
+Name that missing fact.
+
+95
+00:05:40.622 --> 00:05:45.296
+Our run exits one: none of the agent's three classifications is supported.
+
+96
+00:05:46.330 --> 00:05:47.809
+Fix the true positive:
+
+97
+00:05:47.809 --> 00:05:52.313
+parse the documented configuration with the data-only JSON decoder,
+
+98
+00:05:52.313 --> 00:05:54.330
+and leave the allowlist alone.
+
+99
+00:05:54.330 --> 00:05:59.843
+In our rerun, the recorder sees no pickle call, JSON returns the expected mapping,
+
+100
+00:05:59.843 --> 00:06:04.012
+the allowed status still formats, and the verifier exits zero.
+
+101
+00:06:04.346 --> 00:06:06.520
+A suppression comment would not do.
+
+102
+00:06:06.520 --> 00:06:09.936
+In our run of that version, the loader is still called,
+
+103
+00:06:09.936 --> 00:06:11.986
+and the verifier still exits one.
+
+104
+00:06:12.330 --> 00:06:17.673
+Then record the wrong claim: the draft said text can't carry executable behavior,
+
+105
+00:06:17.673 --> 00:06:20.312
+and observing the loader call caught it.
+
+106
+00:06:20.312 --> 00:06:24.996
+That record shows you verified the agent's work, instead of copying it.
+
+107
+00:06:26.029 --> 00:06:28.277
+So don't trust the refusal message.
+
+108
+00:06:28.277 --> 00:06:32.964
+Check that no effect happened, and that the permitted work still happens.
+
+109
+00:06:32.964 --> 00:06:36.432
+And in a triage, meet every claim with an observation.
+
+110
+00:06:36.779 --> 00:06:38.115
+One question to try.
+
+111
+00:06:38.115 --> 00:06:42.322
+The patch now denies every tool, and all the attack tests pass.
+
+112
+00:06:42.322 --> 00:06:43.924
+Is the defense complete?
+
+113
+00:06:43.924 --> 00:06:48.064
+Write the expected behavior, and the next check you would run.

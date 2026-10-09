@@ -1,0 +1,113 @@
+{
+  "source": {
+    "repository": "boxi-cs/agentic-se-course",
+    "commit": "49549981c80e6ab532c4f4644c671c371aab2664"
+  },
+  "title": "Agentic Software Engineering: Build, Verify, Evaluate",
+  "overview": [
+    "English is the first teaching language. Learn to enter an unfamiliar repository, clarify a requirement, use an agent for a bounded task and decide whether the evidence supports the change.",
+    "Use the navigation to read the syllabus, complete Week 0 setup and follow the weekly route. The teacher's CI dashboard case grows from a status error into a reviewed, evaluated and operated product. Each student works in their own copy of the `ci-dashboard` repository and delivers one complete feature.",
+    "The course has fourteen weeks, three personal practices and five project workshops. Reuse your work: the individual checks and defense contribute 40 points, the individual project 45 and P1/P2/P3 contribute 15. You pass with at least 60 overall and 20/40 on the independent components. The syllabus explains feedback, equivalent resits and evidence reuse.",
+    "Each week has a published hour estimate that includes setup, waiting, collaboration, practice and revision; it is planning guidance, not a cap. Ask for help at the published checkpoints; optional features and extra tool integrations are not prerequisites for full marks."
+  ],
+  "weeks": [
+    {
+      "week": 1,
+      "topic": "A plausible patch and a failing build",
+      "lecture": "Inspect a dashboard status error; predict a counterexample; explain context, generation and tool execution.",
+      "workshop": "Start P1 with four contrasting first attempts and one saved prediction.",
+      "deliverables": "Setup; first-attempt evidence"
+    },
+    {
+      "week": 2,
+      "topic": "Build and inspect a small agent",
+      "lecture": "Trace request validation, tool effects, observations and stopping in a small controller.",
+      "workshop": "Finish P1 with a bounded read/write/bash loop and five controller tasks.",
+      "deliverables": "P1 agent explanation"
+    },
+    {
+      "week": 3,
+      "topic": "Find the change in an unfamiliar repository",
+      "lecture": "Trace one dashboard request across files; select context and a bounded edit; compare two context packets.",
+      "workshop": "Map a ci-dashboard call path, compare fixed-budget contexts, check one permission boundary, use one standard skill on ci-dashboard and carry it read-only to an unfamiliar permissively licensed open-source repository.",
+      "deliverables": "Repository-context workshop; start M0"
+    },
+    {
+      "week": 4,
+      "topic": "Turn a user need into an executable specification",
+      "lecture": "Separate observations from assumptions; decide a feature boundary and independent acceptance cases.",
+      "workshop": "Run two discovery activities of your own for M0 and one feature specification.",
+      "deliverables": "Discovery/specification workshop; M0"
+    },
+    {
+      "week": 5,
+      "topic": "Deliver a small change without breaking callers",
+      "lecture": "Protect existing behavior, inspect dependencies and complete an explainable first PR.",
+      "workshop": "Start M1; CP1 is a 30-minute individual diagnosis, test and repair after practice.",
+      "deliverables": "CP1; M1 first reviewed change"
+    },
+    {
+      "week": 6,
+      "topic": "Review and delegate a bounded change",
+      "lecture": "Compare a specification, human findings and agent findings; decide ownership and integration checks.",
+      "workshop": "P2: review one short change against its acceptance criteria before reading any supplied or agent review, reproduce a finding or support a no-finding with the inputs checked, and revise after feedback.",
+      "deliverables": "P2 specification-and-review evidence"
+    },
+    {
+      "week": 7,
+      "topic": "Challenge the tests",
+      "lecture": "Use a surviving mutant to select a property and a reproducible fuzz input.",
+      "workshop": "Strengthen the same M1 tests and explain a regression that previously escaped.",
+      "deliverables": "M1 testing workshop; functional baseline"
+    },
+    {
+      "week": 8,
+      "topic": "Protect the agent and the application",
+      "lecture": "Distinguish data from authority; reproduce an inert attack; verify permitted work still succeeds.",
+      "workshop": "Repair one local attack chain, run supplied regressions and close M1 security issues.",
+      "deliverables": "M1 security workshop; acceptance"
+    },
+    {
+      "week": 9,
+      "topic": "Compare workflows with a fixed experiment",
+      "lecture": "Freeze task identity and budgets; separate success, timeout, repair and missing evidence.",
+      "workshop": "P3: audit four original synthetic tasks and three traces; compare one real run with another verified record.",
+      "deliverables": "P3 evaluation audit"
+    },
+    {
+      "week": 10,
+      "topic": "Test the evaluator and build a regression gate",
+      "lecture": "Write the evaluation contract; challenge a code scorer and calibrate a model judge.",
+      "workshop": "Build the project evaluator for M2; obtain feedback and revise before freezing.",
+      "deliverables": "M2 evaluator workshop; technical freeze"
+    },
+    {
+      "week": 11,
+      "topic": "Recover a user path after an incident",
+      "lecture": "CP2: 30-minute individual unfamiliar-code review and recovery reasoning; then examine logs, retries and idempotency.",
+      "workshop": "Use the supplied local drill on M2; prove recovery and begin scheduled user testing.",
+      "deliverables": "CP2; M2 operation evidence"
+    },
+    {
+      "week": 12,
+      "topic": "Verify a model audit with reproducible evidence",
+      "lecture": "Freeze one feature and distinguish a demonstrated defect from an untested suspicion.",
+      "workshop": "M3: receive the teaching team's model audit of a frozen snapshot of your repository, then reproduce, refute or bound each evaluation, security and maintenance finding and add one check of your own.",
+      "deliverables": "M3 verified audit; continue user testing"
+    },
+    {
+      "week": 13,
+      "topic": "Respond to findings and improve usability",
+      "lecture": "Disposition an audit item; observe a neutral user task and verify the resulting interface change.",
+      "workshop": "Complete the three user tests begun in week 11; repair and regress; begin individual defense.",
+      "deliverables": "M4 repair response; user tests; individual defense"
+    },
+    {
+      "week": 14,
+      "topic": "Demonstrate and defend the result",
+      "lecture": "Connect a user need, a change and its evidence; answer a new variation independently.",
+      "workshop": "M4: expo-style demonstration with staff and peer questions; finish individually scheduled defenses.",
+      "deliverables": "M4 release artifact; individual defense; final calibration"
+    }
+  ]
+}

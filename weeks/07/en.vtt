@@ -1,0 +1,397 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.582
+The dashboard's level field has a narrow contract.
+
+2
+00:00:03.582 --> 00:00:08.669
+It accepts exactly one digit, zero through nine, and returns its value.
+
+3
+00:00:08.669 --> 00:00:11.749
+Every other string must raise a ValueError.
+
+4
+00:00:12.083 --> 00:00:13.907
+Here is a candidate parser.
+
+5
+00:00:13.907 --> 00:00:19.107
+It returns three for the input three, and the current happy-path test passes.
+
+6
+00:00:19.450 --> 00:00:20.873
+So the suite is green.
+
+7
+00:00:20.873 --> 00:00:23.978
+But would these tests notice a meaningful fault?
+
+8
+00:00:25.016 --> 00:00:27.453
+Start from the contract, not the code.
+
+9
+00:00:27.453 --> 00:00:29.568
+Write the expected results first.
+
+10
+00:00:29.568 --> 00:00:30.722
+Three gives three.
+
+11
+00:00:30.722 --> 00:00:35.082
+The empty string and twelve must both be rejected with a ValueError.
+
+12
+00:00:35.416 --> 00:00:37.072
+Now trace the candidate.
+
+13
+00:00:37.072 --> 00:00:41.902
+For twelve, it reads only the first character and quietly returns one.
+
+14
+00:00:41.902 --> 00:00:45.904
+For the empty string, indexing crashes with an IndexError,
+
+15
+00:00:45.904 --> 00:00:48.733
+not the ValueError the contract requires.
+
+16
+00:00:49.066 --> 00:00:51.022
+These are two different defects.
+
+17
+00:00:51.022 --> 00:00:53.710
+Checks on valid inputs alone miss them both.
+
+18
+00:00:54.749 --> 00:00:57.060
+One more trap before writing tests.
+
+19
+00:00:57.060 --> 00:01:01.749
+Suppose the expected values are copied from what the candidate returns.
+
+20
+00:01:01.749 --> 00:01:05.778
+For twelve it returns one, so the test says twelve gives one.
+
+21
+00:01:06.115 --> 00:01:11.097
+In our run, that test passes on the candidate, and fails on the correct repair.
+
+22
+00:01:11.097 --> 00:01:13.872
+A wrong result equals the same wrong result,
+
+23
+00:01:13.872 --> 00:01:16.773
+and the right fix now looks like a regression.
+
+24
+00:01:17.115 --> 00:01:22.631
+So when old code disagrees with the contract, record a defect against the contract.
+
+25
+00:01:22.631 --> 00:01:26.485
+An agent can't settle the requirement by copying the code.
+
+26
+00:01:27.532 --> 00:01:32.017
+Here is a weak test, written in the style an agent might produce.
+
+27
+00:01:32.017 --> 00:01:36.019
+It calls the parser on three, then makes three assertions.
+
+28
+00:01:36.365 --> 00:01:39.798
+Result equals result: true for any integer.
+
+29
+00:01:39.798 --> 00:01:43.232
+Assert parser: a function is always truthy.
+
+30
+00:01:43.232 --> 00:01:45.467
+Result or true: always true.
+
+31
+00:01:45.815 --> 00:01:49.323
+Now run it on a wrong parser from the course fixture,
+
+32
+00:01:49.323 --> 00:01:51.839
+one that returns zero for every digit.
+
+33
+00:01:51.839 --> 00:01:53.957
+All three assertions still pass.
+
+34
+00:01:53.957 --> 00:01:58.392
+The test fails only if the call crashes; it never checks the value.
+
+35
+00:01:58.392 --> 00:02:03.555
+And a confident explanation of a test is not evidence that it checks anything.
+
+36
+00:02:04.598 --> 00:02:08.183
+A property states a rule for a whole family of inputs.
+
+37
+00:02:08.183 --> 00:02:10.439
+For every digit from zero to nine,
+
+38
+00:02:10.439 --> 00:02:16.281
+parsing its string must return an integer in range that turns back into the same string.
+
+39
+00:02:16.281 --> 00:02:19.865
+This valid domain is small enough to check completely.
+
+40
+00:02:20.215 --> 00:02:24.446
+A parser that always returns three would pass the single example,
+
+41
+00:02:24.446 --> 00:02:25.813
+but not the property.
+
+42
+00:02:25.813 --> 00:02:29.133
+Yet the property still passes the faulty candidate.
+
+43
+00:02:29.133 --> 00:02:31.151
+Rejection needs its own checks.
+
+44
+00:02:32.198 --> 00:02:36.778
+Mutation testing asks a sharper question: if the code had a defect,
+
+45
+00:02:36.778 --> 00:02:38.351
+would the tests notice?
+
+46
+00:02:38.351 --> 00:02:43.820
+Start from a correct parser that passes the suite, and make three small changes.
+
+47
+00:02:44.165 --> 00:02:46.613
+Return zero for every valid input.
+
+48
+00:02:46.613 --> 00:02:48.484
+Return zero only for nine.
+
+49
+00:02:48.484 --> 00:02:50.428
+Accept trailing characters.
+
+50
+00:02:50.428 --> 00:02:53.020
+Run the same suite against each one.
+
+51
+00:02:53.020 --> 00:02:57.052
+A mutant is killed when an assertion detects the change.
+
+52
+00:02:57.398 --> 00:02:59.841
+The weak test kills none of the three.
+
+53
+00:02:59.841 --> 00:03:02.927
+The unit tests plus the property kill all three.
+
+54
+00:03:02.927 --> 00:03:07.171
+A survivor needs investigation; it is not a sign the code is fine.
+
+55
+00:03:07.171 --> 00:03:11.864
+And these are counts for three fixed course mutants, not a general score.
+
+56
+00:03:12.897 --> 00:03:18.170
+A mutation report names the tool and its configuration, the original revision,
+
+57
+00:03:18.170 --> 00:03:21.145
+the tests, the mutants, and the denominator.
+
+58
+00:03:21.145 --> 00:03:25.269
+A timeout, an invalid mutant or a broken setup is not a kill.
+
+59
+00:03:25.269 --> 00:03:27.026
+Diagnose those separately.
+
+60
+00:03:27.364 --> 00:03:29.352
+Some mutants are equivalent.
+
+61
+00:03:29.352 --> 00:03:35.031
+Change only the ValueError message: the contract leaves the wording unspecified,
+
+62
+00:03:35.031 --> 00:03:36.664
+so no test should fail.
+
+63
+00:03:36.664 --> 00:03:40.640
+In our run, it survives the unit tests and the property.
+
+64
+00:03:40.640 --> 00:03:43.409
+Exclude it, and write down that reason.
+
+65
+00:03:43.747 --> 00:03:47.875
+But never drop a surviving mutant that does change behavior,
+
+66
+00:03:47.875 --> 00:03:49.733
+just to improve the number.
+
+67
+00:03:49.733 --> 00:03:54.893
+Line coverage records what ran; mutation asks whether a change was noticed.
+
+68
+00:03:55.930 --> 00:03:59.007
+The fuzz harness tries nine boundary strings,
+
+69
+00:03:59.007 --> 00:04:04.271
+then a hundred random strings of up to four characters from a fixed alphabet,
+
+70
+00:04:04.271 --> 00:04:05.160
+using a seed.
+
+71
+00:04:05.160 --> 00:04:10.083
+It compares every result with a separate table of the ten valid answers.
+
+72
+00:04:10.430 --> 00:04:14.327
+With seed seven, the first finding is the empty string,
+
+73
+00:04:14.327 --> 00:04:16.666
+raising an unexpected IndexError.
+
+74
+00:04:16.666 --> 00:04:20.705
+That came from the boundary list, not from random search.
+
+75
+00:04:21.047 --> 00:04:23.985
+Replay it on its own, keep that exact input,
+
+76
+00:04:23.985 --> 00:04:27.324
+and add it as a regression test before the repair.
+
+77
+00:04:27.324 --> 00:04:32.065
+Replay twelve too: fuzzing must catch wrong results as well as crashes.
+
+78
+00:04:33.112 --> 00:04:38.073
+An agent can propose the harness itself: a property, a mutation command,
+
+79
+00:04:38.073 --> 00:04:38.900
+a fuzz loop.
+
+80
+00:04:38.900 --> 00:04:41.518
+Treat it as claims and candidate code.
+
+81
+00:04:41.518 --> 00:04:45.651
+Never let it choose its own score, or edit the scoring tool.
+
+82
+00:04:45.996 --> 00:04:48.765
+Suppose a proposed harness has no oracle:
+
+83
+00:04:48.765 --> 00:04:51.939
+it catches every exception and records nothing.
+
+84
+00:04:51.939 --> 00:04:56.127
+In our run on the known-bad candidate, it reports no findings.
+
+85
+00:04:56.127 --> 00:05:00.044
+The fixture's harness reports sixty on the same candidate.
+
+86
+00:05:00.379 --> 00:05:06.159
+So run any harness on a known-bad and a repaired target before you trust its silence.
+
+87
+00:05:06.159 --> 00:05:09.423
+Dynamic results decide whether a claim survives.
+
+88
+00:05:10.462 --> 00:05:15.695
+The repair checks the length before indexing, and requires one ASCII digit.
+
+89
+00:05:15.695 --> 00:05:18.206
+Rerun the original tests, unchanged.
+
+90
+00:05:18.206 --> 00:05:20.788
+The unit tests and the property pass,
+
+91
+00:05:20.788 --> 00:05:25.880
+the fuzz run has no findings in its stated inputs, and both replays pass.
+
+92
+00:05:26.229 --> 00:05:31.442
+Then ask which defect could still pass them, and add a test that tells it apart.
+
+93
+00:05:32.478 --> 00:05:35.398
+So green speaks only for what the checks tried.
+
+94
+00:05:35.398 --> 00:05:38.814
+Each one here covers a stated set of inputs or changes.
+
+95
+00:05:38.814 --> 00:05:42.602
+Report which, because none of them proves the parser correct.
+
+96
+00:05:42.945 --> 00:05:44.239
+One question to try.
+
+97
+00:05:44.239 --> 00:05:50.190
+Someone claims a property proves parsed values are non-negative for generated digit strings.
+
+98
+00:05:50.190 --> 00:05:52.971
+Does it cover negative or decorated inputs?
+
+99
+00:05:52.971 --> 00:05:56.982
+Write the expected behavior, and the next check you would run.

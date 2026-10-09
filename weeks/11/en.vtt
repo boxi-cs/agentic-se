@@ -1,0 +1,397 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.766
+An operator asks the dashboard to retry build forty-two.
+
+2
+00:00:03.766 --> 00:00:08.742
+The request goes out, and the screen times out before it shows completion.
+
+3
+00:00:09.083 --> 00:00:10.759
+So the operator retries.
+
+4
+00:00:10.759 --> 00:00:14.807
+Later, the stored state shows two jobs for the same build.
+
+5
+00:00:15.850 --> 00:00:17.373
+Walk the event chain.
+
+6
+00:00:17.373 --> 00:00:21.506
+First, the server receives request A for build forty-two.
+
+7
+00:00:21.506 --> 00:00:25.277
+Then the transaction commits, and job J81 is queued.
+
+8
+00:00:25.617 --> 00:00:29.272
+Next, the reply is lost, and the client times out.
+
+9
+00:00:29.272 --> 00:00:31.027
+But J81 is still queued.
+
+10
+00:00:31.367 --> 00:00:35.755
+Then the client repeats the same operation as request B,
+
+11
+00:00:35.755 --> 00:00:38.890
+and the unprotected handler creates J82.
+
+12
+00:00:39.933 --> 00:00:44.055
+The timeout alone cannot tell a lost reply from a failed commit.
+
+13
+00:00:44.400 --> 00:00:47.282
+The persisted job and its operation key can.
+
+14
+00:00:47.282 --> 00:00:50.034
+A timeout marks where observation stopped.
+
+15
+00:00:50.034 --> 00:00:52.654
+It does not prove that nothing happened.
+
+16
+00:00:53.700 --> 00:00:57.232
+Ask for a bounded repair hypothesis tied to that chain.
+
+17
+00:00:57.232 --> 00:00:58.067
+The proposal:
+
+18
+00:00:58.067 --> 00:01:03.847
+store a unique operation key and its payload in the same transaction that creates the job.
+
+19
+00:01:04.183 --> 00:01:07.830
+A repeated matching request returns the existing job.
+
+20
+00:01:07.830 --> 00:01:11.064
+The same key for a different build is rejected.
+
+21
+00:01:11.064 --> 00:01:13.610
+A genuinely new retry uses a new key.
+
+22
+00:01:13.950 --> 00:01:17.302
+A check followed by a separate insert can still race,
+
+23
+00:01:17.302 --> 00:01:21.287
+so uniqueness and atomicity belong at the persistence boundary.
+
+24
+00:01:22.333 --> 00:01:24.450
+Write the predictions down.
+
+25
+00:01:24.450 --> 00:01:27.429
+A lost reply, then a repeat: only J81.
+
+26
+00:01:27.429 --> 00:01:30.643
+Two concurrent copies: one committed job.
+
+27
+00:01:30.643 --> 00:01:34.328
+The same key for build forty-three: a conflict.
+
+28
+00:01:34.328 --> 00:01:35.975
+A new key: a new job.
+
+29
+00:01:36.316 --> 00:01:39.069
+These are predictions to check, not results.
+
+30
+00:01:39.069 --> 00:01:41.258
+And state when you would roll back:
+
+31
+00:01:41.258 --> 00:01:44.323
+if the change rejects a new authorized operation,
+
+32
+00:01:44.323 --> 00:01:46.638
+or corrupts the existing job mapping.
+
+33
+00:01:47.683 --> 00:01:53.659
+After the repair, check two things: that only one job exists for the operation,
+
+34
+00:01:53.659 --> 00:01:57.064
+and that the dashboard shows J81 as complete.
+
+35
+00:01:57.399 --> 00:02:01.070
+Declare recovery only when the user can see the required state,
+
+36
+00:02:01.070 --> 00:02:03.868
+and duplicates are excluded for the tested path.
+
+37
+00:02:03.868 --> 00:02:06.548
+Keep what you still don't know in the runbook.
+
+38
+00:02:07.583 --> 00:02:13.104
+An agent that acts in a deployed system, triaging alerts or proposing a rollback,
+
+39
+00:02:13.104 --> 00:02:15.217
+is one more service to operate.
+
+40
+00:02:15.217 --> 00:02:19.920
+Give it credentials scoped to its task, a spending and action budget,
+
+41
+00:02:19.920 --> 00:02:22.919
+and a switch that stops it without a deploy.
+
+42
+00:02:23.266 --> 00:02:26.620
+Log what it read, what it proposed and what it changed,
+
+43
+00:02:26.620 --> 00:02:30.645
+so a postmortem can separate the agent's action from the incident.
+
+44
+00:02:30.645 --> 00:02:34.059
+Keep irreversible operations behind a person's approval,
+
+45
+00:02:34.059 --> 00:02:36.072
+and put the agent in the runbook.
+
+46
+00:02:36.416 --> 00:02:43.452
+And a retried agent action needs the same idempotency as the retried request we just repaired.
+
+47
+00:02:44.499 --> 00:02:48.511
+Every model call in this course already goes through a gateway:
+
+48
+00:02:48.511 --> 00:02:50.230
+the launcher's host broker.
+
+49
+00:02:50.230 --> 00:02:52.650
+Describe a gateway by what it refuses.
+
+50
+00:02:52.999 --> 00:02:58.091
+Code in the sandbox can send only prompt text; the key stays on the host.
+
+51
+00:02:58.091 --> 00:03:02.694
+The broker builds the request itself and sends no automatic retry.
+
+52
+00:03:02.694 --> 00:03:07.227
+The launcher admits at most four requests per run, one at a time,
+
+53
+00:03:07.227 --> 00:03:12.388
+and the log keeps only a length and a keyed hash of each prompt and reply.
+
+54
+00:03:12.733 --> 00:03:17.945
+Its budget refuses twice: before sending, when a request could exceed the cap,
+
+55
+00:03:17.945 --> 00:03:20.617
+and after a reply, when usage went over.
+
+56
+00:03:20.617 --> 00:03:25.295
+A gateway that only reported spending afterwards would protect nobody.
+
+57
+00:03:26.332 --> 00:03:28.042
+Predict before reading on.
+
+58
+00:03:28.042 --> 00:03:32.317
+A course fixture asks the broker for five replies, one at a time,
+
+59
+00:03:32.317 --> 00:03:34.224
+and prints a line after each.
+
+60
+00:03:34.224 --> 00:03:37.907
+How many requests reach the broker, and what comes back?
+
+61
+00:03:38.248 --> 00:03:42.770
+The launcher admits four, refuses the fifth before the broker sees it,
+
+62
+00:03:42.770 --> 00:03:46.322
+stops the container, and prints only a generic failure.
+
+63
+00:03:46.322 --> 00:03:49.940
+The four progress lines are lost with the discarded run.
+
+64
+00:03:50.282 --> 00:03:53.924
+The trace keeps exactly four records, one per admitted call.
+
+65
+00:03:53.924 --> 00:03:56.109
+A cap is a hard stop, not a warning,
+
+66
+00:03:56.109 --> 00:04:00.054
+and the evidence of what was spent lives in the gateway's record,
+
+67
+00:04:00.054 --> 00:04:01.996
+not in the program's own output.
+
+68
+00:04:03.031 --> 00:04:05.895
+The same rule holds for a model budget.
+
+69
+00:04:05.895 --> 00:04:10.668
+In course-made units, the cap is ten, each request reserves four,
+
+70
+00:04:10.668 --> 00:04:12.504
+and each reply costs one.
+
+71
+00:04:12.504 --> 00:04:17.718
+Seven requests go through, and the eighth is refused before it is sent.
+
+72
+00:04:18.065 --> 00:04:19.765
+Now lose the second reply.
+
+73
+00:04:19.765 --> 00:04:23.231
+The gateway can't tell whether that call was charged,
+
+74
+00:04:23.231 --> 00:04:27.678
+so it keeps the whole reservation, and the fifth request is refused.
+
+75
+00:04:28.714 --> 00:04:34.183
+You keep one approved model configuration, so a cheaper route means fewer requests,
+
+76
+00:04:34.183 --> 00:04:38.532
+a smaller output limit, the replay route, or no model call at all.
+
+77
+00:04:38.532 --> 00:04:41.300
+Whether it's good enough is a measurement.
+
+78
+00:04:41.648 --> 00:04:43.224
+In a synthetic example,
+
+79
+00:04:43.224 --> 00:04:48.842
+the model-backed answer passes twelve of twelve frozen cases with twelve requests.
+
+80
+00:04:48.842 --> 00:04:52.336
+A rule on the status field passes eleven with none.
+
+81
+00:04:52.336 --> 00:04:56.241
+But the rule turns a missing status into no, not Unknown.
+
+82
+00:04:56.581 --> 00:05:01.275
+A closer pass count doesn't settle it, and neither does lower cost.
+
+83
+00:05:01.275 --> 00:05:06.809
+Repair the rule, rerun all twelve cases, and switch only if no case gets worse.
+
+84
+00:05:07.847 --> 00:05:10.610
+The same discipline applies to user tests.
+
+85
+00:05:10.610 --> 00:05:15.148
+Ask with a goal: find the most recent failed build in pipeline Alpha.
+
+86
+00:05:15.148 --> 00:05:19.423
+Don't say "click the red Failed button and tell us if it's easy":
+
+87
+00:05:19.423 --> 00:05:22.580
+that supplies the navigation and invites praise.
+
+88
+00:05:22.914 --> 00:05:26.998
+In a synthetic rehearsal, the user opens Settings, comes back,
+
+89
+00:05:26.998 --> 00:05:29.040
+and asks where failures appear.
+
+90
+00:05:29.040 --> 00:05:31.411
+"Opened Settings" is an observation.
+
+91
+00:05:31.411 --> 00:05:35.627
+"Could not recognize the filter" is a hypothesis to investigate.
+
+92
+00:05:35.964 --> 00:05:39.725
+And rehearsing the prompt doesn't count as participation.
+
+93
+00:05:40.764 --> 00:05:43.693
+So a timeout marks where observation stopped.
+
+94
+00:05:43.693 --> 00:05:47.273
+And recovery means the user can see the required state,
+
+95
+00:05:47.273 --> 00:05:50.203
+with no duplicate effect for the tested path.
+
+96
+00:05:50.547 --> 00:05:51.844
+One question to try.
+
+97
+00:05:51.844 --> 00:05:56.057
+The health endpoint is green, but the build detail never updates.
+
+98
+00:05:56.057 --> 00:05:58.586
+Has the user-facing incident recovered?
+
+99
+00:05:58.586 --> 00:06:02.540
+State your next check, and why it would change your decision.

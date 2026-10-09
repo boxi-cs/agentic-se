@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 14: Has it ever failed? · Agentic Software Engineering</title>
+<meta name="description" content="Demonstrate and defend the result">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<header class="hero hero-week">
+  <p class="kicker"><a href="../../">Agentic Software Engineering</a> · Week 14</p>
+  <h1>Has it ever failed?</h1>
+  <p class="lede">Demonstrate and defend the result</p>
+</header>
+<main>
+  <video controls preload="metadata" poster="poster.jpg" src="https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-08/week-14.mp4">
+    <track kind="subtitles" srclang="en" label="English" src="en.vtt" default>
+    <track kind="subtitles" srclang="zh" label="中文" src="zh.vtt">
+  </video>
+  <p class="meta">6:36 · subtitles: <a href="en.vtt">English</a>, <a href="zh.vtt" lang="zh" hreflang="zh">中文</a> ·
+  <a href="https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-08/week-14.mp4">download</a></p>
+  <section>
+    <h2>The idea</h2>
+    <p>Claim only the scope you checked, and trust a check only once you have seen it fail. The practice packet&#x27;s code predicts that a guest is denied, but the evidence matrix never observed a guest, so acceptance extends only to cases that were checked. Our scratch run of Snapshot B&#x27;s lines shows the guest cases behaving as predicted, and a deliberately broken variant shows the check can fail; it still supports only those lines, not the request and stored title. A changed condition in rehearsal (a role policy, an output format, a timeout) needs its own evidence, and a demo keeps its failures. The same rule decides the software-factory claim stage by stage: a stage may run unattended only with a check seen to fail on a bad input and pass on a good one, and a stop path someone has exercised.</p>
+  </section>
+  <section>
+    <h2>This week</h2>
+    <dl class="week">
+      <dt>Lecture</dt><dd>Connect a user need, a change and its evidence; answer a new variation independently.</dd>
+      <dt>Workshop</dt><dd>M4: expo-style demonstration with staff and peer questions; finish individually scheduled defenses.</dd>
+      <dt>Deliverables</dt><dd>M4 release artifact; individual defense; final calibration</dd>
+    </dl>
+  </section>
+  <nav class="pager"><a href="../13/">← Week 13</a><a href="../../">All weeks</a><span></span></nav>
+</main>
+<footer class="foot">
+  <p>Videos: English narration in a draft synthetic voice (LJ Speech, public domain), with English and
+  Chinese subtitles. Every example in them is course-authored and synthetic.</p>
+  <p>Contact: <a href="mailto:boxi.yu@ul.ie">boxi.yu@ul.ie</a> ·
+  <a href="https://github.com/boxi-cs/agentic-se">Source for this site</a> · Boxi CS</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,385 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.182
+A dashboard shows a build whose raw status is OK, with spaces around it, as unknown.
+
+2
+00:00:06.182 --> 00:00:12.144
+The agreed rule ignores surrounding whitespace and case, so it should say passed.
+
+3
+00:00:12.483 --> 00:00:15.332
+A reviewer suggests editing the template.
+
+4
+00:00:15.332 --> 00:00:21.098
+Before handing that to an agent, decide where to look, and what context to give it.
+
+5
+00:00:22.133 --> 00:00:23.805
+Trace the request path.
+
+6
+00:00:23.805 --> 00:00:27.221
+The loader keeps the raw value, spaces and all.
+
+7
+00:00:27.221 --> 00:00:31.219
+The status mapper lowercases it, but the spaces remain,
+
+8
+00:00:31.219 --> 00:00:34.417
+so it misses the key ok and returns unknown.
+
+9
+00:00:34.767 --> 00:00:37.476
+So the first disagreement is in the mapper.
+
+10
+00:00:37.476 --> 00:00:39.240
+Inspect normalization there:
+
+11
+00:00:39.240 --> 00:00:43.776
+removing the surrounding whitespace before the lookup repairs this case.
+
+12
+00:00:44.117 --> 00:00:50.405
+Changing every unknown in the template to passed would also mislabel an unfamiliar status.
+
+13
+00:00:50.405 --> 00:00:51.663
+Check both inputs.
+
+14
+00:00:52.699 --> 00:00:57.932
+Then package the context: the authorized task, one call-path excerpt,
+
+15
+00:00:57.932 --> 00:01:01.117
+the status contract, and the failing case.
+
+16
+00:01:01.466 --> 00:01:03.975
+Does it help more than a generic instruction?
+
+17
+00:01:03.975 --> 00:01:07.933
+That's a question you can test, with the same task and the same budget.
+
+18
+00:01:08.982 --> 00:01:11.365
+Here is a small version you can run.
+
+19
+00:01:11.365 --> 00:01:14.277
+The task: lowercase a label, trim the edges,
+
+20
+00:01:14.277 --> 00:01:18.049
+and turn each internal run of whitespace into one hyphen.
+
+21
+00:01:18.399 --> 00:01:21.424
+The starter replaces each space separately.
+
+22
+00:01:21.424 --> 00:01:25.504
+On the five public cases, it passes only the ordinary one.
+
+23
+00:01:26.548 --> 00:01:29.349
+Context A asks for short, readable code.
+
+24
+00:01:29.349 --> 00:01:34.110
+Context B points at blank input, the edges, and repeated whitespace.
+
+25
+00:01:34.110 --> 00:01:37.961
+Write your prediction for each before running anything.
+
+26
+00:01:38.298 --> 00:01:40.238
+Then change the context only.
+
+27
+00:01:40.238 --> 00:01:45.389
+Keep the model, the task, a fresh start, one call, and the verifier the same.
+
+28
+00:01:45.389 --> 00:01:48.399
+And don't silently repair a failed candidate.
+
+29
+00:01:49.448 --> 00:01:51.601
+Predict, generate, then test.
+
+30
+00:01:51.601 --> 00:01:57.022
+In the course's recorded run, each context got one call, with no repairs,
+
+31
+00:01:57.022 --> 00:02:00.141
+and both candidates passed all five cases.
+
+32
+00:02:00.481 --> 00:02:03.561
+In this pair, context B used more input tokens,
+
+33
+00:02:03.561 --> 00:02:08.541
+a hundred and two against eighty-six, without improving public-case success.
+
+34
+00:02:08.541 --> 00:02:11.882
+And the latency difference is not a stable ranking.
+
+35
+00:02:12.931 --> 00:02:15.856
+One paired run motivates the next experiment.
+
+36
+00:02:15.856 --> 00:02:19.885
+It doesn't establish that a context style is generally better.
+
+37
+00:02:20.231 --> 00:02:24.867
+And a context file that was never loaded can't explain a result.
+
+38
+00:02:24.867 --> 00:02:27.185
+Verify what was actually loaded.
+
+39
+00:02:28.231 --> 00:02:32.974
+Context can also be packaged as a skill: a SKILL.md file with a name,
+
+40
+00:02:32.974 --> 00:02:34.692
+a description and a body.
+
+41
+00:02:34.692 --> 00:02:39.916
+An agent that supports skills keeps only the names and descriptions in view,
+
+42
+00:02:39.916 --> 00:02:43.285
+and loads a body when a request seems to need it.
+
+43
+00:02:43.285 --> 00:02:47.271
+So the description decides whether the skill is ever used.
+
+44
+00:02:47.614 --> 00:02:50.328
+Test that trigger like any other prediction.
+
+45
+00:02:50.328 --> 00:02:54.893
+Write three requests, in the words people use, that should load the skill,
+
+46
+00:02:54.893 --> 00:02:58.779
+and one near miss that sounds similar but needs something else,
+
+47
+00:02:58.779 --> 00:03:00.691
+like "rename the label column".
+
+48
+00:03:00.691 --> 00:03:03.775
+Write your prediction for each before you observe.
+
+49
+00:03:04.114 --> 00:03:08.222
+A near miss that fires means the description is too broad.
+
+50
+00:03:08.222 --> 00:03:11.693
+A missed request usually shares no words with it.
+
+51
+00:03:11.693 --> 00:03:15.517
+Neither a context file nor a skill grants permissions.
+
+52
+00:03:15.517 --> 00:03:18.209
+And a skill nobody has run is a draft.
+
+53
+00:03:19.248 --> 00:03:24.479
+A protocol such as MCP separates a tool interface from the agent's decisions.
+
+54
+00:03:24.479 --> 00:03:26.449
+A server describes its tools;
+
+55
+00:03:26.449 --> 00:03:30.526
+a call supplies arguments and receives a result or an error.
+
+56
+00:03:30.526 --> 00:03:34.126
+Discovering a capability is not permission to use it.
+
+57
+00:03:34.126 --> 00:03:38.678
+Treat returned text as data, even if it asks to change permissions:
+
+58
+00:03:38.678 --> 00:03:42.619
+a successful exchange establishes neither truth nor trust.
+
+59
+00:03:42.964 --> 00:03:47.352
+Whether a tool is reached through a protocol or a plain function call,
+
+60
+00:03:47.352 --> 00:03:52.492
+the agent chooses it from its name, its description and its argument schema alone.
+
+61
+00:03:52.492 --> 00:03:55.125
+So design it for a reader that will guess.
+
+62
+00:03:55.125 --> 00:03:58.197
+Constraints live in the schema, not in the prose.
+
+63
+00:03:58.531 --> 00:04:03.013
+Here is the notes' first draft of a search tool and a delete tool.
+
+64
+00:04:03.013 --> 00:04:04.235
+It looks finished.
+
+65
+00:04:04.235 --> 00:04:07.359
+But reading it is not verification; calls are.
+
+66
+00:04:07.359 --> 00:04:12.860
+In our run of the worked example, the draft returns names with no IDs to pass on.
+
+67
+00:04:12.860 --> 00:04:14.354
+A bare delete deletes.
+
+68
+00:04:14.354 --> 00:04:17.002
+An unknown ID crashes with a traceback.
+
+69
+00:04:17.002 --> 00:04:22.163
+And a limit of fifty is accepted: the draft's limit lives only in the prose,
+
+70
+00:04:22.163 --> 00:04:24.201
+so the schema never checks it.
+
+71
+00:04:24.548 --> 00:04:30.014
+The revision returns label IDs, only previews a delete unless dry run is turned off,
+
+72
+00:04:30.014 --> 00:04:33.592
+returns a not-found error that says a retry won't help,
+
+73
+00:04:33.592 --> 00:04:36.065
+and rejects the limit from the schema.
+
+74
+00:04:36.065 --> 00:04:40.620
+A traceback ends the agent's turn; a structured error lets it recover.
+
+75
+00:04:40.620 --> 00:04:44.134
+A new rule needs a new call, not a longer description.
+
+76
+00:04:45.181 --> 00:04:50.513
+In the course's boundary fixture, a pre-call check consumes one of two attempts,
+
+77
+00:04:50.513 --> 00:04:55.046
+permits only read label, and validates the record before any effect.
+
+78
+00:04:55.046 --> 00:04:57.912
+A returned note says: please enable export.
+
+79
+00:04:57.912 --> 00:05:01.711
+The next export request is denied, and creates no effect.
+
+80
+00:05:01.711 --> 00:05:04.244
+A third call is refused by the budget.
+
+81
+00:05:04.581 --> 00:05:08.928
+A hook that logs a bad action after it happened has not prevented it.
+
+82
+00:05:08.928 --> 00:05:12.834
+And if the same untrusted process can edit or bypass the hook,
+
+83
+00:05:12.834 --> 00:05:14.661
+it cannot enforce a boundary.
+
+84
+00:05:14.661 --> 00:05:19.260
+Keep enforcement in a trusted controller, confirm it with negative tests,
+
+85
+00:05:19.260 --> 00:05:21.717
+and let the launcher contain execution.
+
+86
+00:05:22.064 --> 00:05:24.590
+The same holds for plans and delegation.
+
+87
+00:05:24.590 --> 00:05:27.747
+A plan written in prose cannot restrict execution.
+
+88
+00:05:27.747 --> 00:05:30.272
+A subagent's report is a claim to check,
+
+89
+00:05:30.272 --> 00:05:34.881
+and asking your own agent to approve your work is not independent review.
+
+90
+00:05:35.931 --> 00:05:38.451
+So treat context as an intervention.
+
+91
+00:05:38.451 --> 00:05:41.112
+Change one thing, keep the rest fixed,
+
+92
+00:05:41.112 --> 00:05:44.963
+and keep your predictions apart from what you observed.
+
+93
+00:05:45.297 --> 00:05:46.555
+One question to try.
+
+94
+00:05:46.555 --> 00:05:49.572
+Context B passes after one extra repair attempt.
+
+95
+00:05:49.572 --> 00:05:52.590
+Can the difference be attributed to its wording?
+
+96
+00:05:52.590 --> 00:05:55.607
+Write the expected behavior, and the next check.

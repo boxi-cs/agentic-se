@@ -1,0 +1,393 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.225
+The rule: an account can edit a document exactly when it is active,
+
+2
+00:00:04.225 --> 00:00:05.991
+and it is an owner or staff.
+
+3
+00:00:06.333 --> 00:00:08.654
+Here is a course-written candidate.
+
+4
+00:00:08.654 --> 00:00:12.765
+A reviewer only tries an active staff account, and it behaves.
+
+5
+00:00:13.100 --> 00:00:15.062
+But can an inactive owner edit?
+
+6
+00:00:16.099 --> 00:00:19.551
+Write your own review before asking anyone else.
+
+7
+00:00:19.551 --> 00:00:24.656
+Python groups and before or, so this reads: owner, or staff and active.
+
+8
+00:00:24.999 --> 00:00:26.940
+An owner alone makes it true.
+
+9
+00:00:26.940 --> 00:00:30.688
+So an inactive owner can edit, and the contract says no.
+
+10
+00:00:31.033 --> 00:00:36.586
+A review names a location, a concrete input, the expected and the observed result,
+
+11
+00:00:36.586 --> 00:00:37.941
+and the consequence.
+
+12
+00:00:38.982 --> 00:00:40.244
+Then reproduce it.
+
+13
+00:00:40.244 --> 00:00:42.628
+The public checks run seven cases.
+
+14
+00:00:42.628 --> 00:00:45.924
+On the candidate, two fail: the inactive owner,
+
+15
+00:00:45.924 --> 00:00:49.640
+and an inactive account that is both owner and staff.
+
+16
+00:00:50.682 --> 00:00:55.707
+Only then ask for an AI review, and treat each finding as a hypothesis.
+
+17
+00:00:55.707 --> 00:00:58.751
+Check it against the contract and an input.
+
+18
+00:00:59.098 --> 00:01:03.611
+It may find a useful boundary, miss a defect, or invent a requirement,
+
+19
+00:01:03.611 --> 00:01:08.897
+such as accepting the string false, which a boolean-only contract never asked for.
+
+20
+00:01:09.232 --> 00:01:14.010
+And a person can miss the same precedence bug, or follow the model too readily.
+
+21
+00:01:14.010 --> 00:01:17.034
+Neither reviewer label is a correctness guarantee.
+
+22
+00:01:18.081 --> 00:01:23.341
+A proposed revision checks active on both paths: active, and owner or staff.
+
+23
+00:01:23.681 --> 00:01:26.320
+Don't accept it because it looks clearer.
+
+24
+00:01:26.320 --> 00:01:28.766
+Rerun the same checks: all seven pass,
+
+25
+00:01:28.766 --> 00:01:32.241
+covering the eight combinations of the three booleans.
+
+26
+00:01:32.241 --> 00:01:37.068
+And check the test source too, because a candidate can change its own copy.
+
+27
+00:01:38.114 --> 00:01:43.590
+Delegating a change to an agent hides three jobs: deciding what to do, doing it,
+
+28
+00:01:43.590 --> 00:01:44.686
+and checking it.
+
+29
+00:01:44.686 --> 00:01:50.026
+The week's delegation script gives each job its own run and its own workspace.
+
+30
+00:01:50.364 --> 00:01:52.093
+The planner writes a plan.
+
+31
+00:01:52.093 --> 00:01:54.952
+The implementer proposes a file and a diff.
+
+32
+00:01:54.952 --> 00:01:57.812
+The reviewer sees only the issue, the diff,
+
+33
+00:01:57.812 --> 00:02:00.804
+the check output and the team's review rules.
+
+34
+00:02:00.804 --> 00:02:02.334
+It never sees the plan.
+
+35
+00:02:02.680 --> 00:02:07.289
+In our run, a review workspace that also held the plan was refused,
+
+36
+00:02:07.289 --> 00:02:09.559
+before anything was read or sent.
+
+37
+00:02:09.559 --> 00:02:13.617
+A reviewer that has read the plan inherits its assumptions.
+
+38
+00:02:13.964 --> 00:02:16.681
+But a fresh context is not independence.
+
+39
+00:02:16.681 --> 00:02:20.418
+The same model may share the implementer's blind spots,
+
+40
+00:02:20.418 --> 00:02:25.446
+and a reviewer that sees only a diff can't notice what is missing from it.
+
+41
+00:02:25.446 --> 00:02:29.115
+A person who didn't write the change still reviews it.
+
+42
+00:02:30.163 --> 00:02:32.686
+The handoff can also run unattended.
+
+43
+00:02:32.686 --> 00:02:36.610
+An issue file names one target, the acceptance criteria,
+
+44
+00:02:36.610 --> 00:02:39.553
+the check to run and what is out of scope.
+
+45
+00:02:39.553 --> 00:02:43.828
+One run then plans and implements, with no person in between.
+
+46
+00:02:44.163 --> 00:02:47.263
+The issue is data from whoever could write it.
+
+47
+00:02:47.263 --> 00:02:51.912
+Its wording can't widen what the run may do; the script decides that.
+
+48
+00:02:51.912 --> 00:02:55.752
+In our runs it refused an issue that still said BASE_SHA,
+
+49
+00:02:55.752 --> 00:02:58.919
+and one whose target was the check file itself.
+
+50
+00:02:59.263 --> 00:03:03.172
+It also can't create a branch, push, reach the network,
+
+51
+00:03:03.172 --> 00:03:05.446
+or run the verification command.
+
+52
+00:03:05.446 --> 00:03:09.782
+Then a person creates the branch, runs the checks and merges.
+
+53
+00:03:10.830 --> 00:03:13.704
+The course wrote a sample of such a run.
+
+54
+00:03:13.704 --> 00:03:18.950
+Its plan added a step nobody asked for: accept true and false as strings,
+
+55
+00:03:18.950 --> 00:03:21.464
+since callers may send form values.
+
+56
+00:03:21.813 --> 00:03:24.038
+The reviewer never sees that plan.
+
+57
+00:03:24.038 --> 00:03:27.769
+It sees the diff, which adds two lines of string parsing.
+
+58
+00:03:28.113 --> 00:03:31.923
+And the evidence: we applied the change and ran the checks.
+
+59
+00:03:31.923 --> 00:03:32.891
+All seven pass.
+
+60
+00:03:32.891 --> 00:03:36.766
+The checks test booleans, so they can't see the extra scope,
+
+61
+00:03:36.766 --> 00:03:40.640
+even though the issue listed string parsing as out of scope.
+
+62
+00:03:41.679 --> 00:03:44.182
+That's why the team writes review rules.
+
+63
+00:03:44.182 --> 00:03:46.247
+Each one says where it came from,
+
+64
+00:03:46.247 --> 00:03:49.563
+and how a reviewer checks it against a diff or a run.
+
+65
+00:03:49.896 --> 00:03:52.793
+Rule three: inputs stay Python booleans.
+
+66
+00:03:52.793 --> 00:03:57.210
+Its source is the contract and the issue's out-of-scope line.
+
+67
+00:03:57.210 --> 00:04:02.714
+Its check: the diff adds no string handling, conversion or default argument.
+
+68
+00:04:03.063 --> 00:04:07.821
+"Code should be clean" is not a rule: nobody can show that a diff breaks it.
+
+69
+00:04:07.821 --> 00:04:10.826
+And the rules only tell reviewers what to check.
+
+70
+00:04:10.826 --> 00:04:14.394
+They enforce nothing; the launcher and the merge rule do.
+
+71
+00:04:15.429 --> 00:04:20.429
+A review comment, even one that cites the team's rules, is still a claim.
+
+72
+00:04:20.429 --> 00:04:23.990
+It's actionable when a reproducer shows the problem:
+
+73
+00:04:23.990 --> 00:04:28.920
+an input with its actual result, a diff line, or a line of the evidence.
+
+74
+00:04:29.263 --> 00:04:33.048
+It's a false positive when a reproducer shows the rule is met.
+
+75
+00:04:33.396 --> 00:04:35.924
+Here are two comments on the sample.
+
+76
+00:04:35.924 --> 00:04:40.628
+The first cites rule three: lines six and seven add string parsing.
+
+77
+00:04:40.628 --> 00:04:43.648
+The diff line shows it, so it's actionable.
+
+78
+00:04:43.996 --> 00:04:48.492
+The second cites rule one: no check denies an inactive staff member.
+
+79
+00:04:48.492 --> 00:04:53.120
+Run that input: it returns False, and the inactive staff check passed.
+
+80
+00:04:53.120 --> 00:04:55.037
+That one is a false positive.
+
+81
+00:04:56.079 --> 00:05:00.196
+An unattended run helps when the task is independent with its own file,
+
+82
+00:05:00.196 --> 00:05:04.488
+its criteria and check are written down, waiting would otherwise dominate,
+
+83
+00:05:04.488 --> 00:05:07.155
+and someone is free to review what comes back.
+
+84
+00:05:07.496 --> 00:05:10.057
+It doesn't help when the task is ambiguous,
+
+85
+00:05:10.057 --> 00:05:13.511
+because an unattended planner fills the gaps with guesses,
+
+86
+00:05:13.511 --> 00:05:17.562
+or when tasks share files, or when review is already the bottleneck.
+
+87
+00:05:17.896 --> 00:05:23.351
+And rerunning until the checks pass selects an output; it doesn't verify one.
+
+88
+00:05:23.351 --> 00:05:27.602
+Three parallel runs mean three reviews, and one integration.
+
+89
+00:05:28.645 --> 00:05:31.831
+Merge only after the combined branch is tested,
+
+90
+00:05:31.831 --> 00:05:34.609
+and someone owns the integrated behavior.
+
+91
+00:05:34.609 --> 00:05:39.489
+A worktree isolates edits; it doesn't establish integration correctness.
+
+92
+00:05:39.829 --> 00:05:44.775
+A stale branch can pass its own tests, and still break after integration.
+
+93
+00:05:45.812 --> 00:05:49.660
+So review it yourself first, reproduce what you find,
+
+94
+00:05:49.660 --> 00:05:54.961
+treat the AI review as hypotheses, and test what you will actually merge.
+
+95
+00:05:55.295 --> 00:05:56.590
+One question to try.
+
+96
+00:05:56.590 --> 00:06:01.252
+Each branch passes alone, but the combined change alters the role check.
+
+97
+00:06:01.252 --> 00:06:03.194
+Which revision must be tested?
+
+98
+00:06:03.194 --> 00:06:06.302
+Write the expected behavior, and the next check.

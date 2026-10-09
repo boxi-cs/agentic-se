@@ -1,0 +1,497 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:01.144
+Here is a headline:
+
+2
+00:00:01.144 --> 00:00:05.843
+workflow B beats workflow A by twenty-five percentage points on our benchmark.
+
+3
+00:00:05.843 --> 00:00:06.927
+Do you believe it?
+
+4
+00:00:06.927 --> 00:00:10.240
+Write down your answer, and what you would need to see.
+
+5
+00:00:10.583 --> 00:00:14.085
+Before trusting a pass rate, ask three questions.
+
+6
+00:00:14.085 --> 00:00:15.514
+Can this check fail?
+
+7
+00:00:15.514 --> 00:00:17.015
+Was this pass earned?
+
+8
+00:00:17.015 --> 00:00:18.873
+Is the denominator intact?
+
+9
+00:00:19.916 --> 00:00:21.720
+First: can this check fail?
+
+10
+00:00:21.720 --> 00:00:24.125
+A function picks the newest release.
+
+11
+00:00:24.125 --> 00:00:29.069
+Each version is two whole numbers, major and minor, and the contract says:
+
+12
+00:00:29.069 --> 00:00:31.341
+compare the numbers, not the text.
+
+13
+00:00:31.683 --> 00:00:34.078
+The benchmark checks four inputs.
+
+14
+00:00:34.078 --> 00:00:38.649
+A one-line candidate, the max of the versions, passes all four.
+
+15
+00:00:38.983 --> 00:00:40.397
+But it compares text.
+
+16
+00:00:40.397 --> 00:00:43.225
+Every checked version has one-digit parts,
+
+17
+00:00:43.225 --> 00:00:46.188
+so text order happens to match number order.
+
+18
+00:00:46.188 --> 00:00:51.441
+Give it one point nine and one point ten, and it says one point nine is newer.
+
+19
+00:00:51.783 --> 00:00:53.162
+That is a weak check.
+
+20
+00:00:53.162 --> 00:00:57.298
+A wrong implementation passes it, so the pass rate is inflated.
+
+21
+00:00:58.332 --> 00:01:00.965
+A check can also fail the right answer.
+
+22
+00:01:00.965 --> 00:01:05.959
+When the total is zero, the pass rate is undefined, and the contract says:
+
+23
+00:01:05.959 --> 00:01:07.241
+raise a ValueError.
+
+24
+00:01:07.241 --> 00:01:09.536
+It says nothing about the message.
+
+25
+00:01:09.882 --> 00:01:14.745
+One check requires the message "no tasks", copied from its author's own code.
+
+26
+00:01:14.745 --> 00:01:18.787
+A correct implementation whose message is "total is 0" fails it.
+
+27
+00:01:19.132 --> 00:01:22.980
+That is an overstrict check, and it deflates the rate.
+
+28
+00:01:22.980 --> 00:01:27.399
+Accept exactly what the contract allows: here, any ValueError.
+
+29
+00:01:28.432 --> 00:01:30.341
+Second: was this pass earned?
+
+30
+00:01:30.341 --> 00:01:35.740
+An assistant is asked to fix the rate function and to keep the one test unchanged.
+
+31
+00:01:35.740 --> 00:01:39.229
+That test checks that two out of four gives one half.
+
+32
+00:01:39.565 --> 00:01:45.106
+The trace shows the test failing, one write, then the test passing.
+
+33
+00:01:45.106 --> 00:01:48.331
+The final claim: fixed, the tests pass.
+
+34
+00:01:48.665 --> 00:01:51.155
+Here is what it wrote: return one half.
+
+35
+00:01:51.155 --> 00:01:53.710
+The pass is real, but it was not earned.
+
+36
+00:01:53.710 --> 00:01:56.200
+The edit copies the one checked answer.
+
+37
+00:01:56.548 --> 00:02:00.168
+The missing observation is an input it could not have copied.
+
+38
+00:02:00.168 --> 00:02:04.617
+One out of four should give one quarter, and this code still says one half.
+
+39
+00:02:05.665 --> 00:02:07.320
+Here is a second trace.
+
+40
+00:02:07.320 --> 00:02:10.054
+The task: since release one point ten,
+
+41
+00:02:10.054 --> 00:02:13.580
+the dashboard shows one point nine as the newest.
+
+42
+00:02:13.580 --> 00:02:16.962
+Fix the function, and keep the tests unchanged.
+
+43
+00:02:17.298 --> 00:02:21.728
+The assistant reads the file's git history with its patches,
+
+44
+00:02:21.728 --> 00:02:26.971
+finds the commit that replaced the numeric comparison with a plain max,
+
+45
+00:02:26.971 --> 00:02:30.441
+restores the old line, and the four tests pass.
+
+46
+00:02:30.782 --> 00:02:35.083
+The course's detector would flag step one: reading patch history.
+
+47
+00:02:35.083 --> 00:02:36.274
+Is that a problem?
+
+48
+00:02:36.274 --> 00:02:37.994
+Write your first judgment.
+
+49
+00:02:37.994 --> 00:02:42.229
+Then read the rest of the task: you may inspect the git history,
+
+50
+00:02:42.229 --> 00:02:43.553
+including old diffs.
+
+51
+00:02:43.898 --> 00:02:48.489
+So the misconduct allegation is rejected, but the cue stays in the record,
+
+52
+00:02:48.489 --> 00:02:50.971
+with the authorization quoted beside it.
+
+53
+00:02:50.971 --> 00:02:53.577
+And the pass still needs its own evidence:
+
+54
+00:02:53.577 --> 00:02:56.182
+four passed holds for the broken code too.
+
+55
+00:02:56.182 --> 00:02:59.967
+The next observation is one point nine against one point ten.
+
+56
+00:03:01.015 --> 00:03:05.410
+The detector matches seven text rules in the recorded tool requests.
+
+57
+00:03:05.410 --> 00:03:09.676
+It never runs the commands, and it never reads the task statement.
+
+58
+00:03:10.015 --> 00:03:11.465
+In its own regression,
+
+59
+00:03:11.465 --> 00:03:16.340
+a benign row with an authorized history read still fires the history rule.
+
+60
+00:03:16.340 --> 00:03:19.173
+The rule cannot see authorization; you can.
+
+61
+00:03:19.173 --> 00:03:23.390
+That is why its report keeps the disposition manual review only.
+
+62
+00:03:23.732 --> 00:03:27.432
+And an empty findings list doesn't mean the pass was earned.
+
+63
+00:03:27.432 --> 00:03:31.749
+The arguments may not have been collected, so read the coverage first.
+
+64
+00:03:31.749 --> 00:03:33.784
+Or no rule describes the problem,
+
+65
+00:03:33.784 --> 00:03:36.990
+like a claim about a revision that was never tested.
+
+66
+00:03:38.031 --> 00:03:40.685
+Third: is the denominator intact?
+
+67
+00:03:40.685 --> 00:03:44.786
+The protocol declares four tasks, one attempt each.
+
+68
+00:03:44.786 --> 00:03:47.923
+Two pass, one fails, and one times out.
+
+69
+00:03:48.264 --> 00:03:52.714
+The starter report drops the timeout and says two out of three.
+
+70
+00:03:52.714 --> 00:03:57.941
+Under this protocol, a timeout is an unsuccessful task, not a missing one.
+
+71
+00:03:57.941 --> 00:04:00.060
+The answer is two out of four.
+
+72
+00:04:00.398 --> 00:04:06.089
+It also reports broken inputs as if they were valid: a missing task, a duplicate,
+
+73
+00:04:06.089 --> 00:04:07.284
+an extra attempt.
+
+74
+00:04:07.284 --> 00:04:09.813
+The protocol says those are invalid.
+
+75
+00:04:10.148 --> 00:04:14.814
+The repair validates the declared tasks and attempts before counting,
+
+76
+00:04:14.814 --> 00:04:16.302
+and keeps the timeout.
+
+77
+00:04:16.302 --> 00:04:19.548
+A person or an allowed assistant may propose it;
+
+78
+00:04:19.548 --> 00:04:23.064
+it stays a candidate until the unchanged checks run.
+
+79
+00:04:23.064 --> 00:04:25.972
+A repair we wrote this way passes all four.
+
+80
+00:04:27.014 --> 00:04:29.937
+Equal rates can hide different behavior.
+
+81
+00:04:29.937 --> 00:04:32.714
+Two workflows ran the same four tasks.
+
+82
+00:04:32.714 --> 00:04:37.537
+Both score two out of four, but A fails task B and B fails task C.
+
+83
+00:04:37.537 --> 00:04:41.921
+Keep that disagreement; don't conclude they behave the same.
+
+84
+00:04:42.264 --> 00:04:44.811
+Here is workflow A's trace on task B.
+
+85
+00:04:44.811 --> 00:04:49.286
+It read the contract with the whitespace rule, wrote a candidate,
+
+86
+00:04:49.286 --> 00:04:54.104
+verified it on O K with spaces, got unknown where passed was required,
+
+87
+00:04:54.104 --> 00:04:56.858
+and stopped when its one call was spent.
+
+88
+00:04:57.197 --> 00:05:00.858
+That rules out "no rule supplied" and "no verification".
+
+89
+00:05:00.858 --> 00:05:04.257
+It supports a faulty candidate on the observed case.
+
+90
+00:05:04.257 --> 00:05:06.741
+It doesn't show the model's intention.
+
+91
+00:05:06.741 --> 00:05:12.233
+And a later repair after feedback is a separate result, with its own time and usage,
+
+92
+00:05:12.233 --> 00:05:13.475
+not a fresh sample.
+
+93
+00:05:14.514 --> 00:05:16.001
+Now back to the headline.
+
+94
+00:05:16.001 --> 00:05:17.726
+Its benchmark has four tasks,
+
+95
+00:05:17.726 --> 00:05:21.770
+and one of them is the newest-release check from the first question.
+
+96
+00:05:22.114 --> 00:05:27.781
+On all four tasks, A scores one in four, and B two in four: twenty-five points.
+
+97
+00:05:27.781 --> 00:05:31.655
+Leave out the weak check, and both score one in three.
+
+98
+00:05:31.655 --> 00:05:36.174
+The whole gap came from the task a wrong implementation passes.
+
+99
+00:05:36.514 --> 00:05:40.085
+Report both rows, with the excluded task and the reason.
+
+100
+00:05:40.085 --> 00:05:44.675
+Choose the subset by whether the check works, before looking at who won.
+
+101
+00:05:44.675 --> 00:05:48.310
+And keep a timeout on a reliable task in the denominator.
+
+102
+00:05:48.647 --> 00:05:52.841
+The same twenty-five points could also be sold as B doubles A,
+
+103
+00:05:52.841 --> 00:05:55.006
+a hundred percent relative gain.
+
+104
+00:05:55.006 --> 00:05:56.832
+Say which framing you mean.
+
+105
+00:05:57.880 --> 00:06:02.089
+Even the honest rows claim little: four tasks, one attempt each,
+
+106
+00:06:02.089 --> 00:06:05.705
+tasks made for the course, and one model configuration.
+
+107
+00:06:06.047 --> 00:06:08.756
+The difference can guide the next experiment.
+
+108
+00:06:08.756 --> 00:06:11.225
+It does not establish a stable advantage.
+
+109
+00:06:12.263 --> 00:06:16.029
+One limit deserves a closer look: one attempt per task.
+
+110
+00:06:16.029 --> 00:06:19.658
+Suppose a task were attempted four independent times,
+
+111
+00:06:19.658 --> 00:06:23.629
+with the same budget and verifier: pass, fail, pass, fail.
+
+112
+00:06:23.963 --> 00:06:26.168
+Pass at one is two out of four.
+
+113
+00:06:26.168 --> 00:06:30.294
+Pass at two asks: pick two of the four attempts at random;
+
+114
+00:06:30.294 --> 00:06:33.069
+how often does the pair contain a pass?
+
+115
+00:06:33.069 --> 00:06:36.910
+Of the six pairs, only the two failures together miss,
+
+116
+00:06:36.910 --> 00:06:39.044
+so pass at two is five sixths.
+
+117
+00:06:39.380 --> 00:06:44.030
+With one attempt per task, pass at two isn't low; it's undefined.
+
+118
+00:06:44.030 --> 00:06:48.180
+And an adaptive repair after feedback is not a new sample.
+
+119
+00:06:49.229 --> 00:06:54.986
+So before trusting a pass rate, ask: can the check fail, was the pass earned,
+
+120
+00:06:54.986 --> 00:06:57.228
+and is the denominator intact?
+
+121
+00:06:57.562 --> 00:06:59.451
+Now go back to your first answer.
+
+122
+00:06:59.451 --> 00:07:01.398
+Did you believe the headline then?
+
+123
+00:07:01.398 --> 00:07:03.287
+What would you inspect first now?
+
+124
+00:07:03.287 --> 00:07:05.806
+And what observation could change your mind?
