@@ -1,9 +1,9 @@
 """Build the static site from data/ into the repository root (served by GitHub Pages).
 
-    python3 build.py            # writes index.html, weeks/NN/index.html and subtitle tracks
+    python3 build.py            # writes index.html, approach/, syllabus/, weeks/NN/index.html and subtitle tracks
 
 Only the Python standard library is used. Text on the pages comes from data/course.json (the
-course's public English overview and schedule) and data/episodes.json (the weekly videos);
+course's tagline, approach page, schedule and syllabus) and data/episodes.json (the weekly videos);
 the few sentences written here are labelled in the comments.
 """
 
@@ -49,6 +49,8 @@ def md_inline(text: str) -> str:
 
     def link(match: re.Match[str]) -> str:
         label, url = match.group(1), match.group(2)
+        if url.startswith("site:"):  # a link local_links() pointed at a page of this site
+            return f'<a href="{url[5:]}">{label}</a>'
         return f'<a href="{url}">{label}</a>' if url.startswith("https://") else label
 
     return re.sub(r"\[([^\]]+)\]\(([^)]+)\)", link, out)
@@ -127,7 +129,7 @@ def page(title: str, description: str, depth: int, body: str) -> str:
 <body>
 <nav class="top">
   <a class="brand" href="{up}">Agentic Software Engineering</a>
-  <span><a href="{up}">Overview</a><a href="{up}syllabus/">Syllabus</a><a href="{up}#videos">Videos</a><a href="{INSTRUCTOR['homepage']}">Instructor</a></span>
+  <span><a href="{up}approach/">Approach</a><a href="{up}syllabus/">Syllabus</a><a href="{up}#schedule">Schedule</a><a href="{up}#videos">Videos</a><a href="{up}course/">Course materials</a><a href="{INSTRUCTOR['homepage']}">Instructor</a></span>
 </nav>
 {body}
 <footer class="foot">
@@ -141,21 +143,57 @@ def page(title: str, description: str, depth: int, body: str) -> str:
 """
 
 
-def sentence(paragraphs: list[str], start: str) -> str:
-    """One sentence from the course overview, taken verbatim (fails loudly if the source changed)."""
-    for paragraph in paragraphs:
-        for part in re.split(r"(?<=\.)\s+", paragraph):
-            if part.startswith(start):
-                return part
-    raise SystemExit(f"overview sentence not found: {start!r}")
+# Links in the course's approach page, as pages of this site (relative to the site root).
+APPROACH_LINKS = {
+    "week0/setup.en.md": "course/site/docs/week0/setup.en.html",
+    "../../SYLLABUS.en.md": "syllabus/",
+    "schedule.en.md": "./#schedule",
+}
+
+
+def local_links(source: str, up: str) -> str:
+    """Point the approach page's course-relative links at this site; other relative links keep only their text."""
+    for old, new in APPROACH_LINKS.items():
+        source = source.replace(f"]({old})", f"](site:{up}{new})")
+    return source
+
+
+def sections(source: str) -> tuple[str, list[tuple[str, str]]]:
+    """Split Markdown into its text before the first level-2 heading and (title, body) per level-2 section."""
+    parts = re.split(r"^## (.+)$", source, flags=re.M)
+    intro = "\n".join(line for line in parts[0].strip().splitlines() if not line.startswith("# ")).strip()
+    return intro, [(parts[k].strip(), parts[k + 1].strip()) for k in range(1, len(parts), 2)]
+
+
+def section(source: str, title: str) -> str:
+    """The body of one level-2 section (fails loudly if the source changed)."""
+    for heading, body in sections(source)[1]:
+        if heading == title:
+            return body
+    raise SystemExit(f"section not found: {title!r}")
+
+
+def lead(body: str, count: int = 2) -> str:
+    """The first sentences of a section's first paragraph."""
+    return " ".join(re.split(r"(?<=[.!?])\s+", body.split("\n\n")[0])[:count])
 
 
 def home(course: dict, episodes: list[dict]) -> str:
-    text = course["overview"]
-    lede = " ".join(
-        sentence(text, s)
-        for s in ("Learn to enter an unfamiliar repository", "The teacher's CI dashboard case", "Each student works")
+    intro, parts = sections(local_links(course["approach"], ""))
+    # Principles: the opening two sentences of each short approach section; the stage table, the closing
+    # links and the rest of each section stay on the approach page.
+    principles = "\n".join(
+        f"""    <div class="principle"><h3>{md_inline(title)}</h3><p>{md_inline(lead(body))}</p></div>"""
+        for title, body in parts
+        if "|" not in body and not body.startswith("- ")
     )
+    syllabus = course["syllabus"]["markdown"]
+    outcomes = "".join(
+        f"<li>{md_inline(line[2:])}</li>" for line in section(syllabus, "Learning outcomes").splitlines() if line.startswith("- ")
+    )
+    assessment = section(syllabus, "Assessment").split("\n\n")
+    table_html = markdown(next(block for block in assessment if block.startswith("|")))[0]
+    passing = next(block for block in assessment if block.startswith("Passing requires"))
     weeks = {w["week"]: w for w in course["weeks"]}
     total = sum(e["seconds"] for e in episodes)
     cards = "\n".join(
@@ -175,15 +213,48 @@ def home(course: dict, episodes: list[dict]) -> str:
     body = f"""<header class="hero">
   <p class="kicker">Boxi CS · Course</p>
   <h1>Agentic Software Engineering<span>Build, <em>verify</em>, evaluate.</span></h1>
-  <p class="lede">{inline(lede)}</p>
-  <ul class="facts">
-    <li><b>14</b> weeks</li>
-    <li><b>3</b> personal practices</li>
-    <li><b>5</b> project workshops</li>
-    <li><b>1</b> repository, <code>ci-dashboard</code></li>
-  </ul>
+  <p class="tagline">{inline(course['tagline'])}</p>
+  <p class="lede">{md_inline(intro)}</p>
+  <p class="actions">
+    <a class="button primary" href="syllabus/">Read the syllabus</a>
+    <a class="button" href="approach/">How this course works</a>
+    <a class="button" href="course/">Course materials</a>
+  </p>
 </header>
 <main>
+<section id="approach">
+  <h2>How this course works</h2>
+  <div class="principles">
+{principles}
+  </div>
+  <p><a href="approach/">The full approach, with the four stages of the term →</a></p>
+</section>
+<section id="syllabus">
+  <h2>Syllabus at a glance</h2>
+  <div class="glance">
+    <div>
+      <h3>What you will be able to do</h3>
+      <ul class="outcomes">{outcomes}</ul>
+    </div>
+    <div class="prose">
+      <h3>How the work is assessed</h3>
+      {table_html}
+      <p class="note">{md_inline(passing.split(". ")[0])}.</p>
+    </div>
+  </div>
+  <p><a href="syllabus/">The full syllabus: weekly route, feedback and resits, the project, open-source contributions, workload and AI use →</a></p>
+</section>
+<section id="schedule">
+  <h2>Schedule</h2>
+  <table class="schedule">
+    <thead><tr><th>Week</th><th>Topic</th><th>Deliverables</th></tr></thead>
+    <tbody>
+{rows}
+    </tbody>
+  </table>
+  <!-- Site text: what the labels in the schedule stand for (SYLLABUS.md and the schedule's own wording). -->
+  <p class="note">P1–P3: personal practices · M0–M4: project milestones · C1, C2: open-source contributions · CP1, CP2: 30-minute individual checkpoints.</p>
+</section>
 <section id="videos">
   <h2>Weekly videos</h2>
   <!-- Site text: what the videos are, and their total length. -->
@@ -193,21 +264,18 @@ def home(course: dict, episodes: list[dict]) -> str:
 {cards}
   </div>
 </section>
-<section>
-  <h2>Schedule</h2>
-  <table class="schedule">
-    <thead><tr><th>Week</th><th>Topic</th><th>Deliverables</th></tr></thead>
-    <tbody>
-{rows}
-    </tbody>
-  </table>
-  <!-- Site text: what the labels in the schedule stand for (SYLLABUS.md and the schedule's own wording). -->
-  <p class="note">P1–P3: personal practices · M0–M4: project milestones · CP1, CP2: 30-minute individual checkpoints.</p>
-</section>
-<section>
-  <h2>Syllabus</h2>
-  <p>Learning outcomes, the weekly route, assessment, feedback and resits, the individual project, workload and
-  AI use: <a href="syllabus/">read the syllabus</a>.</p>
+<section id="materials">
+  <h2>Course materials</h2>
+  <!-- Site text: what course/ holds (the course repository's own English student site). -->
+  <p>Everything students work from is public: each week's notes, slides, activities, readings and self-check,
+  the three personal practices, the project instructions and kit, the rubrics and the course policies.</p>
+  <ul class="facts">
+    <li><a href="course/">Start here</a></li>
+    <li><a href="course/lectures/week-01/notes.en.html">Week 1 notes</a></li>
+    <li><a href="course/practice/README.en.html">Personal practices</a></li>
+    <li><a href="course/site/docs/project.en.html">Project</a></li>
+    <li><a href="course/site/docs/glossary.en.html">Glossary</a></li>
+  </ul>
 </section>
 <section>
   <h2>Teaching team</h2>
@@ -220,7 +288,20 @@ def home(course: dict, episodes: list[dict]) -> str:
   <p>Questions about the course: <a href="mailto:{INSTRUCTOR['email']}">{INSTRUCTOR['email']}</a></p>
 </section>
 </main>"""
-    return page(course["title"], lede, 0, body)
+    return page(course["title"], course["tagline"], 0, body)
+
+
+def approach_page(course: dict) -> str:
+    body_html, contents = markdown(local_links(course["approach"], "../"))
+    body = f"""<header class="hero hero-week">
+  <p class="kicker"><a href="../">Agentic Software Engineering</a> · Approach</p>
+  <h1>How this course works</h1>
+  <p class="lede">{inline(course['tagline'])}</p>
+</header>
+<main class="prose">
+{body_html}
+</main>"""
+    return page(f"Approach · {course['title']}", course["tagline"], 1, body)
 
 
 def week_page(course: dict, episodes: list[dict], index: int) -> str:
@@ -250,6 +331,16 @@ def week_page(course: dict, episodes: list[dict], index: int) -> str:
   <section>
     <h2>The idea</h2>
     <p>{inline(e['decision'][0].upper() + e['decision'][1:])}</p>
+  </section>
+  <section>
+    <h2>Materials</h2>
+    <ul class="facts">
+      <li><a href="../../course/lectures/week-{number}/notes.en.html">Notes</a></li>
+      <li><a href="../../course/lectures/week-{number}/slides.en.html">Slides</a></li>
+      <li><a href="../../course/lectures/week-{number}/activities.en.html">Activities</a></li>
+      <li><a href="../../course/lectures/week-{number}/readings.en.html">Readings</a></li>
+      <li><a href="../../course/lectures/week-{number}/selfcheck.en.html">Self-check</a></li>
+    </ul>
   </section>
   <section>
     <h2>This week</h2>
@@ -286,17 +377,20 @@ def main() -> None:
     (ROOT / "index.html").write_text(home(course, episodes))
     (ROOT / "syllabus").mkdir(exist_ok=True)
     (ROOT / "syllabus/index.html").write_text(syllabus_page(course))
+    (ROOT / "approach").mkdir(exist_ok=True)
+    (ROOT / "approach/index.html").write_text(approach_page(course))
     for index, e in enumerate(episodes):
         folder = ROOT / "weeks" / f"{e['week']:02d}"
         folder.mkdir(parents=True, exist_ok=True)
         (folder / "index.html").write_text(week_page(course, episodes, index))
         for lang, srt in e["subtitles"].items():
             (folder / f"{lang}.vtt").write_text(vtt(srt))
-    internal = re.compile(r"PR #\d|\bT-\d{3}\b|\bD\d{2}\b|ASE-\d+|reviewed_by|site/docs/|instructor/")
-    for built in [ROOT / "index.html", ROOT / "syllabus/index.html", *sorted(ROOT.glob("weeks/*/index.html"))]:
+    internal = re.compile(r"PR #\d|\bT-\d{3}\b|\bD\d{2}\b|ASE-\d+|reviewed_by|instructor/")
+    pages = [ROOT / "index.html", ROOT / "approach/index.html", ROOT / "syllabus/index.html"]
+    for built in [*pages, *sorted(ROOT.glob("weeks/*/index.html"))]:
         if match := internal.search(built.read_text()):
             raise SystemExit(f"{built.relative_to(ROOT)}: internal reference {match.group(0)!r}")
-    print(f"built index.html, syllabus/index.html and {len(episodes)} week pages")
+    print(f"built index.html, approach/index.html, syllabus/index.html and {len(episodes)} week pages")
 
 
 if __name__ == "__main__":

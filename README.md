@@ -5,7 +5,8 @@ The public site for *Agentic Software Engineering: Build, Verify, Evaluate*, ser
 
 It has a home page (overview, weekly videos, schedule, teaching team), the syllabus, and one page per week with that
 week's film, English and Chinese subtitles, the idea it teaches and the week's lecture, workshop and
-deliverables. Course notes and assignments are not published here.
+deliverables. `course/` holds the full student materials: the course repository's own English student site
+(notes, slides, activities, readings, self-checks, practices, project, rubrics and policies).
 
 ## How it is built
 
@@ -22,6 +23,7 @@ read from. The films themselves are assets of the
 so the repository stays small.
 
 ```sh
+python3 tools/course_site.py --course ../agentic-se-course    # course/: the course's own English student site
 python3 tools/export_data.py --course ../agentic-se-course --videos ../agentic-se-videos
 ~/Documents/agentic-se-videos/.venv/bin/python tools/posters.py --videos ../agentic-se-videos   # weeks/NN/poster.jpg
 python3 build.py

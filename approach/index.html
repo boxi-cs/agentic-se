@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Approach · Agentic Software Engineering: Build, Verify, Evaluate</title>
+<meta name="description" content="Agents generate. You verify, decide and explain.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<nav class="top">
+  <a class="brand" href="../">Agentic Software Engineering</a>
+  <span><a href="../approach/">Approach</a><a href="../syllabus/">Syllabus</a><a href="../#schedule">Schedule</a><a href="../#videos">Videos</a><a href="../course/">Course materials</a><a href="https://boxiyu.github.io/">Instructor</a></span>
+</nav>
+<header class="hero hero-week">
+  <p class="kicker"><a href="../">Agentic Software Engineering</a> · Approach</p>
+  <h1>How this course works</h1>
+  <p class="lede">Agents generate. You verify, decide and explain.</p>
+</header>
+<main class="prose">
+<p>A coding agent can produce a plausible change in seconds. This course is about what comes after that: deciding whether the change is right, whether it is safe to run and whether you can explain it to someone who was not there.</p>
+<h2 id="generate-then-verify">Generate, then verify</h2>
+<p>Every example in the course shows both steps. The agent proposes; you check. A passing test you can rerun is evidence. An agent that says &quot;done&quot; has made a claim, and a claim is where your work starts.</p>
+<h2 id="start-from-a-decision-you-can-get-wrong">Start from a decision you can get wrong</h2>
+<p>A class opens with a question that has a wrong answer. You save your own prediction before any discussion. Then you inspect a candidate or a trace, run a check that tells the possible answers apart, revise after feedback and try the same idea on a changed input. Saving the prediction first shows you what you actually expected, not what you remember expecting.</p>
+<h2 id="decide-instead-of-regenerating">Decide instead of regenerating</h2>
+<p>When a candidate passes, choose what to do next: <strong>accept</strong> it, <strong>narrow</strong> the task, <strong>recheck</strong> something specific or <strong>stop</strong>. Asking for another generation helps only when it answers a question you can name.</p>
+<h2 id="one-repository-followed-for-fourteen-weeks">One repository, followed for fourteen weeks</h2>
+<p>The teacher follows one continuing case: a CI dashboard that tells a developer which build failed and what to inspect next. From week 3 you work in your own copy of <code>ci-dashboard</code> and carry one path through every stage. You also build a complete feature in a real open-source project, through two or three approved contributions.</p>
+<div class="table-wrap"><table><thead><tr><th>Weeks</th><th>Question</th><th>What you carry forward</th></tr></thead><tbody><tr><td>1-3</td><td>What happened, and where should a bounded agent act?</td><td>A counterexample, a controller trace and a request-path map</td></tr><tr><td>4-8</td><td>What does the user need, and does the change keep required behavior?</td><td>An executable specification, a reviewed PR, tests and security regressions</td></tr><tr><td>9-11</td><td>Can the experiment, the evaluator and the running service be trusted?</td><td>A frozen protocol, evaluator checks and recovery evidence</td></tr><tr><td>12-14</td><td>What survives another person&#x27;s review and actual use?</td><td>A verified audit response, a tested iteration and a result you explain yourself</td></tr></tbody></table></div>
+<p>Each stage reuses the work from the one before. You keep one artifact, its verification and a short explanation in your own words, and attach your AI-use note once.</p>
+<h2 id="you-can-explain-it-without-the-agent">You can explain it without the agent</h2>
+<p>Agents are welcome in open work. Your understanding is assessed without them: two short checkpoints and an oral defense, 40 of the 100 points, are done without AI. In the defense you meet a changed input and decide what to do. If you verified your own work during the term, you have already practiced this.</p>
+<h2 id="mechanisms-before-tools">Mechanisms before tools</h2>
+<p>Tools change quickly. The course teaches what stays useful across them: what context a model saw, which tool calls it could make, when it stopped and what evidence supports the result. You build a small agent yourself in week 2 so that later tools are less mysterious. Optional features and extra tool integrations are never required for full marks.</p>
+<h2 id="safety-is-part-of-the-method">Safety is part of the method</h2>
+<p>Code and commands that a model writes or suggests run inside the course launcher, not directly on your machine. <a href="../course/site/docs/week0/setup.en.html">Week 0 setup</a> explains it once.</p>
+<h2 id="where-to-go-next">Where to go next</h2>
+<ul><li>The <a href="../syllabus/">syllabus</a> has the learning outcomes, the weekly route and how the work is assessed.</li><li>The <a href=".././#schedule">schedule</a> lists each week&#x27;s lecture, workshop and deliverables.</li><li><a href="../course/site/docs/week0/setup.en.html">Week 0 setup</a> gets your environment ready before week 1.</li></ul>
+</main>
+<footer class="foot">
+  <p>Videos: English narration in a draft synthetic voice (LJ Speech, public domain), with English and
+  Chinese subtitles. Every example in them is course-authored and synthetic.</p>
+  <p>Contact: <a href="mailto:boxi.yu@ul.ie">boxi.yu@ul.ie</a> ·
+  <a href="https://github.com/boxi-cs/agentic-se">Source for this site</a> · Boxi CS</p>
+</footer>
+</body>
+</html>

@@ -2,7 +2,7 @@
 
     python3 tools/export_data.py --course ~/Documents/agentic-se-course --videos ~/Documents/agentic-se-videos
 
-Writes data/course.json (the public English overview, 14-week schedule and English syllabus,
+Writes data/course.json (the course's tagline and approach page, its 14-week schedule and English syllabus,
 read from the course repository at its origin/main; the syllabus translation must match its source) and data/episodes.json (each weekly episode's title,
 decision, length and subtitles, read from the video repository's origin/main). Nothing else from
 either repository is copied.
@@ -20,11 +20,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 # The public syllabus is SYLLABUS.en.md verbatim, except for these edits for a public page.
 SYLLABUS_EDITS = [
-    # An internal pull-request reference: keep the fact, drop the reference.
-    (
-        "PR #285 added a required Week 2 session dissection whose activity page estimates",
-        "Week 2 includes a required session dissection whose activity page estimates",
-    ),
     # Week 0 setup is given to enrolled students and is not on the public site.
     (" See [Week 0 setup](site/docs/week0/setup.en.md) for the supported execution route.", ""),
 ]
@@ -65,11 +60,36 @@ def parse_schedule(text: str) -> list[dict[str, object]]:
     return weeks
 
 
-def overview(text: str) -> list[str]:
-    """The paragraphs of site/docs/index.en.md after its front matter and heading."""
-    body = text.split("---", 2)[2]
-    paragraphs = [p.strip() for p in body.split("\n\n") if p.strip() and not p.strip().startswith("#")]
-    return paragraphs
+def prose(text: str) -> str:
+    """A page's Markdown without front matter, with each paragraph and list item on one line.
+
+    The site's renderer starts a new paragraph at every line break, so wrapped source lines are joined.
+    """
+    body = text.split("---\n", 2)[2] if text.startswith("---\n") else text
+    blocks = []
+    for block in re.split(r"\n\s*\n", body.strip()):
+        lines = block.splitlines()
+        if lines[0].startswith(("#", "|")):
+            blocks.append(block)
+        elif lines[0].startswith("- "):
+            items: list[str] = []
+            for line in lines:
+                if line.startswith("- "):
+                    items.append(line)
+                else:
+                    items[-1] += " " + line.strip()
+            blocks.append("\n".join(items))
+        else:
+            blocks.append(" ".join(line.strip() for line in lines))
+    return "\n\n".join(blocks)
+
+
+def tagline(text: str) -> str:
+    """The course home's one-line bold tagline."""
+    match = re.search(r"^\*\*(.+)\*\*$", text, re.M)
+    if not match:
+        raise SystemExit("course home tagline not found in site/docs/index.en.md")
+    return match.group(1)
 
 
 def decision(script: str) -> str:
@@ -87,7 +107,8 @@ def main() -> None:
     course = {
         "source": {"repository": "boxi-cs/agentic-se-course", "commit": course_sha},
         "title": "Agentic Software Engineering: Build, Verify, Evaluate",
-        "overview": overview(git(args.course, "show", f"{course_sha}:site/docs/index.en.md")),
+        "tagline": tagline(git(args.course, "show", f"{course_sha}:site/docs/index.en.md")),
+        "approach": prose(git(args.course, "show", f"{course_sha}:site/docs/approach.en.md")),
         "weeks": parse_schedule(git(args.course, "show", f"{course_sha}:site/schedule.en.yaml")),
     }
     syllabus_en = git(args.course, "show", f"{course_sha}:SYLLABUS.en.md")
