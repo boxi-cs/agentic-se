@@ -1,7 +1,7 @@
 {
   "source": {
     "repository": "boxi-cs/agentic-se-course",
-    "commit": "7857d032b32b9b4cb324be32c842535803238b2d"
+    "commit": "d17714c7d7eeffee5d83b820af35424b6e0f29dc"
   },
   "title": "Agentic Software Engineering: Build, Verify, Evaluate",
   "tagline": "Agents generate. You verify, decide and explain.",

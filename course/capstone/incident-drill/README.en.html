@@ -5097,6 +5097,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#before-the-drill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Before the drill
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#run-the-drill" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5119,10 +5130,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#60-minute-facilitation" class="md-nav__link">
+  <a href="#the-60-minute-session" class="md-nav__link">
     <span class="md-ellipsis">
       
-        60-minute facilitation
+        The 60-minute session
       
     </span>
   </a>
@@ -8438,6 +8449,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#before-the-drill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Before the drill
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#run-the-drill" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8460,10 +8482,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#60-minute-facilitation" class="md-nav__link">
+  <a href="#the-60-minute-session" class="md-nav__link">
     <span class="md-ellipsis">
       
-        60-minute facilitation
+        The 60-minute session
       
     </span>
   </a>
@@ -8492,23 +8514,29 @@
 It uses synthetic JSON state files and writes only to a run directory chosen for this
 exercise. It does not start the application, contact a hosted service, open a socket,
 resolve DNS, read environment variables or execute a student runbook.</p>
-<p>The instructor supplies a frozen snapshot and one scenario. The scenario is kept under
-<code>instructor/</code> because its fault and recovery values are teacher material. The public
-scripts still expose the safe state transition and the evidence students inspect.</p>
+<h2 id="before-the-drill">Before the drill</h2>
+<p>The drill scripts and templates are in this folder. The teaching team hands out the rest in
+class: a frozen snapshot of synthetic <code>ci-dashboard</code> state and one scenario. The scenario
+stays with the teaching team until the drill starts, because its fault and recovery values
+are what you diagnose. Until you have them, the commands below will not run; practise with
+<a href="../../lectures/week-11/activities.en.html#observe-before-you-repair">observe before you repair</a>
+instead.</p>
 <h2 id="run-the-drill">Run the drill</h2>
-<p>From the course root, use a fresh run directory:</p>
-<pre><code class="language-sh">mkdir -p /tmp/ase-incident-demo
+<p>Save the snapshot in <code>capstone/incident-drill/instructor/</code> and the scenario in
+<code>capstone/incident-drill/instructor/scenarios/</code>; <code>drill.py</code> looks for the scenario there by
+name. Then, from the course root, use a fresh run directory and the seed you were given:</p>
+<pre><code class="language-sh">mkdir -p capstone/incident-drill/instructor/scenarios /tmp/ase-incident-demo
 python3 capstone/incident-drill/drill.py \
   --snapshot capstone/incident-drill/instructor/snapshot-ci-dashboard.json \
   --scenario status-cache-outage \
-  --seed 11 \
+  --seed &lt;your seed&gt; \
   --run-dir /tmp/ase-incident-demo
 </code></pre>
 <p>The command records <code>baseline.json</code>, the injected <code>current.json</code> and <code>state.json</code>. A
 second invocation with the same snapshot, scenario, seed and run directory is idempotent;
 it returns the existing evidence without injecting a second fault. Inspect the changed
 synthetic status before attempting recovery.</p>
-<p>Have the student complete <code>runbook.template.md</code>, then run:</p>
+<p>Complete your copy of <code>runbook.template.md</code>, then run:</p>
 <pre><code class="language-sh">python3 capstone/incident-drill/recover.py \
   --run-dir /tmp/ase-incident-demo \
   --runbook path/to/student-runbook.md
@@ -8516,7 +8544,7 @@ synthetic status before attempting recovery.</p>
 <p>Recovery validates the runbook headings, records its hash, restores the synthetic baseline,
 and checks that the resulting state has the original digest. It never evaluates or executes
 Markdown or shell text. Repeating the recovery command after a successful verification is
-also idempotent. Delete the temporary run directory after the instructor has copied the
+also idempotent. Delete the temporary run directory after the teaching team has copied the
 minimal evidence required by the M2 work record.</p>
 <h2 id="safety-and-evidence">Safety and evidence</h2>
 <p>The scripts are intentionally smaller than a deployment system. They model the diagnosis,
@@ -8524,14 +8552,12 @@ recovery and verification decisions without pretending to prove container isolat
 run them with a real deployment manifest, real credentials, participant material or a path
 that is a symlink. A malformed snapshot, scenario mismatch, changed baseline or modified
 injected state fails closed. A student record should include the snapshot, scenario, seed,
-observed fault, stop condition, recovery digest and remaining uncertainty. The
+observed fault, stop condition, recovery digest and remaining uncertainty.
 The <code>postmortem.en.md</code> template keeps this in the same work record; it is not a second
 assessment submission.</p>
-<p>This is a teaching scaffold. Container and network-namespace enforcement, forced-interruption
-cleanup, roster allocation and the human scoring checklist are follow-up work; this scaffold
-does not provide those safeguards. Use it only for the local, synthetic exercise described above.</p>
-<h2 id="60-minute-facilitation">60-minute facilitation</h2>
-<p>Use 10 minutes to state the expected user-visible invariant and write a prediction, 15 to
+<p>Use the drill only for the local, synthetic exercise described above.</p>
+<h2 id="the-60-minute-session">The 60-minute session</h2>
+<p>The session uses 10 minutes to state the expected user-visible invariant and write a prediction, 15 to
 run and inspect the injected state, 15 to compare one observation with the runbook, 10 to
 recover and verify, and 10 to write the short postmortem. Each student runs the same local
 scenario with a distinct seed and writes their own diagnosis and verification. If a local
@@ -8616,7 +8642,7 @@ walkthrough or an approved accessible equivalent rather than running on a host d
     <a href="../../licenses/LICENSE-CONTENT.txt">Original course content scope</a>
   </div>
   <div>
-    Third-party materials retain their original licenses and are excluded from MIT (D15).
+    Third-party materials retain their original licenses and are excluded from MIT.
     <a href="../../licenses/THIRD_PARTY_NOTICES.md.txt">Third-party notices</a>
   </div>
 </div>
