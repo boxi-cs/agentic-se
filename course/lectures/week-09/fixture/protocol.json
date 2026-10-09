@@ -1,0 +1,13 @@
+{
+  "fixture_version": "week09-reporting-v1",
+  "provenance": "course-authored synthetic reporting records; not model runs",
+  "task_ids": [
+    "s9-a",
+    "s9-b",
+    "s9-c",
+    "s9-d"
+  ],
+  "attempts_per_task": 1,
+  "timeout_policy": "count_as_unsuccessful",
+  "split": "teaching"
+}

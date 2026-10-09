@@ -1,0 +1,17 @@
+{
+  "kind": "recorded_agent_proposals",
+  "provenance": "Course-authored replay. No model was called; these replies stand in for an agent's answer so that every student verifies the same two proposals.",
+  "request": "Add a visible `Status: All` control to the existing build page. Preserve the current query contract, result order, permission check and keyboard operation.",
+  "proposals": [
+    {
+      "id": "proposal-a",
+      "file": "proposal-a.html",
+      "reply": "I added a visible, labelled Status filter before Refresh. It is a native select, so it works with the keyboard. I left the Options menu unchanged so nothing else breaks. Failed builds are now one step away."
+    },
+    {
+      "id": "proposal-b",
+      "file": "proposal-b.html",
+      "reply": "I moved the existing status select out of Options and labelled it Status. It still sends the `status` field, so the query is unchanged. Options now holds only a display setting. Failed builds are now one step away."
+    }
+  ]
+}

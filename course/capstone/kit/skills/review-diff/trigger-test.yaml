@@ -1,0 +1,26 @@
+# Course-authored synthetic example; these values are not participant observations.
+# Replace observer_detail and observed with an actual observer's results when using it.
+skill: review-diff
+observer: peer
+observer_detail: Synthetic peer selection for this format example; no classmate or agent session was observed.
+prompts:
+  - id: check-uncommitted
+    prompt: Inspect these uncommitted changes against the project rules and cite every finding.
+    should_trigger: true
+    predicted: true
+    observed: true
+  - id: classify-findings
+    prompt: Review the diff and separate required repairs from suggestions and open questions.
+    should_trigger: true
+    predicted: true
+    observed: true
+  - id: reproduce-review
+    prompt: Check each changed hunk, run the listed verification, and report evidence with locations.
+    should_trigger: true
+    predicted: true
+    observed: true
+  - id: design-plan
+    prompt: Convert the feature requirements into a plan before any code is changed.
+    should_trigger: false
+    predicted: false
+    observed: false

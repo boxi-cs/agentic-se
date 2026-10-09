@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-labelledby="title desc">
+  <title id="title">Generation uses the available context</title>
+  <desc id="desc">Context enters a model, which selects the next token. That token is appended to the context and generation repeats. No code execution is shown.</desc>
+  <defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="#18332f"/></marker></defs>
+  <g font-family="Georgia, serif" fill="#18332f">
+    <rect x="20" y="35" width="350" height="145" rx="8" fill="#e4ebe5" stroke="#18332f" stroke-width="2"/>
+    <text x="45" y="78" font-size="32">Available context</text>
+    <text x="45" y="119" font-size="25">Request + visible content</text>
+    <text x="45" y="153" font-size="25">+ tokens generated so far</text>
+    <rect x="470" y="35" width="265" height="145" rx="8" fill="#faf7ef" stroke="#18332f" stroke-width="2"/>
+    <text x="500" y="83" font-size="32">Model</text>
+    <text x="500" y="125" font-size="25">Predict, then select</text>
+    <text x="500" y="157" font-size="25">the next token</text>
+    <rect x="850" y="35" width="320" height="145" rx="8" fill="#efe7d8" stroke="#934126" stroke-width="2"/>
+    <text x="880" y="88" font-size="32">Selected token</text>
+    <text x="880" y="135" font-size="25">One text unit</text>
+    <path d="M370 107 H457 M735 107 H837" stroke="#18332f" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+    <path d="M1010 180 V248 H195 V191" stroke="#18332f" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+    <rect x="386" y="228" width="416" height="38" fill="#faf7ef"/>
+    <text x="594" y="256" text-anchor="middle" font-size="26">Append to context and repeat</text>
+  </g>
+</svg>

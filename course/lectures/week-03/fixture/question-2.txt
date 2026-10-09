@@ -1,0 +1,6 @@
+About POST /domains/ci_dashboard/projects/new in the ci-dashboard repository. A signed-in
+user sends a valid CSRF token, a description and a 121-character title directly, not
+through the browser form. Use only the context above, and use null for anything it does
+not show. Reply with one JSON object only:
+{"status": HTTP status of that request, "status_file": file that decides it,
+"title_limit": longest title the server accepts, "limit_file": file that sets that number}

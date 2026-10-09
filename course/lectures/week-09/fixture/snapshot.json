@@ -1,0 +1,8 @@
+{
+  "fixture_version": "week09-reporting-v1",
+  "provenance": "course-authored synthetic reporting records; not model runs",
+  "sha256": {
+    "protocol.json": "949ac72fd70cf4a549fb330193eece6c25acaf4dde362af63309da73b9f40c69",
+    "observations.json": "effbb0027c988fb42f19463706f6ccc62887d77ede8818979c881c145fc1438a"
+  }
+}

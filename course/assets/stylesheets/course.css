@@ -1,0 +1,20 @@
+/* Course home: a short tagline, a call-to-action row and principle cards. */
+.md-typeset .course-tagline {
+  font-size: 1.25em;
+  margin-top: -0.4em;
+}
+
+.md-typeset .course-actions .md-button {
+  margin: 0 0.5em 0.6em 0;
+}
+
+.md-typeset .grid.cards > ul > li > p:first-child strong {
+  color: var(--md-primary-fg-color);
+}
+
+/* Four principles read as a 2 x 2 block on wide screens. */
+@media screen and (min-width: 45em) {
+  .md-typeset .grid.cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

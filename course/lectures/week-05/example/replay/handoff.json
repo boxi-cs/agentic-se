@@ -1,0 +1,14 @@
+{
+  "task": "Add the skipped status to domains/labels.py: status_label(' Skipped ') returns 'skipped' and every other input keeps its current label.",
+  "to": "implementer",
+  "may_change": [
+    "domains/labels.py"
+  ],
+  "run": [
+    "python -B pre_commit.py '{\"event\":\"before_commit\",\"paths\":[\"domains/labels.py\"]}'",
+    "python3 -I launch.py smoke"
+  ],
+  "hand_back": [
+    "not_checked"
+  ]
+}

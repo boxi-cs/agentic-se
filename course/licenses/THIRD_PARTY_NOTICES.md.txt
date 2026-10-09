@@ -1,0 +1,15 @@
+# Third-Party Notices
+
+The MIT License in this repository applies only to original project material.
+Third-party software, datasets, model weights, media, standards, papers, and
+course materials retain their original licenses and terms.
+
+Before redistributing third-party material with a course package, add an entry
+to the table below and verify that redistribution and the intended use are
+permitted. A citation or external link does not by itself relicense the linked
+material.
+
+| Material | Source | Copyright holder | License | Included paths | Notes |
+|---|---|---|---|---|---|
+
+No third-party notices have been registered in this bootstrap snapshot.

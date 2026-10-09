@@ -1,0 +1,26 @@
+# Course-authored synthetic example; these values are not participant observations.
+# Replace observer_detail and observed with an actual observer's results when using it.
+skill: plan-change
+observer: peer
+observer_detail: Synthetic peer selection for this format example; no classmate or agent session was observed.
+prompts:
+  - id: bounded-plan
+    prompt: Turn these acceptance criteria into a file-by-file plan before implementation starts.
+    should_trigger: true
+    predicted: true
+    observed: true
+  - id: test-mapping
+    prompt: Map every requirement to one named check and say which files are allowed to change.
+    should_trigger: true
+    predicted: true
+    observed: true
+  - id: scope-review
+    prompt: Draft a reviewable feature plan with line references and explicit non-goals.
+    should_trigger: true
+    predicted: true
+    observed: true
+  - id: current-state
+    prompt: Record what the repository currently does without choosing an implementation.
+    should_trigger: false
+    predicted: false
+    observed: false

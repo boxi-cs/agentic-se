@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["task", "environment", "agent", "scorer"],
+  "properties": {
+    "task": {"type": "string", "pattern": "\\S", "maxLength": 2000},
+    "environment": {"type": "string", "pattern": "\\S", "maxLength": 2000},
+    "agent": {"type": "string", "pattern": "\\S", "maxLength": 2000},
+    "scorer": {"type": "string", "pattern": "\\S", "maxLength": 2000}
+  }
+}

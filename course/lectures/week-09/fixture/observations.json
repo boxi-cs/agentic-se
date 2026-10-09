@@ -1,0 +1,22 @@
+[
+  {
+    "task_id": "s9-a",
+    "attempts": 1,
+    "result": "pass"
+  },
+  {
+    "task_id": "s9-b",
+    "attempts": 1,
+    "result": "fail"
+  },
+  {
+    "task_id": "s9-c",
+    "attempts": 1,
+    "result": "pass"
+  },
+  {
+    "task_id": "s9-d",
+    "attempts": 1,
+    "result": "timeout"
+  }
+]

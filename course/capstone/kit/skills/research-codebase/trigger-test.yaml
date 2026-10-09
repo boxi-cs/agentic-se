@@ -1,0 +1,26 @@
+# Course-authored synthetic example; these values are not participant observations.
+# Replace observer_detail and observed with an actual observer's results when using it.
+skill: research-codebase
+observer: peer
+observer_detail: Synthetic peer selection for this format example; no classmate or agent session was observed.
+prompts:
+  - id: map-request
+    prompt: Trace this request through the repository and cite the exact files and lines you observed.
+    should_trigger: true
+    predicted: true
+    observed: true
+  - id: current-facts
+    prompt: Tell me what the existing handlers and tests do before we discuss any edits.
+    should_trigger: true
+    predicted: true
+    observed: true
+  - id: unfamiliar-path
+    prompt: Build a read-only call-path record for this unfamiliar module with source locations.
+    should_trigger: true
+    predicted: true
+    observed: true
+  - id: write-fix
+    prompt: Implement the requested change and add a regression test.
+    should_trigger: false
+    predicted: false
+    observed: false

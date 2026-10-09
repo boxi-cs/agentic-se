@@ -1,0 +1,62 @@
+[
+  {
+    "name": "message_wording_only",
+    "kind": "equivalent",
+    "reason": "Error wording is unspecified by the validation contract."
+  },
+  {
+    "name": "text_empty_allowed",
+    "kind": "behavioral",
+    "reason": "Empty text is outside the accepted text contract."
+  },
+  {
+    "name": "text_limit_off_by_one",
+    "kind": "behavioral",
+    "reason": "The inclusive 120-character boundary is part of the contract."
+  },
+  {
+    "name": "integer_accepts_bool",
+    "kind": "behavioral",
+    "reason": "Booleans must not pass as integers."
+  },
+  {
+    "name": "timestamp_accepts_offset",
+    "kind": "behavioral",
+    "reason": "UTC timestamps require the Z marker; offsets are rejected."
+  },
+  {
+    "name": "duplicate_keys_allowed",
+    "kind": "behavioral",
+    "reason": "Duplicate imported keys are rejected."
+  },
+  {
+    "name": "nonfinite_json_allowed",
+    "kind": "behavioral",
+    "reason": "Nonfinite JSON extensions are rejected."
+  },
+  {
+    "name": "document_accepts_non_object",
+    "kind": "behavioral",
+    "reason": "Only JSON objects are accepted."
+  },
+  {
+    "name": "unknown_status_allowed",
+    "kind": "behavioral",
+    "reason": "Status values are limited to the published set."
+  },
+  {
+    "name": "calendar_check_removed",
+    "kind": "behavioral",
+    "reason": "Invalid calendar dates are rejected."
+  },
+  {
+    "name": "equivalent_comment_only",
+    "kind": "equivalent",
+    "reason": "A comment has no runtime effect under the validation contract."
+  },
+  {
+    "name": "equivalent_parentheses_only",
+    "kind": "control",
+    "reason": "Parentheses around the returned integer have no runtime effect."
+  }
+]

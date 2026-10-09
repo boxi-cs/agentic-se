@@ -1,0 +1,9728 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Build, verify and explain with coding agents.">
+      
+      
+      
+      
+        <link rel="prev" href="README.en.html">
+      
+      
+        <link rel="next" href="slides.en.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Week 3 notes - Agentic Software Engineering: Build, Verify, Evaluate</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/course.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#week-3-context-engineering-and-agent-workflows" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../index.html" title="Agentic Software Engineering: Build, Verify, Evaluate" class="md-header__button md-logo" aria-label="Agentic Software Engineering: Build, Verify, Evaluate" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Agentic Software Engineering: Build, Verify, Evaluate
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Week 3 notes
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../site/docs/approach.en.html" class="md-tabs__link">
+          
+  
+  
+  Course
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../site/docs/week0/setup.en.html" class="md-tabs__link">
+          
+  
+  
+  Start here
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../site/docs/weeks/week-01.en.html" class="md-tabs__link">
+          
+  
+  
+  Weeks
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../practice/README.en.html" class="md-tabs__link">
+          
+  
+  
+  Practice and project
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../site/docs/policies/assessment.en.html" class="md-tabs__link">
+          
+  
+  
+  Policies
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../site/docs/glossary.en.html" class="md-tabs__link">
+          
+  
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="Agentic Software Engineering: Build, Verify, Evaluate" class="md-nav__button md-logo" aria-label="Agentic Software Engineering: Build, Verify, Evaluate" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Agentic Software Engineering: Build, Verify, Evaluate
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Course
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/docs/approach.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How this course works
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SYLLABUS.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Syllabus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/docs/schedule.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schedule
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/docs/staff.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Help with setup and learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Start here
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Start here
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/docs/week0/setup.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Set up, generate, then verify
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/docs/week0/primer.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    From a plausible answer to checked work
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/docs/week0/fallbacks.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fallback checklist
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assessment/diagnostic/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Check your starting point
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infra/hosted/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Check the approved model route
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infra/classroom/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GitHub assignment submission and public feedback
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Weeks
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Weeks
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 1: A plausible patch and a failing build
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 1: A plausible patch and a failing build
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/docs/weeks/week-01.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 1 overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-01/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 1 guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-01/notes.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 1 notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-01/slides.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 1 slides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-01/activities.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 1 activities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-01/readings.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 1 readings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-01/selfcheck.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 1 self-check
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-01/selfcheck-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 1 self-check answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-01/fixture/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard status demonstration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../_activities/calibration/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Predict, execute, verify, improve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../_activities/calibration/fixtures/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synthetic calibration log fixture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 2: Build and inspect a small agent
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 2: Build and inspect a small agent
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/docs/weeks/week-02.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 2 overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-02/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 2 guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-02/notes.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 2 notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-02/slides.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 2 slides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-02/activities.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 2 activities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-02/readings.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 2 readings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-02/selfcheck.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 2 self-check
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-02/selfcheck-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 2 self-check answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-02/dissection.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dissect a recorded agent session
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-02/prompt-dissection.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compare two production prompts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3: Find the change in an unfamiliar repository
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 3: Find the change in an unfamiliar repository
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/docs/weeks/week-03.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3 overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3 guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3 notes
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="notes.en.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3 notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#minimal-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimal example
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Minimal example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-continuing-dashboard-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The continuing dashboard case
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-real-path-the-project-list-in-ci-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A real path: the project list in ci-dashboard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#context-is-an-intervention-we-can-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context is an intervention we can test
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-a-packet-of-your-own" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build a packet of your own
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compaction-what-survives-a-shorter-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compaction: what survives a shorter history
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-skill-packages-a-repeatable-procedure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A skill packages a repeatable procedure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-tool-is-an-interface-for-a-reader-that-guesses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A tool is an interface for a reader that guesses
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#watch-an-agent-use-both-servers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Watch an agent use both servers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#brakes-hooks-and-the-sandbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Brakes, hooks and the sandbox
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dissect-a-mature-agents-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dissect a mature agent's run
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hands-on-exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hands-on exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transfer-to-a-new-situation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transfer to a new situation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="slides.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3 slides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="activities.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3 activities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="readings.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3 readings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="selfcheck.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3 self-check
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="selfcheck-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3 self-check answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fixture/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3 fixtures: context packets, a long session and two tool servers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/context-workshop/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Repository context and boundaries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/context-workshop/student/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    repository-context workshop: Find the relevant context
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/context-workshop/student/EXTENSIONS.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optional extensions: the HTTP adapter and three A/B pairs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/context-workshop/student/SPEC.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capability contract, version 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/context-workshop/student/explanation.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Explain your work
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/context-workshop/student/starter-app/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Label service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 4: Turn a user need into an executable specification
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 4: Turn a user need into an executable specification
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/docs/weeks/week-04.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 4 overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-04/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 4 guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-04/notes.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 4 notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-04/slides.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 4 slides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-04/activities.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 4 activities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-04/readings.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 4 readings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-04/selfcheck.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 4 self-check
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-04/selfcheck-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 4 self-check answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-04/example/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synthetic failure-filter example
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/discovery-workshop/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Discovery and an executable specification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/discovery-workshop/student/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Discovery workshop: write and freeze an executable M0 specification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/discovery-workshop/student/interviews/interview-1.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User discovery notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/discovery-workshop/student/interviews/interview-2.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User discovery notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/discovery-workshop/student/personas/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Original synthetic course exercise: L3-DISCOVERY-V1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/discovery-workshop/student/spec/feature.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    M0 feature specification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 5: Deliver a small change without breaking callers
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 5: Deliver a small change without breaking callers
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/docs/weeks/week-05.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 5 overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-05/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 5 guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-05/notes.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 5 notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-05/slides.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 5 slides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-05/activities.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 5 activities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-05/readings.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 5 readings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-05/selfcheck.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 5 self-check
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-05/selfcheck-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 5 self-check answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-05/cp1-practice.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP1 practice: Trace, test, repair, protect
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-05/example/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Worked example: a context file and a pre-commit hook for ci-dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-05/readiness-practice.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Make your copy ready for an agent: a context file, a hook gate and a hand-off
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 6: Review and delegate a bounded change
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 6: Review and delegate a bounded change
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/docs/weeks/week-06.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 6 overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-06/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 6 guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-06/notes.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 6 notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-06/slides.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 6 slides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-06/activities.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 6 activities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-06/readings.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 6 readings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-06/selfcheck.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 6 self-check
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-06/selfcheck-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 6 self-check answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-06/background-agent.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Review what a background agent hands back
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-06/fixture/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    One change, one contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-06/fixture/sample-run.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    A sample issue run to review
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_7" id="__nav_4_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 7: Challenge the tests
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 7: Challenge the tests
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/docs/weeks/week-07.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 7 overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-07/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 7 guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-07/notes.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 7 notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-07/slides.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 7 slides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-07/activities.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 7 activities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-07/readings.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 7 readings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-07/selfcheck.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 7 self-check
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-07/selfcheck-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 7 self-check answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/testing-workshop/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tests that detect a meaningful fault
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/testing-workshop/project/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ci-dashboard validation project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_8" id="__nav_4_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 8: Protect the agent and the application
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 8: Protect the agent and the application
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/docs/weeks/week-08.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 8 overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-08/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 8 guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-08/notes.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 8 notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-08/slides.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 8 slides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-08/activities.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 8 activities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-08/readings.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 8 readings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-08/selfcheck.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 8 self-check
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-08/selfcheck-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 8 self-check answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-08/fixture/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Public fixture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/security-workshop/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    An inert attack, a working defense and triaged scanner findings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/security-workshop/student/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security workshop student bundle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/security-workshop/student/victim-project/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Victim project fixture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_9" id="__nav_4_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9: Compare workflows with a fixed experiment
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 9: Compare workflows with a fixed experiment
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/docs/weeks/week-09.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9 overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-09/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9 guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-09/notes.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9 notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-09/slides.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9 slides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-09/activities.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9 activities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-09/readings.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9 readings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-09/selfcheck.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9 self-check
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-09/selfcheck-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9 self-check answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-09/fixture/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Public fixture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_10" id="__nav_4_10_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 10: Test the evaluator and build a regression gate
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 10: Test the evaluator and build a regression gate
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/docs/weeks/week-10.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 10 overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-10/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 10 guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-10/notes.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 10 notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-10/slides.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 10 slides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-10/activities.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 10 activities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-10/readings.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 10 readings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-10/selfcheck.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 10 self-check
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-10/selfcheck-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 10 self-check answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-10/cp2-preparation.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preparing for CP2 with public examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-10/fixture/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Public fixture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/evaluator-workshop/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    A project evaluator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/evaluator-workshop/student/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    evaluator workshop: Does your evaluator deserve your trust?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_11" id="__nav_4_11_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 11: Recover a user path after an incident
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 11: Recover a user path after an incident
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/docs/weeks/week-11.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 11 overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-11/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 11 guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-11/notes.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 11 notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-11/slides.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 11 slides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-11/activities.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 11 activities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-11/readings.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 11 readings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-11/selfcheck.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 11 self-check
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-11/selfcheck-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 11 self-check answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-11/fixture/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Incident and gateway practice fixtures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/incident-drill/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Local incident drill
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/incident-drill/postmortem.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Local incident postmortem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_12" id="__nav_4_12_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 12: Verify a model audit with reproducible evidence
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 12: Verify a model audit with reproducible evidence
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/docs/weeks/week-12.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 12 overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-12/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 12 guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-12/notes.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 12 notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-12/slides.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 12 slides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-12/activities.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 12 activities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-12/readings.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 12 readings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-12/selfcheck.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 12 self-check
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-12/selfcheck-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 12 self-check answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-12/fixtures/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Public audit-verification fixture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_13" id="__nav_4_13_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 13: Respond to findings and improve usability
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 13: Respond to findings and improve usability
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/docs/weeks/week-13.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 13 overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-13/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 13 guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-13/notes.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 13 notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-13/slides.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 13 slides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-13/activities.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 13 activities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-13/readings.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 13 readings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-13/selfcheck.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 13 self-check
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-13/selfcheck-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 13 self-check answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-13/fixture/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    A UI change and one task check
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_14" id="__nav_4_14_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 14: Demonstrate and defend the result
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 14: Demonstrate and defend the result
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/docs/weeks/week-14.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 14 overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-14/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 14 guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-14/notes.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 14 notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-14/slides.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 14 slides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-14/activities.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 14 activities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-14/readings.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 14 readings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-14/selfcheck.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 14 self-check
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-14/selfcheck-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 14 self-check answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week-14/fixture/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    A regression gate and an agent&#x27;s change
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Practice and project
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Practice and project
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Personal practices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/docs/project.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project instructions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    P1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    P1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/p1/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    P1: A small agent and four contrasting attempts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/p1/student/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    P1: Build a minimal coding agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    P2
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    P2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/p2/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    P2: A specification review that changes the next action
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/p2/student/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    P2 public review bundle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/p2/student/ai_review_comparison.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    P2 work record
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/p2/student/tasks/SPEC.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Change request: member activity report
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    P3
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    P3
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/p3/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    P3: A bounded evaluation audit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/p3/student/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    P3 student bundle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/p3/student/records/workflow-b/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow B teacher records
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/p3/student/tasks/p3-t1/SPEC.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    p3-t1: status_counts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/p3/student/tasks/p3-t2/SPEC.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    p3-t2: longest_red_streak
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/p3/student/tasks/p3-t3/SPEC.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    p3-t3: slowest_jobs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/p3/student/tasks/p3-t4/SPEC.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    p3-t4: parse_duration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/p3/student/trajectories/p3-tr-a.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trace p3-tr-a
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/p3/student/trajectories/p3-tr-b.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trace p3-tr-b
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/p3/student/trajectories/p3-tr-c.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trace p3-tr-c
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project kit
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Project kit
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/kit/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    One repository, one verified path
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/kit/agent-readiness.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent-readiness scorecard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/kit/deployment/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment preview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/kit/open-source-contributions.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Open-source contributions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_7" id="__nav_5_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Legacy ci-dashboard
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Legacy ci-dashboard
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/legacy/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Legacy code repository
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/legacy/ci-dashboard/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI Results Dashboard and Failure Investigation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/legacy/ci-dashboard/API.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI Dashboard API and Starting Points for Executable Specifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/legacy/ci-dashboard/DATA.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Model and Migration Discipline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/legacy/ci-dashboard/START.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI Dashboard: Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Explain gate
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Explain gate
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assessment/explain-gate/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Explain a PR and verify its evidence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assessment/explain-gate/pr-template.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Four-question PR body
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_9" id="__nav_5_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluation tools
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Evaluation tools
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../evals/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Read Trajectories Safely: Generate, Then Verify
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../evals/cheat_detector/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trajectory Anomaly Patterns: Generate, Detect, Explain, Verify
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../evals/cheat_detector/LIMITATIONS.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clues Are Not Conclusions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../evals/evaluator-kit/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generate observations, then check the evaluator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../evals/evaluator-kit/fixture-project/SPEC.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ci-dashboard build summary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../evals/evaluator-kit/judge-prompt.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Judge prompt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Policies
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Policies
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/docs/policies/assessment.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assessment and appeals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/docs/rubric.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assessment rubric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/docs/project-rubric.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capstone milestone rubric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/docs/contributions-rubric.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Open-source contributions rubric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/docs/scoring-and-appeals.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project scoring and appeals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rubrics/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scoring rubrics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/docs/glossary.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Weekly teaching materials
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../course-case.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    One dashboard through the course
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deck-guide.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Follow the dashboard through fourteen weeks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../src/course_llm/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    course_llm: generate once, then verify
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_6" id="__nav_7_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Factsheets
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Factsheets
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../factsheets/benchmarks/swe-bench-family.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SWE-bench: inputs and verification boundaries for one subset
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../factsheets/tools/codex-base-instructions.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Codex CLI: published base instructions and the update_plan tool schema at a pinned commit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../factsheets/tools/qwen-code-system-prompt.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Qwen Code: the system-prompt builder and the edit and todo_write tool schemas at a pinned tag
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_7" id="__nav_7_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Templates
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Templates
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../templates/decision-log.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../templates/disclosure.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI-use note
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../templates/postmortem.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Incident postmortem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../templates/pr-template.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course project pull request template
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../templates/reflection.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reflection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../templates/spec-feature.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Feature specification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../templates/work-record.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Work record
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#minimal-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimal example
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Minimal example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-continuing-dashboard-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The continuing dashboard case
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-real-path-the-project-list-in-ci-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A real path: the project list in ci-dashboard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#context-is-an-intervention-we-can-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context is an intervention we can test
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-a-packet-of-your-own" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build a packet of your own
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compaction-what-survives-a-shorter-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compaction: what survives a shorter history
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-skill-packages-a-repeatable-procedure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A skill packages a repeatable procedure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-tool-is-an-interface-for-a-reader-that-guesses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A tool is an interface for a reader that guesses
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#watch-an-agent-use-both-servers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Watch an agent use both servers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#brakes-hooks-and-the-sandbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Brakes, hooks and the sandbox
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dissect-a-mature-agents-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dissect a mature agent's run
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hands-on-exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hands-on exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transfer-to-a-new-situation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transfer to a new situation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="week-3-context-engineering-and-agent-workflows">Week 3: Context engineering and agent workflows</h1>
+<h2 id="learning-objectives">Learning objectives</h2>
+<p>One idea runs through this week: <strong>an agent acts only on what reaches it.</strong> You choose
+the context it reads, the skill descriptions it chooses by, and the tool names, schemas,
+errors and results it acts on. Each of those choices is something you can test.</p>
+<p>By the end of this lesson you can:</p>
+<ul>
+<li><strong>LO4:</strong> trace one real <code>ci-dashboard</code> request across files and mark each step of a
+  map confirmed, refuted or cannot tell against the source at your revision.</li>
+<li><strong>LO2:</strong> choose the context a bounded question needs: compare two context packets of
+  the same size by what each answer got right, got wrong or left open, then build a
+  packet of your own under a byte budget and check it.</li>
+<li><strong>LO2 (optional practice):</strong> practise compacting a long agent session into a summary
+  under a byte budget, checking that it kept each fact the next step needs, and saying
+  when you would restart from a written handoff instead.</li>
+<li><strong>LO2:</strong> package the tracing method as one <code>SKILL.md</code> whose description you have
+  tested: it fires on the requests it should and not on a near miss.</li>
+<li><strong>LO2:</strong> design tools for an agent that sees only their names, schemas and
+  descriptions, using five rules; verify each rule with calls rather than by reading the
+  definition; and watch how a tool's design changes what an agent does on one request.</li>
+<li><strong>LO7:</strong> keep a destructive tool behind a brake, check a permission before its effect,
+  and say which layer contains a process that ignores both.</li>
+</ul>
+<p>Each <a href="activities.en.html">activity</a> names the LO it practises; the repository-context
+workshop's page lists its required parts. Protocol details, a second tool shape (search,
+then execute), an in-memory permission example, a published MCP incident, and plans,
+worktrees and subagents are in the
+<a href="readings.en.html#optional-reading-beyond-the-main-line">optional reading</a>; they carry no
+marks.</p>
+<p>Run every command through the route in <a href="../../site/docs/week0/setup.en.html">Week 0 setup</a>.</p>
+<p>All examples on this page are course-authored and synthetic; actual execution evidence
+comes from your own checks.</p>
+<h2 id="minimal-example">Minimal example</h2>
+<h3 id="the-continuing-dashboard-case">The continuing dashboard case</h3>
+<p>Recall the case from Week 1. The dashboard shows a build with raw status <code>" OK "</code> as
+<code>unknown</code>. The agreed rule ignores surrounding whitespace and case: this input should
+display <code>passed</code>, while an unfamiliar status should remain <code>unknown</code>. A reviewer suggests
+editing the template. First inspect this schematic request path:</p>
+<pre><code class="language-python"># loader.py
+raw = record[&quot;status&quot;]
+# status.py
+label = {&quot;ok&quot;: &quot;passed&quot;}.get(raw.lower(), &quot;unknown&quot;)
+# view.py
+render(label)
+</code></pre>
+<p><strong>Decision:</strong> Where does the value first disagree with the rule, and which file
+should the agent inspect before changing the template?</p>
+<p>The loader preserves <code>" OK "</code>. The mapper lowercases it to <code>" ok "</code>, which is not
+the key <code>"ok"</code>, and supplies <code>unknown</code> to the view. Inspect normalization in
+<code>status.py</code>: removing surrounding whitespace before lookup repairs this case.
+Changing every <code>unknown</code> display to <code>passed</code> would also mislabel an unfamiliar
+status. Check both inputs. The path above is a schematic; the next one is real.</p>
+<p><strong>Acceptance decision:</strong> Choose a bounded edit only when the path explains the symptom. A
+single paired run motivates a next experiment; it does not establish that a context style
+is generally superior.</p>
+<h3 id="a-real-path-the-project-list-in-ci-dashboard">A real path: the project list in <code>ci-dashboard</code></h3>
+<p>In <code>ci-dashboard</code>, <code>GET /domains/ci_dashboard/</code> lists the signed-in user's projects.
+Trace it across three files:</p>
+<ol>
+<li><code>domains/ci_dashboard.py</code>, function <code>overview</code>: calls <code>require_user()</code>, selects the
+   caller's projects with <code>WHERE owner_id=? ORDER BY id</code>, and renders
+   <code>ci/overview.html</code>.</li>
+<li><code>legacy_app/views.py</code>, function <code>require_user</code>: aborts with <code>401</code> when there is no
+   signed-in user, otherwise returns the user's ID.</li>
+<li><code>legacy_app/templates/ci/overview.html</code>: a <code>{% for %}</code> over the projects whose
+   <code>{% else %}</code> branch prints <code>No projects yet.</code></li>
+</ol>
+<p>The route function names what happens; the other two files decide what a visitor
+actually sees. A map of this path is a set of claims: each arrow needs a file and line
+at your checkout revision. The activity's repository map asks you to mark each arrow
+confirmed, refuted or cannot tell.</p>
+<h3 id="context-is-an-intervention-we-can-test">Context is an intervention we can test</h3>
+<p>Now ask a model one bounded question about that path, the
+<a href="fixture/question.txt">shared question</a>: what does a visitor without a session receive,
+what does a signed-in user with no projects see, and which file decides each. It asks
+for one JSON object and allows <code>null</code> for anything the context does not show.</p>
+<p>Two packets carry the same number of bytes, 639 each; only their content differs:</p>
+<table>
+<thead>
+<tr>
+<th>Packet</th>
+<th>What it holds</th>
+<th>How it was chosen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="fixture/packet-a.txt">A</a></td>
+<td><code>domains/ci_dashboard.py</code> read on from the route, cut at the budget: <code>overview</code>, then the start of <code>new_project</code></td>
+<td>Read more of the file you started in</td>
+</tr>
+<tr>
+<td><a href="fixture/packet-b.txt">B</a></td>
+<td>The API's <code>401</code> line, the <code>overview</code> excerpt, <code>require_user</code> and the template's empty-table branch</td>
+<td>Follow the call across files</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Predict, generate, then check.</strong> Before any run, write what each packet's answer will
+say for each of the four fields. Keep the model and profile, the question, a fresh call,
+one call per packet and the checker fixed. Change the packet only. Do not repair a wrong
+answer or rerun until it passes.</p>
+<p>The <a href="fixture/verify.py">checker</a> labels each field <code>correct</code>, <code>wrong</code>, <code>abstained</code> (an
+explicit <code>null</code>) or <code>missing</code>. Its answers come from the dashboard itself: run with a
+signed-out client, the route returns <code>401</code>, and a freshly registered user sees
+<code>No projects yet.</code>; the course's tests repeat that check against the running app. An
+abstention is not a correct answer, but it is honest; a confident wrong file is worse.</p>
+<p><strong>A course-written replay, not a model run.</strong> To show how the checker reads two answers,
+the course team wrote one plausible answer per packet by hand. No model was called.</p>
+<table>
+<thead>
+<tr>
+<th>Packet</th>
+<th>Status</th>
+<th>Deciding file</th>
+<th>Empty-list text</th>
+<th>Deciding file</th>
+<th>Correct</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td><code>302</code>: wrong</td>
+<td><code>domains/ci_dashboard.py</code>: wrong</td>
+<td><code>null</code>: abstained</td>
+<td><code>null</code>: abstained</td>
+<td>0 of 4</td>
+</tr>
+<tr>
+<td>B</td>
+<td><code>401</code>: correct</td>
+<td><code>legacy_app/views.py</code>: correct</td>
+<td><code>No projects yet.</code>: correct</td>
+<td><code>domains/ci_dashboard.py</code>: wrong</td>
+<td>3 of 4</td>
+</tr>
+</tbody>
+</table>
+<p>Configuration: no model and zero calls per packet; packets of 639 bytes; the question and
+packet digests are pinned in <a href="fixture/ab-replay.json">ab-replay.json</a>, which the checker
+refuses if any input has changed. Reproduce it with the offline profile:</p>
+<pre><code class="language-sh">sh scripts/course-sandbox --profile offline --version VERSION --digest DIGEST --workspace week3-work -- python verify.py --replay ab-replay.json
+</code></pre>
+<p>The replay says nothing about how often any model answers either way. Its B answer still
+gets one field wrong: the route passes the list on, but the template decides the text. Your
+own pair, made with the commands in the <a href="fixture/README.en.html">fixture guide</a>, is the
+measurement; your instructor may also show a pair recorded with the course's hosted model,
+labelled with its profile, version and digest. A tie, or A beating B, is a legitimate
+observation.</p>
+<p><code>AGENTS.md</code> and <code>CLAUDE.md</code> are context-file names discussed in this course. In this
+exercise we deliberately load the selected packet into the prompt ourselves: no filename
+has automatic behavior. When adopting a particular tool, verify its actual discovery,
+scope and precedence rules. A file that exists but was never loaded cannot explain a
+result. Do not infer that either filename reliably improves performance.</p>
+<h3 id="build-a-packet-of-your-own">Build a packet of your own</h3>
+<p>Packets A and B were chosen for you. The <a href="fixture/question-2.txt">second question</a> has no
+course packet. A signed-in user posts a 121-character project title straight to
+<code>POST /domains/ci_dashboard/projects/new</code>, not through the browser form: what status comes
+back, what is the longest title the server accepts, and which file decides each?</p>
+<p>Build the packet yourself from your <code>ci-dashboard</code> source, in at most 400 bytes. Quote
+whole lines, and start each excerpt with a header line that names its file, as packet B
+does. Before checking, predict for each part, <code>status</code> and <code>limit</code>, whether your packet
+holds the lines that decide it. The <a href="fixture/packet_check.py">packet check</a> then labels
+each part without a model:</p>
+<table>
+<thead>
+<tr>
+<th>Label</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>covered</code></td>
+<td>The deciding lines are there, whole and in order, under a header naming their file</td>
+</tr>
+<tr>
+<td><code>no_file</code></td>
+<td>The lines are there, but the header above them does not name their file</td>
+</tr>
+<tr>
+<td><code>browser_only</code></td>
+<td>Limit only: the packet shows the form's limit, which a direct request never meets</td>
+</tr>
+<tr>
+<td><code>missing</code></td>
+<td>A line the answer depends on is not in the packet</td>
+</tr>
+</tbody>
+</table>
+<p>Revise the packet once, within the same budget, and check it again. Keep both results.
+The check says whether the evidence is in the packet; it cannot say what a model would
+answer from it.</p>
+<h3 id="compaction-what-survives-a-shorter-history">Compaction: what survives a shorter history</h3>
+<p>A packet is context you choose before the first request. A summary is context you choose
+in the middle of a session, when the history no longer fits. The Week 2 notes explain
+<a href="../week-02/notes.en.html#context-is-a-bounded-working-record">what accumulates and what a summary should keep</a>;
+here you run one before/after comparison and check the summary twice: against the
+transcript, and by whether the next step still passes the same check.</p>
+<p><a href="fixture/long-session.json">long-session.json</a> is a session the course team wrote by hand
+in the Week 2 message format; no model or agent produced it. The agent is repairing the
+continuing <code>" OK "</code> case. It reads <code>NOTES.md</code>, <code>view.py</code>, <code>loader.py</code> and <code>status.py</code>,
+runs the acceptance check, replaces the lookup with <code>raw.strip()</code>, sees the check fail on
+<code>" OK "</code> and <code>"OK"</code>, rereads <code>status.py</code> and reads the check's source. The history is
+19 messages and 5,283 bytes against a 5,500-byte budget: this request fits, and the next
+check result would not.</p>
+<p><a href="fixture/compaction.py">compaction.py</a> builds the next request's context in one of four
+ways:</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>The next request carries</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>full</code></td>
+<td>Every message</td>
+</tr>
+<tr>
+<td><code>auto</code></td>
+<td>The task, every assistant message and the newest call/result group; each older tool result longer than 80 bytes becomes a one-line stub</td>
+</tr>
+<tr>
+<td><code>summary FILE</code></td>
+<td>The task, your summary in place of messages 1-16, and the newest group</td>
+</tr>
+<tr>
+<td><code>fresh FILE</code></td>
+<td>The task and your file only: a restart from a written handoff</td>
+</tr>
+</tbody>
+</table>
+<p>A short course-written policy then picks the next edit from that context alone, and the
+same six-case check runs on the result. The policy is not a model. It reads every line it
+is given with the same care, which nothing guarantees of a model, and follows two rules
+written in the script: it keeps out of <code>view.py</code> only when a line names <code>view.py</code> and says
+not to change it, and it adds <code>lower()</code> only when a line says the strip-only fix failed.
+Without the first fact it changes <code>view.py</code> so that <code>unknown</code> displays as <code>passed</code>, which
+is the template patch the dashboard case warned against.</p>
+<p><strong>Predict, generate, then verify.</strong> Fill the checklist from the transcript first: for
+each fact, the message that holds it. Predict which facts <code>auto</code> keeps and which file
+the next edit touches, then run it. Write your own summary of at most 600 bytes, predict
+again, run it as <code>summary</code> and as <code>fresh</code>, and fill the last two columns.</p>
+<table>
+<thead>
+<tr>
+<th>Fact the next step needs</th>
+<th>Message in the session</th>
+<th>Kept by <code>auto</code></th>
+<th>Kept by your summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The goal and the acceptance check</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>The constraint on which file may change, and its source</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>The attempt that failed, and how</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>The current state of each file touched (which read is stale)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>The paths the next edit needs</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>The supplied compaction, run by the course.</strong> These are the script's own outputs, with
+no model involved; run them yourself with the commands in the
+<a href="fixture/README.en.html#6-compact-a-long-session-then-check">fixture guide</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Context bytes</th>
+<th>Next edit</th>
+<th>Check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>full</code></td>
+<td>5,283</td>
+<td><code>status.py</code>: <code>raw.strip().lower()</code></td>
+<td>passed, 6 of 6</td>
+</tr>
+<tr>
+<td><code>auto</code></td>
+<td>3,523</td>
+<td><code>view.py</code>: show <code>unknown</code> as <code>passed</code></td>
+<td>failed: <code>"queued"</code> shows <code>passed</code>, and <code>view.py</code> changed</td>
+</tr>
+</tbody>
+</table>
+<p>The constraint arrived once, in the middle of a tool result: the <code>NOTES.md</code> read in
+message 2. Clearing old tool output removed it. The agent's own sentence about the failed
+strip-only fix survived because assistant messages were kept, so the policy did not repeat
+that attempt; it made a different mistake instead. Nothing in the compacted context
+contradicts the <code>view.py</code> edit, which is why this kind of loss is hard to see from the
+context alone. Your summary's run is your own measurement.</p>
+<p><strong>The check is not the whole verification.</strong> Every mode keeps the task message, so the goal
+and the acceptance check always survive. Of the other facts the policy reads only two, so
+a summary can pass the check and still leave out which read of <code>status.py</code> is stale, which
+a later edit would need. The checklist covers what the check cannot. With a model, the same
+two steps apply, and one run of each version is one observation.</p>
+<p><strong>Compact or restart?</strong> Run the same file as <code>fresh</code>: the context drops to the task and
+your handoff, under 1,000 bytes for a 400-byte file, and the newest raw group goes too.
+Restart when most of the history is stale or contradicts itself, or a phase has ended;
+compact when the newest results still matter. Either way the next session's first step
+is to reread the files its edit touches.</p>
+<h3 id="a-skill-packages-a-repeatable-procedure">A skill packages a repeatable procedure</h3>
+<p>A skill is a directory with a <code>SKILL.md</code> file: YAML front matter with a <code>name</code> (the
+directory's name) and a <code>description</code>, then a Markdown body. An agent that supports
+skills keeps only the names and descriptions in view and loads a body when a request
+seems to need it, so the description decides whether the skill is ever used. The body
+then enters the context and costs space for the rest of the session, so hold the
+procedure there and leave longer background in a separate file in the same directory.
+The workshop uses exactly this format and asks for three body sections: the steps, the
+judgement a step list hides, and the check.
+Hosts differ in optional fields and in where they look for skills; verify that for the
+agent you use rather than assuming it.</p>
+<pre><code class="language-markdown">---
+name: check-label-tools
+description: Checks an edited label tool by calling it through the host before the
+  change is reported. Use when search_labels or delete_label changed or a call fails.
+---
+## Steps
+1. Read the changed tool definition and predict one call it could break.
+2. Run `python label_tools.py` through the course launcher.
+3. Make one call of your own with a wrong type, such as `{&quot;query&quot;: 5}`.
+
+## Judgement
+- If a call you predicted would fail passes, explain why before going on.
+- A definition that only mentions `dry_run` is a claim; call the tool to see it.
+- If the launcher refuses execution, stop. Do not install dependencies or retry.
+
+## Verification
+The `label_tools.py` output matches the table in the notes, and your own call returns
+`invalid_argument`.
+</code></pre>
+<p><strong>Write judgement from your own corrections.</strong> A step list hides the moments when
+someone had to step in. Reread one of your own agent sessions, or your P1 trace, and list
+each place where you corrected or stopped the agent. Each correction is a candidate line
+for <code>## Judgement</code>, because the next run will need it too.</p>
+<p><strong>Generate, then verify the trigger.</strong> A description that says only <em>when</em> ("Use when
+changing the label tools") can miss "why does search give me no IDs?". One that says
+only <em>what</em> can fire on every label question. So test it like any other prediction: write
+three requests in the words people use that should load the skill, and one near miss
+that sounds similar but needs something else ("rename the label column"). Record your
+prediction for each before you observe, then observe with an agent session or a
+classmate who sees only the names and descriptions of the available skills. A near miss
+that fires means the description is too broad; a missed request usually shares no
+words with it. Change the description once and recheck only the mismatches.</p>
+<p>A context file states project-wide constraints. A skill describes a reusable procedure
+and its trigger. Neither grants permissions, and any script a skill refers to is code
+that needs review and launcher execution. In the workshop you write one skill for the
+tracing method you practiced by hand, trigger-test it, use it once on <code>ci-dashboard</code>
+and once, read-only, on your candidate contribution project (or a listed repository if
+you have no candidate yet), and record what changed. A skill nobody has run is a draft.</p>
+<h3 id="a-tool-is-an-interface-for-a-reader-that-guesses">A tool is an interface for a reader that guesses</h3>
+<p>MCP (Model Context Protocol) connects an agent's host to servers that expose tools. The
+agent sees each tool's name, description and input schema, calls it with arguments, and
+reads the result as data, even when the result asks for something. Whether a tool is
+reached through MCP or a plain function call, the agent chooses it from that text alone.
+Design it for a reader that will guess when the text is unclear. Name the effect, not
+the implementation: <code>search_labels</code>, not <code>handler2</code>. Give the tool no authority beyond its
+stated purpose. Five rules turn that into checks:</p>
+<ol>
+<li><strong>Put every limit in the schema.</strong> <code>"enum"</code>, <code>"minimum"</code>, <code>"maximum"</code>,
+   <code>"required"</code> and <code>"additionalProperties": false</code> tell the agent every valid value, and
+   they are checked before your code runs when the server validates each call against the
+   schema, as the workshop's server scaffold does. A limit stated only in a sentence of
+   the description is neither visible as a value list nor checked. When the two disagree,
+   the agent meets rejections that nothing it read accounts for. The MCP
+   specification puts input validation on the server: servers must validate all tool
+   inputs. (tools/model-context-protocol; as_of: 2026-10-09; <a href="https://modelcontextprotocol.io/specification/2026-07-28">Source 1</a>; <a href="https://modelcontextprotocol.io/specification/2026-07-28/server/tools">Source 2</a>) It is a requirement on the server, not a
+   guarantee that a given server meets it, so check with a call.</li>
+<li><strong>Return only what the next step needs.</strong> Hand back the fields the next call will use,
+   including the IDs other tools accept, not the stored record. Every extra field is paid
+   for again at each later step, and mirroring the storage layout breaks the tool when that
+   layout changes. If you cut a list short, say so.
+   Anthropic's tool-writing guide gives the same advice: return high-signal fields, and
+   bound large responses with pagination, filtering or truncation and sensible
+   defaults. (tools/anthropic-effective-tools; as_of: 2026-10-09; <a href="https://www.anthropic.com/engineering/writing-tools-for-agents">Source 1</a>)</li>
+<li><strong>Report a failure as a result the agent can read.</strong> Return a structured error naming
+   what failed and whether trying again could succeed: an unknown ID fails every time, a
+   rate limit clears. A raw exception gives the agent nothing to act on;
+   <code>{"code": "not_found", "retryable": false, ...}</code> tells it whether a retry is worth
+   making.
+   MCP draws this line too: an unknown tool or a malformed request is a protocol error,
+   but a failed input check, such as a value out of range, is a tool execution error,
+   returned in the result with <code>isError: true</code> so the client can hand it to the model to
+   correct. (tools/model-context-protocol; as_of: 2026-10-09; <a href="https://modelcontextprotocol.io/specification/2026-07-28">Source 1</a>; <a href="https://modelcontextprotocol.io/specification/2026-07-28/server/tools">Source 2</a>)</li>
+<li><strong>Say what comes back and where each input comes from.</strong> State what the tool returns
+   and which tool produces each ID argument ("a label_id from search_labels"), so the agent
+   can call them in sequence. Name arguments so they
+   cannot be misread: <code>label_id</code>, not <code>label</code>. (tools/anthropic-effective-tools; as_of: 2026-10-09; <a href="https://www.anthropic.com/engineering/writing-tools-for-agents">Source 1</a>)</li>
+<li><strong>Guard every irreversible action.</strong> Mark the read-only tools as read-only. Give an
+   irreversible tool a <code>dry_run</code> that defaults to true, or split it into preview and
+   commit, so a call that leaves the argument out cannot change anything.</li>
+</ol>
+<p><strong>Generate.</strong> Below is a course-authored first draft for the request "a search tool and
+a delete tool for labels", written the way a quick generated answer can look. It looks
+finished, and it works when the caller already knows the answers.</p>
+<pre><code class="language-json">[{&quot;name&quot;: &quot;search_labels&quot;, &quot;description&quot;: &quot;Search labels. limit can be up to 50.&quot;,
+  &quot;inputSchema&quot;: {&quot;type&quot;: &quot;object&quot;,
+                  &quot;properties&quot;: {&quot;query&quot;: {&quot;type&quot;: &quot;string&quot;}, &quot;limit&quot;: {&quot;type&quot;: &quot;integer&quot;}}}},
+ {&quot;name&quot;: &quot;delete_label&quot;, &quot;description&quot;: &quot;Deletes a label.&quot;,
+  &quot;inputSchema&quot;: {&quot;type&quot;: &quot;object&quot;, &quot;properties&quot;: {&quot;label_id&quot;: {&quot;type&quot;: &quot;integer&quot;}}}}]
+</code></pre>
+<p>Before reading on, predict what each call in the table does to the draft.</p>
+<p><strong>Verify.</strong> Reading the definition is not verification; calls are. The
+<a href="fixture/label_tools.py">worked example</a> applies the published schema as the workshop's
+server scaffold would: it refuses an unknown or missing argument and checks each
+argument's type, then its range (<code>true</code> is not an integer), all before the handler runs.
+It then makes the same four calls against the draft and a revision, each from fresh
+records. These are its actual outputs, shortened:</p>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Call</th>
+<th>Draft</th>
+<th>Revision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Can the agent chain?</td>
+<td><code>search_labels {"query": "red"}</code></td>
+<td><code>["red-blue", "red-team"]</code>: names, no IDs to pass on</td>
+<td><code>label_id</code> and <code>name</code> per label, <code>total</code>, <code>truncated</code></td>
+</tr>
+<tr>
+<td>Does a bare delete only preview?</td>
+<td><code>delete_label {"label_id": 7}</code></td>
+<td>Deleted; label gone</td>
+<td><code>dry_run: true</code>, <code>would_delete</code>; label still there</td>
+</tr>
+<tr>
+<td>Is a bad ID recoverable?</td>
+<td><code>delete_label {"label_id": 99}</code></td>
+<td><code>KeyError: 99</code> traceback</td>
+<td><code>not_found</code>, <code>retryable: false</code>, "use search_labels"</td>
+</tr>
+<tr>
+<td>Does the schema hold?</td>
+<td><code>search_labels {"query": "r", "limit": 50}</code></td>
+<td>Accepted: the "up to 50" lives only in prose</td>
+<td><code>invalid_argument</code> from <code>"maximum": 10</code></td>
+</tr>
+</tbody>
+</table>
+<p>The revision bounds <code>limit</code> (<code>minimum</code> 1, <code>maximum</code> 10, default 5), adds <code>"required"</code>
+and <code>"additionalProperties": false</code> to both tools, and gives descriptions that name
+<code>search_labels</code> as the source of <code>label_id</code>, <code>readOnlyHint: true</code> on the reader and
+<code>destructiveHint: true</code> with a <code>dry_run</code> defaulting to true on the delete. Each row is a
+check you can rerun; a new rule needs a new call, not a longer description. The
+workshop applies the same five rules to a different, four-tool <code>ci-dashboard</code> server,
+and there your own test must make its calls through the protocol, not by importing the
+handlers.</p>
+<h3 id="watch-an-agent-use-both-servers">Watch an agent use both servers</h3>
+<p>The table checks one call at a time. An agent chains calls, so give one request to an
+agent twice, once with each server:</p>
+<blockquote>
+<p>Delete the label red-team. An old ticket gives its label_id as 21.</p>
+</blockquote>
+<p>There is no label 21; <code>red-team</code> is label 12. Before you look, predict three things for
+each server: <strong>does the agent carry an ID from one result into its next call, does it
+recover after the ID is not found, and does it preview before it deletes?</strong></p>
+<p>The <a href="fixture/agent_replay.py">replay</a> steps a fixed policy through each server: the
+policy picks a call, the tool returns its result, and the policy picks again. The agent
+is <strong>course-written, not a model</strong>: five rules, the same for both servers, that never
+guess an ID. First use the ID the request gives. After a preview of the requested label,
+commit it. After a delete that deleted something, report it. After any other delete
+result, look the label up by name once. After a search, delete the ID found for that
+name, or stop if there is none. Every tool result in the transcript is the real output
+of <code>label_tools.py</code>.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Draft server</th>
+<th>Revised server</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Call 1: <code>delete_label {"label_id": 21}</code></td>
+<td><code>{"traceback": "KeyError: 21"}</code></td>
+<td><code>not_found</code>, <code>retryable: false</code>, "use search_labels"</td>
+</tr>
+<tr>
+<td>Call 2: <code>search_labels {"query": "red-team"}</code></td>
+<td><code>["red-team"]</code>: a name, no ID</td>
+<td><code>{"label_id": 12, "name": "red-team"}</code></td>
+</tr>
+<tr>
+<td>Call 3</td>
+<td>None: the agent stops, "no label_id ... I will not guess one"</td>
+<td><code>delete_label {"label_id": 12}</code> returns a preview, <code>would_delete</code></td>
+</tr>
+<tr>
+<td>Call 4</td>
+<td></td>
+<td><code>delete_label {"label_id": 12, "dry_run": false}</code> deletes <code>red-team</code></td>
+</tr>
+<tr>
+<td>Carried an ID from a result</td>
+<td>No: the search returned none</td>
+<td>Yes: 12, from the search into the delete</td>
+</tr>
+<tr>
+<td>Recovered after not found</td>
+<td>No: nothing was deleted</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Previewed before deleting</td>
+<td>No: call 1 would have deleted label 21 at once</td>
+<td>Yes: the bare call only previewed</td>
+</tr>
+</tbody>
+</table>
+<p>Now change the ticket's ID to 9 (<code>--ticket-id 9</code>), which is the label <code>release-2</code>. On the
+draft, the first call deletes <code>release-2</code> immediately and the agent can only report it.
+On the revision the same call returns a preview of <code>release-2</code>; the agent sees the name
+does not match, searches, and deletes <code>red-team</code> after its own preview. The brake did not
+make the agent smarter. It turned a wrong call into a result the agent could read.
+<code>--summary</code> prints the three observations; it names the second
+<code>recovered_from_the_wrong_id</code>, which is true when the first delete hit a missing label
+or a different one and the run still deleted exactly <code>red-team</code>, so it covers both
+ticket IDs.</p>
+<p>The rules are ours, so the replay shows what the tool design allows, not what a model
+will do. A model may guess an ID, retry a traceback or ignore an error's message. When
+available, your instructor shows a run of the same request recorded with the course's
+hosted model, labelled with its configuration, in the same transcript format; until
+then, the course replay and its tables are the comparison. A recorded run makes at most
+four model requests per server, the launcher's per-run cap, so a model that needs a fifth
+reply stops with <code>step_limit</code> after its fourth reply's calls have run. Compare its
+transcript with your three predictions, call by call.</p>
+<h3 id="brakes-hooks-and-the-sandbox">Brakes, hooks and the sandbox</h3>
+<p>Three layers keep a wrong call from doing harm, and each covers something different. A
+tool's brake, such as <code>dry_run</code> defaulting to true, makes a call that omits the argument
+harmless. A pre-call hook checks an event, such as a write path, before the effect
+happens; the workshop's hook step allows an ordinary edit and rejects an escape. Neither
+can contain a process that edits or ignores them. The course launcher does that, with
+copied inputs, no external network and fixed resources. A hook that logs a bad action
+after it happened has prevented nothing. The optional reading has an in-memory example
+of a returned note asking for export.</p>
+<h3 id="dissect-a-mature-agents-run">Dissect a mature agent's run</h3>
+<p>The replay agent follows five course-written rules. A mature coding agent wraps a model in
+a production loop with its own context files, tools, approvals and sandbox. In Week 2 you
+read a recorded session request by request: what the model was sent. Here you read a run
+record: what the agent did, and whether its final summary is true to it.</p>
+<p>The course uses two command-line agents for this, listed alphabetically. <strong>Codex CLI</strong> is
+a coding agent that runs locally in your terminal; its repository is licensed under Apache-2.0
+(tools/codex-cli; as_of: 2026-10-09; <a href="https://github.com/openai/codex/blob/main/README.md">Source 1</a>; <a href="https://learn.chatgpt.com/docs/auth">Source 2</a>; <a href="https://learn.chatgpt.com/docs/extend/mcp">Source 3</a>; <a href="https://learn.chatgpt.com/docs/agent-configuration/agents-md">Source 4</a>; <a href="https://learn.chatgpt.com/docs/non-interactive-mode">Source 5</a>), so you can read the source of the loop you are dissecting. <strong>Kiro
+CLI</strong> is the renamed Amazon Q Developer CLI; its software is licensed under the AWS
+Intellectual Property License (tools/kiro-cli; as_of: 2026-10-09; <a href="https://kiro.dev/docs/upgrade-guides/migrating-from-q/">Source 1</a>; <a href="https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/upgrade-to-kiro.html">Source 2</a>; <a href="https://kiro.dev/docs/cli/">Source 3</a>; <a href="https://kiro.dev/docs/getting-started/authentication/">Source 4</a>; <a href="https://kiro.dev/docs/steering/">Source 5</a>; <a href="https://kiro.dev/docs/custom-agents/">Source 6</a>; <a href="https://kiro.dev/docs/permissions/">Source 7</a>; <a href="https://kiro.dev/docs/cli/headless/">Source 8</a>; <a href="https://kiro.dev/docs/mcp/">Source 9</a>). The course endorses neither. Codex CLI
+is the recorded example; Kiro CLI is a contrast you read from its documentation.</p>
+<p>You do not run either tool yourself this term. Each needs credentials inside its own
+process: an API key or an account sign-in for Codex CLI (tools/codex-cli; as_of: 2026-10-09; <a href="https://github.com/openai/codex/blob/main/README.md">Source 1</a>; <a href="https://learn.chatgpt.com/docs/auth">Source 2</a>; <a href="https://learn.chatgpt.com/docs/extend/mcp">Source 3</a>; <a href="https://learn.chatgpt.com/docs/agent-configuration/agents-md">Source 4</a>; <a href="https://learn.chatgpt.com/docs/non-interactive-mode">Source 5</a>), an account
+sign-in for Kiro CLI (tools/kiro-cli; as_of: 2026-10-09; <a href="https://kiro.dev/docs/upgrade-guides/migrating-from-q/">Source 1</a>; <a href="https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/upgrade-to-kiro.html">Source 2</a>; <a href="https://kiro.dev/docs/cli/">Source 3</a>; <a href="https://kiro.dev/docs/getting-started/authentication/">Source 4</a>; <a href="https://kiro.dev/docs/steering/">Source 5</a>; <a href="https://kiro.dev/docs/custom-agents/">Source 6</a>; <a href="https://kiro.dev/docs/permissions/">Source 7</a>; <a href="https://kiro.dev/docs/cli/headless/">Source 8</a>; <a href="https://kiro.dev/docs/mcp/">Source 9</a>). The course keeps your key outside the sandbox
+(<a href="../../site/docs/week0/setup.en.html">Week 0 setup</a>), so you work from a run the teaching
+team records on <code>ci-dashboard</code> and freezes as a replay record. Until that recording is
+published, the <a href="activities.en.html#activity-4-dissect-a-mature-agents-run-lo2-lo4">activity</a>
+uses a placeholder the course team wrote by hand. No agent or model produced it.</p>
+<p><strong>Map the run onto your loop.</strong> Every part of your Week 2 and Week 3 loop has a
+counterpart in a mature agent's run. The Codex CLI column is what the recording should
+show; the Kiro CLI column comes from documentation only, not from a run.</p>
+<table>
+<thead>
+<tr>
+<th>Your loop</th>
+<th>Codex CLI</th>
+<th>Kiro CLI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Context.</strong> You load the packet into the prompt yourself; no filename acts on its own.</td>
+<td>Reads <code>AGENTS.md</code> before any work. It builds the chain once per run, from <code>~/.codex</code> through the project root to the current directory, with later files overriding earlier ones, up to 32 KiB by default. (tools/codex-cli; as_of: 2026-10-09; <a href="https://github.com/openai/codex/blob/main/README.md">Source 1</a>; <a href="https://learn.chatgpt.com/docs/auth">Source 2</a>; <a href="https://learn.chatgpt.com/docs/extend/mcp">Source 3</a>; <a href="https://learn.chatgpt.com/docs/agent-configuration/agents-md">Source 4</a>; <a href="https://learn.chatgpt.com/docs/non-interactive-mode">Source 5</a>)</td>
+<td>Steering files in <code>.kiro/steering/</code> and <code>~/.kiro/steering/</code>, with the workspace winning a conflict; <code>AGENTS.md</code> is always included. An untrusted workspace's steering files are not loaded. (tools/kiro-cli; as_of: 2026-10-09; <a href="https://kiro.dev/docs/upgrade-guides/migrating-from-q/">Source 1</a>; <a href="https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/upgrade-to-kiro.html">Source 2</a>; <a href="https://kiro.dev/docs/cli/">Source 3</a>; <a href="https://kiro.dev/docs/getting-started/authentication/">Source 4</a>; <a href="https://kiro.dev/docs/steering/">Source 5</a>; <a href="https://kiro.dev/docs/custom-agents/">Source 6</a>; <a href="https://kiro.dev/docs/permissions/">Source 7</a>; <a href="https://kiro.dev/docs/cli/headless/">Source 8</a>; <a href="https://kiro.dev/docs/mcp/">Source 9</a>)</td>
+</tr>
+<tr>
+<td><strong>Plan.</strong> A plan in prose grants nothing and restricts nothing.</td>
+<td>Plan updates are one item type in the run record of <code>codex exec --json</code>. (tools/codex-cli; as_of: 2026-10-09; <a href="https://github.com/openai/codex/blob/main/README.md">Source 1</a>; <a href="https://learn.chatgpt.com/docs/auth">Source 2</a>; <a href="https://learn.chatgpt.com/docs/extend/mcp">Source 3</a>; <a href="https://learn.chatgpt.com/docs/agent-configuration/agents-md">Source 4</a>; <a href="https://learn.chatgpt.com/docs/non-interactive-mode">Source 5</a>)</td>
+<td>The documentation card does not cover this; look for a plan or task list in the record.</td>
+</tr>
+<tr>
+<td><strong>Tool calls and results.</strong> Each call has an ID, and its result comes back under that ID.</td>
+<td>Command executions, file changes and MCP tool calls are item types in the run record; MCP servers are local processes or HTTP addresses. (tools/codex-cli; as_of: 2026-10-09; <a href="https://github.com/openai/codex/blob/main/README.md">Source 1</a>; <a href="https://learn.chatgpt.com/docs/auth">Source 2</a>; <a href="https://learn.chatgpt.com/docs/extend/mcp">Source 3</a>; <a href="https://learn.chatgpt.com/docs/agent-configuration/agents-md">Source 4</a>; <a href="https://learn.chatgpt.com/docs/non-interactive-mode">Source 5</a>)</td>
+<td>Tools from MCP servers, local (stdio) or remote (HTTP/SSE); a custom agent's configuration sets which tools it may use. (tools/kiro-cli; as_of: 2026-10-09; <a href="https://kiro.dev/docs/upgrade-guides/migrating-from-q/">Source 1</a>; <a href="https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/upgrade-to-kiro.html">Source 2</a>; <a href="https://kiro.dev/docs/cli/">Source 3</a>; <a href="https://kiro.dev/docs/getting-started/authentication/">Source 4</a>; <a href="https://kiro.dev/docs/steering/">Source 5</a>; <a href="https://kiro.dev/docs/custom-agents/">Source 6</a>; <a href="https://kiro.dev/docs/permissions/">Source 7</a>; <a href="https://kiro.dev/docs/cli/headless/">Source 8</a>; <a href="https://kiro.dev/docs/mcp/">Source 9</a>)</td>
+</tr>
+<tr>
+<td><strong>Approvals and containment.</strong> A refused call comes back as data; the brake, the hook and the launcher each contain something different.</td>
+<td>The sandbox limits writes and network; the approval policy decides when to ask. Turning prompts off does not turn the sandbox off. (tools/codex; as_of: 2026-09-05; <a href="https://learn.chatgpt.com/docs/agent-approvals-security">Source 1</a>) <code>codex exec</code> runs in a read-only sandbox by default. (tools/codex-cli; as_of: 2026-10-09; <a href="https://github.com/openai/codex/blob/main/README.md">Source 1</a>; <a href="https://learn.chatgpt.com/docs/auth">Source 2</a>; <a href="https://learn.chatgpt.com/docs/extend/mcp">Source 3</a>; <a href="https://learn.chatgpt.com/docs/agent-configuration/agents-md">Source 4</a>; <a href="https://learn.chatgpt.com/docs/non-interactive-mode">Source 5</a>)</td>
+<td>Rules per capability with <code>deny</code>, <code>ask</code> or <code>allow</code>, where <code>deny</code> always wins. A headless run has no one to ask, so <code>--trust-all-tools</code> or <code>--trust-tools</code> grants permission in advance. The documentation lists sandbox execution without per-action prompts for its Web surface only. (tools/kiro-cli; as_of: 2026-10-09; <a href="https://kiro.dev/docs/upgrade-guides/migrating-from-q/">Source 1</a>; <a href="https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/upgrade-to-kiro.html">Source 2</a>; <a href="https://kiro.dev/docs/cli/">Source 3</a>; <a href="https://kiro.dev/docs/getting-started/authentication/">Source 4</a>; <a href="https://kiro.dev/docs/steering/">Source 5</a>; <a href="https://kiro.dev/docs/custom-agents/">Source 6</a>; <a href="https://kiro.dev/docs/permissions/">Source 7</a>; <a href="https://kiro.dev/docs/cli/headless/">Source 8</a>; <a href="https://kiro.dev/docs/mcp/">Source 9</a>)</td>
+</tr>
+<tr>
+<td><strong>Stop.</strong> <code>final</code> or <code>step_limit</code>; <code>final</code> ends the conversation and verifies nothing.</td>
+<td>Read the last events of the record.</td>
+<td>Read the end of the record.</td>
+</tr>
+</tbody>
+</table>
+<p>For each row, ask the same question of the recording: where does this show up, and what
+does the record leave out? A context file that exists in the repository but that the
+record does not show being loaded cannot explain what the agent did.</p>
+<p><strong>Label the final summary.</strong> The agent's closing message is a list of claims, just like the
+arrows of your repository map. Split it into single claims, then label each one against the
+record:</p>
+<ul>
+<li><strong>confirmed:</strong> an event in the record shows it; cite the event;</li>
+<li><strong>refuted:</strong> an event in the record shows something else; cite it;</li>
+<li><strong>cannot tell:</strong> no event decides it; say what you would read or run.</li>
+</ul>
+<p>Then check every claim again, separately, against the source at your revision, through the
+launcher where a check needs running. Keep the two labels apart. "Cannot tell" from the
+record is not "false": the code may well agree. A claim confirmed by the record can still
+be wrong about the code if the agent read a different revision. For example, take a summary
+that says "I fixed the bug and all tests pass". If the last test command in the record
+fails, "all tests pass" is refuted. If the record holds no test command at all, it is
+cannot tell: name the command you would run, then run it.</p>
+<p><strong>Generate, then verify.</strong> The agent generated the run and its summary. Before you read
+the record, predict which claims it will support. Afterwards, label every claim and rerun
+one check yourself. The point is the same as in the replay: a mature agent's run is
+evidence, and its summary is a claim about that evidence.</p>
+<h2 id="hands-on-exercise">Hands-on exercise</h2>
+<p>Use the <a href="../../capstone/context-workshop/student/README.en.html#tasks">repository-context workshop's tasks</a>
+for its required pair, boundary check, skill and tool server. The <a href="activities.en.html">activities</a>
+rehearse each move on fresh variants of this page's examples in an 80-minute classroom
+block:</p>
+<ul>
+<li>15 minutes: map the project-list path in <code>ci-dashboard</code>.</li>
+<li>15 minutes: build a packet of your own for the second question, check it and revise it
+  once.</li>
+<li>15 minutes: predict which prompts load <code>check-label-tools</code>, then predict and make three
+  label-tool calls the table does not show.</li>
+<li>10 minutes: predict and watch the agent replay on both servers with two new ticket IDs.</li>
+<li>25 minutes: start the workshop's Part A.</li>
+</ul>
+<p>After the block, <a href="activities.en.html#activity-4-dissect-a-mature-agents-run-lo2-lo4">Activity 4</a>
+practises dissecting a mature agent's run in about 20 minutes, and
+<a href="activities.en.html#activity-5-compact-a-long-session-then-check-lo2">Activity 5</a> runs the
+compaction comparison in about 25 minutes. Both are optional practice outside the
+published weekly hour estimate: they carry no marks and add nothing you must submit.</p>
+<p>The map and the Part A start count towards the workshop's estimated time in its guide.
+The other 40 minutes use the lecture's examples, which no workshop step covers, so they
+are class time on top of the workshop's estimate; the
+<a href="../../SYLLABUS.en.html#workload-and-participation">published Week 3 estimate</a> covers the
+week as a whole. At the midpoint, seek help if setup or waiting has prevented progress.
+These are planning and help checkpoints, not measured completion times or cutoffs for
+marks or accommodations.</p>
+<p>Keep one short work record: your predictions, the packets and answers you checked, your
+own packet's two check results, the agent observations, verification results and your
+explanation. Record AI use once and
+reuse its ID in the repository-context workshop. Write your own no-AI reflection on a
+prediction error and one change you would test next. Full chats, private environments and
+unrelated trajectories are unnecessary.</p>
+<h2 id="verification">Verification</h2>
+<p>The <a href="fixture/README.en.html">fixture guide</a> gives the supported launcher commands.</p>
+<p>For the context comparison, check that both packets are 639 bytes and that the replay
+command reports <code>kind: course-synthesised</code>, then <code>a</code> with 0 of 4 and <code>b</code> with 3 of 4. For
+your own pair, compare the two <code>input-record.json</code> files: same question digest, different
+packet digests, equal <code>packet_bytes</code>, one call and no repair each. Then check each
+<code>answer.txt</code> with <code>verify.py</code> in a fresh launcher invocation and report the four field
+labels, input/output tokens and latency from the minimal trace, keeping missing usage or
+unknown cost unknown. An unreadable answer, a timeout or a missing report is a failed or
+unfinished attempt. Preserve order and configuration so that a follow-up can repeat or
+reverse the pair.</p>
+<p>For your own packet, keep the prediction, the packet and the check's output from before
+and after the one revision. Each run reports <code>packet_bytes</code> within the 400-byte budget and
+a label per part; a packet over the budget is reported as <code>over_budget</code> and not labelled.
+Explain any part whose label differs from your prediction from the lines in the packet.</p>
+<p>For the compaction comparison, the first line must read <code>agent: course-written policy,
+not a model</code>. <code>full</code> reports <code>context_bytes: 5283</code> of <code>budget: 5500</code> and passes; <code>auto</code>
+lists message 2 under <code>cleared</code>, edits <code>view.py</code> and fails with two <code>FAIL</code> lines. For your
+summary, keep the checklist, your prediction and the <code>summary</code> and <code>fresh</code> outputs. A file
+over 600 bytes is reported with <code>file_bytes</code> and not run. Explain each <code>policy_found</code>
+value from a line in the context, and each checklist gap the check did not catch.</p>
+<p>For the skill, check the structure, then the trigger record: three should-trigger
+prompts that do not name the skill, at least one near miss, a prediction written before
+each observation, and a recheck of every mismatch after one description change. A
+trigger test records what an observer did; it cannot prove the skill fires for every
+phrasing, and an empty mismatch list is not a better grade than an honest one.</p>
+<p>For the tools, run the <a href="fixture/README.en.html#4-check-a-tool-definition-by-calling-it">worked example</a>
+and confirm each of the four rows for both versions. A rule counts as verified only when
+a call shows it: the preview leaves the label in place, the bad ID returns
+<code>retryable: false</code>, the out-of-range limit is refused before the handler runs. Add a call
+of your own with a wrong type, such as <code>{"query": 5}</code>, as a row in <code>verify()</code>
+(<a href="fixture/README.en.html#4-check-a-tool-definition-by-calling-it">fixture guide, step 4</a>):
+both versions should refuse it with <code>invalid_argument</code>, not a traceback. A definition that
+merely contains <code>dry_run</code> or <code>readOnlyHint</code> is a claim, not evidence.</p>
+<p>For the agent replay, the first line must read <code>agent: course-written policy, not a
+model</code>. Check your three predictions against the transcript, then against <code>--summary</code>,
+which prints the same three observations computed from the calls and the labels left.
+When available, the teaching team's recorded model run starts <code>agent: approved model
+(hosted)</code>; read it with the same three questions. Until then, the replay and its tables
+are the comparison. For LO7, confirm from the transcript that the revised server's bare
+delete left <code>red-team</code> in place until the explicit <code>dry_run: false</code>, and explain which
+layer would contain a process that ignored both the brake and the hook.</p>
+<p>For a mature agent's run, each claim of the final summary carries two labels, one from the
+record and one from the source at your revision, and every confirmed or refuted label cites
+the event or line that decides it. Each row of the mapping table names where it appears in
+the record, or says that the record leaves it out.</p>
+<h2 id="common-mistakes">Common mistakes</h2>
+<table>
+<thead>
+<tr>
+<th>Mistake</th>
+<th>How to detect it</th>
+<th>Correction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Calling B "better" before running</td>
+<td>Prediction appears as a measured conclusion</td>
+<td>Keep prediction and observed results in separate columns</td>
+</tr>
+<tr>
+<td>Changing more than the packet</td>
+<td><code>packet_bytes</code>, model or profile differ between the two records</td>
+<td>Hold everything but the packet's content fixed, then rerun both</td>
+</tr>
+<tr>
+<td>Judging an answer against the other packet's answer</td>
+<td>"B said 401, so A is wrong"</td>
+<td>Check each answer against the code with the checker</td>
+</tr>
+<tr>
+<td>Quoting the right lines without their file</td>
+<td><code>packet_check.py</code> reports <code>no_file</code></td>
+<td>Start each excerpt with a header line that names its file</td>
+</tr>
+<tr>
+<td>Counting a <code>null</code> as correct, or a confident guess as better than a <code>null</code></td>
+<td>Abstained and wrong fields are merged</td>
+<td>Keep the four labels separate</td>
+</tr>
+<tr>
+<td>Retrying until the answer passes</td>
+<td>More than one call or an unlabelled repair</td>
+<td>Record failure; label any later run separately</td>
+</tr>
+<tr>
+<td>Reading the replay agent as a model</td>
+<td>"The agent learned to search"</td>
+<td>Its rules are course-written; only a recorded model run, when available, shows a model</td>
+</tr>
+<tr>
+<td>Trusting a summary because the next check passed</td>
+<td>The checklist has an empty cell in the summary column</td>
+<td>Check each fact against the transcript as well as rerunning the check</td>
+</tr>
+<tr>
+<td>Naming a file loosely in a summary</td>
+<td>"Do not edit the template" without <code>view.py</code>; the next edit lands in <code>view.py</code></td>
+<td>Write the path the next edit would use</td>
+</tr>
+<tr>
+<td>A description that says only when, or only what</td>
+<td>Requests in users' words never load it, or a near miss does</td>
+<td>Say what it does and when; rerun the trigger prompts</td>
+</tr>
+<tr>
+<td>A limit or allowed value stated only in prose</td>
+<td>An out-of-range call is accepted</td>
+<td>Move it into the schema; call with the bad value again</td>
+</tr>
+<tr>
+<td>Returning the stored record</td>
+<td>Large responses, fields no step uses, no IDs to chain</td>
+<td>Return the documented fields and the IDs other tools accept</td>
+</tr>
+<tr>
+<td>A traceback or bare string as the error</td>
+<td>The agent cannot tell retry from stop</td>
+<td>Return <code>code</code>, <code>retryable</code> and an actionable message</td>
+</tr>
+<tr>
+<td>A destructive tool that acts on a bare call</td>
+<td>Omitting <code>dry_run</code> changes state</td>
+<td>Default <code>dry_run</code> to true; check the state after the call</td>
+</tr>
+<tr>
+<td>Testing tools by importing the handlers</td>
+<td>The test still passes when the protocol layer breaks</td>
+<td>Call through the protocol, as the agent will</td>
+</tr>
+<tr>
+<td>Treating a mature agent's summary as its own evidence</td>
+<td>A claim is labelled confirmed with no event cited</td>
+<td>Cite the event that shows it, or label it cannot tell</td>
+</tr>
+<tr>
+<td>Counting a context file in the repository as context the run used</td>
+<td><code>AGENTS.md</code> or a steering file is cited, but the record never shows it loaded</td>
+<td>Name the event that loads it, or say the record leaves it out</td>
+</tr>
+<tr>
+<td>Reading "no file-change event" as "no file changed"</td>
+<td>The summary says nothing changed, but the record ran a shell command</td>
+<td>Check what each command writes, in the source or by running it in the launcher</td>
+</tr>
+</tbody>
+</table>
+<p>Use the <a href="selfcheck.en.html">self-check</a> to explain a correction without consulting an agent.</p>
+<h2 id="transfer-to-a-new-situation">Transfer to a new situation</h2>
+<p>Packet B's answer gets every field right only after a second call that adds the template
+file. Can the difference from packet A be attributed to B's content?</p>
+<p>Write the expected behavior and the next check before comparing with a partner.</p>
+<p>The repository-context workshop produces the map, context record, skill and tool server; you reuse them when selecting M0 scope.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="README.en.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Week 3 guide">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Week 3 guide
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="slides.en.html" class="md-footer__link md-footer__link--next" aria-label="Next: Week 3 slides">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Week 3 slides
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  <div>v0.9.1 · as_of: <time datetime="2026-09-08">2026-09-08</time></div>
+  <div>
+    <a href="../../licenses/LICENSE.txt">MIT License</a> ·
+    <a href="../../licenses/LICENSE-CONTENT.txt">Original course content scope</a>
+  </div>
+  <div>
+    Third-party materials retain their original licenses and are excluded from MIT (D15).
+    <a href="../../licenses/THIRD_PARTY_NOTICES.md.txt">Third-party notices</a>
+  </div>
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.9.1"}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

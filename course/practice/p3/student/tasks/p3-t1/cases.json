@@ -1,0 +1,55 @@
+{
+  "function": "status_counts",
+  "cases": [
+    {
+      "args": [
+        []
+      ],
+      "expected": {
+        "red": 0,
+        "green": 0,
+        "pending": 0
+      }
+    },
+    {
+      "args": [
+        [
+          {
+            "status": "red"
+          },
+          {
+            "status": "green"
+          },
+          {
+            "status": "red"
+          },
+          {
+            "status": "pending"
+          }
+        ]
+      ],
+      "expected": {
+        "red": 2,
+        "green": 1,
+        "pending": 1
+      }
+    },
+    {
+      "args": [
+        [
+          {
+            "status": "pending"
+          },
+          {
+            "status": "pending"
+          }
+        ]
+      ],
+      "expected": {
+        "red": 0,
+        "green": 0,
+        "pending": 2
+      }
+    }
+  ]
+}

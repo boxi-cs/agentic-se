@@ -1,0 +1,99 @@
+{
+  "function": "parse_duration",
+  "cases": [
+    {
+      "args": [
+        "1m30s"
+      ],
+      "expected": 90
+    },
+    {
+      "args": [
+        "2m"
+      ],
+      "expected": 120
+    },
+    {
+      "args": [
+        "45s"
+      ],
+      "expected": 45
+    },
+    {
+      "args": [
+        "0s"
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        "01m90s"
+      ],
+      "expected": 150
+    },
+    {
+      "args": [
+        ""
+      ],
+      "expected": {
+        "raises": "ValueError"
+      }
+    },
+    {
+      "args": [
+        "1s2m"
+      ],
+      "expected": {
+        "raises": "ValueError"
+      }
+    },
+    {
+      "args": [
+        "1m "
+      ],
+      "expected": {
+        "raises": "ValueError"
+      }
+    },
+    {
+      "args": [
+        "-1s"
+      ],
+      "expected": {
+        "raises": "ValueError"
+      }
+    },
+    {
+      "args": [
+        "1.5s"
+      ],
+      "expected": {
+        "raises": "ValueError"
+      }
+    },
+    {
+      "args": [
+        "ms"
+      ],
+      "expected": {
+        "raises": "ValueError"
+      }
+    },
+    {
+      "args": [
+        "1"
+      ],
+      "expected": {
+        "raises": "ValueError"
+      }
+    },
+    {
+      "args": [
+        "\u0661s"
+      ],
+      "expected": {
+        "raises": "ValueError"
+      }
+    }
+  ]
+}

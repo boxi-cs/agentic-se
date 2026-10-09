@@ -1,0 +1,33 @@
+<!doctype html>
+<!-- Week 13 fixture: the current build page. Course-authored synthetic page with no script. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Pipeline Alpha builds</title>
+</head>
+<body>
+<nav aria-label="Dashboard">
+  <a href="#overview">Overview</a>
+</nav>
+<main id="overview">
+<h1>Pipeline Alpha builds</h1>
+<form action="builds" method="get">
+  <input type="hidden" name="pipeline" value="alpha">
+  <details>
+    <summary>Options</summary>
+    <label for="state">State</label>
+    <select id="state" name="status">
+      <option value="all" selected>All</option>
+      <option value="failed">Failed</option>
+      <option value="running">Running</option>
+    </select>
+  </details>
+  <button type="submit">Refresh</button>
+</form>
+<table aria-label="Builds">
+  <thead><tr><th scope="col">Build</th><th scope="col">Status</th></tr></thead>
+  <tbody><!-- The dashboard fills the rows from its query. --></tbody>
+</table>
+</main>
+</body>
+</html>

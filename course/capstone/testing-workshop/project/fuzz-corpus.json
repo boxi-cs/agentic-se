@@ -1,0 +1,10 @@
+{
+  "seed": 17,
+  "cases": [
+    {"raw": "{\"external_id\":\"build-1\",\"pipeline_id\":1,\"branch\":\"main\",\"status\":\"passed\",\"started_at\":\"2026-01-15T12:30:00Z\",\"duration_ms\":10,\"attempt\":1,\"message\":\"ok\"}", "valid": true},
+    {"raw": "{\"external_id\":\"build-2\",\"pipeline_id\":1,\"branch\":\"main\",\"status\":\"unknown\",\"started_at\":\"2026-01-15T12:30:00Z\",\"duration_ms\":10,\"attempt\":1,\"message\":\"bad\"}", "valid": false},
+    {"raw": "", "valid": false},
+    {"raw": "[]", "valid": false},
+    {"raw": "{\"external_id\":\"build-1\",\"pipeline_id\":1,\"branch\":\"main\",\"status\":\"passed\",\"started_at\":\"2026-02-30T12:30:00Z\",\"duration_ms\":10,\"attempt\":1,\"message\":\"ok\"}", "valid": false}
+  ]
+}

@@ -1,0 +1,12 @@
+MIT License for Course Content
+
+Copyright (c) 2026 Boxi Yu
+
+Unless otherwise noted, the original educational materials in this repository
+are licensed under the MIT License in the root LICENSE file. This includes
+course notes, slides, exercises, laboratory instructions, templates, rubrics,
+and documentation created for this project.
+
+Third-party materials are not relicensed by this notice. They retain their
+original licenses and must be recorded in THIRD_PARTY_NOTICES.md before they
+are redistributed with a course package.

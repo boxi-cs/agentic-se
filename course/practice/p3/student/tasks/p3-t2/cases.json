@@ -1,0 +1,49 @@
+{
+  "function": "longest_red_streak",
+  "cases": [
+    {
+      "args": [
+        []
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        [
+          "green",
+          "pending"
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        [
+          "red"
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        [
+          "green",
+          "red",
+          "red",
+          "pending"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          "red",
+          "red",
+          "red"
+        ]
+      ],
+      "expected": 3
+    }
+  ]
+}

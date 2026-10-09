@@ -1,0 +1,8 @@
+"""Course-written helper: map a raw ci-dashboard build status to a display label."""
+
+LABELS = {"ok": "passed", "pass": "passed", "fail": "failed"}
+
+
+def status_label(raw: str) -> str:
+    """Map one raw build status to a display label; unknown values stay unknown."""
+    return LABELS.get(raw.strip().lower(), "unknown")

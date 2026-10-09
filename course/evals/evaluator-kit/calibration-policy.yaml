@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "seed": 308,
+  "holdout_size": 10,
+  "anchor_min_agreement": 0.95,
+  "bands": [
+    {"name": "calibrated", "min_kappa": 0.8, "max_unknown_rate": 0.1, "score": 30},
+    {"name": "developing", "min_kappa": 0.4, "max_unknown_rate": 0.2, "score": 20},
+    {"name": "initial", "min_kappa": 0.0, "max_unknown_rate": 0.3, "score": 10}
+  ],
+  "iteration": "Tune on development only. Preserve this holdout result. After inspecting holdout errors, obtain a newly labeled, teacher-frozen set before another confirmatory evaluation.",
+  "automatic": {"fourtuple": 10, "cases": 20, "evaluator": 15, "calibration": 30, "ci": 5},
+  "human": {"evaluation_design": 10, "annotation_quality": 10},
+  "review": "Thresholds are course design choices, subject to independent scoring-policy review in the T-308 PR; no actual student labels or reviews are asserted."
+}
