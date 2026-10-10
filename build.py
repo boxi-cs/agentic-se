@@ -304,11 +304,11 @@ def approach_page(course: dict) -> str:
     return page(f"Approach · {course['title']}", course["tagline"], 1, body)
 
 
-CITATION = re.compile(r"\s*\(`[\w./-]*:\d[^)]*\)")
+CITATION = re.compile(r"\s*\(`[\w./-]*:\d[^)]*\)|\s*\(scenes? \d+(?:[–-]\d+)?\)")
 
 
 def without_citations(text: str) -> str:
-    """Drop the script's source citations, such as (`notes:56-68`, `:221-228`), from a decision."""
+    """Drop the script's source citations and scene pointers, such as (`notes:56-68`) or (scene 15)."""
     return CITATION.sub("", text)
 
 
