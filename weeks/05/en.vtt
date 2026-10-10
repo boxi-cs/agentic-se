@@ -205,217 +205,485 @@ If it is missing, truncated or off-task, record that.
 Don't raise the limits or switch providers to force a result.
 
 52
-00:02:43.298 --> 00:02:47.869
-Suppose the reply came back like this instead: a conditional expression,
+00:02:43.298 --> 00:02:46.736
+Suppose that, after you placed the reply in a function,
 
 53
-00:02:47.869 --> 00:02:49.138
-and no table at all.
+00:02:46.736 --> 00:02:50.860
+your candidate looked like this instead: a conditional expression,
 
 54
-00:02:49.482 --> 00:02:51.046
-Run the ten cases on it.
+00:02:50.860 --> 00:02:52.110
+and no table at all.
 
 55
-00:02:51.046 --> 00:02:51.893
-All ten pass.
+00:02:52.448 --> 00:02:54.012
+Run the ten cases on it.
 
 56
-00:02:51.893 --> 00:02:57.237
-And the if count is zero, because a conditional expression is not an if statement.
+00:02:54.012 --> 00:02:54.860
+All ten pass.
 
 57
-00:02:57.582 --> 00:03:01.347
-But the request was a dictionary lookup, and there isn't one.
+00:02:54.860 --> 00:03:00.204
+And the if count is zero, because a conditional expression is not an if statement.
 
 58
-00:03:01.347 --> 00:03:06.470
-Record both observations: the cases passed, and the requested structure is missing.
+00:03:00.548 --> 00:03:04.314
+But the request was a dictionary lookup, and there isn't one.
 
 59
-00:03:06.470 --> 00:03:09.865
-Passing tests are not full compliance with the request.
+00:03:04.314 --> 00:03:09.437
+Record both observations: the cases passed, and the requested structure is missing.
 
 60
-00:03:10.915 --> 00:03:14.347
-Before you accept a candidate, add one case of your own,
+00:03:09.437 --> 00:03:12.832
+Passing tests are not full compliance with the request.
 
 61
-00:03:14.347 --> 00:03:19.494
-and take its expected output from the contract, not from what the candidate returns.
+00:03:13.881 --> 00:03:17.313
+Before you accept a candidate, add one case of your own,
 
 62
-00:03:19.831 --> 00:03:23.662
-Callers send mixed case and spaces, so the alias "Pass",
+00:03:17.313 --> 00:03:22.461
+and take its expected output from the contract, not from what the candidate returns.
 
 63
-00:03:23.662 --> 00:03:27.083
-padded with a space and a tab, should give passed.
+00:03:22.798 --> 00:03:26.833
+Callers send mixed case and spaces, so the alias "Pass",
 
 64
-00:03:27.083 --> 00:03:31.735
-Run the original and the worked refactor with the same eleven tests.
+00:03:26.833 --> 00:03:30.436
+padded with a space and a tab, should give passed.
 
 65
-00:03:31.735 --> 00:03:33.171
-Both pass all eleven.
+00:03:30.436 --> 00:03:34.903
+Run the original and our candidate with the same eleven tests.
 
 66
-00:03:33.515 --> 00:03:35.700
-Then name what is still uncertain.
+00:03:34.903 --> 00:03:36.417
+Both pass all eleven.
 
 67
-00:03:35.700 --> 00:03:40.392
-Passing cases are evidence for their inputs, not proof about every input.
+00:03:36.765 --> 00:03:38.950
+Then name what is still uncertain.
 
 68
-00:03:40.392 --> 00:03:42.255
-These are all status strings,
+00:03:38.950 --> 00:03:43.642
+Passing cases are evidence for their inputs, not proof about every input.
 
 69
-00:03:42.255 --> 00:03:46.304
-and what a missing value should do is a specification decision,
+00:03:43.642 --> 00:03:45.505
+These are all status strings,
 
 70
-00:03:46.304 --> 00:03:47.911
-not a guess for an agent.
+00:03:45.505 --> 00:03:49.554
+and what a missing value should do is a specification decision,
 
 71
-00:03:48.947 --> 00:03:49.655
-One caution.
+00:03:49.554 --> 00:03:51.161
+not a guess for an agent.
 
 72
-00:03:49.655 --> 00:03:54.021
-A characterization test records what the code does, not what it should do.
+00:03:52.197 --> 00:03:52.905
+One caution.
 
 73
-00:03:54.364 --> 00:03:59.151
-If today's behavior is wrong or unsafe, don't freeze it as a requirement.
+00:03:52.905 --> 00:03:57.271
+A characterization test records what the code does, not what it should do.
 
 74
-00:03:59.151 --> 00:04:03.872
-Label the discrepancy, and add a failing test for the behavior you want.
+00:03:57.614 --> 00:04:02.401
+If today's behavior is wrong or unsafe, don't freeze it as a requirement.
 
 75
-00:04:04.214 --> 00:04:08.939
-And keep that fix in its own reviewable step, separate from the refactor.
+00:04:02.401 --> 00:04:07.122
+Label the discrepancy, and add a failing test for the behavior you want.
 
 76
-00:04:09.980 --> 00:04:13.482
-The same discipline scales up to your team's repository.
+00:04:07.464 --> 00:04:12.189
+And keep that fix in its own reviewable step, separate from the refactor.
 
 77
-00:04:13.482 --> 00:04:18.547
-Before changing anything, map one path: where the request enters, what it checks,
+00:04:13.230 --> 00:04:17.722
+The same discipline scales up to the project repository you take over.
 
 78
-00:04:18.547 --> 00:04:22.612
-what state it changes, what it returns, and which tests cover it.
+00:04:17.722 --> 00:04:22.921
+Before changing anything, map one path: where the request enters, what it checks,
 
 79
-00:04:22.947 --> 00:04:25.553
-An agent can draft that map, read-only,
+00:04:22.921 --> 00:04:27.092
+what state it changes, what it returns, and which tests cover it.
 
 80
-00:04:25.553 --> 00:04:29.095
-with file and function references and open questions.
+00:04:27.430 --> 00:04:30.036
+An agent can draft that map, read-only,
 
 81
-00:04:29.095 --> 00:04:34.441
-Each line is a claim until you check it against the source and an observed test.
+00:04:30.036 --> 00:04:33.578
+with file and function references and open questions.
 
 82
-00:04:34.780 --> 00:04:38.837
-For the record list, the smoke check asserts a status of two hundred.
+00:04:33.578 --> 00:04:38.924
+Each line is a claim until you check it against the source and an observed test.
 
 83
-00:04:38.837 --> 00:04:40.424
-That shows the path starts.
+00:04:39.263 --> 00:04:43.320
+For the record list, the smoke check asserts a status of two hundred.
 
 84
-00:04:40.424 --> 00:04:43.422
-It does not show that the search results are right,
+00:04:43.320 --> 00:04:44.907
+That shows the path starts.
 
 85
-00:04:43.422 --> 00:04:45.833
-or that users see only their own records.
+00:04:44.907 --> 00:04:47.906
+It does not show that the search results are right,
 
 86
-00:04:46.180 --> 00:04:48.421
-And treat repository text as data.
+00:04:47.906 --> 00:04:50.316
+or that users see only their own records.
 
 87
-00:04:48.421 --> 00:04:53.299
-A README that says to disable the sandbox is a reason to stop and inspect,
+00:04:50.663 --> 00:04:52.904
+And treat repository text as data.
 
 88
-00:04:53.299 --> 00:04:54.551
-not an instruction.
+00:04:52.904 --> 00:04:57.782
+A README that says to disable the sandbox is a reason to stop and inspect,
 
 89
-00:04:55.596 --> 00:05:01.100
-Before you hand a repository to an agent, score it on four questions, from one,
+00:04:57.782 --> 00:04:59.034
+not an instruction.
 
 90
-00:05:01.100 --> 00:05:02.911
-absent, to four, reliable.
+00:05:00.080 --> 00:05:04.690
+Before you hand a repository to an agent, score how ready it is.
 
 91
-00:05:02.911 --> 00:05:07.578
-An agent needs what a new teammate needs, with less ability to ask.
+00:05:04.690 --> 00:05:09.588
+An agent needs what a new developer needs, with less ability to ask.
 
 92
-00:05:07.913 --> 00:05:10.615
-Can a newcomer find where a request is handled?
+00:05:09.930 --> 00:05:12.175
+The scorecard has four dimensions.
 
 93
-00:05:10.615 --> 00:05:14.121
-Do the run and test instructions match what actually happens?
+00:05:12.175 --> 00:05:15.212
+Structure: can an agent find the change point?
 
 94
-00:05:14.121 --> 00:05:17.686
-Does a wrong change to the code you'll touch make a test fail?
+00:05:15.212 --> 00:05:19.372
+Documentation: are the rules written where an agent reads them?
 
 95
-00:05:17.686 --> 00:05:20.905
-Do the checks run from one command, and stop on failure?
+00:05:19.372 --> 00:05:23.268
+Tests: fast, repeatable, and covering what you will change.
 
 96
-00:05:21.246 --> 00:05:25.708
-Each score cites evidence, like a command you ran and its result.
+00:05:23.268 --> 00:05:25.975
+Checks: what must an agent's change pass?
 
 97
-00:05:25.708 --> 00:05:28.385
-The score is a to-do list, not a grade.
+00:05:26.313 --> 00:05:31.072
+Give each one the highest of four levels where you can show every anchor.
 
 98
-00:05:28.385 --> 00:05:33.808
-A one on tests says: write a characterization test before you ask for a change.
+00:05:31.072 --> 00:05:32.637
+No evidence means a one.
 
 99
-00:05:34.845 --> 00:05:37.090
-So: shorter is not safer by itself.
+00:05:32.637 --> 00:05:36.483
+An agent may propose a level, but that is a claim to check.
 
 100
-00:05:37.090 --> 00:05:41.131
-The frozen cases show whether the behavior they cover was kept.
+00:05:36.830 --> 00:05:39.602
+The score is a to-do list, not a grade.
 
 101
-00:05:41.131 --> 00:05:44.017
-The diff shows what changed in the structure.
+00:05:39.602 --> 00:05:45.145
+The dashboard project starts with no context file and no gate before a commit,
 
 102
-00:05:44.362 --> 00:05:45.630
-One question to try.
+00:05:45.145 --> 00:05:47.917
+so Documentation and Checks are at one.
 
 103
-00:05:45.630 --> 00:05:50.511
-The author also changes unknown statuses to failed, because that seems safer.
+00:05:47.917 --> 00:05:49.694
+Those two can rise today.
 
 104
-00:05:50.511 --> 00:05:52.286
-Is it still only a refactor?
+00:05:50.729 --> 00:05:53.389
+A context file removes the first blocker.
 
 105
-00:05:52.286 --> 00:05:56.216
+00:05:53.389 --> 00:05:57.996
+Agent tools read it when a session starts, so it reaches every session.
+
+106
+00:05:57.996 --> 00:06:03.381
+Keep it short, in five sections: the commands to run, the hook before every commit,
+
+107
+00:06:03.381 --> 00:06:08.377
+the invariants with their checks, the files not to touch, and what to report.
+
+108
+00:06:08.729 --> 00:06:13.013
+Whether you write it or an agent drafts it, every line is a claim.
+
+109
+00:06:13.013 --> 00:06:18.270
+Run every command exactly as written, and if one fails, fix the line in the file.
+
+110
+00:06:18.270 --> 00:06:21.709
+Then check that the file changes what a session does.
+
+111
+00:06:22.746 --> 00:06:26.136
+The course replays one task for two fresh sessions,
+
+112
+00:06:26.136 --> 00:06:29.127
+one without the context file and one with it:
+
+113
+00:06:29.127 --> 00:06:31.919
+add a skipped status to the labels module.
+
+114
+00:06:31.919 --> 00:06:36.240
+The hand-off allows one file, names the hook and the smoke check,
+
+115
+00:06:36.240 --> 00:06:38.234
+and asks what was not checked.
+
+116
+00:06:38.579 --> 00:06:44.559
+Without the file, the session reports two changed files, a test runner it installed,
+
+117
+00:06:44.559 --> 00:06:46.125
+and all tests passing.
+
+118
+00:06:46.125 --> 00:06:50.823
+With it: one file, the hook failing then passing, the smoke check,
+
+119
+00:06:50.823 --> 00:06:52.745
+and two things not checked.
+
+120
+00:06:52.745 --> 00:06:55.379
+Predict which one meets the hand-off.
+
+121
+00:06:55.713 --> 00:07:01.924
+The checker compares each hand-back with the hand-off and with the files git diff lists.
+
+122
+00:07:01.924 --> 00:07:03.053
+It runs nothing.
+
+123
+00:07:03.053 --> 00:07:06.371
+Without the file: eight findings, and it stops.
+
+124
+00:07:06.371 --> 00:07:08.135
+With the file: it passes.
+
+125
+00:07:08.479 --> 00:07:10.134
+Look at the first finding.
+
+126
+00:07:10.134 --> 00:07:14.905
+The diff also lists the dependency file, which the session never mentioned.
+
+127
+00:07:14.905 --> 00:07:18.150
+Without the diff, the output no longer mentions it,
+
+128
+00:07:18.150 --> 00:07:22.095
+because the checker can compare only the session's own claims.
+
+129
+00:07:22.095 --> 00:07:25.276
+And even the pass leaves the exit codes as claims,
+
+130
+00:07:25.276 --> 00:07:27.566
+until you open each launcher result.
+
+131
+00:07:28.612 --> 00:07:34.395
+The context file asks a session not to change the dependency file in a feature change.
+
+132
+00:07:34.395 --> 00:07:37.489
+A rule that a session only reads is a request.
+
+133
+00:07:37.489 --> 00:07:40.112
+A hook that stops the commit is a gate.
+
+134
+00:07:40.112 --> 00:07:44.819
+Write down the bad change first, and the good one it must let through.
+
+135
+00:07:45.162 --> 00:07:47.034
+Our run of the course hook.
+
+136
+00:07:47.034 --> 00:07:50.570
+The bad change exits two, with the rule's own line.
+
+137
+00:07:50.570 --> 00:07:52.442
+The good change exits zero.
+
+138
+00:07:52.442 --> 00:07:57.503
+And the protected path, with a dot and a slash in front, still exits two.
+
+139
+00:07:57.845 --> 00:08:00.457
+Read the reason, not only the exit code.
+
+140
+00:08:00.457 --> 00:08:03.787
+A path that is not in the workspace also exits two,
+
+141
+00:08:03.787 --> 00:08:07.835
+but the line starts with refused: the hook rejected its input,
+
+142
+00:08:07.835 --> 00:08:09.989
+and that is not your rule firing.
+
+143
+00:08:09.989 --> 00:08:15.082
+A gate counts only once you have seen it fail on the change it exists to stop,
+
+144
+00:08:15.082 --> 00:08:16.584
+and pass on a good one.
+
+145
+00:08:17.627 --> 00:08:19.667
+Last, split one task into roles.
+
+146
+00:08:19.667 --> 00:08:22.599
+Each is a fresh session with its own hand-off.
+
+147
+00:08:22.599 --> 00:08:25.722
+The explorer only reads, and returns the callers.
+
+148
+00:08:25.722 --> 00:08:30.502
+The implementer may change one file, and runs the hook and the smoke check.
+
+149
+00:08:30.502 --> 00:08:34.900
+The reviewer gets the task, the hand-off, the diff and the hand-back,
+
+150
+00:08:34.900 --> 00:08:39.361
+but not the others' notes, so it judges the change that was asked for.
+
+151
+00:08:39.710 --> 00:08:42.585
+Check each hand-back with the same checker.
+
+152
+00:08:42.585 --> 00:08:47.198
+Then do by hand what it cannot: open each line the explorer returned,
+
+153
+00:08:47.198 --> 00:08:49.404
+rerun each check a finding names,
+
+154
+00:08:49.404 --> 00:08:54.618
+and compare each command a role says it ran with the launcher result you kept.
+
+155
+00:08:54.960 --> 00:08:56.055
+Then score again.
+
+156
+00:08:56.055 --> 00:08:59.339
+In the worked example, Documentation reaches three.
+
+157
+00:08:59.339 --> 00:09:04.427
+So does Checks, because the context file requires the hook before every commit,
+
+158
+00:09:04.427 --> 00:09:07.131
+and its lint check stops an unused import.
+
+159
+00:09:07.131 --> 00:09:10.415
+The protected-file rule alone does not move Checks.
+
+160
+00:09:10.415 --> 00:09:15.825
+Neither is four: nothing runs the documented commands automatically, and for Checks,
+
+161
+00:09:15.825 --> 00:09:18.916
+the hook does not yet run where the agent works,
+
+162
+00:09:18.916 --> 00:09:21.234
+and no secret scan stops the canary.
+
+163
+00:09:22.276 --> 00:09:24.521
+So: shorter is not safer by itself.
+
+164
+00:09:24.521 --> 00:09:28.562
+The frozen cases show whether the behavior they cover was kept.
+
+165
+00:09:28.562 --> 00:09:31.448
+The diff shows what changed in the structure.
+
+166
+00:09:31.793 --> 00:09:34.691
+The same contract holds for a whole repository.
+
+167
+00:09:34.691 --> 00:09:38.822
+The context file and the hook write it where an agent will meet it,
+
+168
+00:09:38.822 --> 00:09:42.521
+and a report is a claim until the diff and a rerun check it.
+
+169
+00:09:42.860 --> 00:09:44.128
+One question to try.
+
+170
+00:09:44.128 --> 00:09:49.009
+The author also changes unknown statuses to failed, because that seems safer.
+
+171
+00:09:49.009 --> 00:09:50.783
+Is it still only a refactor?
+
+172
+00:09:50.783 --> 00:09:54.714
 Write the expected behavior, and the next check you would run.

@@ -101,301 +101,485 @@ Ascending order is a design decision, not an interview finding,
 and the spec says so.
 
 26
-00:01:26.933 --> 00:01:30.476
+00:01:26.933 --> 00:01:30.410
 The acceptance criterion: return the ascending,
 
 27
-00:01:30.476 --> 00:01:36.734
+00:01:30.410 --> 00:01:36.551
 duplicate-free IDs whose status is exactly failed, an empty list if there are none,
 
 28
-00:01:36.734 --> 00:01:38.996
+00:01:36.551 --> 00:01:38.770
 and leave the input unchanged.
 
 29
-00:01:40.033 --> 00:01:41.075
-Predict first.
+00:01:38.770 --> 00:01:43.431
+It replaces the ambiguous request, show jobs needing attention.
 
 30
-00:01:41.075 --> 00:01:46.209
-A plausible generated candidate keeps every status that isn't passed.
+00:01:44.466 --> 00:01:45.508
+Predict first.
 
 31
-00:01:46.549 --> 00:01:49.885
-On the observed runs it returns nine and eleven.
+00:01:45.508 --> 00:01:50.643
+A plausible generated candidate keeps every status that isn't passed.
 
 32
-00:01:49.885 --> 00:01:52.248
-The criterion requires nine alone.
+00:01:50.983 --> 00:01:54.319
+On the observed runs it returns nine and eleven.
 
 33
-00:01:52.248 --> 00:01:56.557
-The problem is how "needs attention" was read, not the syntax.
+00:01:54.319 --> 00:01:56.682
+The criterion requires nine alone.
 
 34
-00:01:57.599 --> 00:02:02.870
-Repair the predicate to status equals failed, and run the same checks again.
+00:01:56.682 --> 00:02:00.990
+The problem is how "needs attention" was read, not the syntax.
 
 35
-00:02:03.216 --> 00:02:08.293
-The public checks cover mixed statuses, empty input, no failures, sorting,
+00:02:02.032 --> 00:02:07.303
+Repair the predicate to status equals failed, and run the same checks again.
 
 36
-00:02:08.293 --> 00:02:12.615
-duplicates and another ID, and the input has to stay unchanged.
+00:02:07.649 --> 00:02:12.726
+The public checks cover mixed statuses, empty input, no failures, sorting,
 
 37
-00:02:12.615 --> 00:02:14.605
-On the repair, they all pass.
+00:02:12.726 --> 00:02:17.049
+duplicates and another ID, and the input has to stay unchanged.
 
 38
-00:02:15.649 --> 00:02:20.947
-Trace the decision: the observation, the problem statement, the criterion,
+00:02:17.049 --> 00:02:19.038
+On the repair, they all pass.
 
 39
-00:02:20.947 --> 00:02:23.381
-the failing check, and the repair.
+00:02:20.082 --> 00:02:25.380
+Trace the decision: the observation, the problem statement, the criterion,
 
 40
-00:02:23.715 --> 00:02:28.114
-A passing test of the ordering rule doesn't turn it into interview evidence.
+00:02:25.380 --> 00:02:27.814
+the failing check, and the repair.
 
 41
-00:02:28.114 --> 00:02:31.529
-And acceptance tests can't show that the product is useful.
+00:02:28.149 --> 00:02:32.547
+A passing test of the ordering rule doesn't turn it into interview evidence.
 
 42
-00:02:32.565 --> 00:02:34.584
-AC1 says what must be true.
+00:02:32.547 --> 00:02:35.962
+And acceptance tests can't show that the product is useful.
 
 43
-00:02:34.584 --> 00:02:38.248
-It does not say how to hand the work to an agent.
+00:02:36.998 --> 00:02:39.017
+AC1 says what must be true.
 
 44
-00:02:38.248 --> 00:02:43.408
-One request, implement AC1, asks the agent to research, choose, plan,
+00:02:39.017 --> 00:02:42.681
+It does not say how to hand the work to an agent.
 
 45
-00:02:43.408 --> 00:02:47.820
-write and judge in a single step, and you only see the end.
+00:02:42.681 --> 00:02:47.841
+One request, implement AC1, asks the agent to research, choose, plan,
 
 46
-00:02:48.165 --> 00:02:53.764
-So split the delegation into five stages: research, propose, plan, implement,
+00:02:47.841 --> 00:02:52.254
+write and judge in a single step, and you only see the end.
 
 47
-00:02:53.764 --> 00:02:54.419
-and test.
+00:02:52.598 --> 00:02:58.009
+So split it into five stages: research, propose, plan, implement, and test.
 
 48
-00:02:54.419 --> 00:03:00.019
+00:02:58.009 --> 00:03:03.565
 At every stop, a person reads what the stage produced, and decides: continue,
 
 49
-00:03:00.019 --> 00:03:03.873
+00:03:03.565 --> 00:03:07.389
 narrow the task, return to an earlier stage, or stop.
 
 50
-00:03:04.215 --> 00:03:07.063
+00:03:07.731 --> 00:03:10.580
 An agent can draft the output of every stage.
 
 51
-00:03:07.063 --> 00:03:09.532
+00:03:10.580 --> 00:03:13.048
 It cannot make those decisions for you,
 
 52
-00:03:09.532 --> 00:03:12.760
+00:03:13.048 --> 00:03:16.276
 and it cannot be the one who checks its own result.
 
 53
-00:03:13.798 --> 00:03:17.452
+00:03:17.314 --> 00:03:20.968
 At propose, suppose the agent offers three options.
 
 54
-00:03:17.452 --> 00:03:21.106
+00:03:20.968 --> 00:03:24.623
 A: change the predicate inside the broken function.
 
 55
-00:03:21.106 --> 00:03:26.766
+00:03:24.623 --> 00:03:30.283
 It is the smallest diff, but it removes the counterexample the class relies on.
 
 56
-00:03:27.115 --> 00:03:32.025
+00:03:30.631 --> 00:03:35.542
 B: add a separate failed-ids function, checked by the same verify.
 
 57
-00:03:32.025 --> 00:03:35.522
+00:03:35.542 --> 00:03:39.039
 One new function, and the counterexample stays.
 
 58
-00:03:35.522 --> 00:03:38.945
+00:03:39.039 --> 00:03:42.461
 C: add a status option to the run list screen.
 
 59
-00:03:38.945 --> 00:03:40.954
+00:03:42.461 --> 00:03:44.470
 But a web UI is a non-goal.
 
 60
-00:03:41.298 --> 00:03:42.149
+00:03:44.814 --> 00:03:45.665
 You choose B.
 
 61
-00:03:42.149 --> 00:03:46.273
+00:03:45.665 --> 00:03:49.789
 Rejecting C is a scope decision from the requirements document,
 
 62
-00:03:46.273 --> 00:03:49.611
+00:03:49.789 --> 00:03:53.127
 not a technical judgement, so write it down as one.
 
 63
-00:03:50.648 --> 00:03:56.600
+00:03:54.164 --> 00:04:00.116
 At plan, each step points to a check written from AC1 before any code existed.
 
 64
-00:03:56.600 --> 00:04:01.637
+00:04:00.116 --> 00:04:05.153
 Keep only status exactly failed: the mixed and no-failures checks.
 
 65
-00:04:01.637 --> 00:04:04.765
+00:04:05.153 --> 00:04:08.282
 Return each ID once: the duplicate check.
 
 66
-00:04:05.114 --> 00:04:07.396
+00:04:08.631 --> 00:04:10.901
 Sort ascending: the sort check.
 
 67
-00:04:07.396 --> 00:04:09.751
+00:04:10.901 --> 00:04:13.246
 Handle no runs: the empty check.
 
 68
-00:04:09.751 --> 00:04:13.578
+00:04:13.246 --> 00:04:17.055
 Use the input, not fixed values: the other-ID check.
 
 69
-00:04:13.578 --> 00:04:17.920
-And do not change the input: the input-unchanged assertion.
+00:04:17.055 --> 00:04:22.841
+And do not change the input: the assertion that reports the input was modified.
 
 70
-00:04:18.264 --> 00:04:22.235
+00:04:23.181 --> 00:04:27.151
 If a step has no check, write the check first, or drop the step.
 
 71
-00:04:22.235 --> 00:04:24.592
+00:04:27.151 --> 00:04:29.508
 The plan is where you narrow the task.
 
 72
-00:04:25.631 --> 00:04:30.693
+00:04:30.547 --> 00:04:35.537
 At implement, the bound is part of the request: write only failed-ids,
 
 73
-00:04:30.693 --> 00:04:35.900
+00:04:35.537 --> 00:04:40.670
 in one new file, with no imports, and do not edit the acceptance checks.
 
 74
-00:04:35.900 --> 00:04:39.226
-Read the candidate as text before you test it.
+00:04:40.670 --> 00:04:45.303
+Without a model, the course wrote three candidates for this stop.
 
 75
-00:04:39.564 --> 00:04:42.203
-Then a failure tells you where to go back.
+00:04:45.647 --> 00:04:50.233
+Read each one as text, and decide whether it stays inside the bound,
 
 76
-00:04:42.203 --> 00:04:46.474
-A wrong predicate, like the one our run of the broken version shows,
+00:04:50.233 --> 00:04:51.581
+before it is tested.
 
 77
-00:04:46.474 --> 00:04:48.045
-returns you to implement.
+00:04:51.581 --> 00:04:55.493
+Anything outside the bound is rejected, even if it passes.
 
 78
-00:04:48.045 --> 00:04:51.312
-A clause the plan never covered returns you to plan.
+00:04:55.493 --> 00:05:00.213
+In the activity, one candidate passes Test and still breaks the bound.
 
 79
-00:04:51.312 --> 00:04:54.892
-A misread requirement returns you to propose or research.
+00:05:00.213 --> 00:05:02.911
+Which one, and why didn't Test catch it?
 
 80
-00:04:54.892 --> 00:04:57.908
-And never repair a failure by editing the check.
+00:05:02.911 --> 00:05:04.664
+That one is yours to find.
 
 81
-00:04:58.247 --> 00:05:03.240
-Record the round in a few lines: the brief for each stage, what came back,
+00:05:05.014 --> 00:05:09.539
+Then test, and record the exit code with the first failing check,
 
 82
-00:05:03.240 --> 00:05:05.332
-and your decision at each stop.
+00:05:09.539 --> 00:05:11.279
+or the one all-pass line.
 
 83
-00:05:05.332 --> 00:05:09.919
-Stopping after plan, because the first step is not yet small enough,
+00:05:11.279 --> 00:05:15.595
+In our run of the broken version, the mixed check fails first,
 
 84
-00:05:09.919 --> 00:05:11.471
-is a legitimate result.
+00:05:15.595 --> 00:05:17.544
+so the other five never run.
 
 85
-00:05:12.514 --> 00:05:14.604
-Treat specifications as source.
+00:05:17.544 --> 00:05:22.626
+After a failure, the later checks are not run, and not run is not passed.
 
 86
-00:05:14.604 --> 00:05:19.187
-Version the intent, and review its changes alongside tests and code.
+00:05:23.664 --> 00:05:25.996
+A failure tells you where to go back.
 
 87
-00:05:19.187 --> 00:05:24.243
-A requirement change should identify the affected tests and implementation,
+00:05:25.996 --> 00:05:30.281
+A wrong predicate, like the one our run of the broken version shows,
 
 88
-00:05:24.243 --> 00:05:28.489
-and a code change should still satisfy the current requirement.
+00:05:30.281 --> 00:05:31.857
+returns you to implement.
 
 89
-00:05:28.831 --> 00:05:33.384
-But prose is not automatically executable, complete or true.
+00:05:31.857 --> 00:05:35.134
+A clause the plan never covered returns you to plan.
 
 90
-00:05:33.384 --> 00:05:37.710
-A mistaken spec can produce consistent but unwanted code.
+00:05:35.134 --> 00:05:38.727
+A misread requirement returns you to propose or research.
 
 91
-00:05:37.710 --> 00:05:43.401
-And an AI consistency report is a review input, not a proof of correctness.
+00:05:38.727 --> 00:05:41.752
+And never repair a failure by editing the check.
 
 92
-00:05:44.447 --> 00:05:46.918
-So start from an event, not a pitch.
+00:05:42.097 --> 00:05:47.090
+Record the round in a few lines: the brief for each stage, what came back,
 
 93
-00:05:46.918 --> 00:05:48.634
-Label the design choices.
+00:05:47.090 --> 00:05:49.181
+and your decision at each stop.
 
 94
-00:05:48.634 --> 00:05:52.134
-And judge the generated code against the criterion,
+00:05:49.181 --> 00:05:53.769
+Stopping after plan, because the first step is not yet small enough,
 
 95
-00:05:52.134 --> 00:05:54.536
-not against how plausible it looks.
+00:05:53.769 --> 00:05:55.321
+is a legitimate result.
 
 96
-00:05:54.881 --> 00:05:56.067
-One question to try.
+00:05:56.364 --> 00:05:59.565
+Between stages, each one hands the next a file.
 
 97
-00:05:56.067 --> 00:05:58.262
-The filter returns the right records,
+00:05:59.565 --> 00:06:03.107
+The research file holds the located claims you kept;
 
 98
-00:05:58.262 --> 00:06:01.644
-but sorts them differently from the agreed display order.
+00:06:03.107 --> 00:06:06.104
+the plan file holds the step-to-check table.
 
 99
-00:06:01.644 --> 00:06:03.364
-Is the requirement satisfied?
+00:06:06.104 --> 00:06:12.235
+The next stage starts in a fresh session that reads only that file and the paths it names,
 
 100
-00:06:03.364 --> 00:06:06.212
+00:06:12.235 --> 00:06:14.823
+not the conversation that produced it.
+
+101
+00:06:14.823 --> 00:06:19.523
+The course's research and plan skills return those claims and tables;
+
+102
+00:06:19.523 --> 00:06:20.954
+the stops stay yours.
+
+103
+00:06:21.997 --> 00:06:25.326
+Here is the same round on the project repository.
+
+104
+00:06:25.326 --> 00:06:28.994
+The course wrote this record, and no model was called.
+
+105
+00:06:28.994 --> 00:06:29.945
+The criterion:
+
+106
+00:06:29.945 --> 00:06:34.700
+an owner's overview lists the active project and not the archived one,
+
+107
+00:06:34.700 --> 00:06:37.961
+and the archived project's own page still opens.
+
+108
+00:06:38.297 --> 00:06:41.727
+Research returns four claims, each with a location.
+
+109
+00:06:41.727 --> 00:06:42.736
+Open every one.
+
+110
+00:06:42.736 --> 00:06:47.242
+The fourth says the overview query already skips archived projects,
+
+111
+00:06:47.242 --> 00:06:49.528
+so only the label needs to change.
+
+112
+00:06:49.528 --> 00:06:52.218
+But the query has no archived condition.
+
+113
+00:06:52.218 --> 00:06:52.891
+Strike it.
+
+114
+00:06:53.230 --> 00:06:57.106
+Had it survived, the plan would have changed only the label,
+
+115
+00:06:57.106 --> 00:07:00.143
+and the archived project would still be listed.
+
+116
+00:07:00.143 --> 00:07:03.114
+A wrong research claim becomes a wrong option,
+
+117
+00:07:03.114 --> 00:07:05.569
+then a wrong plan step and wrong code.
+
+118
+00:07:05.569 --> 00:07:09.833
+Striking it at the first stop is the cheapest repair in the round.
+
+119
+00:07:10.180 --> 00:07:13.644
+At propose, filter in the query, not in the template:
+
+120
+00:07:13.644 --> 00:07:16.584
+for an owner whose projects are all archived,
+
+121
+00:07:16.584 --> 00:07:21.419
+the template's empty branch would never run, and the table would be blank.
+
+122
+00:07:21.419 --> 00:07:25.471
+The plan changes one line, and adds two tests, one per clause.
+
+123
+00:07:25.814 --> 00:07:29.986
+Then writing the tests exposes a case the criterion never names:
+
+124
+00:07:29.986 --> 00:07:32.659
+an owner whose projects are all archived.
+
+125
+00:07:32.659 --> 00:07:36.049
+That owner reads "No projects yet", which is untrue,
+
+126
+00:07:36.049 --> 00:07:40.939
+and gets back to the unarchive button only by typing the project's address.
+
+127
+00:07:40.939 --> 00:07:42.699
+Neither is a code question.
+
+128
+00:07:42.699 --> 00:07:47.849
+So the round stops after plan, and both questions go back to the specification.
+
+129
+00:07:48.896 --> 00:07:51.004
+Treat specifications as source.
+
+130
+00:07:51.004 --> 00:07:55.628
+Version the intent, and review its changes alongside tests and code.
+
+131
+00:07:55.628 --> 00:08:00.727
+A requirement change should identify the affected tests and implementation,
+
+132
+00:08:00.727 --> 00:08:05.011
+and a code change should still satisfy the current requirement.
+
+133
+00:08:05.011 --> 00:08:09.295
+Record each agreed change in the spec's change log: the clause,
+
+134
+00:08:09.295 --> 00:08:12.627
+the tests it affects, the reason, and who agreed.
+
+135
+00:08:12.963 --> 00:08:17.516
+But prose is not automatically executable, complete or true.
+
+136
+00:08:17.516 --> 00:08:21.842
+A mistaken spec can produce consistent but unwanted code.
+
+137
+00:08:21.842 --> 00:08:27.533
+And an AI consistency report is a review input, not a proof of correctness.
+
+138
+00:08:28.579 --> 00:08:31.050
+So start from an event, not a pitch.
+
+139
+00:08:31.050 --> 00:08:32.766
+Label the design choices.
+
+140
+00:08:32.766 --> 00:08:36.266
+And judge the generated code against the criterion,
+
+141
+00:08:36.266 --> 00:08:38.668
+not against how plausible it looks.
+
+142
+00:08:39.013 --> 00:08:40.199
+One question to try.
+
+143
+00:08:40.199 --> 00:08:42.394
+The filter returns the right records,
+
+144
+00:08:42.394 --> 00:08:45.776
+but sorts them differently from the agreed display order.
+
+145
+00:08:45.776 --> 00:08:47.496
+Is the requirement satisfied?
+
+146
+00:08:47.496 --> 00:08:50.344
 Write the expected behavior, and the next check.

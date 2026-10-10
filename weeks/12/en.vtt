@@ -1,429 +1,609 @@
 WEBVTT
 
 1
-00:00:00.000 --> 00:00:04.178
-A recorded model review of a frozen snapshot makes three claims.
+00:00:00.000 --> 00:00:05.414
+A recorded review of a frozen snapshot holds five claims, about security,
 
 2
-00:00:04.178 --> 00:00:07.442
-A viewer can receive the body of a private report.
+00:00:05.414 --> 00:00:07.416
+evaluation and maintenance.
 
 3
-00:00:07.442 --> 00:00:10.510
-The status endpoint accepts an arbitrary label.
+00:00:07.416 --> 00:00:12.237
+Each has an id, an area and, for most, the function it points at.
 
 4
-00:00:10.510 --> 00:00:14.884
-And the production export configuration exposes a secret directory.
+00:00:12.583 --> 00:00:17.684
+It does not say which check to run, which input to use, or what the answer is.
 
 5
-00:00:15.233 --> 00:00:17.041
-Each one sounds plausible.
+00:00:17.684 --> 00:00:19.712
+Choosing those is the exercise.
 
 6
-00:00:17.041 --> 00:00:21.003
-But the model text is evidence to inspect, never a score.
+00:00:20.050 --> 00:00:24.437
+This practice review is course-authored; no model wrote it.
 
 7
-00:00:22.050 --> 00:00:27.135
-So before you open the review, label a clean, frozen snapshot: its name,
+00:00:24.437 --> 00:00:27.113
+In M3, a model reviews your own tag.
 
 8
-00:00:27.135 --> 00:00:32.220
-the feature, the source revision, the inputs, and what is outside scope.
+00:00:27.113 --> 00:00:31.648
+Either way, the review is evidence to inspect, never a score.
 
 9
-00:00:32.567 --> 00:00:37.445
-For a repository, confirm the tree is clean, create an annotated tag,
+00:00:32.683 --> 00:00:35.710
+So before you open the review, write a label.
 
 10
-00:00:37.445 --> 00:00:39.637
-and record the commit it names.
+00:00:35.710 --> 00:00:40.822
+The snapshot's name, the feature, the requirements, and the source revision.
 
 11
-00:00:39.983 --> 00:00:45.765
-This label prevents evidence from a repaired or unrelated revision being attached to the review.
+00:00:41.167 --> 00:00:46.545
+Then one line per claim: the check and input you chose, before running anything.
 
 12
-00:00:46.100 --> 00:00:50.640
-It is also what makes a bounded statement, no defect observed, possible.
+00:00:46.545 --> 00:00:50.780
+And what is outside scope: here, production-only configuration.
 
 13
-00:00:51.683 --> 00:00:56.459
-Before you run anything, read the access rule the way the snapshot writes it.
+00:00:51.117 --> 00:00:55.947
+This label keeps evidence from a repaired or unrelated revision off the review.
 
 14
-00:00:56.459 --> 00:01:01.110
-A viewer is allowed, or an owner is allowed when the report is not private.
+00:00:55.947 --> 00:01:00.289
+And it is what makes a bounded statement, no defect observed, possible.
 
 15
-00:01:01.450 --> 00:01:04.822
-The viewer test stands alone, on the left of the or.
+00:01:01.333 --> 00:01:04.534
+The snapshot comes with six frozen requirements.
 
 16
-00:01:04.822 --> 00:01:10.270
-Nothing ties it to the privacy flag, so a viewer is allowed on a private report too.
+00:01:04.534 --> 00:01:06.935
+No role reads a private report body.
 
 17
-00:01:10.270 --> 00:01:13.838
-The snapshot's own comment calls this a precedence bug.
+00:01:06.935 --> 00:01:10.269
+The status endpoint accepts only ready and queued.
 
 18
-00:01:14.183 --> 00:01:17.980
-A model may see a role check and ignore boolean precedence.
+00:01:10.269 --> 00:01:14.337
+Exported and archived paths stay under the reports directory.
 
 19
-00:01:17.980 --> 00:01:22.356
-And your own reading is still a hand trace: a prediction, not a run.
+00:01:14.683 --> 00:01:18.120
+No export configuration exposes a secret directory.
 
 20
-00:01:23.400 --> 00:01:25.721
-So write the prediction down: allow.
+00:01:18.120 --> 00:01:22.162
+The private-count scorer gives one only for the right count.
 
 21
-00:01:25.721 --> 00:01:26.947
-Then run the check.
+00:01:22.162 --> 00:01:26.003
+And the report root is written once, as a named constant.
 
 22
-00:01:26.947 --> 00:01:28.817
-A hand trace is a prediction.
+00:01:26.350 --> 00:01:31.338
+Every disposition is judged against these, not against the wording of the review.
 
 23
-00:01:28.817 --> 00:01:31.074
-A launcher observation is evidence.
+00:01:31.338 --> 00:01:34.909
+And production configuration is not part of this snapshot,
 
 24
-00:01:31.416 --> 00:01:35.542
-Run the private report check for a viewer on a private report.
+00:01:34.909 --> 00:01:36.694
+so no check here can read it.
 
 25
-00:01:35.542 --> 00:01:38.337
-It returns allow, and the body is visible.
+00:01:37.732 --> 00:01:41.899
+Here is one row, worked once, for a claim that is not in the review.
 
 26
-00:01:38.337 --> 00:01:40.600
-But the access rule requires deny.
+00:01:41.899 --> 00:01:44.780
+An owner can read the body of a private report.
 
 27
-00:01:40.950 --> 00:01:44.841
-The observation demonstrates the stated defect on this snapshot.
+00:01:45.116 --> 00:01:49.374
+The requirement is R1: no role reads a private report body.
 
 28
-00:01:44.841 --> 00:01:48.914
-So this one is confirmed, with the protected state in the evidence.
+00:01:49.374 --> 00:01:53.415
+The claim names one case, an owner and a private report,
 
 29
-00:01:49.949 --> 00:01:50.895
-Second claim.
+00:01:53.415 --> 00:01:58.467
+so the check is private report view, with private true and role owner.
 
 30
-00:01:50.895 --> 00:01:54.968
-A model tends to turn a salient token into a conclusion.
+00:01:58.816 --> 00:02:02.207
+Write the prediction before the run: if the claim holds,
 
 31
-00:01:54.968 --> 00:01:59.551
-It may see a label that resembles HTML, and skip the allowlist.
+00:02:02.207 --> 00:02:04.569
+allowed and body visible are both true.
 
 32
-00:01:59.899 --> 00:02:02.418
-Run the status check with that label.
+00:02:04.569 --> 00:02:07.778
+In the course you run the check through the launcher.
 
 33
-00:02:02.418 --> 00:02:04.868
-It is rejected as an unknown status.
+00:02:07.778 --> 00:02:11.714
+A hand trace is a prediction; a launcher observation is evidence.
 
 34
-00:02:05.216 --> 00:02:08.825
-The observation contradicts the claim, so it is refuted.
+00:02:12.049 --> 00:02:15.059
+We ran the same check in a scratch copy.
 
 35
-00:02:08.825 --> 00:02:10.823
-This claim is a false positive.
+00:02:15.059 --> 00:02:20.025
+Allowed is false, the body is not visible, and the status is deny.
 
 36
-00:02:10.823 --> 00:02:15.851
-Calling it confirmed because its wording sounds plausible is a common mistake.
+00:02:20.366 --> 00:02:22.043
+So the claim is refuted.
 
 37
-00:02:16.899 --> 00:02:17.700
-Third claim.
+00:02:22.043 --> 00:02:26.864
+It is about one input, and that input is denied with the body hidden,
 
 38
-00:02:17.700 --> 00:02:21.439
-Production configuration is outside the public snapshot,
+00:02:26.864 --> 00:02:27.912
+as R1 requires.
 
 39
-00:02:21.439 --> 00:02:24.643
-so this snapshot cannot confirm it or refute it.
+00:02:28.949 --> 00:02:33.120
+Each check prints the arguments it ran with, its observation,
 
 40
-00:02:24.982 --> 00:02:29.660
-Write undetermined, and name the missing input: the production configuration.
+00:02:33.120 --> 00:02:34.897
+and the canonical command.
 
 41
-00:02:29.660 --> 00:02:32.030
-Calling it a defect would be a mistake.
+00:02:34.897 --> 00:02:37.564
+Record that command exactly as printed.
 
 42
-00:02:33.065 --> 00:02:35.086
-Why did the review over-assert?
+00:02:37.899 --> 00:02:41.800
+We typed the arguments with spaces, in a different order.
 
 43
-00:02:35.086 --> 00:02:38.736
-A model tends to turn a salient token into a conclusion,
+00:02:41.800 --> 00:02:46.043
+The printed command starts at python, with no launcher prefix,
 
 44
-00:02:38.736 --> 00:02:41.018
-like the label that resembles HTML.
+00:02:46.043 --> 00:02:49.602
+and its arguments are compact JSON with sorted keys.
 
 45
-00:02:41.365 --> 00:02:44.644
-It may see a role check and ignore boolean precedence.
+00:02:49.949 --> 00:02:55.977
+A check also refuses a missing, extra or wrongly typed argument instead of guessing.
 
 46
-00:02:44.644 --> 00:02:48.226
-And it may fill a missing file with a plausible assumption.
+00:02:55.977 --> 00:02:58.489
+We sent private as the string true.
 
 47
-00:02:48.226 --> 00:02:51.930
-Here, the production configuration was never in the snapshot.
+00:02:58.489 --> 00:03:01.431
+Rejected: private must be a JSON boolean.
 
 48
-00:02:52.265 --> 00:02:57.815
-So test the exact input and the protected state before you use a word like confirmed.
+00:03:02.465 --> 00:03:05.975
+A claim's wording sets what one observation can show.
 
 49
-00:02:58.848 --> 00:03:00.732
-Review attention is finite.
+00:03:05.975 --> 00:03:08.491
+So read it before you choose an input.
 
 50
-00:03:00.732 --> 00:03:05.823
-A model may follow the named route and never probe a sibling export path.
+00:03:08.832 --> 00:03:12.206
+If the claim is about one input, like the worked row,
 
 51
-00:03:05.823 --> 00:03:07.846
-So add one check of your own.
+00:03:12.206 --> 00:03:14.498
+one run can confirm it or refute it.
 
 52
-00:03:08.182 --> 00:03:12.152
-Run the export path check with a name that climbs up a folder,
+00:03:14.832 --> 00:03:20.358
+If it says some input breaks a rule, one run that shows the problem confirms it.
 
 53
-00:03:12.152 --> 00:03:13.625
-to secrets slash token.
+00:03:20.358 --> 00:03:25.815
+An input that behaves cannot refute it: it only shows where the problem is not.
 
 54
-00:03:13.625 --> 00:03:17.404
-The path leaves the reports folder, and it is not confined.
+00:03:26.149 --> 00:03:30.992
+If it says every input, or always, one counterexample refutes it.
 
 55
-00:03:17.404 --> 00:03:21.951
-That is a new defect, recorded with its command, observation and scope.
+00:03:30.992 --> 00:03:35.762
+An input that behaves cannot confirm it: it is one case of many.
 
 56
-00:03:22.298 --> 00:03:26.164
-If your path is clean instead, say which range you examined,
+00:03:36.798 --> 00:03:41.354
+Suppose a claim is about some input, and every input you tried behaves.
 
 57
-00:03:26.164 --> 00:03:28.547
-and which paths remain outside scope.
+00:03:41.354 --> 00:03:42.894
+That does not refute it.
 
 58
-00:03:28.547 --> 00:03:31.575
-And never silently rewrite the recorded review.
+00:03:43.232 --> 00:03:45.046
+And cannot tell is wrong too,
 
 59
-00:03:31.915 --> 00:03:36.578
-For example, run the status check with ready, one of its allowed labels.
+00:03:45.046 --> 00:03:48.549
+because the snapshot still holds what decides the claim.
 
 60
-00:03:36.578 --> 00:03:38.651
-It is accepted, as status ready.
+00:03:48.898 --> 00:03:52.031
+So read the code for the rule it actually applies,
 
 61
-00:03:38.651 --> 00:03:41.954
-Our scope statement names the one label we checked,
+00:03:52.031 --> 00:03:55.727
+and choose inputs at that rule's edges, not typical values.
 
 62
-00:03:41.954 --> 00:03:44.674
-and leaves the other labels outside scope.
+00:03:55.727 --> 00:03:57.356
+Keep each input you tried.
 
 63
-00:03:45.714 --> 00:03:47.793
-Write every row in the same shape.
+00:03:57.356 --> 00:03:59.173
+They record where you looked.
 
 64
-00:03:47.793 --> 00:03:49.749
-The finding and its disposition.
+00:04:00.215 --> 00:04:02.275
+A claim often overstates its scope.
 
 65
-00:03:49.749 --> 00:03:50.727
-The requirement.
+00:04:02.275 --> 00:04:04.982
+It is about each member of a set you can list,
 
 66
-00:03:50.727 --> 00:03:52.928
-The evidence command and its output.
+00:04:04.982 --> 00:04:07.808
+and it holds for one member but not for another.
 
 67
-00:03:52.928 --> 00:03:55.617
-The observed effect and the protected state.
+00:04:08.148 --> 00:04:10.175
+Do not force it into one word.
 
 68
-00:03:55.964 --> 00:04:00.612
-For an undetermined row, the missing input, or why it cannot be decided.
+00:04:10.175 --> 00:04:13.418
+A single refuted would hide the part that holds.
 
 69
-00:04:00.612 --> 00:04:04.486
-And for every row, the scope, and the question that remains.
+00:04:13.418 --> 00:04:17.134
+A single confirmed would assert the part that does not.
 
 70
-00:04:04.831 --> 00:04:07.178
-The own check is one of two kinds.
+00:04:17.481 --> 00:04:22.875
+So split it: one part per member, each with its own evidence and disposition.
 
 71
-00:04:07.178 --> 00:04:08.076
-A new defect:
+00:04:22.875 --> 00:04:25.817
+Then the part that holds still reaches M4.
 
 72
-00:04:08.076 --> 00:04:13.324
-a check outside the recorded inputs whose observation demonstrates a defect.
+00:04:26.864 --> 00:04:30.182
+Some claims are about something outside the snapshot.
 
 73
-00:04:13.324 --> 00:04:15.879
-Or a scope check: no defect observed,
+00:04:30.182 --> 00:04:33.626
+One run can show only that the snapshot cannot read it.
 
 74
-00:04:15.879 --> 00:04:19.262
-and a sentence naming the range and its boundary.
+00:04:33.626 --> 00:04:35.316
+It cannot decide the claim.
 
 75
-00:04:20.297 --> 00:04:22.543
-Then hand the record to the verifier.
+00:04:35.664 --> 00:04:39.483
+So mark it cannot tell, written undetermined in the record,
 
 76
-00:04:22.543 --> 00:04:26.610
-It reruns every named check, checks the exact reproducible command,
+00:04:39.483 --> 00:04:41.231
+and name the missing input.
 
 77
-00:04:26.610 --> 00:04:30.191
-and derives the supported disposition from the observation,
+00:04:41.231 --> 00:04:44.921
+That means the snapshot lacks the input or configuration,
 
 78
-00:04:30.191 --> 00:04:32.255
-not from a label in the recording.
+00:04:44.921 --> 00:04:46.798
+not that you stopped looking.
 
 79
-00:04:32.597 --> 00:04:36.376
-We filled a record in a scratch copy: the three dispositions,
+00:04:47.147 --> 00:04:50.830
+Calling missing production configuration a defect is a mistake.
 
 80
-00:04:36.376 --> 00:04:38.668
-with the export path as a new defect.
+00:04:50.830 --> 00:04:53.812
+So is deciding it with a check of a different path.
 
 81
-00:04:38.668 --> 00:04:40.527
-The verifier reports verified.
+00:04:54.847 --> 00:04:57.058
+Some claims point at a function.
 
 82
-00:04:40.864 --> 00:04:45.679
-Then, as the workshop suggests, mark the false positive confirmed once.
+00:04:57.058 --> 00:04:59.821
+Others only describe behaviour, such as:
 
 83
-00:04:45.679 --> 00:04:50.291
-Rejected: the disposition is not supported by the runnable evidence.
+00:04:59.821 --> 00:05:03.137
+the search page can show another user's reports.
 
 84
-00:04:50.630 --> 00:04:54.780
-Put a hand trace where the command belongs, and it is rejected again.
+00:05:03.480 --> 00:05:07.093
+First, name the requirement the claim says is broken.
 
 85
-00:04:54.780 --> 00:04:57.968
-The command is not the reproducible launcher command.
+00:05:07.093 --> 00:05:10.502
+Then find the check that exercises that behaviour.
 
 86
-00:04:58.314 --> 00:05:02.863
-It also rejects an item with no evidence, an empty undetermined reason,
+00:05:10.502 --> 00:05:15.682
+Run with no check, the audit packet lists every check and its argument keys.
 
 87
-00:05:02.863 --> 00:05:05.683
-a changed argument, and a missing own check.
+00:05:16.030 --> 00:05:20.872
+We ran it in a scratch copy: seven checks, each with the keys it takes.
 
 88
-00:05:05.683 --> 00:05:07.413
-And it never calls a model.
+00:05:21.214 --> 00:05:26.267
+Then write the input that would show the problem, and the observation you expect,
 
 89
-00:05:07.413 --> 00:05:10.040
-Model output never enters a scoring path.
+00:05:26.267 --> 00:05:27.390
+before you run it.
 
 90
-00:05:11.078 --> 00:05:12.582
-M3 is individual work,
+00:05:28.430 --> 00:05:30.401
+Why does a review over-assert?
 
 91
-00:05:12.582 --> 00:05:17.296
-and it runs the same sequence on your own frozen repository snapshot.
+00:05:30.401 --> 00:05:34.080
+A model tends to turn a salient token into a conclusion.
 
 92
-00:05:17.296 --> 00:05:21.601
-The teaching team runs one model review and keeps the original.
+00:05:34.080 --> 00:05:39.204
+It may see a value that looks dangerous, and skip the allowlist that stops it.
 
 93
-00:05:21.601 --> 00:05:24.198
-You submit verification evidence only.
+00:05:39.547 --> 00:05:44.998
+It may see one function that breaks a rule, and assume every similar function does.
 
 94
-00:05:24.545 --> 00:05:29.860
-Use only the frozen project snapshot and the minimum de-identified evidence.
+00:05:44.998 --> 00:05:48.347
+Or fill a missing file with a plausible assumption.
 
 95
-00:05:29.860 --> 00:05:34.755
-Never include participant material, private credentials, session logs,
+00:05:48.697 --> 00:05:50.830
+And review attention is finite.
 
 96
-00:05:34.755 --> 00:05:36.643
-or unrelated personal data.
+00:05:50.830 --> 00:05:55.233
+A model may follow the route it named and never probe a sibling:
 
 97
-00:05:36.978 --> 00:05:41.237
-And when evidence conflicts, it goes to the human integrity process.
+00:05:55.233 --> 00:06:00.324
+a second function that builds the same kind of path, a denial side effect,
 
 98
-00:05:41.237 --> 00:05:45.245
-An automatic authorship detector does not decide responsibility.
+00:06:00.324 --> 00:06:01.700
+or a boundary value.
 
 99
-00:05:46.278 --> 00:05:50.655
-Three meanings, each tied to a runnable observation on this snapshot.
+00:06:02.047 --> 00:06:06.800
+So test the exact input and protected state before you write confirmed.
 
 100
-00:05:50.994 --> 00:05:55.671
-And a successful command supports only the path and revision it exercised.
+00:06:06.800 --> 00:06:11.486
+A successful command supports only the path and revision it exercised.
 
 101
-00:05:55.671 --> 00:06:00.410
-Evidence from a repaired revision cannot close a finding on the frozen one.
+00:06:11.830 --> 00:06:15.009
+A test for the defect should fail before a repair.
 
 102
-00:06:00.744 --> 00:06:04.259
-So a test for the defect should fail before any repair.
-
-103
-00:06:04.259 --> 00:06:09.115
+00:06:15.009 --> 00:06:19.841
 A test that passes after a repair cannot prove the frozen defect was absent.
 
+103
+00:06:20.880 --> 00:06:25.931
+Then choose one path the review did not cover, and run a small check of your own.
+
 104
-00:06:10.161 --> 00:06:14.747
-So the observation decides the disposition, not the wording of the claim.
+00:06:25.931 --> 00:06:30.795
+Its input must be one that no recorded claim is about, and not the worked row.
 
 105
-00:06:15.094 --> 00:06:16.255
-One question to try.
+00:06:31.130 --> 00:06:36.067
+If the observation breaks a frozen requirement, record a new defect, confirmed,
 
 106
-00:06:16.255 --> 00:06:20.145
-On your own frozen snapshot, which path did the review not mention,
+00:06:36.067 --> 00:06:39.442
+with the check, the arguments and the printed command.
 
 107
-00:06:20.145 --> 00:06:22.002
+00:06:39.780 --> 00:06:43.921
+If the path is clean, record a scope check: no defect observed,
+
+108
+00:06:43.921 --> 00:06:48.982
+with a sentence naming the range you checked and the boundary left unchecked.
+
+109
+00:06:48.982 --> 00:06:52.597
+Either way, never silently rewrite the recorded review.
+
+110
+00:06:53.646 --> 00:06:57.845
+When the five rows and the own check are filled, run the verifier.
+
+111
+00:06:57.845 --> 00:07:02.552
+It holds each claim as the check and inputs it is about, and as its reach:
+
+112
+00:07:02.552 --> 00:07:04.397
+the question, not the answer.
+
+113
+00:07:04.746 --> 00:07:09.806
+It checks the snapshot, the check name, the arguments and the canonical command.
+
+114
+00:07:09.806 --> 00:07:15.056
+Then it runs the check, and derives the supported disposition from the observation.
+
+115
+00:07:15.396 --> 00:07:18.828
+We gave it a record holding only the worked row.
+
+116
+00:07:18.828 --> 00:07:23.546
+Rejected: it needs exactly one row per recorded finding, F1 to F5.
+
+117
+00:07:23.546 --> 00:07:26.263
+The worked claim is not in the review.
+
+118
+00:07:26.613 --> 00:07:30.268
+It also rejects an input that does not test the claim,
+
+119
+00:07:30.268 --> 00:07:33.449
+a disposition the observation does not support,
+
+120
+00:07:33.449 --> 00:07:37.239
+and an observation that cannot decide the claim's reach.
+
+121
+00:07:37.239 --> 00:07:40.150
+Then change the input, not the disposition.
+
+122
+00:07:40.496 --> 00:07:44.873
+It never calls a model, and model output never enters a scoring path.
+
+123
+00:07:45.911 --> 00:07:47.562
+M3 is individual work.
+
+124
+00:07:47.562 --> 00:07:52.063
+By the end of Week 11, tag a clean revision of your project,
+
+125
+00:07:52.063 --> 00:07:57.090
+list every path the tag contains, scan the tagged tree for secrets,
+
+126
+00:07:57.090 --> 00:07:58.441
+then push the tag.
+
+127
+00:07:58.441 --> 00:08:00.842
+A plain push does not send tags.
+
+128
+00:08:01.178 --> 00:08:03.655
+The tag holds only your own work.
+
+129
+00:08:03.655 --> 00:08:07.783
+No participant material, including de-identified notes.
+
+130
+00:08:07.783 --> 00:08:11.987
+No credentials, session logs or unrelated personal data.
+
+131
+00:08:12.328 --> 00:08:17.193
+The teaching team runs one model review on your tag and sends you a copy;
+
+132
+00:08:17.193 --> 00:08:18.392
+keep it unchanged.
+
+133
+00:08:18.392 --> 00:08:21.124
+Check out the tag in a separate worktree,
+
+134
+00:08:21.124 --> 00:08:24.190
+and verify every finding through the launcher.
+
+135
+00:08:24.190 --> 00:08:25.656
+Plan about five hours.
+
+136
+00:08:26.694 --> 00:08:29.263
+M3 is worth three points, one each.
+
+137
+00:08:29.263 --> 00:08:31.244
+Evidence that can be rerun.
+
+138
+00:08:31.244 --> 00:08:34.106
+Evidence that supports each conclusion,
+
+139
+00:08:34.106 --> 00:08:38.288
+telling a demonstrated result from an untested suspicion.
+
+140
+00:08:38.288 --> 00:08:41.590
+And one check of your own, with its boundary.
+
+141
+00:08:41.928 --> 00:08:46.540
+The number or severity of the model's findings does not set the score.
+
+142
+00:08:46.540 --> 00:08:47.791
+Your evidence does.
+
+143
+00:08:47.791 --> 00:08:50.229
+And confirmed findings carry into M4.
+
+144
+00:08:50.578 --> 00:08:54.583
+When evidence conflicts, it goes to the human integrity process.
+
+145
+00:08:54.583 --> 00:08:58.589
+An automatic authorship detector does not decide responsibility.
+
+146
+00:08:59.628 --> 00:09:04.329
+So mark each claim confirmed, refuted or cannot tell, as in Week 6.
+
+147
+00:09:04.329 --> 00:09:07.557
+The record writes cannot tell as undetermined.
+
+148
+00:09:07.894 --> 00:09:10.913
+Each one is judged against the frozen requirements,
+
+149
+00:09:10.913 --> 00:09:15.116
+and decided by what a check observed, not by the wording of the review.
+
+150
+00:09:15.461 --> 00:09:16.667
+One question to try.
+
+151
+00:09:16.667 --> 00:09:19.801
+On your own tag, which path did the audit not cover,
+
+152
+00:09:19.801 --> 00:09:21.731
 and what command would check it?

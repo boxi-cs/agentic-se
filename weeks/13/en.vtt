@@ -1,401 +1,549 @@
 WEBVTT
 
 1
-00:00:00.000 --> 00:00:02.493
+00:00:00.000 --> 00:00:02.582
 Here is a course-authored interface.
 
 2
-00:00:02.493 --> 00:00:06.301
+00:00:02.582 --> 00:00:06.526
 Its visible controls are Overview, Options and Refresh.
 
 3
-00:00:06.301 --> 00:00:10.593
+00:00:06.526 --> 00:00:10.972
 Inside Options, a State filter offers All, Failed and Running.
 
 4
-00:00:10.593 --> 00:00:15.232
-The task is to find the most recent failed build in pipeline Alpha.
+00:00:10.972 --> 00:00:15.418
+The task: find the most recent failed build in pipeline Alpha.
 
 5
-00:00:15.567 --> 00:00:19.708
+00:00:15.767 --> 00:00:19.908
 The supplied record says the user opens Overview, then returns.
 
 6
-00:00:19.708 --> 00:00:23.981
+00:00:19.908 --> 00:00:24.181
 They select Refresh twice, and ask where failed builds are shown.
 
 7
-00:00:23.981 --> 00:00:25.691
+00:00:24.181 --> 00:00:25.891
 The task is not completed.
 
 8
-00:00:26.033 --> 00:00:29.102
+00:00:26.233 --> 00:00:29.302
 Yet the query returns the correct failed records.
 
 9
-00:00:29.102 --> 00:00:33.673
+00:00:29.302 --> 00:00:33.873
 So behavior correctness and locating the control are different questions.
 
 10
-00:00:34.017 --> 00:00:36.717
+00:00:34.217 --> 00:00:36.917
 Before going on, write an observation,
 
 11
-00:00:36.717 --> 00:00:40.128
+00:00:36.917 --> 00:00:40.328
 a hypothesis and a candidate change of your own.
 
 12
-00:00:40.128 --> 00:00:45.743
+00:00:40.328 --> 00:00:45.943
 The record contains no real participant, timestamp or population-level finding.
 
 13
-00:00:46.783 --> 00:00:49.512
+00:00:48.483 --> 00:00:51.212
 The observation is what the record shows.
 
 14
-00:00:49.512 --> 00:00:54.968
+00:00:51.212 --> 00:00:56.668
 "Options may not communicate status filtering" is an interpretation: a hypothesis.
 
 15
-00:00:55.317 --> 00:00:59.756
-Write them in separate fields before asking an assistant for a patch.
+00:00:57.017 --> 00:01:01.621
+Write them in separate fields, before asking an assistant for a patch.
 
 16
-00:00:59.756 --> 00:01:03.681
+00:01:01.621 --> 00:01:05.632
 If they share one sentence, split them before implementation.
 
 17
-00:01:03.681 --> 00:01:07.542
+00:01:05.632 --> 00:01:09.579
 And this is a reasoning aid, not a claim about a population.
 
 18
-00:01:08.583 --> 00:01:11.301
-Each layer gets stronger in its own way.
-
-19
-00:01:11.301 --> 00:01:17.755
-The observation is stronger when the same action is recorded on the affected revision and task.
-
-20
-00:01:18.100 --> 00:01:24.892
-The hypothesis is stronger when a neutral task can tell locating the control apart from query correctness.
-
-21
-00:01:25.233 --> 00:01:30.597
-And the change is stronger when a diff and an explicit acceptance check show the intended scope.
-
-22
-00:01:31.633 --> 00:01:37.183
+00:01:10.616 --> 00:01:15.801
 Exposing Status: All is one plausible change to test, not a proven solution.
 
+19
+00:01:15.801 --> 00:01:20.167
+The bounded request: add the control to the existing build page,
+
+20
+00:01:20.167 --> 00:01:23.306
+and preserve the query contract, result order,
+
+21
+00:01:23.306 --> 00:01:26.034
+permission check and keyboard operation.
+
+22
+00:01:26.383 --> 00:01:31.482
+Two recorded replies answer it, a course-authored replay; no model wrote them.
+
 23
-00:01:37.516 --> 00:01:40.484
-Generation is the request for a bounded patch.
+00:01:31.482 --> 00:01:32.790
+Both say a labelled,
 
 24
-00:01:40.484 --> 00:01:45.515
-Add the control to the existing Options path, and preserve the query contract,
+00:01:32.790 --> 00:01:37.366
+keyboard-operable Status control now puts failed builds one step away.
 
 25
-00:01:45.515 --> 00:01:48.999
-result order, permission check and keyboard operation.
+00:01:37.700 --> 00:01:41.979
+Proposal A adds a new select and leaves Options unchanged.
 
 26
-00:01:49.333 --> 00:01:52.697
-If the change is larger than the hypothesis, narrow it,
+00:01:41.979 --> 00:01:45.815
+Proposal B moves the existing select out of Options.
 
 27
-00:01:52.697 --> 00:01:55.266
-or record why a product owner must decide.
+00:01:45.815 --> 00:01:49.136
+Predict: will the task complete on each page?
 
 28
-00:01:55.600 --> 00:01:59.298
-An assistant may propose code within the assignment's rules.
+00:01:52.682 --> 00:01:54.840
+Verification is one task check.
 
 29
-00:01:59.298 --> 00:02:03.367
-You own the discovery records, and the interpretation of evidence.
+00:01:54.840 --> 00:01:59.434
+It tries the task the way a keyboard user would: Tab from the top,
 
 30
-00:02:04.416 --> 00:02:07.409
-Before accepting a patch, predict the evidence.
+00:01:59.434 --> 00:02:04.864
+open a menu or choose an option only on a word from the task, follow no links,
 
 31
-00:02:07.409 --> 00:02:11.039
-The unchanged query check still returns the same records.
+00:02:04.864 --> 00:02:07.857
+then press the first submit button reached.
 
 32
-00:02:11.039 --> 00:02:14.095
-The integration check sends the selected status.
+00:02:08.199 --> 00:02:12.300
+The task is completed when the first row shown is build 121,
 
 33
-00:02:14.095 --> 00:02:17.343
-The keyboard check reaches and changes the control.
+00:02:12.300 --> 00:02:15.650
+and every control reached has an accessible name.
 
 34
-00:02:17.343 --> 00:02:23.329
-And a new authorized task observation records whether the control can be found without a hint.
+00:02:15.650 --> 00:02:19.136
+The check reads the page as text and never runs it.
 
 35
-00:02:23.666 --> 00:02:28.589
-Then run each check on the revision being discussed, and record the observed result.
+00:02:20.182 --> 00:02:24.738
+Our run of proposal A, in a scratch copy, prints what the notes print.
 
 36
-00:02:29.633 --> 00:02:32.388
-A green unit test cannot certify a label.
+00:02:24.738 --> 00:02:30.074
+The query check passes, and the walk reaches the Status select and chooses Failed.
 
 37
-00:02:32.388 --> 00:02:37.899
-And a successful task observation cannot certify an unchanged permission boundary.
+00:02:30.416 --> 00:02:36.317
+But the request sends state equals failed, and the dashboard reads status,
 
 38
-00:02:38.233 --> 00:02:42.956
-The old session cannot show that the new label is understandable, either.
+00:02:36.317 --> 00:02:41.181
+which the old State select inside Options still sends as all.
 
 39
-00:02:42.956 --> 00:02:45.802
-Repeat the neutral task on the new revision.
+00:02:41.181 --> 00:02:45.089
+So the rows shown are 123 running and 122 passed.
 
 40
-00:02:46.149 --> 00:02:50.172
-Do it under the actual consent or equivalence arrangement.
+00:02:45.089 --> 00:02:46.205
+Not completed.
 
 41
-00:02:50.172 --> 00:02:53.987
-And keep minimal de-identified observations, not names,
+00:02:46.549 --> 00:02:50.506
+That runnable observation refutes the reply's claim.
 
 42
-00:02:53.987 --> 00:02:56.761
-raw media or unrelated personal details.
+00:02:50.506 --> 00:02:56.442
+Proposal B sends status failed, shows build 121 first, and completes the task.
 
 43
-00:02:57.799 --> 00:03:02.958
-Finding A reproduces an archived owner's edit, contrary to the agreed policy.
+00:02:56.442 --> 00:03:00.400
+Exit zero; the current page and proposal A exit one.
 
 44
-00:03:02.958 --> 00:03:07.714
-Repair it, and verify the reproducer plus the allowed-role regressions.
+00:03:01.448 --> 00:03:04.381
+Each check answers a different question.
 
 45
-00:03:08.049 --> 00:03:12.036
-Finding B asks that all unknown statuses become failed.
+00:03:04.381 --> 00:03:08.268
+The query check: the query still returns 121 and 119.
 
 46
-00:03:12.036 --> 00:03:16.240
-Under the current contract, that is a new product meaning.
+00:03:08.268 --> 00:03:11.714
+The request line: what the page actually sends.
 
 47
-00:03:16.240 --> 00:03:21.097
-A reasoned response can decline it, citing the unknown-status rule,
+00:03:11.714 --> 00:03:16.774
+The keyboard walk: a named control is reached without opening a menu.
 
 48
-00:03:21.097 --> 00:03:23.054
-or seek a product decision.
+00:03:17.115 --> 00:03:21.205
+None of them shows that a person finds the control without a hint;
 
 49
-00:03:23.054 --> 00:03:27.403
-Reviewer identity is not a reason to dismiss either finding.
+00:03:21.205 --> 00:03:24.861
+only a new authorized session on the accepted revision can.
 
 50
-00:03:28.449 --> 00:03:31.149
-Use the four disposition words consistently.
+00:03:24.861 --> 00:03:26.968
+The check matches words literally.
 
 51
-00:03:31.149 --> 00:03:35.444
-Repair, when the demonstrated behavior violates an agreed requirement,
+00:03:26.968 --> 00:03:31.244
+And the old session cannot show that the new label is understandable.
 
 52
-00:03:35.444 --> 00:03:39.003
-and the reproducer plus relevant regressions can be rerun.
+00:03:32.281 --> 00:03:35.981
+If proposal B passes the task, query and keyboard checks,
 
 53
-00:03:39.349 --> 00:03:42.307
-Investigate, when the signal is incomplete,
-
-54
-00:03:42.307 --> 00:03:46.710
-and a named observation or check is needed before changing code.
-
-55
-00:03:47.049 --> 00:03:50.999
-Disagree, when the request changes the current product meaning,
-
-56
-00:03:50.999 --> 00:03:54.573
-and the record explains the contract and its consequence.
-
-57
-00:03:54.916 --> 00:03:58.399
-Defer, when the question is real but outside this iteration,
-
-58
-00:03:58.399 --> 00:04:01.011
-with an owner and a trigger for reopening it.
-
-59
-00:04:01.349 --> 00:04:05.730
-Write the decision in one existing record: the finding and revision,
-
-60
-00:04:05.730 --> 00:04:09.596
-the requirement, the changed scope, the actual verification,
-
-61
-00:04:09.596 --> 00:04:12.238
-and the remaining question and its owner.
-
-62
-00:04:12.238 --> 00:04:14.557
-A label such as fixed, or won't fix,
-
-63
-00:04:14.557 --> 00:04:17.650
-alone does not explain the engineering judgment.
-
-64
-00:04:18.699 --> 00:04:23.444
-If the current iteration passes the affected behavior and keyboard checks,
-
-65
-00:04:23.444 --> 00:04:28.253
+00:03:35.981 --> 00:03:40.850
 and an authorized new session completes the task without a navigation hint,
 
-66
-00:04:28.253 --> 00:04:31.075
+54
+00:03:40.850 --> 00:03:43.706
 accept the iteration for that checked scope.
 
-67
-00:04:31.415 --> 00:04:34.620
+55
+00:03:44.048 --> 00:03:47.284
+Record the revision, the inputs and the results.
+
+56
+00:03:47.284 --> 00:03:50.317
 Do not claim that all users will now succeed.
 
+57
+00:03:51.364 --> 00:03:54.645
+M4 turns each Week 12 result into a response.
+
+58
+00:03:54.645 --> 00:03:59.237
+Where a finding came from is no reason to accept or dismiss it;
+
+59
+00:03:59.237 --> 00:04:00.768
+the evidence decides.
+
+60
+00:04:01.114 --> 00:04:03.991
+Confirmed: repair, or defer with an owner.
+
+61
+00:04:03.991 --> 00:04:08.100
+Refuted: no change, keeping the refuting command and output.
+
+62
+00:04:08.100 --> 00:04:13.306
+Cannot tell: investigate, naming the missing observation and the next check.
+
+63
+00:04:13.306 --> 00:04:18.854
+A scope check with no defect observed: no change, keeping its range and boundary.
+
+64
+00:04:19.197 --> 00:04:23.319
+Never turn cannot tell into no change because nothing has failed yet.
+
+65
+00:04:24.364 --> 00:04:27.496
+A repair is written from the frozen requirement.
+
+66
+00:04:27.496 --> 00:04:32.389
+For a record you confirmed against R1, no role reads a private report body,
+
+67
+00:04:32.389 --> 00:04:34.999
+test the case before you touch the code.
+
 68
-00:04:35.665 --> 00:04:40.800
-What works for one developer needs shared infrastructure when a whole team adopts it.
+00:04:35.347 --> 00:04:38.625
+Run it through the launcher on the frozen snapshot:
 
 69
-00:04:40.800 --> 00:04:41.888
-Four pieces recur.
+00:04:38.625 --> 00:04:43.380
+a confirmed defect makes it fail, and that output is your evidence before.
 
 70
-00:04:42.232 --> 00:04:47.394
-A tool portal gives agents one permissioned entry point to the team's tools,
+00:04:43.380 --> 00:04:45.436
+If it passes, settle that first.
 
 71
-00:04:47.394 --> 00:04:50.519
-so access is granted and revoked in one place.
+00:04:45.781 --> 00:04:51.195
+Then fix from R1, run the same test again, keep both outputs with their revisions,
 
 72
-00:04:50.519 --> 00:04:54.322
-A model gateway sits between agents and model providers,
+00:04:51.195 --> 00:04:53.770
+and rerun the rule's other three cases,
 
 73
-00:04:54.322 --> 00:04:59.960
-and holds what individuals should not: keys, budgets, rate limits and request logs.
+00:04:53.770 --> 00:04:58.656
+so the fix neither blocks a permitted reader nor lets anyone else through.
 
 74
-00:05:00.298 --> 00:05:04.954
-Routing sends a task to the cheapest model that passes your evaluator,
+00:04:59.697 --> 00:05:05.275
+Week 11's launcher broker keeps the key outside the work, fixes the destination,
 
 75
-00:05:04.954 --> 00:05:07.482
-and escalates only when a check fails.
+00:05:05.275 --> 00:05:08.133
+caps each run and keeps a minimal record.
 
 76
-00:05:07.482 --> 00:05:10.009
-That is why the evaluator comes first.
+00:05:08.133 --> 00:05:13.571
+When a whole organization adopts agents, those jobs move into shared services.
 
 77
-00:05:10.009 --> 00:05:13.468
-Cost accounting counts what an accepted change cost,
+00:05:13.914 --> 00:05:19.260
+Four pieces recur: a tool portal, a model gateway, cost per accepted change,
 
 78
-00:05:13.468 --> 00:05:16.261
-including failed attempts and review time,
+00:05:19.260 --> 00:05:20.105
+and routing.
 
 79
-00:05:16.261 --> 00:05:20.651
-because cost per token rewards cheap output that nobody can merge.
+00:05:20.105 --> 00:05:25.733
+Each concentrates authority, so each needs a check that would reveal it failing.
 
 80
-00:05:20.998 --> 00:05:23.477
-This course operates none of these.
+00:05:26.080 --> 00:05:30.936
+So keep these layers apart too: the grants, the key and budgets, the cost,
 
 81
-00:05:23.477 --> 00:05:27.018
-Recognize them, say which problem each one solves,
+00:05:30.936 --> 00:05:34.741
+and the evaluator behind routing, each checked on its own.
 
 82
-00:05:27.018 --> 00:05:32.399
-and notice that each one concentrates authority, so it needs boundary tests.
+00:05:35.080 --> 00:05:39.344
+Each part of the practice is a replayed record with an agent's summary,
 
 83
-00:05:33.448 --> 00:05:36.332
-The team demo is a communication exercise.
+00:05:39.344 --> 00:05:40.364
+which is a claim.
 
 84
-00:05:36.332 --> 00:05:41.343
-It is not a second test, and not a substitute for the individual defense.
+00:05:40.364 --> 00:05:44.868
+Check by hand, write the result you expect, then run the check and compare.
 
 85
-00:05:41.682 --> 00:05:44.988
-Give it six moves, each with a visible artifact.
+00:05:45.913 --> 00:05:51.704
+A tool portal lists which tools exist, who may call each, and records every grant.
 
 86
-00:05:44.988 --> 00:05:49.052
-Need, one minute: the user task and the agreed requirement.
+00:05:51.704 --> 00:05:56.153
+One revocation reaches every agent; so does one mistaken grant.
 
 87
-00:05:49.052 --> 00:05:54.424
-Finding, one minute: one observation, with the hypothesis labelled separately.
+00:05:56.497 --> 00:06:00.029
+Checking each call against its grant is not enough:
 
 88
-00:05:54.424 --> 00:05:59.108
-Change, two minutes: the smallest change, and what stayed unchanged.
+00:06:00.029 --> 00:06:04.531
+if the grant reaches more than the task needs, every call passes.
 
 89
-00:05:59.448 --> 00:06:04.287
-Verification, two minutes: the expected result before the output.
+00:06:04.880 --> 00:06:08.089
+In our own record, the task needs only guide-site,
 
 90
-00:06:04.287 --> 00:06:05.850
-Decision, one minute.
+00:06:08.089 --> 00:06:10.913
+and the summary says every call was allowed.
 
 91
-00:06:05.850 --> 00:06:12.103
-And limit, one minute: what this evidence supports, and what still needs a new test.
+00:06:10.913 --> 00:06:13.737
+We ran the course's check in a scratch copy;
 
 92
-00:06:12.448 --> 00:06:18.236
-Rehearse with a course-authored preview, or the team's approved, de-identified work.
+00:06:13.737 --> 00:06:16.304
+the course runs it through the launcher.
 
 93
-00:06:18.236 --> 00:06:21.819
-Do not paste participant identities, raw recordings,
+00:06:16.647 --> 00:06:20.991
+The summary is true, but grant P2 reaches every repository,
 
 94
-00:06:21.819 --> 00:06:25.126
-private code or model transcripts into the deck.
+00:06:20.991 --> 00:06:25.409
+so call two read a private log outside the task: over-broad.
 
 95
-00:06:26.164 --> 00:06:30.202
-So keep the observation, the hypothesis and the change apart,
+00:06:25.409 --> 00:06:30.196
+Narrowed in a copy, call two is denied, and the tool did not run.
 
 96
-00:06:30.202 --> 00:06:33.049
-and let each check answer its own question.
+00:06:30.530 --> 00:06:36.277
+Give each grant an owner, a reason, and a test that a call outside it is denied.
 
 97
-00:06:33.397 --> 00:06:34.605
-One question to try.
+00:06:37.313 --> 00:06:42.064
+A shared gateway holds keys, budgets, rate limits and request logs.
 
 98
-00:06:34.605 --> 00:06:37.505
-What would you check if the label changed again?
+00:06:42.064 --> 00:06:46.389
+Replay its policy over its own records: a request over a cap,
 
 99
-00:06:37.505 --> 00:06:41.975
-Name the new input, the expected effect, and the decision that would move.
+00:06:46.389 --> 00:06:51.140
+or on an unlisted route, should show as refused before it was sent.
 
 100
-00:06:41.975 --> 00:06:46.807
+00:06:51.479 --> 00:06:54.813
+Our record claims every run followed the policy:
+
+101
+00:06:54.813 --> 00:06:58.077
+three requests and two thousand tokens per run.
+
+102
+00:06:58.077 --> 00:07:01.063
+Each request reserves its worst case first,
+
+103
+00:07:01.063 --> 00:07:06.688
+yet run two's third was sent with fifteen hundred used and nine hundred reserved.
+
+104
+00:07:07.029 --> 00:07:09.706
+And a sandbox-side log line holds the key.
+
+105
+00:07:09.706 --> 00:07:13.084
+Even a placeholder key belongs only with the gateway,
+
+106
+00:07:13.084 --> 00:07:16.016
+which in this course is the launcher's broker.
+
+107
+00:07:17.062 --> 00:07:22.827
+A trace total measures one run, but an accepted change costs every run behind it,
+
+108
+00:07:22.827 --> 00:07:28.522
+failed and retried ones included, plus runs on rejected changes and review time.
+
+109
+00:07:28.522 --> 00:07:32.294
+Cost per token rewards cheap output nobody can merge.
+
+110
+00:07:32.628 --> 00:07:37.758
+Our record: fourteen units and fifty review minutes over two accepted changes,
+
+111
+00:07:37.758 --> 00:07:42.625
+so seven units and twenty-five minutes each, not the trace total of three.
+
+112
+00:07:42.625 --> 00:07:44.598
+Units are made up, not prices.
+
+113
+00:07:44.945 --> 00:07:49.918
+Routing sends each task to the cheapest route that passes the evaluator.
+
+114
+00:07:49.918 --> 00:07:54.270
+A cheaper route is good enough only if it loses no frozen case:
+
+115
+00:07:54.270 --> 00:07:57.792
+every case the current route passes, it passes too.
+
+116
+00:07:57.792 --> 00:08:01.798
+Ours passes nine of ten and loses case six: not supported,
+
+117
+00:08:01.798 --> 00:08:04.009
+though it clears ninety percent.
+
+118
+00:08:04.345 --> 00:08:07.675
+Rerun those cases whenever a route or model changes;
+
+119
+00:08:07.675 --> 00:08:10.812
+even a full pass says nothing about other inputs.
+
+120
+00:08:11.861 --> 00:08:15.334
+The expo demonstration is a communication exercise,
+
+121
+00:08:15.334 --> 00:08:19.489
+not a second test or a substitute for the individual defense.
+
+122
+00:08:19.827 --> 00:08:22.161
+Give each move a visible artifact.
+
+123
+00:08:22.161 --> 00:08:26.829
+Need and finding, a minute each, with the hypothesis labelled apart.
+
+124
+00:08:26.829 --> 00:08:30.056
+Change, two minutes, and what stayed unchanged.
+
+125
+00:08:30.394 --> 00:08:34.242
+Verification, two minutes, expected result first.
+
+126
+00:08:34.242 --> 00:08:39.111
+Decision, one minute: repair, defer, no change or investigate.
+
+127
+00:08:39.111 --> 00:08:45.394
+Limit, one minute: what this evidence supports, and what still needs a new test.
+
+128
+00:08:45.744 --> 00:08:49.326
+Do not paste participant identities, raw recordings,
+
+129
+00:08:49.326 --> 00:08:52.977
+private code or model transcripts into what you show.
+
+130
+00:08:54.011 --> 00:08:59.805
+So keep the layers apart, and let each check answer its own question: for a finding,
+
+131
+00:08:59.805 --> 00:09:02.289
+for a page, and for an organization.
+
+132
+00:09:02.627 --> 00:09:07.451
+C2 is due at the end of this week, or the day before your defense,
+
+133
+00:09:07.451 --> 00:09:09.059
+whichever comes first.
+
+134
+00:09:09.394 --> 00:09:10.602
+One question to try.
+
+135
+00:09:10.602 --> 00:09:13.502
+What would you check if the label changed again?
+
+136
+00:09:13.502 --> 00:09:17.971
+Name the new input, the expected effect, and the decision that would move.
+
+137
+00:09:17.971 --> 00:09:22.804
 If the existing test cannot see the changed condition, name the different check.

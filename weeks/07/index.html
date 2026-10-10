@@ -20,15 +20,15 @@
   <p class="lede">Challenge the tests</p>
 </header>
 <main>
-  <video controls preload="metadata" poster="poster.jpg" src="https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-08/week-07.mp4">
+  <video controls preload="metadata" poster="poster.jpg" src="https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-10/week-07.mp4">
     <track kind="subtitles" srclang="en" label="English" src="en.vtt" default>
     <track kind="subtitles" srclang="zh" label="中文" src="zh.vtt">
   </video>
-  <p class="meta">5:57 · subtitles: <a href="en.vtt">English</a>, <a href="zh.vtt" lang="zh" hreflang="zh">中文</a> ·
-  <a href="https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-08/week-07.mp4">download</a></p>
+  <p class="meta">7:32 · subtitles: <a href="en.vtt">English</a>, <a href="zh.vtt" lang="zh" hreflang="zh">中文</a> ·
+  <a href="https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-10/week-07.mp4">download</a></p>
   <section>
     <h2>The idea</h2>
-    <p>A passing suite says nothing about the inputs it never tried. Write the oracle from the contract, including the strings it must reject, and never from the code&#x27;s own output. Then challenge green with a property, mutants and a seeded fuzz run, and keep each finding as an exact, replayable input. Report every mutant&#x27;s disposition, and check a harness on a known-bad and a repaired target before trusting its silence. None of these checks proves the parser correct; each covers a stated set of inputs or changes.</p>
+    <p>A passing suite says nothing about the inputs it never tried. Write the oracle from the contract, including the strings it must reject, and never from the code&#x27;s own output. Run red, let a repair be generated as a proposal, let a run on the unchanged tests decide, and then challenge green: with a property, mutants and a seeded fuzz run, keeping each finding as an exact, replayable input. A survivor shows a change the suite cannot see until a test kills it or a contract reason shows it is equivalent; report every disposition, and check a harness on a known-bad and a repaired target before trusting its silence. None of these checks proves the parser correct; each covers a stated set of inputs or changes.</p>
   </section>
   <section>
     <h2>Materials</h2>

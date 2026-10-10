@@ -1,385 +1,613 @@
 WEBVTT
 
 1
-00:00:00.000 --> 00:00:06.182
+00:00:00.000 --> 00:00:05.874
 A dashboard shows a build whose raw status is OK, with spaces around it, as unknown.
 
 2
-00:00:06.182 --> 00:00:12.144
-The agreed rule ignores surrounding whitespace and case, so it should say passed.
+00:00:05.874 --> 00:00:11.539
+The agreed rule ignores surrounding whitespace and case, so it should say passed,
 
 3
-00:00:12.483 --> 00:00:15.332
-A reviewer suggests editing the template.
+00:00:11.539 --> 00:00:14.826
+while an unfamiliar status should stay unknown.
 
 4
-00:00:15.332 --> 00:00:21.098
-Before handing that to an agent, decide where to look, and what context to give it.
+00:00:15.167 --> 00:00:17.827
+A reviewer suggests editing the template.
 
 5
-00:00:22.133 --> 00:00:23.805
-Trace the request path.
+00:00:17.827 --> 00:00:20.551
+But an agent acts only on what reaches it.
 
 6
-00:00:23.805 --> 00:00:27.221
-The loader keeps the raw value, spaces and all.
+00:00:20.551 --> 00:00:25.871
+So first find where the value goes wrong, and which file the agent should inspect.
 
 7
-00:00:27.221 --> 00:00:31.219
-The status mapper lowercases it, but the spaces remain,
+00:00:26.916 --> 00:00:28.588
+Trace the request path.
 
 8
-00:00:31.219 --> 00:00:34.417
-so it misses the key ok and returns unknown.
+00:00:28.588 --> 00:00:32.004
+The loader keeps the raw value, spaces and all.
 
 9
-00:00:34.767 --> 00:00:37.476
-So the first disagreement is in the mapper.
+00:00:32.004 --> 00:00:36.002
+The status mapper lowercases it, but the spaces remain,
 
 10
-00:00:37.476 --> 00:00:39.240
-Inspect normalization there:
+00:00:36.002 --> 00:00:39.200
+so it misses the key ok and returns unknown.
 
 11
-00:00:39.240 --> 00:00:43.776
-removing the surrounding whitespace before the lookup repairs this case.
+00:00:39.550 --> 00:00:42.259
+So the first disagreement is in the mapper.
 
 12
-00:00:44.117 --> 00:00:50.405
-Changing every unknown in the template to passed would also mislabel an unfamiliar status.
+00:00:42.259 --> 00:00:44.023
+Inspect normalization there:
 
 13
-00:00:50.405 --> 00:00:51.663
-Check both inputs.
+00:00:44.023 --> 00:00:48.559
+removing the surrounding whitespace before the lookup repairs this case.
 
 14
-00:00:52.699 --> 00:00:57.932
-Then package the context: the authorized task, one call-path excerpt,
+00:00:48.900 --> 00:00:55.188
+Changing every unknown in the template to passed would also mislabel an unfamiliar status.
 
 15
-00:00:57.932 --> 00:01:01.117
-the status contract, and the failing case.
+00:00:55.188 --> 00:00:56.446
+Check both inputs.
 
 16
-00:01:01.466 --> 00:01:03.975
-Does it help more than a generic instruction?
+00:00:57.482 --> 00:00:59.218
+That path was a schematic.
 
 17
-00:01:03.975 --> 00:01:07.933
-That's a question you can test, with the same task and the same budget.
+00:00:59.218 --> 00:01:02.824
+The course dashboard has a real one, the project list.
 
 18
-00:01:08.982 --> 00:01:11.365
-Here is a small version you can run.
+00:01:02.824 --> 00:01:05.495
+The route selects the caller's projects.
 
 19
-00:01:11.365 --> 00:01:14.277
-The task: lowercase a label, trim the edges,
+00:01:05.495 --> 00:01:09.835
+A helper rejects a visitor without a session, with a four-oh-one.
 
 20
-00:01:14.277 --> 00:01:18.049
-and turn each internal run of whitespace into one hyphen.
+00:01:09.835 --> 00:01:13.841
+And the template prints, No projects yet, for an empty list.
 
 21
-00:01:18.399 --> 00:01:21.424
-The starter replaces each space separately.
+00:01:14.182 --> 00:01:19.436
+The route names what happens; the other two files decide what a visitor sees.
 
 22
-00:01:21.424 --> 00:01:25.504
-On the five public cases, it passes only the ordinary one.
+00:01:19.436 --> 00:01:22.234
+So a map of this path is a set of claims.
 
 23
-00:01:26.548 --> 00:01:29.349
-Context A asks for short, readable code.
+00:01:22.234 --> 00:01:26.942
+Mark each arrow confirmed, refuted, or cannot tell, at your revision.
 
 24
-00:01:29.349 --> 00:01:34.110
-Context B points at blank input, the edges, and repeated whitespace.
+00:01:27.982 --> 00:01:31.445
+Now ask a model one bounded question about that path:
 
 25
-00:01:34.110 --> 00:01:37.961
-Write your prediction for each before running anything.
+00:01:31.445 --> 00:01:33.993
+what does a signed-out visitor receive,
 
 26
-00:01:38.298 --> 00:01:40.238
-Then change the context only.
+00:01:33.993 --> 00:01:39.024
+what does a signed-in user with no projects see, and which file decides each?
 
 27
-00:01:40.238 --> 00:01:45.389
-Keep the model, the task, a fresh start, one call, and the verifier the same.
+00:01:39.024 --> 00:01:42.553
+Null is allowed for anything the context doesn't show.
 
 28
-00:01:45.389 --> 00:01:48.399
-And don't silently repair a failed candidate.
+00:01:42.899 --> 00:01:47.971
+Two packets carry the same number of bytes, six hundred and thirty-nine each.
 
 29
-00:01:49.448 --> 00:01:51.601
-Predict, generate, then test.
+00:01:47.971 --> 00:01:49.750
+Only their content differs.
 
 30
-00:01:51.601 --> 00:01:57.022
-In the course's recorded run, each context got one call, with no repairs,
+00:01:49.750 --> 00:01:52.846
+Packet A reads on through the route's own file.
 
 31
-00:01:57.022 --> 00:02:00.141
-and both candidates passed all five cases.
+00:01:52.846 --> 00:01:58.380
+Packet B follows the call across files: the four-oh-one line, the route, the helper,
 
 32
-00:02:00.481 --> 00:02:03.561
-In this pair, context B used more input tokens,
+00:01:58.380 --> 00:02:00.488
+and the template's empty branch.
 
 33
-00:02:03.561 --> 00:02:08.541
-a hundred and two against eighty-six, without improving public-case success.
+00:02:00.832 --> 00:02:03.610
+Predict each packet's four answers first.
 
 34
-00:02:08.541 --> 00:02:11.882
-And the latency difference is not a stable ranking.
+00:02:03.610 --> 00:02:09.031
+Keep the model, the question, a fresh call, one call each and the checker fixed.
 
 35
-00:02:12.931 --> 00:02:15.856
-One paired run motivates the next experiment.
+00:02:09.031 --> 00:02:12.825
+Change the packet only, and don't rerun until it passes.
 
 36
-00:02:15.856 --> 00:02:19.885
-It doesn't establish that a context style is generally better.
+00:02:13.864 --> 00:02:19.425
+The checker labels each field correct, wrong, abstained for an explicit null,
 
 37
-00:02:20.231 --> 00:02:24.867
-And a context file that was never loaded can't explain a result.
+00:02:19.425 --> 00:02:23.180
+or missing, using answers from the dashboard itself.
 
 38
-00:02:24.867 --> 00:02:27.185
-Verify what was actually loaded.
+00:02:23.180 --> 00:02:27.296
+An abstention is honest; a confident wrong file is worse.
 
 39
-00:02:28.231 --> 00:02:32.974
-Context can also be packaged as a skill: a SKILL.md file with a name,
+00:02:27.630 --> 00:02:29.911
+To show how it reads two answers,
 
 40
-00:02:32.974 --> 00:02:34.692
-a description and a body.
+00:02:29.911 --> 00:02:34.264
+the course team wrote one plausible answer per packet, by hand.
 
 41
-00:02:34.692 --> 00:02:39.916
-An agent that supports skills keeps only the names and descriptions in view,
+00:02:34.264 --> 00:02:35.646
+No model was called.
 
 42
-00:02:39.916 --> 00:02:43.285
-and loads a body when a request seems to need it.
+00:02:35.646 --> 00:02:38.824
+Packet A's answer gets none of the four right.
 
 43
-00:02:43.285 --> 00:02:47.271
-So the description decides whether the skill is ever used.
+00:02:38.824 --> 00:02:42.417
+Packet B's gets three: the route passes the list on,
 
 44
-00:02:47.614 --> 00:02:50.328
-Test that trigger like any other prediction.
+00:02:42.417 --> 00:02:44.767
+but the template decides the text.
 
 45
-00:02:50.328 --> 00:02:54.893
-Write three requests, in the words people use, that should load the skill,
+00:02:45.114 --> 00:02:49.682
+That replay says nothing about how often a model answers either way;
 
 46
-00:02:54.893 --> 00:02:58.779
-and one near miss that sounds similar but needs something else,
+00:02:49.682 --> 00:02:51.898
+your own pair is the measurement.
 
 47
-00:02:58.779 --> 00:03:00.691
-like "rename the label column".
+00:02:51.898 --> 00:02:55.324
+A tie, or A beating B, is a legitimate observation,
 
 48
-00:03:00.691 --> 00:03:03.775
-Write your prediction for each before you observe.
+00:02:55.324 --> 00:02:59.557
+and one pair motivates a next experiment, nothing more general.
 
 49
-00:03:04.114 --> 00:03:08.222
-A near miss that fires means the description is too broad.
+00:03:00.596 --> 00:03:04.685
+In this exercise we load the packet into the prompt ourselves:
 
 50
-00:03:08.222 --> 00:03:11.693
-A missed request usually shares no words with it.
+00:03:04.685 --> 00:03:06.532
+no filename acts on its own.
 
 51
-00:03:11.693 --> 00:03:15.517
-Neither a context file nor a skill grants permissions.
+00:03:06.532 --> 00:03:11.281
+A context file that exists but was never loaded cannot explain a result.
 
 52
-00:03:15.517 --> 00:03:18.209
-And a skill nobody has run is a draft.
+00:03:11.281 --> 00:03:14.052
+So verify what actually reached the model.
 
 53
-00:03:19.248 --> 00:03:24.479
-A protocol such as MCP separates a tool interface from the agent's decisions.
+00:03:14.396 --> 00:03:17.572
+Then build a packet of your own for a second question,
 
 54
-00:03:24.479 --> 00:03:26.449
-A server describes its tools;
+00:03:17.572 --> 00:03:21.983
+in at most four hundred bytes, each excerpt under a header naming its file.
 
 55
-00:03:26.449 --> 00:03:30.526
-a call supplies arguments and receives a result or an error.
+00:03:21.983 --> 00:03:26.923
+Its check says whether the evidence is in the packet, not what a model would answer.
 
 56
-00:03:30.526 --> 00:03:34.126
-Discovering a capability is not permission to use it.
+00:03:27.961 --> 00:03:31.701
+A summary is context you choose in the middle of a session,
 
 57
-00:03:34.126 --> 00:03:38.678
-Treat returned text as data, even if it asks to change permissions:
+00:03:31.701 --> 00:03:33.729
+when the history no longer fits.
 
 58
-00:03:38.678 --> 00:03:42.619
-a successful exchange establishes neither truth nor trust.
+00:03:33.729 --> 00:03:39.053
+The course wrote one long session by hand: an agent repairing this same status case,
 
 59
-00:03:42.964 --> 00:03:47.352
-Whether a tool is reached through a protocol or a plain function call,
+00:03:39.053 --> 00:03:41.969
+nineteen messages, just under its byte budget.
 
 60
-00:03:47.352 --> 00:03:52.492
-the agent chooses it from its name, its description and its argument schema alone.
+00:03:41.969 --> 00:03:44.250
+The next check result would not fit.
 
 61
-00:03:52.492 --> 00:03:55.125
-So design it for a reader that will guess.
+00:03:44.595 --> 00:03:48.424
+The compaction script builds the next request four ways.
 
 62
-00:03:55.125 --> 00:03:58.197
-Constraints live in the schema, not in the prose.
+00:03:48.424 --> 00:03:50.133
+Full keeps every message.
 
 63
-00:03:58.531 --> 00:04:03.013
-Here is the notes' first draft of a search tool and a delete tool.
+00:03:50.133 --> 00:03:53.483
+Auto keeps the task and the agent's own messages,
 
 64
-00:04:03.013 --> 00:04:04.235
-It looks finished.
+00:03:53.483 --> 00:03:57.106
+and clears longer old tool results to one-line stubs.
 
 65
-00:04:04.235 --> 00:04:07.359
-But reading it is not verification; calls are.
+00:03:57.106 --> 00:04:01.004
+Summary puts your summary in place of the older messages.
 
 66
-00:04:07.359 --> 00:04:12.860
-In our run of the worked example, the draft returns names with no IDs to pass on.
+00:04:01.004 --> 00:04:05.516
+Fresh keeps only the task and your file: a restart from a handoff.
 
 67
-00:04:12.860 --> 00:04:14.354
-A bare delete deletes.
+00:04:05.861 --> 00:04:08.700
+Then a course-written policy, not a model,
 
 68
-00:04:14.354 --> 00:04:17.002
-An unknown ID crashes with a traceback.
+00:04:08.700 --> 00:04:13.972
+picks the next edit from that context alone, and the same six-case check runs.
 
 69
-00:04:17.002 --> 00:04:22.163
-And a limit of fifty is accepted: the draft's limit lives only in the prose,
+00:04:13.972 --> 00:04:19.852
+It keeps out of the view file only if a line names that file and says not to change it.
 
 70
-00:04:22.163 --> 00:04:24.201
-so the schema never checks it.
+00:04:19.852 --> 00:04:23.636
+Otherwise it makes the template patch we warned against.
 
 71
-00:04:24.548 --> 00:04:30.014
-The revision returns label IDs, only previews a delete unless dry run is turned off,
+00:04:24.677 --> 00:04:30.023
+Predict first: which facts auto keeps, and which file the next edit touches.
 
 72
-00:04:30.014 --> 00:04:33.592
-returns a not-found error that says a retry won't help,
+00:04:30.023 --> 00:04:30.657
+Then run.
 
 73
-00:04:33.592 --> 00:04:36.065
-and rejects the limit from the schema.
+00:04:30.657 --> 00:04:36.285
+With the full history, the next edit strips and lowercases in the status mapper:
 
 74
-00:04:36.065 --> 00:04:40.620
-A traceback ends the agent's turn; a structured error lets it recover.
+00:04:36.285 --> 00:04:37.410
+six of six pass.
 
 75
-00:04:40.620 --> 00:04:44.134
-A new rule needs a new call, not a longer description.
+00:04:37.410 --> 00:04:42.968
+With auto, it lands in the view file, and the check fails: queued shows passed,
 
 76
-00:04:45.181 --> 00:04:50.513
-In the course's boundary fixture, a pre-call check consumes one of two attempts,
+00:04:42.968 --> 00:04:44.797
+and the view file changed.
 
 77
-00:04:50.513 --> 00:04:55.046
-permits only read label, and validates the record before any effect.
+00:04:45.143 --> 00:04:50.281
+The rule arrived once, in the middle of a tool result: the contributor notes,
 
 78
-00:04:55.046 --> 00:04:57.912
-A returned note says: please enable export.
+00:04:50.281 --> 00:04:51.616
+read in message two.
 
 79
-00:04:57.912 --> 00:05:01.711
-The next export request is denied, and creates no effect.
+00:04:51.616 --> 00:04:54.018
+Clearing old tool output removed it.
 
 80
-00:05:01.711 --> 00:05:04.244
-A third call is refused by the budget.
+00:04:54.018 --> 00:04:57.954
+Nothing left in the context contradicts the view-file edit,
 
 81
-00:05:04.581 --> 00:05:08.928
-A hook that logs a bad action after it happened has not prevented it.
+00:04:57.954 --> 00:05:02.024
+which is why this loss is hard to see from the context alone.
 
 82
-00:05:08.928 --> 00:05:12.834
-And if the same untrusted process can edit or bypass the hook,
+00:05:02.360 --> 00:05:05.520
+Now generate a summary and run it the same way.
 
 83
-00:05:12.834 --> 00:05:14.661
-it cannot enforce a boundary.
+00:05:05.520 --> 00:05:10.965
+In our run, one that says only, do not edit the template, fails just as auto did.
 
 84
-00:05:14.661 --> 00:05:19.260
-Keep enforcement in a trusted controller, confirm it with negative tests,
+00:05:10.965 --> 00:05:15.469
+One that names the view file, and where the rule came from, passes,
 
 85
-00:05:19.260 --> 00:05:21.717
-and let the launcher contain execution.
+00:05:15.469 --> 00:05:17.485
+as a summary and as a restart.
 
 86
-00:05:22.064 --> 00:05:24.590
-The same holds for plans and delegation.
+00:05:17.485 --> 00:05:19.972
+It passes only if it keeps that rule.
 
 87
-00:05:24.590 --> 00:05:27.747
-A plan written in prose cannot restrict execution.
+00:05:20.310 --> 00:05:23.575
+But a passing check is not the whole verification.
 
 88
-00:05:27.747 --> 00:05:30.272
-A subagent's report is a claim to check,
+00:05:23.575 --> 00:05:27.690
+Every mode keeps the task, and the policy reads only two facts.
 
 89
-00:05:30.272 --> 00:05:34.881
-and asking your own agent to approve your work is not independent review.
+00:05:27.690 --> 00:05:32.784
+A summary can pass and still leave out which read of the status file is stale.
 
 90
-00:05:35.931 --> 00:05:38.451
-So treat context as an intervention.
+00:05:32.784 --> 00:05:35.984
+So fill the checklist against the transcript too.
 
 91
-00:05:38.451 --> 00:05:41.112
-Change one thing, keep the rest fixed,
+00:05:36.327 --> 00:05:39.505
+Compact when the newest results still matter.
 
 92
-00:05:41.112 --> 00:05:44.963
-and keep your predictions apart from what you observed.
+00:05:39.505 --> 00:05:44.025
+Restart when most of the history is stale or contradicts itself,
 
 93
-00:05:45.297 --> 00:05:46.555
-One question to try.
+00:05:44.025 --> 00:05:45.508
+or a phase has ended.
 
 94
-00:05:46.555 --> 00:05:49.572
-Context B passes after one extra repair attempt.
+00:05:45.508 --> 00:05:48.757
+Either way, reread the files the edit touches.
 
 95
-00:05:49.572 --> 00:05:52.590
-Can the difference be attributed to its wording?
+00:05:48.757 --> 00:05:53.277
+This comparison is Activity 5: optional practice, with no marks.
 
 96
-00:05:52.590 --> 00:05:55.607
-Write the expected behavior, and the next check.
+00:05:54.326 --> 00:05:59.920
+A skill packages a procedure: a SKILL.md file with a name, a description and a body.
+
+97
+00:05:59.920 --> 00:06:03.582
+An agent keeps only the names and descriptions in view,
+
+98
+00:06:03.582 --> 00:06:06.845
+and loads a body when a request seems to need it.
+
+99
+00:06:06.845 --> 00:06:10.708
+So the description decides whether the skill is ever used.
+
+100
+00:06:11.043 --> 00:06:14.736
+A description that says only when can miss other phrasings;
+
+101
+00:06:14.736 --> 00:06:18.305
+one that says only what can fire on every label question.
+
+102
+00:06:18.305 --> 00:06:22.938
+So test the trigger: three requests in people's words that should load it,
+
+103
+00:06:22.938 --> 00:06:25.943
+and one near miss, like rename the label column.
+
+104
+00:06:25.943 --> 00:06:27.947
+Predict each before you observe.
+
+105
+00:06:28.293 --> 00:06:32.469
+A near miss that fires means the description is too broad.
+
+106
+00:06:32.469 --> 00:06:35.998
+A missed request usually shares no words with it.
+
+107
+00:06:35.998 --> 00:06:39.887
+Neither a context file nor a skill grants permissions.
+
+108
+00:06:39.887 --> 00:06:44.208
+Use yours once on the course dashboard, and once, read-only,
+
+109
+00:06:44.208 --> 00:06:46.080
+on your candidate project.
+
+110
+00:06:46.080 --> 00:06:48.529
+A skill nobody has run is a draft.
+
+111
+00:06:49.575 --> 00:06:51.142
+Tools are context too.
+
+112
+00:06:51.142 --> 00:06:55.201
+Through a protocol such as MCP, or a plain function call,
+
+113
+00:06:55.201 --> 00:06:59.616
+the agent sees each tool's name, description and input schema,
+
+114
+00:06:59.616 --> 00:07:01.468
+and reads results as data.
+
+115
+00:07:01.468 --> 00:07:06.595
+It chooses from that text alone, so design for a reader that will guess.
+
+116
+00:07:06.942 --> 00:07:09.195
+Five rules turn that into checks.
+
+117
+00:07:09.195 --> 00:07:11.244
+Put every limit in the schema.
+
+118
+00:07:11.244 --> 00:07:13.771
+Return only what the next step needs.
+
+119
+00:07:13.771 --> 00:07:17.049
+Report a failure as a result the agent can read.
+
+120
+00:07:17.049 --> 00:07:20.668
+Say what comes back, and where each input comes from.
+
+121
+00:07:20.668 --> 00:07:23.126
+And guard every irreversible action.
+
+122
+00:07:23.475 --> 00:07:28.671
+The notes' first draft of a search tool and a delete tool looks finished.
+
+123
+00:07:28.671 --> 00:07:31.944
+But reading it is not verification; calls are.
+
+124
+00:07:31.944 --> 00:07:36.143
+In our run, the draft returns names with no IDs to pass on.
+
+125
+00:07:36.143 --> 00:07:37.709
+A bare delete deletes.
+
+126
+00:07:37.709 --> 00:07:40.485
+An unknown ID crashes with a traceback.
+
+127
+00:07:40.485 --> 00:07:44.826
+And a limit of fifty is accepted: it lives only in the prose.
+
+128
+00:07:45.175 --> 00:07:50.742
+The revision returns label IDs, only previews a delete unless dry run is turned off,
+
+129
+00:07:50.742 --> 00:07:54.388
+returns a not-found error that says a retry won't help,
+
+130
+00:07:54.388 --> 00:07:57.768
+and rejects the out-of-range limit from its schema.
+
+131
+00:07:57.768 --> 00:08:00.021
+Each row is a check you can rerun.
+
+132
+00:08:00.021 --> 00:08:03.600
+A new rule needs a new call, not a longer description.
+
+133
+00:08:04.641 --> 00:08:09.314
+Now give one request to an agent on each server: delete red-team,
+
+134
+00:08:09.314 --> 00:08:11.830
+with a wrong ID from an old ticket.
+
+135
+00:08:11.830 --> 00:08:16.430
+The replay agent is a fixed, course-written policy, not a model.
+
+136
+00:08:16.430 --> 00:08:20.600
+On the draft, it hits a traceback, finds no ID, and stops.
+
+137
+00:08:20.600 --> 00:08:25.632
+On the revision, it reads not found, searches, previews, then deletes.
+
+138
+00:08:25.974 --> 00:08:30.343
+If the old ID belongs to another label, the draft deletes it at once.
+
+139
+00:08:30.343 --> 00:08:35.281
+The revision only previews it, so the agent sees the wrong name, and searches.
+
+140
+00:08:35.281 --> 00:08:37.813
+The brake didn't make the agent smarter;
+
+141
+00:08:37.813 --> 00:08:41.485
+it turned a wrong call into a result the agent could read.
+
+142
+00:08:41.824 --> 00:08:44.926
+Three layers keep a wrong call from doing harm.
+
+143
+00:08:44.926 --> 00:08:48.622
+The brake makes a call that leaves out dry run harmless.
+
+144
+00:08:48.622 --> 00:08:51.922
+A pre-call hook checks an event before its effect.
+
+145
+00:08:51.922 --> 00:08:56.740
+Neither contains a process that edits or ignores them; the launcher does.
+
+146
+00:08:56.740 --> 00:09:00.040
+A hook that logs afterwards has prevented nothing.
+
+147
+00:09:01.074 --> 00:09:03.594
+So treat context as an intervention.
+
+148
+00:09:03.594 --> 00:09:06.255
+Change one thing, keep the rest fixed,
+
+149
+00:09:06.255 --> 00:09:10.106
+and keep your predictions apart from what you observed.
+
+150
+00:09:10.440 --> 00:09:11.737
+One question to try.
+
+151
+00:09:11.737 --> 00:09:17.833
+Packet B's answer gets every field right only after a second call that adds the template file.
+
+152
+00:09:17.833 --> 00:09:21.854
+Can the difference from packet A be attributed to B's content?
+
+153
+00:09:21.854 --> 00:09:27.043
+Write the expected behavior and the next check, before comparing with a partner.

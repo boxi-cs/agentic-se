@@ -20,15 +20,15 @@
   <p class="lede">Test the evaluator and build a regression gate</p>
 </header>
 <main>
-  <video controls preload="metadata" poster="poster.jpg" src="https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-08/week-10.mp4">
+  <video controls preload="metadata" poster="poster.jpg" src="https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-10/week-10.mp4">
     <track kind="subtitles" srclang="en" label="English" src="en.vtt" default>
     <track kind="subtitles" srclang="zh" label="中文" src="zh.vtt">
   </video>
-  <p class="meta">5:56 · subtitles: <a href="en.vtt">English</a>, <a href="zh.vtt" lang="zh" hreflang="zh">中文</a> ·
-  <a href="https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-08/week-10.mp4">download</a></p>
+  <p class="meta">9:26 · subtitles: <a href="en.vtt">English</a>, <a href="zh.vtt" lang="zh" hreflang="zh">中文</a> ·
+  <a href="https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-10/week-10.mp4">download</a></p>
   <section>
     <h2>The idea</h2>
-    <p>An evaluator is an instrument, and its verdicts are claims until the instrument itself has been challenged. Freeze the contract (request, environment, stop, score) before reading the scorer; challenge the scorer with right, wrong, missing and persuasive answers; verify a bounded repair with the unchanged cases and state what that pass does not cover; keep completion separate from correctness; calibrate a judge against independent labels and read the confusion table, not only a coefficient; keep a known-bad case in the gate.</p>
+    <p>An evaluator is an instrument, and its verdicts are claims until the instrument itself has been challenged. Freeze the contract (request, environment, stop, score) before reading the scorer; challenge the scorer with right, wrong, missing, persuasive and case-variant answers; verify a bounded repair with the unchanged cases and state what that pass does not cover; keep completion separate from correctness; choose the simplest grader that can decide; challenge a judge with labels fixed first, adversarial cases included, because one false accept makes it unfit for a gate; read the confusion table, not only kappa; make the regression gate able to fail on five conditions, with the expected case count pinned, not counted; freeze the M2 technical snapshot on the path changed in M1.</p>
   </section>
   <section>
     <h2>Materials</h2>

@@ -20,15 +20,15 @@
   <p class="lede">Recover a user path after an incident</p>
 </header>
 <main>
-  <video controls preload="metadata" poster="poster.jpg" src="https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-08/week-11.mp4">
+  <video controls preload="metadata" poster="poster.jpg" src="https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-10/week-11.mp4">
     <track kind="subtitles" srclang="en" label="English" src="en.vtt" default>
     <track kind="subtitles" srclang="zh" label="中文" src="zh.vtt">
   </video>
-  <p class="meta">6:03 · subtitles: <a href="en.vtt">English</a>, <a href="zh.vtt" lang="zh" hreflang="zh">中文</a> ·
-  <a href="https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-08/week-11.mp4">download</a></p>
+  <p class="meta">9:42 · subtitles: <a href="en.vtt">English</a>, <a href="zh.vtt" lang="zh" hreflang="zh">中文</a> ·
+  <a href="https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-10/week-11.mp4">download</a></p>
   <section>
     <h2>The idea</h2>
-    <p>A timeout marks where observation stopped; it does not prove nothing happened. Walk the event chain to find the observation that separates a lost reply from a failed commit (the persisted job and its operation key); repair at the persistence boundary with an operation key; write the replay predictions and a rollback condition before changing anything; and declare recovery only when the user can see the required state and duplicates are excluded for the tested path. A model gateway&#x27;s budget follows the same rule: a lost reply keeps its whole reservation.</p>
+    <p>A timeout marks where observation stopped; it does not prove nothing happened. Walk the event chain to find the observation that separates a lost reply from a failed commit (the persisted job and its operation key); repair at the persistence boundary with an operation key unique within its pipeline; predict all three handlers, then run the replay and compare; write the rollback condition before changing anything; and declare recovery only when the user can see the required state and duplicates are excluded for the tested path. The same discipline checks a draft root-cause analysis: predict, let the script count, give each claim one outcome (confirmed, refuted or cannot tell), and act only on what you confirmed. M2 records the actual incident work through the supplied drill; the replay and the log check are rehearsal. A model gateway follows the same rule: a cap is a hard stop, the trace record count shows which limit stopped a run, and a lost reply keeps its whole reservation. A cheaper route is good enough only when the same frozen evaluator cases say so (scene 15), and a user test starts with a goal, not navigation (scene 16).</p>
   </section>
   <section>
     <h2>Materials</h2>

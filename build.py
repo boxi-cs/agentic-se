@@ -15,7 +15,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-RELEASE = "https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-08"
+RELEASE = "https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-10"
 # Site text: the instructor, as given by the maintainer and on https://boxiyu.github.io/.
 INSTRUCTOR = {
     "name": "Boxi Yu",

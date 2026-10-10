@@ -173,15 +173,15 @@ Why does this matter for agents?
 Suppose a model writes the patch, and also writes its tests.
 
 44
-00:02:15.863 --> 00:02:19.575
+00:02:15.864 --> 00:02:19.576
 If both assume unpadded input, they agree with each other,
 
 45
-00:02:19.575 --> 00:02:21.367
+00:02:19.576 --> 00:02:21.368
 and both miss the same rule.
 
 46
-00:02:21.367 --> 00:02:26.231
+00:02:21.368 --> 00:02:26.231
 That's a possible shared omission, not a claim about how often models do it.
 
 47
@@ -193,15 +193,15 @@ Independent expected results come from somewhere else: the product contract,
 and cases you choose on purpose.
 
 49
-00:02:34.980 --> 00:02:37.799
+00:02:34.980 --> 00:02:37.800
 Suppose a model had proposed this patch.
 
 50
-00:02:37.799 --> 00:02:39.491
+00:02:37.800 --> 00:02:39.492
 How would it produce it?
 
 51
-00:02:39.491 --> 00:02:45.342
+00:02:39.492 --> 00:02:45.342
 A language model processes tokens: word fragments, punctuation and code characters.
 
 52
@@ -229,11 +229,11 @@ It does not mean the model has executed it.
 Valid Python can still implement a different rule from the one the user needs.
 
 58
-00:03:07.580 --> 00:03:13.502
+00:03:07.580 --> 00:03:13.503
 And a token's likelihood is not a probability that the program satisfies the specification.
 
 59
-00:03:13.502 --> 00:03:18.644
+00:03:13.503 --> 00:03:18.644
 The patch's behavior stays unobserved until an appropriate check actually runs.
 
 60
@@ -349,81 +349,117 @@ A safe next step is to inspect the refusal or the missing result,
 and get an allowed check.
 
 88
-00:04:56.796 --> 00:04:58.209
-Now look one level up.
+00:04:56.096 --> 00:05:00.931
+Today's loop has one model, one controller decision and one tool result.
 
 89
-00:04:58.209 --> 00:05:02.576
-The developer also needs a failed-build count that matches the rows.
+00:05:00.931 --> 00:05:05.229
+A production coding agent wraps the same loop in more machinery:
 
 90
-00:05:02.576 --> 00:05:05.337
-The caller labels each row with the helper,
+00:05:05.229 --> 00:05:09.661
+tool definitions and budgets, a compacted record of earlier steps,
 
 91
-00:05:05.337 --> 00:05:09.254
-but it counts failures by comparing the raw status to "fail".
+00:05:09.661 --> 00:05:12.750
+context files and skills, hooks and a sandbox,
 
 92
-00:05:09.596 --> 00:05:12.848
-So repairing only the helper leaves a disagreement.
+00:05:12.750 --> 00:05:15.369
+and a specification with a staged plan.
 
 93
-00:05:12.848 --> 00:05:18.076
-For a padded, mixed-case failure, the row says failed, while the count stays zero.
+00:05:15.369 --> 00:05:18.726
+Weeks two to four take these layers one at a time.
 
 94
-00:05:18.076 --> 00:05:20.626
-Even all six helper tests would miss it.
+00:05:18.726 --> 00:05:23.091
+Each layer changes what the model sees, or what an action may do.
 
 95
-00:05:20.963 --> 00:05:24.351
-The proposed repair counts the labels already computed.
+00:05:23.091 --> 00:05:25.710
+None of them checks the result for you.
 
 96
-00:05:24.351 --> 00:05:27.247
-A full-output regression then checks the count,
+00:05:25.710 --> 00:05:30.276
+A richer harness still needs a completed check on the current files.
 
 97
-00:05:27.247 --> 00:05:29.588
-and the unchanged IDs and their order.
+00:05:31.312 --> 00:05:32.725
+Now look one level up.
 
 98
-00:05:29.588 --> 00:05:33.037
-These are hand-derived expectations, not a recorded run.
+00:05:32.725 --> 00:05:37.092
+The developer also needs a failed-build count that matches the rows.
 
 99
-00:05:33.037 --> 00:05:34.270
-And notice the task:
+00:05:37.092 --> 00:05:39.853
+The caller labels each row with the helper,
 
 100
-00:05:34.270 --> 00:05:39.075
-"make tests pass" alone would not have said which product behavior to protect.
+00:05:39.853 --> 00:05:43.770
+but it counts failures by comparing the raw status to "fail".
 
 101
-00:05:40.113 --> 00:05:41.877
-So, back to the dashboard.
+00:05:44.112 --> 00:05:47.364
+So repairing only the helper leaves a disagreement.
 
 102
-00:05:41.877 --> 00:05:45.203
-Two green tests did not show the patch was right.
+00:05:47.364 --> 00:05:52.592
+For a padded, mixed-case failure, the row says failed, while the count stays zero.
 
 103
-00:05:45.203 --> 00:05:48.936
-One test derived from the contract showed it was wrong.
+00:05:52.592 --> 00:05:55.142
+Even all six helper tests would miss it.
 
 104
-00:05:49.279 --> 00:05:50.516
-One question to try.
+00:05:55.479 --> 00:05:58.867
+The proposed repair counts the labels already computed.
 
 105
-00:05:50.516 --> 00:05:54.783
-A new service sends "completed", and our contract maps it to unknown.
+00:05:58.867 --> 00:06:01.763
+A full-output regression then checks the count,
 
 106
-00:05:54.783 --> 00:05:56.143
-Should it mean passed?
+00:06:01.763 --> 00:06:04.104
+and the unchanged IDs and their order.
 
 107
-00:05:56.143 --> 00:06:01.029
+00:06:04.104 --> 00:06:07.553
+These are hand-derived expectations, not a recorded run.
+
+108
+00:06:07.553 --> 00:06:08.786
+And notice the task:
+
+109
+00:06:08.786 --> 00:06:13.591
+"make tests pass" alone would not have said which product behavior to protect.
+
+110
+00:06:14.629 --> 00:06:16.393
+So, back to the dashboard.
+
+111
+00:06:16.393 --> 00:06:19.719
+Two green tests did not show the patch was right.
+
+112
+00:06:19.719 --> 00:06:23.452
+One test derived from the contract showed it was wrong.
+
+113
+00:06:23.795 --> 00:06:25.032
+One question to try.
+
+114
+00:06:25.032 --> 00:06:29.299
+A new service sends "completed", and our contract maps it to unknown.
+
+115
+00:06:29.299 --> 00:06:30.660
+Should it mean passed?
+
+116
+00:06:30.660 --> 00:06:35.545
 Before you change anything, write the question you would ask the product owner.

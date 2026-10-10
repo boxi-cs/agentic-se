@@ -20,15 +20,15 @@
   <p class="lede">Demonstrate and defend the result</p>
 </header>
 <main>
-  <video controls preload="metadata" poster="poster.jpg" src="https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-08/week-14.mp4">
+  <video controls preload="metadata" poster="poster.jpg" src="https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-10/week-14.mp4">
     <track kind="subtitles" srclang="en" label="English" src="en.vtt" default>
     <track kind="subtitles" srclang="zh" label="中文" src="zh.vtt">
   </video>
-  <p class="meta">6:36 · subtitles: <a href="en.vtt">English</a>, <a href="zh.vtt" lang="zh" hreflang="zh">中文</a> ·
-  <a href="https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-08/week-14.mp4">download</a></p>
+  <p class="meta">9:35 · subtitles: <a href="en.vtt">English</a>, <a href="zh.vtt" lang="zh" hreflang="zh">中文</a> ·
+  <a href="https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-10/week-14.mp4">download</a></p>
   <section>
     <h2>The idea</h2>
-    <p>Claim only the scope you checked, and trust a check only once you have seen it fail. The practice packet&#x27;s code predicts that a guest is denied, but the evidence matrix never observed a guest, so acceptance extends only to cases that were checked. Our scratch run of Snapshot B&#x27;s lines shows the guest cases behaving as predicted, and a deliberately broken variant shows the check can fail; it still supports only those lines, not the request and stored title. A changed condition in rehearsal (a role policy, an output format, a timeout) needs its own evidence, and a demo keeps its failures. The same rule decides the software-factory claim stage by stage: a stage may run unattended only with a check seen to fail on a bad input and pass on a good one, and a stop path someone has exercised.</p>
+    <p>Claim only the scope you checked, and count a check as evidence that it would stop a bad change only once you have seen it fail. In the practice packet the code predicts that a guest is denied, but the evidence matrix never observed a guest, so acceptance extends only to the checked cases; a peer&#x27;s changed input either reuses an observation or names the next check. The same rule decides the software-factory claim stage by stage. The Evaluate stage&#x27;s regression gate has been seen to fail on an agent&#x27;s &quot;robust&quot; evaluator change and to pass on the current evaluator, so it is a candidate for unattended merging, not yet unattended: its cases sit where the agent could write, the candidate runs inside the checker, and the stop rule has never been exercised. Its nine cases also pass a trim-only escape until that escape becomes a tenth case. The model audit has never been seen to fail and pass on known inputs, so it runs unattended only as a source of hypotheses.</p>
   </section>
   <section>
     <h2>Materials</h2>
