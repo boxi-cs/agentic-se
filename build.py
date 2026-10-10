@@ -304,6 +304,14 @@ def approach_page(course: dict) -> str:
     return page(f"Approach · {course['title']}", course["tagline"], 1, body)
 
 
+CITATION = re.compile(r"\s*\(`[\w./-]*:\d[^)]*\)")
+
+
+def without_citations(text: str) -> str:
+    """Drop the script's source citations, such as (`notes:56-68`, `:221-228`), from a decision."""
+    return CITATION.sub("", text)
+
+
 def week_page(course: dict, episodes: list[dict], index: int) -> str:
     e = episodes[index]
     w = next(w for w in course["weeks"] if w["week"] == e["week"])
@@ -330,7 +338,7 @@ def week_page(course: dict, episodes: list[dict], index: int) -> str:
   <a href="{RELEASE}/week-{number}.mp4">download</a></p>
   <section>
     <h2>The idea</h2>
-    <p>{inline(e['decision'][0].upper() + e['decision'][1:])}</p>
+    <p>{inline(without_citations(e['decision'][0].upper() + e['decision'][1:]))}</p>
   </section>
   <section>
     <h2>Materials</h2>
@@ -385,7 +393,7 @@ def main() -> None:
         (folder / "index.html").write_text(week_page(course, episodes, index))
         for lang, srt in e["subtitles"].items():
             (folder / f"{lang}.vtt").write_text(vtt(srt))
-    internal = re.compile(r"PR #\d|\bT-\d{3}\b|\bD\d{2}\b|ASE-\d+|reviewed_by|instructor/")
+    internal = re.compile(r"PR #\d|\bT-\d{3}\b|\bD\d{2}\b|ASE-\d+|reviewed_by|instructor/|\bnotes:\d")
     pages = [ROOT / "index.html", ROOT / "approach/index.html", ROOT / "syllabus/index.html"]
     for built in [*pages, *sorted(ROOT.glob("weeks/*/index.html"))]:
         if match := internal.search(built.read_text()):
