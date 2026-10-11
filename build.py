@@ -1,10 +1,12 @@
 """Build the static site from data/ into the repository root (served by GitHub Pages).
 
-    python3 build.py            # writes index.html, approach/, syllabus/, weeks/NN/index.html and subtitle tracks
+    python3 build.py            # writes index.html, approach/, syllabus/, weeks/NN/index.html and films/<slug>/*.vtt
 
 Only the Python standard library is used. Text on the pages comes from data/course.json (the
-course's tagline, approach page, schedule and syllabus) and data/episodes.json (the weekly videos);
-the few sentences written here are labelled in the comments.
+course's tagline, approach page, calendar and syllabus) and data/episodes.json (the films);
+the few sentences written here are labelled "Site text" in the comments. There is one page per
+calendar week. data/films.json says which week each film supports and whether it is published;
+a film that is not published reaches no page, and its folder under films/ is removed.
 """
 
 from __future__ import annotations
@@ -12,6 +14,7 @@ from __future__ import annotations
 import html
 import json
 import re
+import shutil
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -61,7 +64,7 @@ def slug(text: str) -> str:
 
 
 def markdown(source: str) -> tuple[str, list[tuple[str, str]]]:
-    """Render the syllabus's Markdown subset: headings, paragraphs, bullet lists and pipe tables.
+    """Render the syllabus's Markdown subset: headings, paragraphs, bullet and numbered lists, and pipe tables.
 
     Returns the HTML and the (id, title) of each level-2 heading, for a contents list.
     """
@@ -93,6 +96,9 @@ def markdown(source: str) -> tuple[str, list[tuple[str, str]]]:
         elif first.startswith("- "):
             items = "".join(f"<li>{md_inline(line[2:])}</li>" for line in lines)
             html_parts.append(f"<ul>{items}</ul>")
+        elif re.match(r"\d+\. ", first):
+            items = "".join(f"<li>{md_inline(line.split('. ', 1)[1])}</li>" for line in lines)
+            html_parts.append(f"<ol>{items}</ol>")
         else:
             for line in lines:  # a hard line break in the source starts a new paragraph
                 html_parts.append(f"<p>{md_inline(line)}</p>")
@@ -143,17 +149,19 @@ def page(title: str, description: str, depth: int, body: str) -> str:
 """
 
 
-# Links in the course's approach page, as pages of this site (relative to the site root).
-APPROACH_LINKS = {
-    "week0/setup.en.md": "course/site/docs/week0/setup.en.html",
+# Links in the course's approach page and syllabus, as pages of this site (relative to the site root).
+LOCAL_LINKS = {
+    "week0/setup.en.md": "course/site/docs/week0/setup.en.html",  # approach page
+    "site/docs/week0/setup.en.md": "course/site/docs/week0/setup.en.html",  # syllabus
+    "staff.en.md": "course/site/docs/staff.en.html",
     "../../SYLLABUS.en.md": "syllabus/",
     "schedule.en.md": "./#schedule",
 }
 
 
 def local_links(source: str, up: str) -> str:
-    """Point the approach page's course-relative links at this site; other relative links keep only their text."""
-    for old, new in APPROACH_LINKS.items():
+    """Point course-relative links at pages of this site; other relative links keep only their text."""
+    for old, new in LOCAL_LINKS.items():
         source = source.replace(f"]({old})", f"](site:{up}{new})")
     return source
 
@@ -178,32 +186,73 @@ def lead(body: str, count: int = 2) -> str:
     return " ".join(re.split(r"(?<=[.!?])\s+", body.split("\n\n")[0])[:count])
 
 
-def home(course: dict, episodes: list[dict]) -> str:
+def labelled(body: str, label: str) -> str:
+    """The text of one `- **Label**: text` bullet of a section (fails loudly if the source changed)."""
+    for line in body.splitlines():
+        if line.startswith(f"- **{label}**: "):
+            return line.split("**: ", 1)[1]
+    raise SystemExit(f"bullet not found: {label!r}")
+
+
+def published_films(episodes: list[dict], films: dict) -> list[dict]:
+    """The published films, each with the calendar week it supports, in week order.
+
+    data/films.json must name exactly the films of data/episodes.json; a film that is not published
+    carries its reason there and reaches no page.
+    """
+    known = {e["slug"] for e in episodes}
+    if known != set(films["films"]):
+        raise SystemExit(f"data/films.json and data/episodes.json disagree on: {sorted(known ^ set(films['films']))}")
+    out = []
+    for e in episodes:
+        entry = films["films"][e["slug"]]
+        if entry["published"] is not True:
+            if entry["published"] is not False or not entry.get("withheld_reason"):
+                raise SystemExit(f"data/films.json: {e['slug']} needs published true, or false with a withheld_reason")
+            continue
+        if not isinstance(entry.get("week"), int):
+            raise SystemExit(f"data/films.json: published film {e['slug']} needs a calendar week")
+        out.append({**e, "week": entry["week"]})
+    return sorted(out, key=lambda film: (film["week"], film["number"]))
+
+
+def home(course: dict, films: list[dict]) -> str:
     intro, parts = sections(local_links(course["approach"], ""))
-    # Principles: the opening two sentences of each short approach section; the stage table, the closing
-    # links and the rest of each section stay on the approach page.
+    # Principles: the opening two sentences of each short approach section; the list of the three lines of
+    # work, the closing links and the rest of each section stay on the approach page.
     principles = "\n".join(
         f"""    <div class="principle"><h3>{md_inline(title)}</h3><p>{md_inline(lead(body))}</p></div>"""
         for title, body in parts
         if "|" not in body and not body.startswith("- ")
     )
     syllabus = course["syllabus"]["markdown"]
+    overview = section(syllabus, "Overview")
+    shape = "".join(
+        f"<li><strong>{esc(label)}:</strong> {md_inline(labelled(overview, label))}</li>"
+        for label in ("Length", "Two sessions a week", "Three lines of work")
+    )
     outcomes = "".join(
         f"<li>{md_inline(line[2:])}</li>" for line in section(syllabus, "Learning outcomes").splitlines() if line.startswith("- ")
     )
     assessment = section(syllabus, "Assessment").split("\n\n")
     table_html = markdown(next(block for block in assessment if block.startswith("|")))[0]
     passing = next(block for block in assessment if block.startswith("Passing requires"))
+    deadline = next(
+        (sentence for sentence in re.split(r"(?<=\.)\s+", section(syllabus, "Calendar")) if sentence.startswith("The deadline")), ""
+    )
+    # The syllabus's own caution about pages that still follow the earlier layout, while it carries one.
+    rearranging = next((block for block in syllabus.split("\n\n") if block.startswith("Course pages, lecture materials")), "")
+    rearranging = rearranging.replace("this syllabus", "[the syllabus](site:syllabus/)")
     weeks = {w["week"]: w for w in course["weeks"]}
-    total = sum(e["seconds"] for e in episodes)
+    total = sum(film["seconds"] for film in films)
     cards = "\n".join(
-        f"""  <a class="card" href="weeks/{e['week']:02d}/">
-    <img src="weeks/{e['week']:02d}/poster.jpg" alt="" loading="lazy" width="960" height="540">
-    <span class="card-week">Week {e['week']} · {minutes(e['seconds'])}</span>
-    <span class="card-title">{esc(e['title'])}</span>
-    <span class="card-topic">{esc(weeks[e['week']]['topic'])}</span>
+        f"""  <a class="card" href="weeks/{film['week']:02d}/#film-{film['slug']}">
+    <img src="films/{film['slug']}/poster.jpg" alt="" loading="lazy" width="960" height="540">
+    <span class="card-week">Week {film['week']} · {minutes(film['seconds'])}</span>
+    <span class="card-title">{esc(film['title'])}</span>
+    <span class="card-topic">{esc(weeks[film['week']]['topic'])}</span>
   </a>"""
-        for e in episodes
+        for film in films
     )
     rows = "\n".join(
         f"""    <tr><td>{w['week']}</td><td><a href="weeks/{w['week']:02d}/">{esc(w['topic'])}</a></td>"""
@@ -224,10 +273,12 @@ def home(course: dict, episodes: list[dict]) -> str:
 <main>
 <section id="approach">
   <h2>How this course works</h2>
+  <ul class="shape">{shape}</ul>
   <div class="principles">
 {principles}
   </div>
-  <p><a href="approach/">The full approach, with the four stages of the term →</a></p>
+  <!-- Site text: what the approach page adds. -->
+  <p><a href="approach/">The full approach: the three lines of work, the checkpoints and the defense →</a></p>
 </section>
 <section id="syllabus">
   <h2>Syllabus at a glance</h2>
@@ -242,24 +293,26 @@ def home(course: dict, episodes: list[dict]) -> str:
       <p class="note">{md_inline(passing.split(". ")[0])}.</p>
     </div>
   </div>
-  <p><a href="syllabus/">The full syllabus: weekly route, feedback and resits, the project, open-source contributions, workload and AI use →</a></p>
+  <!-- Site text: what the syllabus page holds (its section headings). -->
+  <p><a href="syllabus/">The full syllabus: the calendar, assessment and resits, the assignments, the term project, open-source contributions, tools and AI use →</a></p>
 </section>
 <section id="schedule">
   <h2>Schedule</h2>
   <table class="schedule">
-    <thead><tr><th>Week</th><th>Topic</th><th>Deliverables</th></tr></thead>
+    <thead><tr><th>Week</th><th>Topic</th><th>Due</th></tr></thead>
     <tbody>
 {rows}
     </tbody>
   </table>
-  <!-- Site text: what the labels in the schedule stand for (SYLLABUS.md and the schedule's own wording). -->
-  <p class="note">P1–P3: personal practices · M0–M4: project milestones · C1, C2: open-source contributions · CP1, CP2: 30-minute individual checkpoints.</p>
+  <!-- Site text: what the labels in the schedule stand for (the syllabus's assessment table); the deadline sentence is the syllabus's. -->
+  <p class="note">A1–A6: assignments · Contribution 1–4: open-source contributions · CP1, CP2: 30-minute checkpoints on paper, without AI. {md_inline(deadline)}</p>
 </section>
 <section id="videos">
-  <h2>Weekly videos</h2>
-  <!-- Site text: what the videos are, and their total length. -->
-  <p class="note">One short film per week shows that week's central decision through worked examples:
-  generate, then verify. {len(episodes)} films, {hours_minutes(total)} in all.</p>
+  <h2>Videos</h2>
+  <!-- Site text: what the films are, which edition they were made for, and their count and total length. -->
+  <p class="note">Short films, each showing one decision through worked examples: generate, then verify.
+  They were made for the earlier edition of this course; the ones here still fit the current calendar,
+  and each is listed under the week it supports. {len(films)} films, {hours_minutes(total)} in all.</p>
   <div class="cards">
 {cards}
   </div>
@@ -268,12 +321,14 @@ def home(course: dict, episodes: list[dict]) -> str:
   <h2>Course materials</h2>
   <!-- Site text: what course/ holds (the course repository's own English student site). -->
   <p>Everything students work from is public: each week's notes, slides, activities, readings and self-check,
-  the three personal practices, the project instructions and kit, the rubrics and the course policies.</p>
+  the assignments, the term project, the rubrics and the assessment policy.</p>
+  {f'<p class="note">{md_inline(rearranging)}</p>' if rearranging else ''}
   <ul class="facts">
     <li><a href="course/">Start here</a></li>
     <li><a href="course/lectures/week-01/notes.en.html">Week 1 notes</a></li>
-    <li><a href="course/practice/README.en.html">Personal practices</a></li>
-    <li><a href="course/site/docs/project.en.html">Project</a></li>
+    <li><a href="course/practice/README.en.html">Assignments</a></li>
+    <li><a href="course/site/docs/project.en.html">Term project</a></li>
+    <li><a href="course/site/docs/contributions-rubric.en.html">Contributions rubric</a></li>
     <li><a href="course/site/docs/glossary.en.html">Glossary</a></li>
   </ul>
 </section>
@@ -312,60 +367,83 @@ def without_citations(text: str) -> str:
     return CITATION.sub("", text)
 
 
-def week_page(course: dict, episodes: list[dict], index: int) -> str:
-    e = episodes[index]
-    w = next(w for w in course["weeks"] if w["week"] == e["week"])
-    number = f"{e['week']:02d}"
-    prev_link = (
-        f'<a href="../{episodes[index - 1]["week"]:02d}/">← Week {episodes[index - 1]["week"]}</a>' if index else "<span></span>"
+def course_materials(week: int) -> tuple[str, list[tuple[str, str]]]:
+    """The course's own overview page for a week and the lecture pages it links to, as site-root paths.
+
+    Read from the rebuilt course/, so only pages that exist are linked (the assessment week has no lecture).
+    """
+    overview = ROOT / f"course/site/docs/weeks/week-{week:02d}.en.html"
+    if not overview.is_file():
+        raise SystemExit(f"{overview.relative_to(ROOT)} is missing; rebuild course/ with tools/course_site.py")
+    article = re.search(r"<article[^>]*>(.*?)</article>", overview.read_text(), re.S)
+    links = []
+    for href, label in re.findall(r'<a href="([^"#]+)">([^<]+)</a>', article.group(1) if article else ""):
+        target = (overview.parent / href).resolve()
+        if "/lectures/" in href and target.is_file():
+            links.append((target.relative_to(ROOT).as_posix(), label))
+    return overview.relative_to(ROOT).as_posix(), links
+
+
+def film_block(film: dict, note: str) -> str:
+    asset = f"../../films/{film['slug']}"
+    video = f"{RELEASE}/week-{film['number']:02d}.mp4"  # release assets keep the number each film was made under
+    return f"""    <article class="film" id="film-{film['slug']}">
+      <h3>{esc(film['title'])}</h3>
+      <p class="note edition">{esc(note)}</p>
+      <video controls preload="metadata" poster="{asset}/poster.jpg" src="{video}">
+        <track kind="subtitles" srclang="en" label="English" src="{asset}/en.vtt" default>
+        <track kind="subtitles" srclang="zh" label="中文" src="{asset}/zh.vtt">
+      </video>
+      <p class="meta">{minutes(film['seconds'])} · subtitles: <a href="{asset}/en.vtt">English</a>, <a href="{asset}/zh.vtt" lang="zh" hreflang="zh">中文</a> ·
+      <a href="{video}">download</a></p>
+      <p>{inline(without_citations(film['decision'][0].upper() + film['decision'][1:]))}</p>
+    </article>"""
+
+
+def week_page(course: dict, films: list[dict], note: str, w: dict) -> str:
+    last = course["weeks"][-1]["week"]
+    overview, lecture_pages = course_materials(w["week"])
+    materials = "".join(
+        f'\n      <li><a href="../../{path}">{label}</a></li>' for path, label in [(overview, "Week overview"), *lecture_pages]
     )
-    next_link = (
-        f'<a href="../{episodes[index + 1]["week"]:02d}/">Week {episodes[index + 1]["week"]} →</a>'
-        if index + 1 < len(episodes)
-        else "<span></span>"
+    here = [film for film in films if film["week"] == w["week"]]
+    film_section = (
+        f"""
+  <section>
+    <h2>{'Films' if len(here) > 1 else 'Film'}</h2>
+{chr(10).join(film_block(film, note) for film in here)}
+  </section>"""
+        if here
+        else ""
     )
+    prev_link = f'<a href="../{w["week"] - 1:02d}/">← Week {w["week"] - 1}</a>' if w["week"] > 1 else "<span></span>"
+    next_link = f'<a href="../{w["week"] + 1:02d}/">Week {w["week"] + 1} →</a>' if w["week"] < last else "<span></span>"
     body = f"""<header class="hero hero-week">
-  <p class="kicker"><a href="../../">Agentic Software Engineering</a> · Week {e['week']}</p>
-  <h1>{esc(e['title'])}</h1>
-  <p class="lede">{esc(w['topic'])}</p>
+  <p class="kicker"><a href="../../">Agentic Software Engineering</a> · Week {w['week']}</p>
+  <h1>{esc(w['topic'])}</h1>
 </header>
 <main>
-  <video controls preload="metadata" poster="poster.jpg" src="{RELEASE}/week-{number}.mp4">
-    <track kind="subtitles" srclang="en" label="English" src="en.vtt" default>
-    <track kind="subtitles" srclang="zh" label="中文" src="zh.vtt">
-  </video>
-  <p class="meta">{minutes(e['seconds'])} · subtitles: <a href="en.vtt">English</a>, <a href="zh.vtt" lang="zh" hreflang="zh">中文</a> ·
-  <a href="{RELEASE}/week-{number}.mp4">download</a></p>
-  <section>
-    <h2>The idea</h2>
-    <p>{inline(without_citations(e['decision'][0].upper() + e['decision'][1:]))}</p>
-  </section>
-  <section>
-    <h2>Materials</h2>
-    <ul class="facts">
-      <li><a href="../../course/lectures/week-{number}/notes.en.html">Notes</a></li>
-      <li><a href="../../course/lectures/week-{number}/slides.en.html">Slides</a></li>
-      <li><a href="../../course/lectures/week-{number}/activities.en.html">Activities</a></li>
-      <li><a href="../../course/lectures/week-{number}/readings.en.html">Readings</a></li>
-      <li><a href="../../course/lectures/week-{number}/selfcheck.en.html">Self-check</a></li>
-    </ul>
-  </section>
   <section>
     <h2>This week</h2>
     <dl class="week">
-      <dt>Lecture</dt><dd>{inline(w['lecture'])}</dd>
-      <dt>Workshop</dt><dd>{inline(w['workshop'])}</dd>
-      <dt>Deliverables</dt><dd>{inline(w['deliverables'])}</dd>
+      <dt>First session (lecture)</dt><dd>{inline(w['lecture'])}</dd>
+      <dt>Second session</dt><dd>{inline(w['workshop'])}</dd>
+      <dt>Due</dt><dd>{inline(w['deliverables'])}</dd>
     </dl>
   </section>
-  <nav class="pager">{prev_link}<a href="../../">All weeks</a>{next_link}</nav>
+  <section>
+    <h2>Materials</h2>
+    <ul class="facts">{materials}
+    </ul>
+  </section>{film_section}
+  <nav class="pager">{prev_link}<a href="../../#schedule">All weeks</a>{next_link}</nav>
 </main>"""
-    return page(f"Week {e['week']}: {e['title']} · Agentic Software Engineering", w["topic"], 2, body)
+    return page(f"Week {w['week']}: {w['topic']} · Agentic Software Engineering", w["lecture"], 2, body)
 
 
 def syllabus_page(course: dict) -> str:
     source = course["syllabus"]["markdown"]  # already edited for a public page by tools/export_data.py
-    body_html, contents = markdown(source)
+    body_html, contents = markdown(local_links(source, "../"))
     toc = "".join(f'<li><a href="#{anchor}">{esc(title)}</a></li>' for anchor, title in contents)
     body = f"""<header class="hero hero-week">
   <p class="kicker"><a href="../">Agentic Software Engineering</a> · Syllabus</p>
@@ -379,26 +457,70 @@ def syllabus_page(course: dict) -> str:
     return page(f"Syllabus · {course['title']}", "Learning outcomes, schedule, assessment and policies.", 1, body)
 
 
+def check_local_links(pages: list[Path]) -> None:
+    """Every local href, src and poster on a built page must resolve to a file, or a folder with an index."""
+    for built in pages:
+        for url in re.findall(r'(?:href|src|poster)="([^"]+)"', built.read_text()):
+            path = html.unescape(url).split("#")[0]
+            if re.match(r"[a-z]+:", path) or not path:
+                continue
+            target = (built.parent / path).resolve()
+            if not (target.is_file() or (target / "index.html").is_file()):
+                raise SystemExit(f"{built.relative_to(ROOT)}: broken link {url!r}")
+
+
 def main() -> None:
     course = json.loads((ROOT / "data/course.json").read_text())
     episodes = json.loads((ROOT / "data/episodes.json").read_text())["episodes"]
-    (ROOT / "index.html").write_text(home(course, episodes))
+    mapping = json.loads((ROOT / "data/films.json").read_text())
+    films = published_films(episodes, mapping)
+    numbers = [w["week"] for w in course["weeks"]]
+    if stray := sorted({film["week"] for film in films} - set(numbers)):
+        raise SystemExit(f"data/films.json maps a film to a week that is not in the calendar: {stray}")
+
+    # films/ holds only the published films: poster (tools/posters.py) and subtitle tracks (written here).
+    (ROOT / "films").mkdir(exist_ok=True)
+    for folder in (ROOT / "films").iterdir():
+        if folder.name not in {film["slug"] for film in films}:
+            shutil.rmtree(folder)
+    for film in films:
+        folder = ROOT / "films" / film["slug"]
+        if not (folder / "poster.jpg").is_file():
+            raise SystemExit(f"films/{film['slug']}/poster.jpg is missing; run tools/posters.py")
+        for lang, srt in film["subtitles"].items():
+            (folder / f"{lang}.vtt").write_text(vtt(srt))
+
+    # weeks/ holds one index.html per calendar week and nothing else.
+    for folder in (ROOT / "weeks").iterdir():
+        if folder.name not in {f"{n:02d}" for n in numbers}:
+            shutil.rmtree(folder)
+    for w in course["weeks"]:
+        folder = ROOT / "weeks" / f"{w['week']:02d}"
+        folder.mkdir(parents=True, exist_ok=True)
+        for stale in folder.iterdir():
+            if stale.name != "index.html":
+                stale.unlink()
+        (folder / "index.html").write_text(week_page(course, films, mapping["edition_note"], w))
+    (ROOT / "index.html").write_text(home(course, films))
     (ROOT / "syllabus").mkdir(exist_ok=True)
     (ROOT / "syllabus/index.html").write_text(syllabus_page(course))
     (ROOT / "approach").mkdir(exist_ok=True)
     (ROOT / "approach/index.html").write_text(approach_page(course))
-    for index, e in enumerate(episodes):
-        folder = ROOT / "weeks" / f"{e['week']:02d}"
-        folder.mkdir(parents=True, exist_ok=True)
-        (folder / "index.html").write_text(week_page(course, episodes, index))
-        for lang, srt in e["subtitles"].items():
-            (folder / f"{lang}.vtt").write_text(vtt(srt))
+
     internal = re.compile(r"PR #\d|\bT-\d{3}\b|\bD\d{2}\b|ASE-\d+|reviewed_by|instructor/|\bnotes:\d")
-    pages = [ROOT / "index.html", ROOT / "approach/index.html", ROOT / "syllabus/index.html"]
-    for built in [*pages, *sorted(ROOT.glob("weeks/*/index.html"))]:
-        if match := internal.search(built.read_text()):
+    withheld = [e["slug"] for e in episodes if e["slug"] not in {film["slug"] for film in films}]
+    pages = [ROOT / "index.html", ROOT / "approach/index.html", ROOT / "syllabus/index.html", *sorted(ROOT.glob("weeks/*/index.html"))]
+    for built in pages:
+        text = built.read_text()
+        if match := internal.search(text):
             raise SystemExit(f"{built.relative_to(ROOT)}: internal reference {match.group(0)!r}")
-    print(f"built index.html, approach/index.html, syllabus/index.html and {len(episodes)} week pages")
+        if named := [slug for slug in withheld if slug in text]:
+            raise SystemExit(f"{built.relative_to(ROOT)}: names a film that is not published: {named}")
+    check_local_links(pages)
+    print(
+        f"built index.html, approach/index.html, syllabus/index.html, {len(numbers)} week pages (weeks/{numbers[0]:02d}–{numbers[-1]:02d}) "
+        f"and subtitle tracks for {len(films)} published films ({len(withheld)} withheld)"
+    )
 
 
 if __name__ == "__main__":

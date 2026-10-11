@@ -111,3 +111,13 @@ h3 { font: 600 17px/1.35 Inter, system-ui, sans-serif; margin: 0 0 6px; }
 .outcomes li { margin-bottom: 6px; }
 .glance .prose .table-wrap { margin-top: 0; }
 @media (max-width: 820px) { .glance { grid-template-columns: 1fr; } }
+
+/* Week pages follow the calendar; a week may carry films made for the earlier edition. */
+.week { grid-template-columns: 12em 1fr; }
+@media (max-width: 640px) { .week { grid-template-columns: 1fr; } }
+.film { margin-top: 28px; }
+.film h3 { font: 28px/1.15 "Instrument Serif", Georgia, serif; margin-bottom: 4px; }
+.film .edition { margin: 0 0 10px; font-size: 15px; border-left: 3px solid var(--warm); padding-left: 10px; }
+.shape { margin: 0 0 20px; padding-left: 1.1em; max-width: 820px; }
+.shape li { margin-bottom: 6px; }
+.prose ol { padding-left: 1.3em; }
