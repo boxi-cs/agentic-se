@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Week 11: A timeout is not nothing · Agentic Software Engineering</title>
-<meta name="description" content="Recover a user path after an incident">
+<title>Week 11: Building an AI-native team · Agentic Software Engineering</title>
+<meta name="description" content="Portals, gateways, routing and cost; recovering from an incident and proving it with a regression.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="../../assets/site.css">
 <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
@@ -16,39 +16,31 @@
 </nav>
 <header class="hero hero-week">
   <p class="kicker"><a href="../../">Agentic Software Engineering</a> · Week 11</p>
-  <h1>A timeout is not nothing</h1>
-  <p class="lede">Recover a user path after an incident</p>
+  <h1>Building an AI-native team</h1>
 </header>
 <main>
-  <video controls preload="metadata" poster="poster.jpg" src="https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-10/week-11.mp4">
-    <track kind="subtitles" srclang="en" label="English" src="en.vtt" default>
-    <track kind="subtitles" srclang="zh" label="中文" src="zh.vtt">
-  </video>
-  <p class="meta">9:42 · subtitles: <a href="en.vtt">English</a>, <a href="zh.vtt" lang="zh" hreflang="zh">中文</a> ·
-  <a href="https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-10/week-11.mp4">download</a></p>
   <section>
-    <h2>The idea</h2>
-    <p>A timeout marks where observation stopped; it does not prove nothing happened. Walk the event chain to find the observation that separates a lost reply from a failed commit (the persisted job and its operation key); repair at the persistence boundary with an operation key unique within its pipeline; predict all three handlers, then run the replay and compare; write the rollback condition before changing anything; and declare recovery only when the user can see the required state and duplicates are excluded for the tested path. The same discipline checks a draft root-cause analysis: predict, let the script count, give each claim one outcome (confirmed, refuted or cannot tell), and act only on what you confirmed. M2 records the actual incident work through the supplied drill; the replay and the log check are rehearsal. A model gateway follows the same rule: a cap is a hard stop, the trace record count shows which limit stopped a run, and a lost reply keeps its whole reservation. A cheaper route is good enough only when the same frozen evaluator cases say so, and a user test starts with a goal, not navigation.</p>
+    <h2>This week</h2>
+    <dl class="week">
+      <dt>First session (lecture)</dt><dd>Portals, gateways, routing and cost; recovering from an incident and proving it with a regression.</dd>
+      <dt>Second session</dt><dd>CP2 (30 minutes, on paper), then guest or studio.</dd>
+      <dt>Due</dt><dd>CP2</dd>
+    </dl>
   </section>
   <section>
     <h2>Materials</h2>
     <ul class="facts">
+      <li><a href="../../course/site/docs/weeks/week-11.en.html">Week overview</a></li>
+      <li><a href="../../course/lectures/week-11/README.en.html">Week guide</a></li>
       <li><a href="../../course/lectures/week-11/notes.en.html">Notes</a></li>
-      <li><a href="../../course/lectures/week-11/slides.en.html">Slides</a></li>
+      <li><a href="../../course/lectures/week-11/slides.en.html">Slide source</a></li>
       <li><a href="../../course/lectures/week-11/activities.en.html">Activities</a></li>
-      <li><a href="../../course/lectures/week-11/readings.en.html">Readings</a></li>
       <li><a href="../../course/lectures/week-11/selfcheck.en.html">Self-check</a></li>
+      <li><a href="../../course/lectures/week-11/selfcheck-answers.en.html">Answer guidance</a></li>
+      <li><a href="../../course/lectures/week-11/readings.en.html">Readings</a></li>
     </ul>
   </section>
-  <section>
-    <h2>This week</h2>
-    <dl class="week">
-      <dt>Lecture</dt><dd>CP2: 30-minute individual unfamiliar-code review and recovery reasoning; then examine logs, retries and idempotency.</dd>
-      <dt>Workshop</dt><dd>Use the supplied local drill on M2; prove recovery and begin scheduled user testing.</dd>
-      <dt>Deliverables</dt><dd>CP2; M2 operation evidence</dd>
-    </dl>
-  </section>
-  <nav class="pager"><a href="../10/">← Week 10</a><a href="../../">All weeks</a><a href="../12/">Week 12 →</a></nav>
+  <nav class="pager"><a href="../10/">← Week 10</a><a href="../../#schedule">All weeks</a><a href="../12/">Week 12 →</a></nav>
 </main>
 <footer class="foot">
   <p>Videos: English narration in a draft synthetic voice (LJ Speech, public domain), with English and

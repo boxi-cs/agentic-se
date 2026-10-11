@@ -18,7 +18,7 @@
   <p class="kicker">Boxi CS · Course</p>
   <h1>Agentic Software Engineering<span>Build, <em>verify</em>, evaluate.</span></h1>
   <p class="tagline">Agents generate. You verify, decide and explain.</p>
-  <p class="lede">A coding agent can produce a plausible change in seconds. This course is about what comes after that: deciding whether the change is right, whether it is safe to run and whether you can explain it to someone who was not there.</p>
+  <p class="lede">A coding agent proposes a change; you decide whether the evidence supports it and whether you can explain it. Every example shows generation and verification. A test you can rerun is evidence; an agent saying “done” is a claim to check.</p>
   <p class="actions">
     <a class="button primary" href="syllabus/">Read the syllabus</a>
     <a class="button" href="approach/">How this course works</a>
@@ -28,144 +28,102 @@
 <main>
 <section id="approach">
   <h2>How this course works</h2>
+  <ul class="shape"><li><strong>Length:</strong> 12 teaching weeks, then an assessment week (expo and defenses) in week 13.</li><li><strong>Two sessions a week:</strong> the first is a lecture that generates and then verifies, live. The second is a practitioner guest; in a week without a guest it is a studio, where you work on your own project or contribution while staff circulate. Each session is 90 minutes; the plan is one cohort of 60 students.</li><li><strong>Three lines of work:</strong> six assignments (mostly in the first six weeks), four open-source contributions (across two repositories), and one term project (one or two people).</li></ul>
   <div class="principles">
-    <div class="principle"><h3>Generate, then verify</h3><p>Every example in the course shows both steps. The agent proposes; you check.</p></div>
-    <div class="principle"><h3>Start from a decision you can get wrong</h3><p>A class opens with a question that has a wrong answer. You save your own prediction before any discussion.</p></div>
-    <div class="principle"><h3>Decide instead of regenerating</h3><p>When a candidate passes, choose what to do next: <strong>accept</strong> it, <strong>narrow</strong> the task, <strong>recheck</strong> something specific or <strong>stop</strong>. Asking for another generation helps only when it answers a question you can name.</p></div>
-    <div class="principle"><h3>You can explain it without the agent</h3><p>Agents are welcome in open work. Your understanding is assessed without them: two short checkpoints and an oral defense, 40 of the 100 points, are done without AI.</p></div>
-    <div class="principle"><h3>Mechanisms before tools</h3><p>Tools change quickly. The course teaches what stays useful across them: what context a model saw, which tool calls it could make, when it stopped and what evidence supports the result.</p></div>
-    <div class="principle"><h3>Safety is part of the method</h3><p>Code and commands that a model writes or suggests run inside the course launcher, not directly on your machine. <a href="course/site/docs/week0/setup.en.html">Week 0 setup</a> explains it once.</p></div>
+    <div class="principle"><h3>Twelve teaching weeks, then assessment</h3><p>The course follows the public Fall 2026 calendar of Stanford CS146S, with two verification weeks added. Each teaching week has two 90-minute sessions: a lecture with live generation and verification, then a practitioner guest or a studio.</p></div>
+    <div class="principle"><h3>Explain your work without AI</h3><p>CP1 in week 6 and CP2 in week 11 are thirty-minute, in-class paper checkpoints, each worth 7.5 points. The week 13 defense is worth 15 points: without a device, respond to a change or fault introduced in your own code during a fifteen-minute sitting.</p></div>
+    <div class="principle"><h3>Practise making a decision</h3><p>Save a prediction before discussion, inspect a candidate or trace, run a discriminating check, revise after feedback and try a changed input. After checking, choose whether to accept, narrow, recheck or stop.</p></div>
   </div>
-  <p><a href="approach/">The full approach, with the four stages of the term →</a></p>
+  <!-- Site text: what the approach page adds. -->
+  <p><a href="approach/">The full approach: the three lines of work, the checkpoints and the defense →</a></p>
 </section>
 <section id="syllabus">
   <h2>Syllabus at a glance</h2>
   <div class="glance">
     <div>
       <h3>What you will be able to do</h3>
-      <ul class="outcomes"><li><strong>LO1:</strong> Explain model and agent behavior, including context, tools and stopping failures.</li><li><strong>LO2:</strong> Design a bounded agent workflow with relevant context, permissions and resource awareness.</li><li><strong>LO3:</strong> Turn user discovery into executable requirements and acceptance criteria.</li><li><strong>LO4:</strong> Understand and improve an existing repository while preserving required behavior.</li><li><strong>LO5:</strong> Verify generated code and independently explain tests, reviews and merge decisions.</li><li><strong>LO6:</strong> Design and audit evaluations, interpret traces and calibrate evaluators.</li><li><strong>LO7:</strong> Reproduce and mitigate local agent and application security failures.</li><li><strong>LO8:</strong> Deploy, observe and recover a product and explain incident decisions.</li><li><strong>LO9:</strong> Work responsibly, attribute assistance and calibrate claims against evidence.</li></ul>
+      <ul class="outcomes"><li><strong>LO1:</strong> Explain a coding agent&#x27;s loop, system prompt and tool definitions, and predict how it fails on context, tools and stopping.</li><li><strong>LO2:</strong> Design an agent development workflow: context and specifications, MCP tools, skills, instruction files, hooks, subagents and background tasks.</li><li><strong>LO3:</strong> Write a requirement as a specification an agent can implement and a test can check, and revise it when new evidence arrives.</li><li><strong>LO4:</strong> Make an unfamiliar real codebase agent-ready, and deliver a change in it without breaking callers.</li><li><strong>LO5:</strong> Verify agent-written code with regression and mutation tests, code review, static analysis and security scanning, and defend each acceptance.</li><li><strong>LO6:</strong> Evaluate agents: check that a test can fail, that the denominator is complete and that a judge is reliable, and read small-sample results correctly.</li><li><strong>LO7:</strong> Recognise and mitigate agent security risks (prompt injection, credentials, supply chain), verifying a defense with a local reproduction and a regression.</li><li><strong>LO8:</strong> Describe how a team operates agents (portals, gateways, routing, cost), and how to recover from an incident and prove the recovery with a regression.</li><li><strong>LO9:</strong> Collaborate responsibly: follow upstream rules, disclose AI use honestly, submit no low-effort generated work, and decide again when the inputs change.</li></ul>
     </div>
     <div class="prose">
       <h3>How the work is assessed</h3>
-      <div class="table-wrap"><table><thead><tr><th>Component</th><th class="num">Points</th><th>When</th></tr></thead><tbody><tr><td>CP1: individual AI-off diagnosis, test and repair</td><td class="num">10</td><td>Week 5</td></tr><tr><td>CP2: individual AI-off unfamiliar-code review and recovery reasoning</td><td class="num">10</td><td>Week 11</td></tr><tr><td>Individual oral defense</td><td class="num">20</td><td>Weeks 13-14</td></tr><tr><td>Open-source contributions</td><td class="num">30</td><td>C1 weeks 3-6, C2 weeks 7-13</td></tr><tr><td>Individual project</td><td class="num">20</td><td>M0-M4</td></tr><tr><td>Individual practice portfolio</td><td class="num">10</td><td>P1 week 2, P2 week 6, P3 week 9</td></tr></tbody></table></div>
-      <p class="note">Passing requires at least 60/100 overall and 20/40 across the two independent checks and oral defense.</p>
+      <div class="table-wrap"><table><thead><tr><th>Component</th><th class="num">Marks</th><th>When</th><th>AI</th></tr></thead><tbody><tr><td>Term project: four milestones</td><td class="num">20</td><td>Weeks 2, 4, 7 and 12</td><td>allowed</td></tr><tr><td>Project defense</td><td class="num">15</td><td>Week 13</td><td>off</td></tr><tr><td>Four open-source contributions</td><td class="num">30</td><td>Weeks 4, 8, 9 and 12</td><td>allowed</td></tr><tr><td>Six assignments</td><td class="num">15</td><td>Weeks 1-3, 5, 6 and 10</td><td>allowed</td></tr><tr><td>CP1: AI-off diagnosis, test and repair</td><td class="num">7.5</td><td>Week 6</td><td>off</td></tr><tr><td>CP2: AI-off review of unfamiliar code and recovery reasoning</td><td class="num">7.5</td><td>Week 11</td><td>off</td></tr><tr><td>Participation: guest questions, studio, expo</td><td class="num">5</td><td>All term</td><td>—</td></tr></tbody></table></div>
+      <p class="note">Passing requires at least 60/100 overall and at least 15/30 across CP1, CP2 and the defense.</p>
     </div>
   </div>
-  <p><a href="syllabus/">The full syllabus: weekly route, feedback and resits, the project, open-source contributions, workload and AI use →</a></p>
+  <!-- Site text: what the syllabus page holds (its section headings). -->
+  <p><a href="syllabus/">The full syllabus: the calendar, assessment and resits, the assignments, the term project, open-source contributions, tools and AI use →</a></p>
 </section>
 <section id="schedule">
   <h2>Schedule</h2>
   <table class="schedule">
-    <thead><tr><th>Week</th><th>Topic</th><th>Deliverables</th></tr></thead>
+    <thead><tr><th>Week</th><th>Topic</th><th>Due</th></tr></thead>
     <tbody>
-    <tr><td>1</td><td><a href="weeks/01/">A plausible patch and a failing build</a></td><td>Setup; first-attempt evidence</td></tr>
-    <tr><td>2</td><td><a href="weeks/02/">Build and inspect a small agent</a></td><td>P1 agent explanation</td></tr>
-    <tr><td>3</td><td><a href="weeks/03/">Find the change in an unfamiliar repository</a></td><td>Repository-context workshop; start M0; choose a contribution project</td></tr>
-    <tr><td>4</td><td><a href="weeks/04/">Turn a user need into an executable specification</a></td><td>Discovery/specification workshop; M0</td></tr>
-    <tr><td>5</td><td><a href="weeks/05/">Deliver a small change without breaking callers</a></td><td>CP1; M1 first reviewed change</td></tr>
-    <tr><td>6</td><td><a href="weeks/06/">Review and delegate a bounded change</a></td><td>P2 specification-and-review evidence; C1 contribution; C2 proposal</td></tr>
-    <tr><td>7</td><td><a href="weeks/07/">Challenge the tests</a></td><td>M1 testing workshop; functional baseline</td></tr>
-    <tr><td>8</td><td><a href="weeks/08/">Protect the agent and the application</a></td><td>M1 security workshop; acceptance</td></tr>
-    <tr><td>9</td><td><a href="weeks/09/">Compare workflows with a fixed experiment</a></td><td>P3 evaluation audit</td></tr>
-    <tr><td>10</td><td><a href="weeks/10/">Test the evaluator and build a regression gate</a></td><td>M2 evaluator workshop; technical freeze</td></tr>
-    <tr><td>11</td><td><a href="weeks/11/">Recover a user path after an incident</a></td><td>CP2; M2 operation evidence</td></tr>
-    <tr><td>12</td><td><a href="weeks/12/">Verify a model audit with reproducible evidence</a></td><td>M3 verified audit; continue user testing</td></tr>
-    <tr><td>13</td><td><a href="weeks/13/">Respond to findings and improve usability</a></td><td>M4 repair response; user tests; C2 contribution; individual defense</td></tr>
-    <tr><td>14</td><td><a href="weeks/14/">Demonstrate and defend the result</a></td><td>M4 release artifact; individual defense; final calibration</td></tr>
+    <tr><td>1</td><td><a href="weeks/01/">The internals of coding agents</a></td><td>A1</td></tr>
+    <tr><td>2</td><td><a href="weeks/02/">Advanced context engineering</a></td><td>A2; project proposal</td></tr>
+    <tr><td>3</td><td><a href="weeks/03/">Agent skills and the CLI</a></td><td>A3</td></tr>
+    <tr><td>4</td><td><a href="weeks/04/">Customizing your agent and repository</a></td><td>Contribution 1; project technical specification</td></tr>
+    <tr><td>5</td><td><a href="weeks/05/">Agent-ready codebases</a></td><td>A4</td></tr>
+    <tr><td>6</td><td><a href="weeks/06/">Agentic code review</a></td><td>A5; CP1</td></tr>
+    <tr><td>7</td><td><a href="weeks/07/">Tests that notice a fault</a></td><td>Project alpha and task backlog</td></tr>
+    <tr><td>8</td><td><a href="weeks/08/">Security</a></td><td>Contribution 2</td></tr>
+    <tr><td>9</td><td><a href="weeks/09/">Background agents</a></td><td>Contribution 3</td></tr>
+    <tr><td>10</td><td><a href="weeks/10/">Evaluating agents</a></td><td>A6</td></tr>
+    <tr><td>11</td><td><a href="weeks/11/">Building an AI-native team</a></td><td>CP2</td></tr>
+    <tr><td>12</td><td><a href="weeks/12/">The software factory and what comes next</a></td><td>Contribution 4; final project</td></tr>
+    <tr><td>13</td><td><a href="weeks/13/">Assessment week</a></td><td>—</td></tr>
     </tbody>
   </table>
-  <!-- Site text: what the labels in the schedule stand for (SYLLABUS.md and the schedule's own wording). -->
-  <p class="note">P1–P3: personal practices · M0–M4: project milestones · C1, C2: open-source contributions · CP1, CP2: 30-minute individual checkpoints.</p>
+  <!-- Site text: what the labels in the schedule stand for (the syllabus's assessment table); the deadline sentence is the syllabus's. -->
+  <p class="note">A1–A6: assignments · Contribution 1–4: open-source contributions · CP1, CP2: 30-minute checkpoints on paper, without AI. The deadline for work due in a week is Sunday 23:59 of that week.</p>
 </section>
 <section id="videos">
-  <h2>Weekly videos</h2>
-  <!-- Site text: what the videos are, and their total length. -->
-  <p class="note">One short film per week shows that week's central decision through worked examples:
-  generate, then verify. 14 films, 2 h 7 min in all.</p>
+  <h2>Videos</h2>
+  <!-- Site text: what the films are, which edition they were made for, and their count and total length. -->
+  <p class="note">Short films, each showing one decision through worked examples: generate, then verify.
+  They were made for the earlier edition of this course; the ones here still fit the current calendar,
+  and each is listed under the week it supports. 7 films, 1 h 1 min in all.</p>
   <div class="cards">
-  <a class="card" href="weeks/01/">
-    <img src="weeks/01/poster.jpg" alt="" loading="lazy" width="960" height="540">
+  <a class="card" href="weeks/01/#film-01-plausible-patch">
+    <img src="films/01-plausible-patch/poster.jpg" alt="" loading="lazy" width="960" height="540">
     <span class="card-week">Week 1 · 6:36</span>
     <span class="card-title">Two green tests</span>
-    <span class="card-topic">A plausible patch and a failing build</span>
+    <span class="card-topic">The internals of coding agents</span>
   </a>
-  <a class="card" href="weeks/02/">
-    <img src="weeks/02/poster.jpg" alt="" loading="lazy" width="960" height="540">
-    <span class="card-week">Week 2 · 9:37</span>
+  <a class="card" href="weeks/01/#film-02-agent-loop">
+    <img src="films/02-agent-loop/poster.jpg" alt="" loading="lazy" width="960" height="540">
+    <span class="card-week">Week 1 · 9:37</span>
     <span class="card-title">Done is a claim</span>
-    <span class="card-topic">Build and inspect a small agent</span>
+    <span class="card-topic">The internals of coding agents</span>
   </a>
-  <a class="card" href="weeks/03/">
-    <img src="weeks/03/poster.jpg" alt="" loading="lazy" width="960" height="540">
-    <span class="card-week">Week 3 · 9:27</span>
+  <a class="card" href="weeks/02/#film-03-change-only-the-context">
+    <img src="films/03-change-only-the-context/poster.jpg" alt="" loading="lazy" width="960" height="540">
+    <span class="card-week">Week 2 · 9:27</span>
     <span class="card-title">Change only the context</span>
-    <span class="card-topic">Find the change in an unfamiliar repository</span>
+    <span class="card-topic">Advanced context engineering</span>
   </a>
-  <a class="card" href="weeks/04/">
-    <img src="weeks/04/poster.jpg" alt="" loading="lazy" width="960" height="540">
-    <span class="card-week">Week 4 · 8:51</span>
+  <a class="card" href="weeks/02/#film-04-not-passed-is-not-failed">
+    <img src="films/04-not-passed-is-not-failed/poster.jpg" alt="" loading="lazy" width="960" height="540">
+    <span class="card-week">Week 2 · 8:51</span>
     <span class="card-title">Not passed is not failed</span>
-    <span class="card-topic">Turn a user need into an executable specification</span>
+    <span class="card-topic">Advanced context engineering</span>
   </a>
-  <a class="card" href="weeks/05/">
-    <img src="weeks/05/poster.jpg" alt="" loading="lazy" width="960" height="540">
-    <span class="card-week">Week 5 · 9:55</span>
-    <span class="card-title">Shorter, same contract</span>
-    <span class="card-topic">Deliver a small change without breaking callers</span>
-  </a>
-  <a class="card" href="weeks/06/">
-    <img src="weeks/06/poster.jpg" alt="" loading="lazy" width="960" height="540">
+  <a class="card" href="weeks/06/#film-06-review-before-you-ask">
+    <img src="films/06-review-before-you-ask/poster.jpg" alt="" loading="lazy" width="960" height="540">
     <span class="card-week">Week 6 · 9:37</span>
     <span class="card-title">Review before you ask</span>
-    <span class="card-topic">Review and delegate a bounded change</span>
+    <span class="card-topic">Agentic code review</span>
   </a>
-  <a class="card" href="weeks/07/">
-    <img src="weeks/07/poster.jpg" alt="" loading="lazy" width="960" height="540">
+  <a class="card" href="weeks/07/#film-07-challenge-green">
+    <img src="films/07-challenge-green/poster.jpg" alt="" loading="lazy" width="960" height="540">
     <span class="card-week">Week 7 · 7:32</span>
     <span class="card-title">Would the tests notice?</span>
-    <span class="card-topic">Challenge the tests</span>
+    <span class="card-topic">Tests that notice a fault</span>
   </a>
-  <a class="card" href="weeks/08/">
-    <img src="weeks/08/poster.jpg" alt="" loading="lazy" width="960" height="540">
-    <span class="card-week">Week 8 · 8:30</span>
-    <span class="card-title">The refusal said no</span>
-    <span class="card-topic">Protect the agent and the application</span>
-  </a>
-  <a class="card" href="weeks/09/">
-    <img src="weeks/09/poster.jpg" alt="" loading="lazy" width="960" height="540">
-    <span class="card-week">Week 9 · 8:58</span>
+  <a class="card" href="weeks/10/#film-09-three-questions">
+    <img src="films/09-three-questions/poster.jpg" alt="" loading="lazy" width="960" height="540">
+    <span class="card-week">Week 10 · 8:58</span>
     <span class="card-title">Before you trust 25 points</span>
-    <span class="card-topic">Compare workflows with a fixed experiment</span>
-  </a>
-  <a class="card" href="weeks/10/">
-    <img src="weeks/10/poster.jpg" alt="" loading="lazy" width="960" height="540">
-    <span class="card-week">Week 10 · 9:26</span>
-    <span class="card-title">The scorer said pass</span>
-    <span class="card-topic">Test the evaluator and build a regression gate</span>
-  </a>
-  <a class="card" href="weeks/11/">
-    <img src="weeks/11/poster.jpg" alt="" loading="lazy" width="960" height="540">
-    <span class="card-week">Week 11 · 9:42</span>
-    <span class="card-title">A timeout is not nothing</span>
-    <span class="card-topic">Recover a user path after an incident</span>
-  </a>
-  <a class="card" href="weeks/12/">
-    <img src="weeks/12/poster.jpg" alt="" loading="lazy" width="960" height="540">
-    <span class="card-week">Week 12 · 9:22</span>
-    <span class="card-title">The observation decides</span>
-    <span class="card-topic">Verify a model audit with reproducible evidence</span>
-  </a>
-  <a class="card" href="weeks/13/">
-    <img src="weeks/13/poster.jpg" alt="" loading="lazy" width="960" height="540">
-    <span class="card-week">Week 13 · 9:23</span>
-    <span class="card-title">Keep the layers apart</span>
-    <span class="card-topic">Respond to findings and improve usability</span>
-  </a>
-  <a class="card" href="weeks/14/">
-    <img src="weeks/14/poster.jpg" alt="" loading="lazy" width="960" height="540">
-    <span class="card-week">Week 14 · 9:35</span>
-    <span class="card-title">Has it ever failed?</span>
-    <span class="card-topic">Demonstrate and defend the result</span>
+    <span class="card-topic">Evaluating agents</span>
   </a>
   </div>
 </section>
@@ -173,12 +131,14 @@
   <h2>Course materials</h2>
   <!-- Site text: what course/ holds (the course repository's own English student site). -->
   <p>Everything students work from is public: each week's notes, slides, activities, readings and self-check,
-  the three personal practices, the project instructions and kit, the rubrics and the course policies.</p>
+  the assignments, the term project, the rubrics and the assessment policy.</p>
+  <p class="note">Course pages, lecture materials and rubrics are being rearranged to this calendar. Where another page still describes the earlier fourteen-week layout, <a href="syllabus/">the syllabus</a> takes precedence.</p>
   <ul class="facts">
     <li><a href="course/">Start here</a></li>
     <li><a href="course/lectures/week-01/notes.en.html">Week 1 notes</a></li>
-    <li><a href="course/practice/README.en.html">Personal practices</a></li>
-    <li><a href="course/site/docs/project.en.html">Project</a></li>
+    <li><a href="course/practice/README.en.html">Assignments</a></li>
+    <li><a href="course/site/docs/project.en.html">Term project</a></li>
+    <li><a href="course/site/docs/contributions-rubric.en.html">Contributions rubric</a></li>
     <li><a href="course/site/docs/glossary.en.html">Glossary</a></li>
   </ul>
 </section>

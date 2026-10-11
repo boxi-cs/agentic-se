@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Week 12: The observation decides · Agentic Software Engineering</title>
-<meta name="description" content="Verify a model audit with reproducible evidence">
+<title>Week 12: The software factory and what comes next · Agentic Software Engineering</title>
+<meta name="description" content="Self-running pipelines as a claim to test; course review.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="../../assets/site.css">
 <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
@@ -16,39 +16,31 @@
 </nav>
 <header class="hero hero-week">
   <p class="kicker"><a href="../../">Agentic Software Engineering</a> · Week 12</p>
-  <h1>The observation decides</h1>
-  <p class="lede">Verify a model audit with reproducible evidence</p>
+  <h1>The software factory and what comes next</h1>
 </header>
 <main>
-  <video controls preload="metadata" poster="poster.jpg" src="https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-10/week-12.mp4">
-    <track kind="subtitles" srclang="en" label="English" src="en.vtt" default>
-    <track kind="subtitles" srclang="zh" label="中文" src="zh.vtt">
-  </video>
-  <p class="meta">9:22 · subtitles: <a href="en.vtt">English</a>, <a href="zh.vtt" lang="zh" hreflang="zh">中文</a> ·
-  <a href="https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-10/week-12.mp4">download</a></p>
   <section>
-    <h2>The idea</h2>
-    <p>A recorded model review is a set of claims, and the observation decides each one. Label a clean, frozen snapshot and its requirements before reading the review; turn each claim into a check and an input you choose yourself; write the prediction, then run the check and record the command it prints. A claim&#x27;s wording sets what one run can decide (one input, some input, every input, each member of a listed set, something outside the snapshot): an unfinished search is not a disposition, an overstated claim is split into parts, and cannot tell (<code>undetermined</code> in the record) names what the snapshot lacks. Reviews over-assert and miss sibling paths, so add one check of your own or bound a clean range. The verifier reruns every check and derives the supported disposition from the observation; it never calls a model. Each claim ends confirmed, refuted or cannot tell, judged against the frozen requirements, not the wording of the review. M3 runs the same sequence on the student&#x27;s own tag.</p>
+    <h2>This week</h2>
+    <dl class="week">
+      <dt>First session (lecture)</dt><dd>Self-running pipelines as a claim to test; course review.</dd>
+      <dt>Second session</dt><dd>Defense walkthrough; studio.</dd>
+      <dt>Due</dt><dd>Contribution 4; final project</dd>
+    </dl>
   </section>
   <section>
     <h2>Materials</h2>
     <ul class="facts">
+      <li><a href="../../course/site/docs/weeks/week-12.en.html">Week overview</a></li>
+      <li><a href="../../course/lectures/week-12/README.en.html">Week guide</a></li>
       <li><a href="../../course/lectures/week-12/notes.en.html">Notes</a></li>
-      <li><a href="../../course/lectures/week-12/slides.en.html">Slides</a></li>
+      <li><a href="../../course/lectures/week-12/slides.en.html">Slide source</a></li>
       <li><a href="../../course/lectures/week-12/activities.en.html">Activities</a></li>
-      <li><a href="../../course/lectures/week-12/readings.en.html">Readings</a></li>
       <li><a href="../../course/lectures/week-12/selfcheck.en.html">Self-check</a></li>
+      <li><a href="../../course/lectures/week-12/selfcheck-answers.en.html">Answer guidance</a></li>
+      <li><a href="../../course/lectures/week-12/readings.en.html">Readings</a></li>
     </ul>
   </section>
-  <section>
-    <h2>This week</h2>
-    <dl class="week">
-      <dt>Lecture</dt><dd>Freeze one feature and distinguish a demonstrated defect from an untested suspicion.</dd>
-      <dt>Workshop</dt><dd>M3: receive the teaching team&#x27;s model audit of a frozen snapshot of your repository, then reproduce, refute or bound each evaluation, security and maintenance finding and add one check of your own.</dd>
-      <dt>Deliverables</dt><dd>M3 verified audit; continue user testing</dd>
-    </dl>
-  </section>
-  <nav class="pager"><a href="../11/">← Week 11</a><a href="../../">All weeks</a><a href="../13/">Week 13 →</a></nav>
+  <nav class="pager"><a href="../11/">← Week 11</a><a href="../../#schedule">All weeks</a><a href="../13/">Week 13 →</a></nav>
 </main>
 <footer class="foot">
   <p>Videos: English narration in a draft synthetic voice (LJ Speech, public domain), with English and

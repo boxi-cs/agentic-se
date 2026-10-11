@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Week 10: The scorer said pass · Agentic Software Engineering</title>
-<meta name="description" content="Test the evaluator and build a regression gate">
+<title>Week 10: Evaluating agents · Agentic Software Engineering</title>
+<meta name="description" content="Can the check fail, was the pass earned, is the denominator complete; pass@k on a small table; calibrating a model judge.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="../../assets/site.css">
 <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
@@ -16,39 +16,45 @@
 </nav>
 <header class="hero hero-week">
   <p class="kicker"><a href="../../">Agentic Software Engineering</a> · Week 10</p>
-  <h1>The scorer said pass</h1>
-  <p class="lede">Test the evaluator and build a regression gate</p>
+  <h1>Evaluating agents</h1>
 </header>
 <main>
-  <video controls preload="metadata" poster="poster.jpg" src="https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-10/week-10.mp4">
-    <track kind="subtitles" srclang="en" label="English" src="en.vtt" default>
-    <track kind="subtitles" srclang="zh" label="中文" src="zh.vtt">
-  </video>
-  <p class="meta">9:26 · subtitles: <a href="en.vtt">English</a>, <a href="zh.vtt" lang="zh" hreflang="zh">中文</a> ·
-  <a href="https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-10/week-10.mp4">download</a></p>
   <section>
-    <h2>The idea</h2>
-    <p>An evaluator is an instrument, and its verdicts are claims until the instrument itself has been challenged. Freeze the contract (request, environment, stop, score) before reading the scorer; challenge the scorer with right, wrong, missing, persuasive and case-variant answers; verify a bounded repair with the unchanged cases and state what that pass does not cover; keep completion separate from correctness; choose the simplest grader that can decide; challenge a judge with labels fixed first, adversarial cases included, because one false accept makes it unfit for a gate; read the confusion table, not only kappa; make the regression gate able to fail on five conditions, with the expected case count pinned, not counted; freeze the M2 technical snapshot on the path changed in M1.</p>
+    <h2>This week</h2>
+    <dl class="week">
+      <dt>First session (lecture)</dt><dd>Can the check fail, was the pass earned, is the denominator complete; pass@k on a small table; calibrating a model judge.</dd>
+      <dt>Second session</dt><dd>Studio: audit one instance.</dd>
+      <dt>Due</dt><dd>A6</dd>
+    </dl>
   </section>
   <section>
     <h2>Materials</h2>
     <ul class="facts">
+      <li><a href="../../course/site/docs/weeks/week-10.en.html">Week overview</a></li>
+      <li><a href="../../course/lectures/week-10/README.en.html">Week guide</a></li>
       <li><a href="../../course/lectures/week-10/notes.en.html">Notes</a></li>
-      <li><a href="../../course/lectures/week-10/slides.en.html">Slides</a></li>
+      <li><a href="../../course/lectures/week-10/slides.en.html">Slide source</a></li>
       <li><a href="../../course/lectures/week-10/activities.en.html">Activities</a></li>
-      <li><a href="../../course/lectures/week-10/readings.en.html">Readings</a></li>
       <li><a href="../../course/lectures/week-10/selfcheck.en.html">Self-check</a></li>
+      <li><a href="../../course/lectures/week-10/selfcheck-answers.en.html">Answer guidance</a></li>
+      <li><a href="../../course/lectures/week-10/readings.en.html">Readings</a></li>
     </ul>
   </section>
   <section>
-    <h2>This week</h2>
-    <dl class="week">
-      <dt>Lecture</dt><dd>Partner guest. Write the evaluation contract; challenge a code scorer and calibrate a model judge.</dd>
-      <dt>Workshop</dt><dd>Build the project evaluator for M2; obtain feedback and revise before freezing.</dd>
-      <dt>Deliverables</dt><dd>M2 evaluator workshop; technical freeze</dd>
-    </dl>
+    <h2>Film</h2>
+    <article class="film" id="film-09-three-questions">
+      <h3>Before you trust 25 points</h3>
+      <p class="note edition">Made for the earlier edition of this course, which ran model-written code through a course launcher. The current course does not require one.</p>
+      <video controls preload="metadata" poster="../../films/09-three-questions/poster.jpg" src="https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-10/week-09.mp4">
+        <track kind="subtitles" srclang="en" label="English" src="../../films/09-three-questions/en.vtt" default>
+        <track kind="subtitles" srclang="zh" label="中文" src="../../films/09-three-questions/zh.vtt">
+      </video>
+      <p class="meta">8:58 · subtitles: <a href="../../films/09-three-questions/en.vtt">English</a>, <a href="../../films/09-three-questions/zh.vtt" lang="zh" hreflang="zh">中文</a> ·
+      <a href="https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-10/week-09.mp4">download</a></p>
+      <p>A pass rate is a claim about checks, passes and a denominator.</p>
+    </article>
   </section>
-  <nav class="pager"><a href="../09/">← Week 9</a><a href="../../">All weeks</a><a href="../11/">Week 11 →</a></nav>
+  <nav class="pager"><a href="../09/">← Week 9</a><a href="../../#schedule">All weeks</a><a href="../11/">Week 11 →</a></nav>
 </main>
 <footer class="foot">
   <p>Videos: English narration in a draft synthetic voice (LJ Speech, public domain), with English and
