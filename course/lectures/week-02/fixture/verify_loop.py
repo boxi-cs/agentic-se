@@ -1,4 +1,4 @@
-"""Public practice checks for the run() you write, inside course-sandbox. Never a grade."""
+"""Public practice checks for the run() you write in Week 1. Never a grade."""
 
 import itertools
 import json
@@ -239,7 +239,7 @@ class LoopChecks(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    # Keep disposable mutations within the launcher's already isolated workspace.
+    # Keep disposable mutations in a temporary directory under the one you run from.
     import os
 
     with tempfile.TemporaryDirectory(dir=Path.cwd()) as directory:

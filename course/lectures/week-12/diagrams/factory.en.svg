@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
+  <title id="title">The three stages of the Week 12 pipeline</title>
+  <desc id="desc">A proposal enters the scope stage, then the gate stage, then the release stage. The scope and gate stages decide by themselves and each can stop the pipeline; a stage after a stop does not run. The release stage is held until a named person accepts the evidence the gate left.</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#254d48"/></marker></defs>
+  <g font-family="Arial, sans-serif" fill="#18332f">
+    <rect x="30" y="40" width="320" height="130" rx="14" fill="#f1e6d5" stroke="#254d48" stroke-width="2"/>
+    <text x="55" y="80" font-size="22" font-weight="bold">scope</text>
+    <text x="55" y="114" font-size="17">one function, nothing else</text>
+    <text x="55" y="142" font-size="15">leaves: names and statement kinds</text>
+    <path d="M350 105 H430" stroke="#254d48" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="440" y="40" width="320" height="130" rx="14" fill="#f8f4ed" stroke="#254d48" stroke-width="2"/>
+    <text x="465" y="80" font-size="22" font-weight="bold">gate</text>
+    <text x="465" y="114" font-size="17">nine frozen cases, child process</text>
+    <text x="465" y="142" font-size="15">leaves: digests, count, failed cases</text>
+    <path d="M760 105 H840" stroke="#254d48" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="850" y="40" width="320" height="130" rx="14" fill="#e7eee5" stroke="#254d48" stroke-width="2"/>
+    <text x="875" y="80" font-size="22" font-weight="bold">release</text>
+    <text x="875" y="114" font-size="17">held until a named person accepts</text>
+    <text x="875" y="142" font-size="15">leaves: who, and which evidence</text>
+    <path d="M190 170 V250" stroke="#254d48" stroke-width="3" marker-end="url(#arrow)"/>
+    <path d="M600 170 V250" stroke="#254d48" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="30" y="260" width="730" height="70" rx="14" fill="#ffffff" stroke="#254d48" stroke-width="2" stroke-dasharray="8 6"/>
+    <text x="55" y="303" font-size="18">stop: exit status 1, and every later stage is recorded as not-run</text>
+    <path d="M1010 170 V250" stroke="#254d48" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="850" y="260" width="320" height="70" rx="14" fill="#ffffff" stroke="#254d48" stroke-width="2" stroke-dasharray="8 6"/>
+    <text x="875" y="303" font-size="18">held: exit status 3, no release</text>
+  </g>
+</svg>

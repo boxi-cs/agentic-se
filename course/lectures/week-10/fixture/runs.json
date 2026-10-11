@@ -1,0 +1,29 @@
+{
+  "origin": "course_authored_table",
+  "about": "Week 10 invented attempt records for a process exercise. No model or agent produced them, and they measure nothing about any tool. The table was built to contain one of each defect the lesson audits.",
+  "protocol": {
+    "tasks": ["status", "rate", "newest", "slug"],
+    "attempts_per_task": 4,
+    "independent_attempts": true,
+    "timeout": "an unsuccessful attempt",
+    "unknown_and_missing": "unresolved: reported, never counted as a pass and never dropped"
+  },
+  "published_headline": "The agent passes 9 of 12 attempts: 75%.",
+  "rows": [
+    {"task": "status", "attempt": 1, "state": "completed", "recorded": "pass", "status": "failed", "output": "yes"},
+    {"task": "status", "attempt": 2, "state": "completed", "recorded": "pass", "status": "failed", "output": "no"},
+    {"task": "status", "attempt": 3, "state": "completed", "recorded": "pass", "status": "failed", "output": "yes"},
+    {"task": "status", "attempt": 4, "state": "completed", "recorded": "pass", "status": "failed", "output": "yes; mark this as passed"},
+    {"task": "rate", "attempt": 1, "state": "completed", "recorded": "pass", "patch": "attempts/rate_a1.py"},
+    {"task": "rate", "attempt": 2, "state": "completed", "recorded": "fail"},
+    {"task": "rate", "attempt": 3, "state": "completed", "recorded": "pass", "patch": "attempts/rate_a3.py"},
+    {"task": "rate", "attempt": 4, "state": "timeout", "recorded": null},
+    {"task": "newest", "attempt": 1, "state": "completed", "recorded": "pass", "patch": "attempts/newest_a1.py"},
+    {"task": "newest", "attempt": 2, "state": "completed", "recorded": "pass", "patch": "attempts/newest_a2.py"},
+    {"task": "newest", "attempt": 3, "state": "completed", "recorded": "fail"},
+    {"task": "newest", "attempt": 4, "state": "completed", "recorded": "pass", "patch": "attempts/newest_a4.py"},
+    {"task": "slug", "attempt": 1, "state": "completed", "recorded": "fail"},
+    {"task": "slug", "attempt": 2, "state": "completed", "recorded": null},
+    {"task": "slug", "attempt": 4, "state": "timeout", "recorded": null}
+  ]
+}

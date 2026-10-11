@@ -1,4 +1,4 @@
-"""Run the synthetic loop inside the accepted course launcher."""
+"""Run the synthetic loop from a draft copy, as the Week 1 notes show."""
 
 import json
 import re
@@ -10,8 +10,8 @@ from sandbox_model import chat, emit_artifact
 
 TASK = "Repair result.txt so it contains 4 and a newline. Run the verify check, then report."
 CANDIDATE = "4\n"  # The wrong-write experiment changes only this value.
-# The turn-budget experiment changes only this value. Keep it at 4 or below: the launcher
-# allows four model requests per run.
+# The turn-budget experiment changes only this value. Keep it at 4 or below, the cap on
+# model requests in one run.
 MAX_STEPS = 4
 CONTRACT = (
     "Choose the next step of a small agent. Tools: read {path}, write {path, content}, "

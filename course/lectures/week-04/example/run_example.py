@@ -1,7 +1,7 @@
-"""Generate or verify a candidate through the course sandbox.
+"""Generate or verify a candidate through the public fixture.
 
 All data is course-authored synthetic data. ``model`` exports its candidate and
-leaves acceptance verification to the next launcher invocation so a person can
+leaves acceptance verification to the next invocation so a person can
 inspect the code between stages.
 """
 
@@ -46,7 +46,7 @@ def main() -> int:
     Path("candidate.py").write_text(code + "\n", encoding="utf-8")
     emit_artifact("candidate.py")
     # Stop after Implement so a person can read the candidate as text before Test.
-    # Verification is a separate launcher invocation documented in the notes.
+    # Verification is a separate invocation.
     return 0
 
 

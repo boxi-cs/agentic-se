@@ -1,0 +1,44 @@
+{
+  "kind": "org_practice_routes",
+  "provenance": "Course-authored synthetic practice. No model or router was used; the evaluator results are invented course numbers.",
+  "policy": "Send each task to the cheapest route that passes at least 90% of its frozen evaluator cases.",
+  "routes": {
+    "no-model": {"revision": "r1", "units_per_request": 0},
+    "route-small": {"revision": "r2", "units_per_request": 1},
+    "route-large": {"revision": "r2", "units_per_request": 4}
+  },
+  "tasks": [
+    {
+      "task": "status-is-failed",
+      "cases": 12,
+      "current_route": "route-large",
+      "chosen_route": "no-model",
+      "results": {
+        "route-large": {"revision": "r2", "failed": []},
+        "no-model": {"revision": "r1", "failed": [7]},
+        "route-small": {"revision": "r2", "failed": [7, 11]}
+      }
+    },
+    {
+      "task": "summarize-log",
+      "cases": 8,
+      "current_route": "route-large",
+      "chosen_route": "route-small",
+      "results": {
+        "route-large": {"revision": "r2", "failed": []},
+        "route-small": {"revision": "r2", "failed": []}
+      }
+    },
+    {
+      "task": "label-flaky-test",
+      "cases": 10,
+      "current_route": "route-large",
+      "chosen_route": "route-small",
+      "results": {
+        "route-large": {"revision": "r2", "failed": [4]},
+        "route-small": {"revision": "r1", "failed": [4]}
+      }
+    }
+  ],
+  "agent_summary": "Routing moved all three tasks to a cheaper route without losing quality."
+}

@@ -1,0 +1,22 @@
+{
+  "kind": "org_practice_changes",
+  "provenance": "Course-authored synthetic practice. No model was used; the runs and review times are invented course numbers.",
+  "unit": "course-made units, not prices",
+  "runs": [
+    {"run": "a1", "change": "fix-118", "units": 6, "outcome": "checks failed"},
+    {"run": "a2", "change": "fix-118", "units": 6, "outcome": "checks passed"},
+    {"run": "a3", "change": "fix-119", "units": 3, "outcome": "checks passed"},
+    {"run": "a4", "change": "fix-120", "units": 3, "outcome": "checks passed"},
+    {"run": "a5", "change": "fix-120", "units": 2, "outcome": "checks passed"},
+    {"run": "a6", "change": "fix-121", "units": 2, "outcome": "timed out, retried"},
+    {"run": "a7", "change": "fix-121", "units": 2, "outcome": "checks passed"}
+  ],
+  "changes": [
+    {"change": "fix-118", "decision": "accepted", "review_minutes": 20},
+    {"change": "fix-119", "decision": "accepted", "review_minutes": 10},
+    {"change": "fix-120", "decision": "rejected", "review_minutes": 15},
+    {"change": "fix-121", "decision": "accepted", "review_minutes": 15}
+  ],
+  "trace_example": "a3",
+  "agent_summary": "A change costs about 3 units: that is the trace total of run a3."
+}

@@ -1,9 +1,10 @@
-"""Course-authored synthetic loop in P1's message protocol; you write run().
+"""Course-authored synthetic loop for the Week 1 live build; you write run().
 
-Execute only through course-sandbox.
+Copy this folder's scripts to a draft directory and run them there, as the Week 1 notes show.
 """
 
 import subprocess
+import sys
 from collections.abc import Callable
 from pathlib import Path
 
@@ -30,7 +31,7 @@ def tool(name: str, arguments: dict) -> str:
     if arguments["command"] != "verify":
         return "refused: bash runs only the fixed verify command"
     result = subprocess.run(
-        ["bash", "-c", 'python -c "$1"', "verify", CHECK],
+        ["bash", "-c", '"$0" -c "$1"', sys.executable, CHECK],
         capture_output=True,
         text=True,
         timeout=2,
@@ -58,10 +59,10 @@ def checked(reply: object) -> dict:
 
 
 def run(chat: Callable[[list[dict]], dict], task: str, max_steps: int = 4) -> dict:
-    """You write this in the Week 2 workshop; verify_loop.py's public checks are its target.
+    """You write this in Week 1; verify_loop.py's public checks are its target.
 
     The instructor builds steps 1-3 on screen; steps 4-5 are yours. The contract, in the
-    order the notes give it:
+    order the Week 1 notes give it:
     1. Start the history with one user message holding the task.
     2. Each turn, send a copy of the whole history to chat. Check the reply with checked(),
        and raise ValueError for a call ID that an earlier call already used.
@@ -72,7 +73,7 @@ def run(chat: Callable[[list[dict]], dict], task: str, max_steps: int = 4) -> di
        (OSError, subprocess.TimeoutExpired) becomes a "failed: ..." result.
     5. When max_steps turns are spent, return stop_reason "step_limit" with the history.
     """
-    raise NotImplementedError("Write run() first: see the Week 2 activity, minutes 5-20.")
+    raise NotImplementedError("Write run() first: see the five steps in the Week 1 notes.")
 
 
 def last_check(messages: list[dict]) -> str:

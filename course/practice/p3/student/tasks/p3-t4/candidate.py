@@ -1,2 +1,2 @@
-def placeholder(*args):
+def parse_duration(*args):
     raise NotImplementedError

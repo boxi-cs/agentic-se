@@ -1,5 +1,0 @@
-About GET /domains/ci_dashboard/ in the ci-dashboard repository. Use only the context
-above, and use null for anything it does not show. Reply with one JSON object only:
-{"signed_out_status": HTTP status for a visitor with no session, "signed_out_file": file
-that decides it, "empty_text": exact table text for a signed-in user with no projects,
-"empty_file": file that decides it}

@@ -4,8 +4,7 @@ It takes one JSON event argument, as the Week 3 hook does, and exits 0 to let th
 commit continue or 2 to stop it. It runs two checks. First, a commit may not change a
 file that the Boundaries section of AGENTS.md protects. Second, lint: an import whose
 name a Python file never uses. It reads and parses the named Python files; it never
-imports or runs them. A hook is a check at an event. The course launcher stays the
-execution boundary.
+imports or runs them. A hook is a check at an event.
 """
 
 import ast
@@ -21,7 +20,6 @@ MAX_BYTES = 262_144
 PROTECTED = frozenset({"launch.py", "Dockerfile", "pyproject.toml", "uv.lock"})
 
 # The checks this hook runs, in order: protected files, then lint.
-# TODO(human): wire launch.py test after the test action lands
 
 
 def workspace_file(value: object) -> Path | None:

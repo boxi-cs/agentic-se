@@ -1,4 +1,4 @@
-"""Public feedback only. Run this and any candidate through course-sandbox."""
+"""Public feedback only: run fixed cases against one variant beside this script."""
 
 import argparse
 import ast
@@ -34,7 +34,8 @@ def main() -> int:
             actual = {"exception": type(exc).__name__}
         if actual != expected:
             failures.append({"input": raw, "expected": expected, "actual": actual})
-    tree = ast.parse(Path(f"{args.variant}.py").read_text())
+    # The variant is imported from this folder, so its source is read from here too.
+    tree = ast.parse(Path(__file__).with_name(f"{args.variant}.py").read_text())
     report = {
         "variant": args.variant,
         "cases": len(CASES),

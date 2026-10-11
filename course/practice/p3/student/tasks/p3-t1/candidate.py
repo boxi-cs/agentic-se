@@ -1,2 +1,2 @@
-def placeholder(*args):
+def status_counts(*args):
     raise NotImplementedError
