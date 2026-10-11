@@ -1,8 +1,9 @@
-"""Write weeks/NN/poster.jpg (960x540) from each film's frame at the end of its first beat.
+"""Write films/<slug>/poster.jpg (960x540) from each published film's frame at the end of its first beat.
 
     ~/Documents/agentic-se-videos/.venv/bin/python tools/posters.py --videos ~/Documents/agentic-se-videos
 
-Needs PyAV and Pillow (the video repository's environment has both).
+Only the films data/films.json marks as published get a poster. Needs PyAV and Pillow (the video
+repository's environment has both); reads the local video files, no network.
 """
 
 from __future__ import annotations
@@ -20,8 +21,9 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--videos", type=Path, required=True)
     args = parser.parse_args()
-    for film in sorted((args.videos / "media/episodes").glob("*/Episode.mp4")):
-        week = int(film.parent.name[:2])
+    mapping = json.loads((ROOT / "data/films.json").read_text())["films"]
+    for slug in sorted(name for name, entry in mapping.items() if entry["published"]):
+        film = args.videos / "media/episodes" / slug / "Episode.mp4"
         timeline = json.loads((film.parent / "Episode.json").read_text())
         first_scene = [b for b in timeline if b["id"].startswith("s0_")]
         at = first_scene[-1]["end"] - 0.2
@@ -35,7 +37,7 @@ def main() -> None:
                     break
         if image is None:
             raise SystemExit(f"{film}: no frame at {at:.1f}s")
-        out = ROOT / "weeks" / f"{week:02d}" / "poster.jpg"
+        out = ROOT / "films" / slug / "poster.jpg"
         out.parent.mkdir(parents=True, exist_ok=True)
         image.save(out, quality=82, optimize=True, progressive=True)
         print(out.relative_to(ROOT), f"{at:.1f}s")
