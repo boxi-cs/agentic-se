@@ -1,11 +1,11 @@
 {
   "source": {
     "repository": "boxi-cs/agentic-se-videos",
-    "commit": "79e8510a48913da6cf06f0059e296d7a23e81afe"
+    "commit": "02ac642dee105016cdae3651121ee08c2d6c3450"
   },
   "episodes": [
     {
-      "week": 1,
+      "number": 1,
       "slug": "01-plausible-patch",
       "title": "Two green tests",
       "decision": "a plausible patch that passes its two existing tests can still break the contract. A test derived from the contract (not from the patch) can expose the omitted rule. The same habit runs through the rest of the week: a generated program is not an executed one, context is not retraining, each event in an agent's trace establishes only its own thing, and a repaired helper can still leave its caller wrong.",
@@ -16,7 +16,7 @@
       }
     },
     {
-      "week": 2,
+      "number": 2,
       "slug": "02-agent-loop",
       "title": "Done is a claim",
       "decision": "an agent record that says read, write, then \"done\" with no further calls does not show that the bug is fixed. Report verified only when a passing check appears after the last write; the stop reason (`final` or `step_limit`) is reported separately, and a summary of the run is a claim too: it must keep the last failed check and be checked against the transcript (`notes:56-68`, `:221-228`).",
@@ -27,7 +27,7 @@
       }
     },
     {
-      "week": 3,
+      "number": 3,
       "slug": "03-change-only-the-context",
       "title": "Change only the context",
       "decision": "an agent acts only on what reaches it, so the context is an intervention you can test (`notes:21-23`). Trace the request path first; then compare contexts on the same task by changing the context only, with the question, the model, a fresh call, one call each and the checker fixed. Predict before running, keep predictions apart from what was observed, and claim no more than one pair shows (`notes:73-84`, `:118-121`, `:607`). The same holds in the middle of a session: build the next request four ways from one long history, run the same check on each, and check a summary against the transcript as well as by the next check (`notes:182-255`).",
@@ -38,7 +38,7 @@
       }
     },
     {
-      "week": 4,
+      "number": 4,
       "slug": "04-not-passed-is-not-failed",
       "title": "Not passed is not failed",
       "decision": "a requirement has to be traced from an observed event, not invented in the request. Ask about a past event; keep observation, inference and what you cannot conclude apart; write the problem statement by hand and check each clause against the observation; write an acceptance criterion that labels its design choices; then judge a generated candidate against that criterion. The trace runs `S4-A → P1 → AC1 → AC1-mixed → predicate repair`, and a passing test cannot turn a design choice into user evidence. The same criterion is then handed to an agent in stages (research, propose, plan, implement, test), with a person's decision at every stop: a candidate is read against its bound before it is tested, a failed check means the later checks were not run, and a round that stops after Plan, as the course's worked round on `ci-dashboard` does, is a legitimate result.",
@@ -49,7 +49,7 @@
       }
     },
     {
-      "week": 5,
+      "number": 5,
       "slug": "05-same-contract",
       "title": "Shorter, same contract",
       "decision": "a shorter refactor still has to keep the behavior callers rely on. First freeze that behavior in characterization tests. Then make one structural change and run the same tests unchanged. A structural count (fewer `if` statements) cannot tell a broken refactor from a working one.",
@@ -60,7 +60,7 @@
       }
     },
     {
-      "week": 6,
+      "number": 6,
       "slug": "06-review-before-you-ask",
       "title": "Review before you ask",
       "decision": "review a change against what was asked, before you ask anyone else. Write your own review first, name a concrete input and reproduce the failure. Only then read a model's review, whose points are hypotheses: mark each one confirmed, refuted or cannot tell with its evidence. A revision is accepted on the unchanged checks, not on how clear it looks.",
@@ -71,7 +71,7 @@
       }
     },
     {
-      "week": 7,
+      "number": 7,
       "slug": "07-challenge-green",
       "title": "Would the tests notice?",
       "decision": "a passing suite says nothing about the inputs it never tried. Write the oracle from the contract, including the strings it must reject, and never from the code's own output. Run red, let a repair be generated as a proposal, let a run on the unchanged tests decide, and then challenge green: with a property, mutants and a seeded fuzz run, keeping each finding as an exact, replayable input. A survivor shows a change the suite cannot see until a test kills it or a contract reason shows it is equivalent; report every disposition, and check a harness on a known-bad and a repaired target before trusting its silence. None of these checks proves the parser correct; each covers a stated set of inputs or changes.",
@@ -82,7 +82,7 @@
       }
     },
     {
-      "week": 8,
+      "number": 8,
       "slug": "08-refuse-before-effects",
       "title": "The refusal said no",
       "decision": "a refusal message is not evidence that nothing happened.",
@@ -93,7 +93,7 @@
       }
     },
     {
-      "week": 9,
+      "number": 9,
       "slug": "09-three-questions",
       "title": "Before you trust 25 points",
       "decision": "a pass rate is a claim about checks, passes and a denominator.",
@@ -104,7 +104,7 @@
       }
     },
     {
-      "week": 10,
+      "number": 10,
       "slug": "10-challenge-the-instrument",
       "title": "The scorer said pass",
       "decision": "an evaluator is an instrument, and its verdicts are claims until the instrument itself has been challenged. Freeze the contract (request, environment, stop, score) before reading the scorer; challenge the scorer with right, wrong, missing, persuasive and case-variant answers; verify a bounded repair with the unchanged cases and state what that pass does not cover; keep completion separate from correctness; choose the simplest grader that can decide; challenge a judge with labels fixed first, adversarial cases included, because one false accept makes it unfit for a gate; read the confusion table, not only kappa; make the regression gate able to fail on five conditions, with the expected case count pinned, not counted; freeze the M2 technical snapshot on the path changed in M1.",
@@ -115,7 +115,7 @@
       }
     },
     {
-      "week": 11,
+      "number": 11,
       "slug": "11-timeout-is-not-nothing",
       "title": "A timeout is not nothing",
       "decision": "a timeout marks where observation stopped; it does not prove nothing happened. Walk the event chain to find the observation that separates a lost reply from a failed commit (the persisted job and its operation key); repair at the persistence boundary with an operation key unique within its pipeline; predict all three handlers, then run the replay and compare; write the rollback condition before changing anything; and declare recovery only when the user can see the required state and duplicates are excluded for the tested path. The same discipline checks a draft root-cause analysis: predict, let the script count, give each claim one outcome (confirmed, refuted or cannot tell), and act only on what you confirmed. M2 records the actual incident work through the supplied drill; the replay and the log check are rehearsal. A model gateway follows the same rule: a cap is a hard stop, the trace record count shows which limit stopped a run, and a lost reply keeps its whole reservation. A cheaper route is good enough only when the same frozen evaluator cases say so (scene 15), and a user test starts with a goal, not navigation (scene 16).",
@@ -126,7 +126,7 @@
       }
     },
     {
-      "week": 12,
+      "number": 12,
       "slug": "12-the-observation-decides",
       "title": "The observation decides",
       "decision": "a recorded model review is a set of claims, and the observation decides each one. Label a clean, frozen snapshot and its requirements before reading the review; turn each claim into a check and an input you choose yourself; write the prediction, then run the check and record the command it prints. A claim's wording sets what one run can decide (one input, some input, every input, each member of a listed set, something outside the snapshot): an unfinished search is not a disposition, an overstated claim is split into parts, and cannot tell (`undetermined` in the record) names what the snapshot lacks. Reviews over-assert and miss sibling paths, so add one check of your own or bound a clean range. The verifier reruns every check and derives the supported disposition from the observation; it never calls a model. Each claim ends confirmed, refuted or cannot tell, judged against the frozen requirements, not the wording of the review. M3 runs the same sequence on the student's own tag (scenes 13–14).",
@@ -137,7 +137,7 @@
       }
     },
     {
-      "week": 13,
+      "number": 13,
       "slug": "13-keep-the-layers-apart",
       "title": "Keep the layers apart",
       "decision": "keep the layers apart, and check each one on its own. A finding has three layers, observation, hypothesis and change, written in separate fields. A generated change is a claim until one task check runs on the page: proposal A looks right (labelled, reached by keyboard, query check green) and does not help, because its selection never reaches the query. Each check answers only its own question (the query check, the request line, the keyboard walk, a new authorized session), and the iteration is accepted only for the checked scope. M4 turns each Week 12 result into the response that result selects, and a repair starts with a test that fails on the frozen snapshot. Across an organization the same separation holds: the portal's grants, the gateway's key and budgets, the cost of an accepted change and the evaluator that routing depends on are separate layers, each checked on replayed records, generation first, then verification. The demo shows the same moves in eight minutes.",
@@ -148,7 +148,7 @@
       }
     },
     {
-      "week": 14,
+      "number": 14,
       "slug": "14-has-it-ever-failed",
       "title": "Has it ever failed?",
       "decision": "claim only the scope you checked, and count a check as evidence that it would stop a bad change only once you have seen it fail. In the practice packet the code predicts that a guest is denied, but the evidence matrix never observed a guest, so acceptance extends only to the checked cases; a peer's changed input either reuses an observation or names the next check. The same rule decides the software-factory claim stage by stage. The Evaluate stage's regression gate has been seen to fail on an agent's \"robust\" evaluator change and to pass on the current evaluator, so it is a candidate for unattended merging, not yet unattended: its cases sit where the agent could write, the candidate runs inside the checker, and the stop rule has never been exercised. Its nine cases also pass a trim-only escape until that escape becomes a tenth case. The model audit has never been seen to fail and pass on known inputs, so it runs unattended only as a source of hypotheses.",

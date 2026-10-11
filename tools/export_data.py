@@ -2,10 +2,11 @@
 
     python3 tools/export_data.py --course ~/Documents/agentic-se-course --videos ~/Documents/agentic-se-videos
 
-Writes data/course.json (the course's tagline and approach page, its 14-week schedule and English syllabus,
-read from the course repository at its origin/main; the syllabus translation must match its source) and data/episodes.json (each weekly episode's title,
-decision, length and subtitles, read from the video repository's origin/main). Nothing else from
-either repository is copied.
+Writes data/course.json (the course's tagline and approach page, its calendar and English syllabus, read
+from the course repository at its freshly fetched origin/main; the syllabus translation must match its
+source) and data/episodes.json (each film's number, title, decision, length and subtitles, read from the
+video repository's origin/main). Nothing else from either repository is copied. Which calendar week a
+film supports, and whether it is published, is not exported: that is the hand-maintained data/films.json.
 """
 
 from __future__ import annotations
@@ -18,11 +19,11 @@ import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-# The public syllabus is SYLLABUS.en.md verbatim, except for these edits for a public page.
-SYLLABUS_EDITS = [
-    # Week 0 setup is given to enrolled students and is not on the public site.
-    (" See [Week 0 setup](site/docs/week0/setup.en.md) for the supported execution route.", ""),
-]
+# The public syllabus is SYLLABUS.en.md verbatim, except for these (old, new) edits for a public page; each
+# must still occur in the source, or the export stops. There are none at present: the syllabus's one link
+# into the course repository (the Week 0 setup page) is published under course/, and build.py points it there.
+SYLLABUS_EDITS: list[tuple[str, str]] = []
+WEEK_FIELDS = ("topic", "lecture", "workshop", "deliverables")
 
 
 def git(repo: Path, *args: str) -> str:
@@ -103,6 +104,7 @@ def main() -> None:
     parser.add_argument("--videos", type=Path, required=True)
     args = parser.parse_args()
 
+    git(args.course, "fetch", "-q", "origin")
     course_sha = git(args.course, "rev-parse", "origin/main").strip()
     course = {
         "source": {"repository": "boxi-cs/agentic-se-course", "commit": course_sha},
@@ -111,6 +113,12 @@ def main() -> None:
         "approach": prose(git(args.course, "show", f"{course_sha}:site/docs/approach.en.md")),
         "weeks": parse_schedule(git(args.course, "show", f"{course_sha}:site/schedule.en.yaml")),
     }
+    numbers = [week["week"] for week in course["weeks"]]
+    if not numbers or numbers != list(range(1, len(numbers) + 1)):
+        raise SystemExit(f"schedule weeks are not numbered 1..N: {numbers}")
+    for week in course["weeks"]:
+        if missing := [field for field in WEEK_FIELDS if not week.get(field)]:
+            raise SystemExit(f"schedule week {week['week']} lacks {missing}")
     syllabus_en = git(args.course, "show", f"{course_sha}:SYLLABUS.en.md")
     _, front, body = syllabus_en.split("---\n", 2)
     meta = dict(line.split(": ", 1) for line in front.strip().splitlines() if ": " in line)
@@ -130,7 +138,6 @@ def main() -> None:
     names = git(args.videos, "ls-tree", "--name-only", f"{videos_sha}:episodes").split()
     for slug in sorted(names):
         script = git(args.videos, "show", f"{videos_sha}:episodes/{slug}/script.md")
-        week = int(slug[:2])
         timeline = json.loads((args.videos / "media/episodes" / slug / "Episode.json").read_text())
         subtitles = {
             lang: git(args.videos, "show", f"{videos_sha}:episodes/{slug}/subtitles/Episode/{lang}.srt")
@@ -138,7 +145,7 @@ def main() -> None:
         }
         episodes.append(
             {
-                "week": week,
+                "number": int(slug[:2]),  # names the release asset (week-NN.mp4); not a calendar week
                 "slug": slug,
                 "title": script.splitlines()[0].split("—", 1)[1].strip(),
                 "decision": decision(script),
