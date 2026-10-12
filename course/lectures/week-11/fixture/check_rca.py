@@ -1,7 +1,7 @@
 """Week 11 public fixture: summarise a request log and print the lines a draft analysis cites.
 
 Course-authored synthetic practice with no model call, network access or file writes. It
-reads request records in the deployment preview's format, one JSON object per line with
+reads request records, one JSON object per line with
 timestamp, event, request_id, method, path, status and duration_ms, and a draft root-cause
 analysis whose hypotheses cite log line numbers. For each time window it prints the request
 count, the number and share of 5xx responses and the 95th-percentile duration by nearest

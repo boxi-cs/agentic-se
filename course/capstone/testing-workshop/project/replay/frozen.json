@@ -1,7 +1,0 @@
-{
-  "digest": "e3b1f8ca1e46cbdb80a75b2eb6df840bc1f84494300b8bcd4e35ea251a5cf60d",
-  "responses": [
-    "{\"claims\":[{\"id\":\"reject-empty-text\",\"text\":\"The validation boundary rejects empty text.\"},{\"id\":\"preserve-main-text\",\"text\":\"The validation boundary preserves a nonempty branch name.\"},{\"id\":\"validation-boundaries\",\"text\":\"The generated suite claims the validation boundary rejects its invalid input classes.\"}],\"suggested_tests\":[{\"content\":\"from domains.validation import text\\n\\ndef test_model_boundary():\\n    assert text('main') == 'main'\\n\",\"path\":\"tests/agent_proposal.py\"},{\"content\":\"from domains.validation import text\\n\\ndef test_model_counterexample():\\n    assert text('') == ''\\n\",\"path\":\"tests/counterexample.py\"}]}"
-  ],
-  "teacher_frozen": true
-}

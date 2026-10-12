@@ -1,12 +1,13 @@
 """Check a SKILL.md and its trigger test as data; nothing in them is executed.
 
-Run from the course root (it reads files only, so it does not need the launcher):
+Run from the course root (it reads files only):
 
-    uv run --locked python capstone/context-workshop/student/skill_check.py \
-        LAB_WORK/skills/trace-request/SKILL.md LAB_WORK/trigger-test.yaml
+    uv run --locked python lectures/week-03/fixture/skill_check.py \
+        "$PROJECT_ROOT/A3-work/skills/my-workflow/SKILL.md" \
+        "$PROJECT_ROOT/A3-work/trigger-test.yaml"
 
-The same functions give the workshop feedback. They check structure and consistency,
-never whether an agent "really" selected the skill: you record that observation.
+It checks structure and consistency, never whether an agent "really" selected the
+skill: you record that observation.
 """
 
 import re
@@ -65,7 +66,7 @@ def normalize(text: str) -> str:
 
 
 def decode(raw: bytes) -> str:
-    """The one way both this check and the workshop feedback read a submitted file."""
+    """The one way this check reads a file, whatever editor saved it."""
     return normalize(raw.decode("utf-8"))
 
 

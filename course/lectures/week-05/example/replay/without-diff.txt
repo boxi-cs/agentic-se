@@ -1,3 +1,0 @@
-domains/labels.py
-pyproject.toml
-tests/test_labels.py
