@@ -14,7 +14,7 @@
         <link rel="prev" href="readings.en.html">
       
       
-        <link rel="next" href="../../site/docs/weeks/week-10.en.html">
+        <link rel="next" href="selfcheck-answers.en.html">
       
       
         
@@ -3261,6 +3261,34 @@
   
   
     <li class="md-nav__item">
+      <a href="README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9 guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="notes.en.html" class="md-nav__link">
         
   
@@ -3382,6 +3410,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9 self-check
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="selfcheck.en.html" class="md-nav__link md-nav__link--active">
         
   
@@ -3399,6 +3445,64 @@
 
       </a>
       
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#spaced-retrieval-weeks-78" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spaced retrieval: Weeks 7–8
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="selfcheck-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9 self-check answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -6463,6 +6567,25 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#spaced-retrieval-weeks-78" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spaced retrieval: Weeks 7–8
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -6479,8 +6602,9 @@
 
 
 <h1 id="self-check-what-changes-when-nobody-is-watching">Self-check: what changes when nobody is watching?</h1>
-<p>Answer before opening the feedback. Give a concrete input, diff or missing result for each
-answer. These are practice questions, not a checkpoint paper or a new submission.</p>
+<p>Answer before opening the answer guidance. Give a concrete input, diff or missing result
+for each answer. These are practice questions, not a checkpoint paper or a new submission.
+After your first attempt, compare with the <a href="selfcheck-answers.en.html">public answer guidance</a>.</p>
 <ol>
 <li><strong>LO2:</strong> Both duration candidates report green branch checks. Can you accept the
    unattended candidate? Name the next check and the behavior it must preserve.</li>
@@ -6497,35 +6621,16 @@ answer. These are practice questions, not a checkpoint paper or a new submission
 <li><strong>LO9, recall:</strong> From code review and test verification, why is a file allowlist plus
    a green test insufficient when the same agent can edit existing assertions?</li>
 </ol>
-<details>
-<summary>Feedback — compare after writing your answers</summary>
-
-1. Request revision or recheck. The untouched base display test against the unattended
-   code would reject `3:05`; the requested output is `3m 05s`. Check every changed hunk
-   against the request as well as checking the summary cases.
-2. You have directory/branch separation. That does not itself restrict process access
-   to other worktrees, shared repository metadata or host resources. Inspect actual tool
-   permissions and the execution environment separately.
-3. A controller runs the preserved check on the actual candidate and requires a recorded
-   successful result before allowing the PR stage. Missing, failing or timed-out results
-   block. A PASS string from the candidate is not that result.
-4. Resolve the expectation against the request, review both changes and run checks on
-   the combined revision. A green check on either separate branch cannot prove integration.
-5. It describes these two runs under recorded conditions, not general performance.
-   Retain the intervention, revisions, scope, verification and observed waiting/rework.
-   Label a paper exercise separately from actual agent runs.
-6. For example: `Recheck — evidence: result covers the earlier base only; run the
-   preserved acceptance suite on the combined current revision.` With missing output,
-   name the unknown check and run it yourself before deciding.
-7. File-level permission cannot establish hunk-level scope. An edited assertion can
-   redefine success. Preserve acceptance checks outside the writable scope, inspect
-   the diff and test a negative case that must fail.
-
-</details>
-
 <p>Changed condition: a pipeline retries after losing its PR-creation response. Describe
 how you would inspect whether the PR already exists before creating another one, and
 what evidence ties the existing result to this task and candidate.</p>
+<h2 id="spaced-retrieval-weeks-78">Spaced retrieval: Weeks 7–8</h2>
+<p>R1. You write a regression test before handing a fix to an agent. Which two runs show
+that the test can notice the fault, and why is a passing run on the returned change alone
+not enough?</p>
+<p>R2. An unattended run stops at a permission request, and someone suggests switching the
+approval prompts off and starting it again. Which question does the approval setting
+answer, which does the environment answer, and what do you inspect before deciding?</p>
 
 
 
@@ -6578,13 +6683,13 @@ what evidence ties the existing result to this task and candidate.</p>
         
         
           
-          <a href="../../site/docs/weeks/week-10.en.html" class="md-footer__link md-footer__link--next" aria-label="Next: Week 10 overview">
+          <a href="selfcheck-answers.en.html" class="md-footer__link md-footer__link--next" aria-label="Next: Week 9 self-check answers">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Week 10 overview
+                Week 9 self-check answers
               </div>
             </div>
             <div class="md-footer__button md-icon">
