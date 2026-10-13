@@ -6,7 +6,7 @@ import sys
 from pathlib import Path
 
 from loop import last_check, run
-from sandbox_model import chat, emit_artifact
+from model_client import chat, emit_artifact
 
 TASK = "Repair result.txt so it contains 4 and a newline. Run the verify check, then report."
 CANDIDATE = "4\n"  # The wrong-write experiment changes only this value.

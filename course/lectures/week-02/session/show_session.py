@@ -6,8 +6,8 @@ It reads two kinds of JSONL file:
   (``{"kind": "header", "format": "course-session", ...}``); every later line is one
   model request and its response in chat-completions form
   (``{"kind": "exchange", "seq": N, "request": {...}, "response": {...}}``).
-* A course trajectory (``"schema_version": "1"``), such as P1's ``trajectory.jsonl``
-  or a launcher ``--trace`` file. It holds roles, lengths and tool names, not text.
+* A course trajectory (``"schema_version": "1"``), an earlier trace format. It holds
+  roles, lengths and tool names, not text.
 
 Usage::
 
