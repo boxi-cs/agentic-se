@@ -27,23 +27,40 @@ link on the pages it writes, and stops if a page names a film that is not publis
 
 ### Films
 
-The films were made for the earlier, fourteen-week edition of the course, so they are attached to weeks by
-`data/films.json`, not by their number. That file is maintained by hand. Each film slug has:
+The course has twelve teaching weeks and an assessment week, and each film is made for one teaching week.
+A film's slug starts with its week number (`03-the-near-miss` is the Week 3 film). `data/films.json`,
+maintained by hand, says which calendar week each film appears under and whether the site publishes it.
+Each film slug has:
 
-- `week`: the week of the current calendar it supports (`null` while it is not published);
+- `week`: the calendar week it supports (`null` while it is not published);
 - `published`: `true` or `false`;
 - `withheld_reason`: one sentence, required when `published` is `false`.
 
-A published film appears on its week's page and on the home page under the note in `edition_note` ("Made for
-the earlier edition of this course, which ran model-written code through a course launcher. The current
-course does not require one."). Its poster and subtitle tracks live in `films/<slug>/`. A film that is not
-published is not linked, embedded or listed anywhere, and `build.py` removes its folder from `films/`.
-To publish or withhold a film, edit `data/films.json`, run `tools/posters.py` and `build.py`, and commit.
+Weeks 1–8, 10 and 11 have a film today. The films for weeks 9 and 12 are not merged in the video
+repository yet, so those two week pages show none; week 13 is assessment and has no film. The video
+repository still holds two folders made for the earlier, fourteen-week course
+(`12-the-observation-decides` and `14-has-it-ever-failed`); they are listed with `published: false` until
+the Week 12 film replaces them.
+
+A published film appears on its week's page and on the home page. Its poster and subtitle tracks live in
+`films/<slug>/`. A film that is not published is not linked, embedded or listed anywhere, and `build.py`
+removes its folder from `films/`. `data/films.json` may also carry an `edition_note`, one sentence that
+`build.py` then shows under every film's title; there is none at present.
 
 The video files are assets of the
-[`videos-2026-10-10` release](https://github.com/boxi-cs/agentic-se/releases/tag/videos-2026-10-10),
-named `week-NN.mp4` after the number each film was made under (the first two digits of its slug), so the
-repository stays small. That number is not a week of the current calendar.
+[`videos-2026-10-13` release](https://github.com/boxi-cs/agentic-se/releases/tag/videos-2026-10-13),
+named `week-NN.mp4` after the first two digits of the film's slug, so the repository stays small.
+
+To publish the films for weeks 9 and 12 once they are merged in the video repository and their renders
+are in its `media/episodes/<slug>/`:
+
+1. upload them to the same release as `week-09.mp4` and `week-12.mp4`
+   (`gh release upload videos-2026-10-13 week-09.mp4 week-12.mp4 --repo boxi-cs/agentic-se`);
+2. re-run `tools/export_data.py`, which adds the new slugs to `data/episodes.json` and drops the folders
+   the video repository retired;
+3. in `data/films.json`, give each new slug its week and `published: true`, and remove the entries whose
+   slugs are gone (`build.py` stops if the two files name different films);
+4. run `tools/posters.py` and `build.py`, and commit.
 
 ```sh
 python3 tools/course_site.py --course ../agentic-se-course    # course/: the course's own English student site

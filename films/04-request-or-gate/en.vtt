@@ -1,0 +1,489 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:01.996
+An agent is fixing a parser.
+
+2
+00:00:01.996 --> 00:00:06.559
+The repository has an instruction file, and one rule in it says:
+
+3
+00:00:06.559 --> 00:00:10.124
+do not change dependency files in a parser change.
+
+4
+00:00:10.467 --> 00:00:12.534
+Suppose the agent is in a hurry.
+
+5
+00:00:12.534 --> 00:00:16.411
+It stages the parser, and the lockfile with it, and commits.
+
+6
+00:00:16.750 --> 00:00:20.614
+The rule was written down, and the commit went through anyway.
+
+7
+00:00:20.614 --> 00:00:24.540
+So for every rule you write, ask: is this a request, or a gate?
+
+8
+00:00:25.583 --> 00:00:28.428
+Start from a failure, then write the rule.
+
+9
+00:00:28.428 --> 00:00:31.882
+"Be careful" is a request with no observable check.
+
+10
+00:00:31.882 --> 00:00:36.961
+Write the rule as a sentence an agent can act on, and a person can inspect.
+
+11
+00:00:37.300 --> 00:00:42.024
+A useful rule predicts a failure, and names evidence that can check it.
+
+12
+00:00:42.024 --> 00:00:46.348
+The failure: a commit changes the lockfile while fixing a parser.
+
+13
+00:00:46.348 --> 00:00:49.608
+The rule: no dependency files in a parser change.
+
+14
+00:00:49.608 --> 00:00:53.333
+The evidence: the staged path list contains no lockfile.
+
+15
+00:00:53.683 --> 00:00:55.320
+Two more from the notes.
+
+16
+00:00:55.320 --> 00:01:00.640
+The command changes without its regression test; so for every behavior change,
+
+17
+00:01:00.640 --> 00:01:03.231
+name the test that tells old from new.
+
+18
+00:01:03.231 --> 00:01:06.777
+And a generated command writes outside the checkout;
+
+19
+00:01:06.777 --> 00:01:12.097
+so stay below the repository root, and stop and ask when a path is outside it.
+
+20
+00:01:13.133 --> 00:01:17.688
+Rules like these go in an instruction file at the repository root.
+
+21
+00:01:17.688 --> 00:01:22.726
+A good entry names the scope, the allowed command, the expected evidence,
+
+22
+00:01:22.726 --> 00:01:24.314
+and the stop condition.
+
+23
+00:01:24.650 --> 00:01:27.324
+Now read it the way a hurried agent would.
+
+24
+00:01:27.324 --> 00:01:30.572
+The request to run the parser tests can be skipped.
+
+25
+00:01:30.572 --> 00:01:33.310
+The stop rule can be checked by a reviewer,
+
+26
+00:01:33.310 --> 00:01:36.875
+but it is still an instruction until a gate enforces it.
+
+27
+00:01:37.217 --> 00:01:41.358
+An instruction file gives context, and a decision procedure.
+
+28
+00:01:41.358 --> 00:01:45.982
+By itself, it does not make the filesystem or Git refuse an action.
+
+29
+00:01:47.017 --> 00:01:52.346
+A request is a message to the agent: run the focused test, and report the output.
+
+30
+00:01:52.346 --> 00:01:54.122
+The agent may leave it out.
+
+31
+00:01:54.467 --> 00:01:59.532
+A gate is attached to an event the repository controls: before a commit,
+
+32
+00:01:59.532 --> 00:02:02.980
+refuse staged Python files with an unused import.
+
+33
+00:02:02.980 --> 00:02:07.342
+Git invokes the hook, even when the agent forgets the request.
+
+34
+00:02:07.683 --> 00:02:09.908
+So a hook is a narrow invariant.
+
+35
+00:02:09.908 --> 00:02:13.314
+It is not a replacement for tests, or for review.
+
+36
+00:02:14.349 --> 00:02:16.850
+The course hook is a short Python file.
+
+37
+00:02:16.850 --> 00:02:18.518
+Read it before you use it.
+
+38
+00:02:18.518 --> 00:02:23.904
+A small wrapper in the Git hooks folder hands it the staged path list, as one event.
+
+39
+00:02:24.249 --> 00:02:25.683
+It checks two things.
+
+40
+00:02:25.683 --> 00:02:30.122
+No protected file may be staged, and the lockfile is one of them.
+
+41
+00:02:30.122 --> 00:02:34.083
+And no staged Python file may import a name it never uses.
+
+42
+00:02:34.433 --> 00:02:36.536
+It reads and parses each file.
+
+43
+00:02:36.536 --> 00:02:38.569
+It never imports or runs one.
+
+44
+00:02:38.569 --> 00:02:43.686
+For a finding it exits with two, and for a clean list it exits with zero.
+
+45
+00:02:44.733 --> 00:02:48.810
+Now try the gate, in a disposable copy of your repository,
+
+46
+00:02:48.810 --> 00:02:51.833
+with no credentials or employer data in it.
+
+47
+00:02:51.833 --> 00:02:57.457
+The generated proposal: add an import the file never uses, stage it, and commit.
+
+48
+00:02:57.799 --> 00:02:58.720
+Predict first.
+
+49
+00:02:58.720 --> 00:03:02.861
+The hook should stop this commit, because the import is unused.
+
+50
+00:03:03.199 --> 00:03:04.644
+In our run, it does.
+
+51
+00:03:04.644 --> 00:03:09.917
+The hook names the file, the line and the unused import, and prints stop.
+
+52
+00:03:09.917 --> 00:03:15.262
+It exits with two, Git reports a nonzero status, and no commit is created.
+
+53
+00:03:15.599 --> 00:03:17.855
+Save that output as your blocked record.
+
+54
+00:03:17.855 --> 00:03:19.828
+And if the commit had gone through?
+
+55
+00:03:19.828 --> 00:03:21.801
+Then stop, and inspect the wrapper.
+
+56
+00:03:21.801 --> 00:03:24.620
+Do not rewrite the record to make it look blocked.
+
+57
+00:03:25.665 --> 00:03:26.487
+Now verify.
+
+58
+00:03:26.487 --> 00:03:32.167
+Read the hook's output, remove the import, stage the file again, and commit.
+
+59
+00:03:32.515 --> 00:03:35.746
+This time the hook prints pass, and exits with zero.
+
+60
+00:03:35.746 --> 00:03:37.113
+The commit is created.
+
+61
+00:03:37.449 --> 00:03:39.659
+Save that as your passing record.
+
+62
+00:03:39.659 --> 00:03:44.148
+Then ask Git to show the commit, to confirm which files entered it.
+
+63
+00:03:45.182 --> 00:03:48.385
+Keep both records, and label what each one proves.
+
+64
+00:03:48.385 --> 00:03:53.126
+The blocked run proves that Git presented these staged paths to this hook,
+
+65
+00:03:53.126 --> 00:03:55.944
+and that the hook returned a nonzero status.
+
+66
+00:03:56.282 --> 00:03:58.584
+That is evidence that the gate fired.
+
+67
+00:03:58.584 --> 00:04:01.820
+It is not evidence that the final change is correct.
+
+68
+00:04:02.165 --> 00:04:07.354
+The passing run proves only that this input satisfied the hook's narrow checks.
+
+69
+00:04:07.354 --> 00:04:10.442
+The application's behavior is still unverified.
+
+70
+00:04:10.442 --> 00:04:14.251
+So run the focused test, and inspect the diff, separately.
+
+71
+00:04:14.599 --> 00:04:17.974
+A common mistake is to record only the passing commit.
+
+72
+00:04:17.974 --> 00:04:21.161
+The first record shows the gate stopped that input.
+
+73
+00:04:21.161 --> 00:04:23.598
+The second shows the clean path passed.
+
+74
+00:04:23.598 --> 00:04:24.223
+Keep both.
+
+75
+00:04:25.265 --> 00:04:28.020
+So where does that leave the instruction file?
+
+76
+00:04:28.020 --> 00:04:31.732
+Treating an instruction as a permission boundary is a mistake.
+
+77
+00:04:32.082 --> 00:04:36.492
+For an invariant, add a testable hook, or a human review step.
+
+78
+00:04:36.492 --> 00:04:39.408
+And keep the request, for useful context.
+
+79
+00:04:40.449 --> 00:04:42.230
+Here is our way to choose.
+
+80
+00:04:42.230 --> 00:04:46.068
+For each rule, ask what happens when the agent skips it.
+
+81
+00:04:46.415 --> 00:04:49.434
+If that is acceptable, leave it as a request.
+
+82
+00:04:49.434 --> 00:04:51.783
+If it is not, give the rule a gate,
+
+83
+00:04:51.783 --> 00:04:55.204
+and keep one blocked and one passing record for it.
+
+84
+00:04:56.249 --> 00:04:59.803
+The same thinking applies when you hand work to a subagent.
+
+85
+00:04:59.803 --> 00:05:02.513
+A role is more than a label such as reviewer.
+
+86
+00:05:02.513 --> 00:05:07.452
+Give the subagent its own instruction, its own tools, and its own output contract.
+
+87
+00:05:07.799 --> 00:05:11.320
+For a bounded parser change, the notes use three roles.
+
+88
+00:05:11.320 --> 00:05:15.737
+A researcher locates the parser and its callers, and changes nothing.
+
+89
+00:05:15.737 --> 00:05:18.746
+An implementer changes only the named function.
+
+90
+00:05:18.746 --> 00:05:23.356
+A reviewer judges the issue, the diff and the evidence, without editing.
+
+91
+00:05:23.699 --> 00:05:29.331
+After each hand-back, the parent agent, or a person, chooses whether to continue.
+
+92
+00:05:29.331 --> 00:05:34.338
+The subagent cannot enlarge its allowlist, declare its own work correct,
+
+93
+00:05:34.338 --> 00:05:37.050
+or silently replace a missing artifact.
+
+94
+00:05:38.099 --> 00:05:41.174
+And a generated hand-back is still a proposal.
+
+95
+00:05:41.174 --> 00:05:43.581
+Ask a researcher to find the parser.
+
+96
+00:05:43.581 --> 00:05:47.458
+If the hand-back names no file and no function, reject it.
+
+97
+00:05:47.458 --> 00:05:50.266
+Ask for the bounded report again, or stop.
+
+98
+00:05:50.615 --> 00:05:55.117
+If it does name them, open every cited location, run the stated check,
+
+99
+00:05:55.117 --> 00:05:58.011
+and record what the check does not establish.
+
+100
+00:05:58.349 --> 00:06:02.085
+A hand-back is evidence only for the fields it names.
+
+101
+00:06:02.085 --> 00:06:05.680
+Mark each claim confirmed, refuted, or cannot tell.
+
+102
+00:06:05.680 --> 00:06:08.217
+An unsupported claim is cannot tell.
+
+103
+00:06:09.265 --> 00:06:12.309
+Then pass on only what the next role needs.
+
+104
+00:06:12.309 --> 00:06:16.556
+The implementer gets the research note, and the named files.
+
+105
+00:06:16.898 --> 00:06:22.179
+The reviewer gets the issue, the diff and the test evidence, in a fresh context.
+
+106
+00:06:22.179 --> 00:06:27.196
+So it can check the contract, instead of trusting the implementer's summary.
+
+107
+00:06:27.532 --> 00:06:30.159
+A fresh context makes the contract visible.
+
+108
+00:06:30.159 --> 00:06:32.663
+It does not make the reviewer infallible.
+
+109
+00:06:33.698 --> 00:06:36.766
+So: write each rule from the failure it prevents.
+
+110
+00:06:36.766 --> 00:06:38.331
+A request can be skipped.
+
+111
+00:06:38.331 --> 00:06:41.336
+A gate sits on an event the repository controls,
+
+112
+00:06:41.336 --> 00:06:45.656
+and you keep the record of it blocking, and the record of it passing.
+
+113
+00:06:45.998 --> 00:06:50.784
+End your record with one decision line: accept, narrow, recheck or stop,
+
+114
+00:06:50.784 --> 00:06:52.446
+with the evidence for it.
+
+115
+00:06:52.446 --> 00:06:56.766
+A clean hook run can support accepting the staged-path invariant.
+
+116
+00:06:56.766 --> 00:07:00.622
+It cannot support accepting untested application behavior.
+
+117
+00:07:00.622 --> 00:07:04.278
+And bring the same instruction file, and the same gate,
+
+118
+00:07:04.278 --> 00:07:07.070
+to your project's technical specification.
+
+119
+00:07:07.414 --> 00:07:08.680
+One question to try.
+
+120
+00:07:08.680 --> 00:07:11.527
+A hook prints a finding, but exits with zero.
+
+121
+00:07:11.527 --> 00:07:12.983
+Did it gate the commit?
+
+122
+00:07:12.983 --> 00:07:15.007
+And what observation settles it?

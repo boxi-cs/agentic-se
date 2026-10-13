@@ -145,7 +145,7 @@ def main() -> None:
         }
         episodes.append(
             {
-                "number": int(slug[:2]),  # names the release asset (week-NN.mp4); not a calendar week
+                "number": int(slug[:2]),  # names the release asset (week-NN.mp4); data/films.json gives the week
                 "slug": slug,
                 "title": script.splitlines()[0].split("—", 1)[1].strip(),
                 "decision": decision(script),

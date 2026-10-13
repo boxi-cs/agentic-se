@@ -1,0 +1,649 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:02.601
+Here is a small task for a coding agent.
+
+2
+00:00:02.601 --> 00:00:06.046
+This status function strips its input, lowercases it,
+
+3
+00:00:06.046 --> 00:00:08.517
+and walks through three if statements.
+
+4
+00:00:08.517 --> 00:00:11.053
+Replace the conditionals with a lookup.
+
+5
+00:00:11.400 --> 00:00:16.283
+A proposal comes back: one table, one line, and no if statements at all.
+
+6
+00:00:16.283 --> 00:00:17.436
+It looks cleaner.
+
+7
+00:00:17.436 --> 00:00:18.250
+Is it right?
+
+8
+00:00:18.583 --> 00:00:22.799
+The task also says what to preserve: whitespace handling, case,
+
+9
+00:00:22.799 --> 00:00:24.471
+and the unknown fallback.
+
+10
+00:00:24.471 --> 00:00:25.609
+But in this file,
+
+11
+00:00:25.609 --> 00:00:30.158
+neither that contract nor the caller is written beside the function.
+
+12
+00:00:31.199 --> 00:00:35.196
+Before you judge the proposal, look at what will judge it.
+
+13
+00:00:35.196 --> 00:00:38.297
+The fixture's verifier holds ten fixed cases.
+
+14
+00:00:38.297 --> 00:00:41.881
+Each one is an input, and the label it must produce.
+
+15
+00:00:42.216 --> 00:00:43.263
+Predict a few.
+
+16
+00:00:43.263 --> 00:00:45.057
+Plain "ok" gives passed.
+
+17
+00:00:45.057 --> 00:00:47.001
+Capital "OK" gives passed.
+
+18
+00:00:47.001 --> 00:00:50.589
+"ok" with a space on each side gives passed too.
+
+19
+00:00:50.589 --> 00:00:55.823
+And "pending" is not a status the function knows, so it gives unknown.
+
+20
+00:00:56.166 --> 00:01:00.184
+The same ten cases run against every version of the function.
+
+21
+00:01:00.184 --> 00:01:01.501
+The code may change.
+
+22
+00:01:01.501 --> 00:01:02.621
+The cases do not.
+
+23
+00:01:03.666 --> 00:01:06.059
+Run the ten cases on the proposal.
+
+24
+00:01:06.059 --> 00:01:06.833
+Seven pass.
+
+25
+00:01:06.833 --> 00:01:10.423
+Three fail, and the verifier exits with status one.
+
+26
+00:01:10.766 --> 00:01:14.155
+The failures are the padded inputs: "ok" with spaces,
+
+27
+00:01:14.155 --> 00:01:18.246
+"fail" with a tab and a newline, and capital "PASS" with spaces.
+
+28
+00:01:18.246 --> 00:01:19.973
+The proposal dropped strip.
+
+29
+00:01:20.316 --> 00:01:24.562
+For each of them, the original function returned the right label.
+
+30
+00:01:24.562 --> 00:01:26.457
+The proposal returns unknown.
+
+31
+00:01:26.457 --> 00:01:30.637
+A caller that sends a padded status would see its result change.
+
+32
+00:01:31.681 --> 00:01:37.040
+The worked refactor uses the same table, and keeps strip in front of lower.
+
+33
+00:01:37.040 --> 00:01:40.470
+All ten cases pass, and the verifier exits zero.
+
+34
+00:01:40.815 --> 00:01:44.036
+Now count the if statements: three in the original,
+
+35
+00:01:44.036 --> 00:01:46.184
+and zero in both shorter versions.
+
+36
+00:01:46.184 --> 00:01:49.847
+The count cannot tell the broken one from the working one.
+
+37
+00:01:50.181 --> 00:01:53.384
+A shorter function still has to keep the contract.
+
+38
+00:01:53.384 --> 00:01:56.458
+And ten of ten establishes those ten cases only.
+
+39
+00:01:56.458 --> 00:01:59.532
+It does not prove the behavior for every string,
+
+40
+00:01:59.532 --> 00:02:01.838
+or that a caller accepts the change.
+
+41
+00:02:02.881 --> 00:02:05.080
+One step came before those runs.
+
+42
+00:02:05.080 --> 00:02:08.104
+You ask for one bounded expression, as text.
+
+43
+00:02:08.104 --> 00:02:12.296
+What comes back is text too, until a person has inspected it.
+
+44
+00:02:12.631 --> 00:02:13.889
+So read it first.
+
+45
+00:02:13.889 --> 00:02:16.848
+Only then copy it into a candidate file.
+
+46
+00:02:16.848 --> 00:02:22.546
+Nothing executes the reply itself: the ten cases meet the file you inspected.
+
+47
+00:02:22.881 --> 00:02:25.938
+And if the text asks for more, such as a key,
+
+48
+00:02:25.938 --> 00:02:29.403
+network access or an install you do not know, stop.
+
+49
+00:02:29.403 --> 00:02:33.955
+Run a generated command only in a dedicated directory or container,
+
+50
+00:02:33.955 --> 00:02:35.993
+one that holds no credentials.
+
+51
+00:02:35.993 --> 00:02:38.914
+Otherwise, record the missing prerequisite.
+
+52
+00:02:39.964 --> 00:02:44.206
+Suppose the text you copied into the candidate file was this instead:
+
+53
+00:02:44.206 --> 00:02:47.035
+a conditional expression, and no table at all.
+
+54
+00:02:47.381 --> 00:02:48.868
+Run the ten cases on it.
+
+55
+00:02:48.868 --> 00:02:49.674
+All ten pass.
+
+56
+00:02:49.674 --> 00:02:53.888
+And the if count is zero, because the verifier counts if statements,
+
+57
+00:02:53.888 --> 00:02:56.367
+and a conditional expression is not one.
+
+58
+00:02:56.714 --> 00:03:00.073
+But the task asked for a lookup, and there isn't one.
+
+59
+00:03:00.073 --> 00:03:04.952
+The count is a narrow measure: it cannot see what replaced the if statements.
+
+60
+00:03:04.952 --> 00:03:06.029
+So open the file.
+
+61
+00:03:06.029 --> 00:03:11.099
+A refactor is not accepted until the requested structure has been inspected too.
+
+62
+00:03:12.147 --> 00:03:16.335
+Now run the same ten cases on the function you started with.
+
+63
+00:03:16.335 --> 00:03:17.103
+Ten of ten.
+
+64
+00:03:17.103 --> 00:03:17.801
+Exit zero.
+
+65
+00:03:18.147 --> 00:03:21.800
+So the original and the refactor both pass every case.
+
+66
+00:03:21.800 --> 00:03:24.709
+Only the if count differs: three, and zero.
+
+67
+00:03:24.709 --> 00:03:27.144
+The cases cannot tell the two apart.
+
+68
+00:03:27.480 --> 00:03:28.792
+And that is the point.
+
+69
+00:03:28.792 --> 00:03:30.402
+The behavior was preserved.
+
+70
+00:03:30.402 --> 00:03:33.622
+What changed is how much a fresh session has to guess.
+
+71
+00:03:33.963 --> 00:03:39.223
+In the original, a session must infer the contract from a chain of conditionals.
+
+72
+00:03:39.223 --> 00:03:40.275
+In the refactor,
+
+73
+00:03:40.275 --> 00:03:44.877
+the lookup table and the fallback are visible beside the change point.
+
+74
+00:03:45.913 --> 00:03:49.122
+Scale that up from one function to a repository.
+
+75
+00:03:49.122 --> 00:03:52.398
+A prepared repository also names its entry point,
+
+76
+00:03:52.398 --> 00:03:56.143
+its contract and its offline check in its context files.
+
+77
+00:03:56.143 --> 00:03:59.485
+The agent still needs permission to read and edit.
+
+78
+00:03:59.485 --> 00:04:03.096
+The repository has only removed the avoidable guesses.
+
+79
+00:04:03.430 --> 00:04:05.476
+That is what agent-ready means.
+
+80
+00:04:05.476 --> 00:04:10.029
+A fresh session can find the relevant code, learn the local contract,
+
+81
+00:04:10.029 --> 00:04:13.461
+run a short check, and report what it did not check.
+
+82
+00:04:13.796 --> 00:04:17.387
+And readiness is a property of evidence at a named revision.
+
+83
+00:04:17.387 --> 00:04:20.379
+It is not a feeling about how tidy the tree looks.
+
+84
+00:04:21.413 --> 00:04:23.956
+So what can a comparison like this show?
+
+85
+00:04:23.956 --> 00:04:28.342
+The fixture is one function, so it cannot show every kind of blocker.
+
+86
+00:04:28.342 --> 00:04:32.220
+On a whole repository, you record observations like this one:
+
+87
+00:04:32.220 --> 00:04:35.717
+the documented check exits zero on the refactored copy.
+
+88
+00:04:36.063 --> 00:04:40.382
+It supports one claim: these cases pass, at this revision.
+
+89
+00:04:40.730 --> 00:04:44.701
+And it leaves evidence missing: the callers, the permissions,
+
+90
+00:04:44.701 --> 00:04:46.589
+and the inputs nobody listed.
+
+91
+00:04:46.589 --> 00:04:51.146
+Every observation has this shape: what you saw, the claim it supports,
+
+92
+00:04:51.146 --> 00:04:52.839
+and what is still missing.
+
+93
+00:04:53.880 --> 00:04:58.646
+Now take your own repository: your project, or the one you contribute to.
+
+94
+00:04:58.646 --> 00:05:01.389
+First freeze a baseline at a named commit,
+
+95
+00:05:01.389 --> 00:05:04.654
+and pick one small behavior an agent might change.
+
+96
+00:05:04.996 --> 00:05:08.188
+You may ask an agent for a map and a list of commands.
+
+97
+00:05:08.188 --> 00:05:10.257
+Each line of its answer is a claim.
+
+98
+00:05:10.257 --> 00:05:14.099
+Verify it by opening the files and running the commands yourself.
+
+99
+00:05:14.446 --> 00:05:20.002
+Then score what you observed, in four dimensions: structure, documentation,
+
+100
+00:05:20.002 --> 00:05:21.261
+tests and checks.
+
+101
+00:05:22.296 --> 00:05:28.046
+Each dimension has four levels, and each level has anchors: things you can observe.
+
+102
+00:05:28.046 --> 00:05:30.748
+A level includes every anchor below it.
+
+103
+00:05:31.096 --> 00:05:34.877
+Your score is the highest level whose anchors are all present.
+
+104
+00:05:34.877 --> 00:05:37.865
+One missing anchor, and the score stops below it.
+
+105
+00:05:38.913 --> 00:05:39.555
+Structure.
+
+106
+00:05:39.555 --> 00:05:44.435
+Level three asks for three things: the map entries you checked are accurate,
+
+107
+00:05:44.435 --> 00:05:47.003
+the change point has one responsibility,
+
+108
+00:05:47.003 --> 00:05:50.535
+and your probe reaches it in three file opens or fewer.
+
+109
+00:05:50.535 --> 00:05:55.608
+The evidence is a behavior, the files you opened in order, and a path and line.
+
+110
+00:05:55.946 --> 00:05:59.169
+Say a session found the function in two file opens.
+
+111
+00:05:59.169 --> 00:06:03.087
+That supports the map for this change point, at this revision.
+
+112
+00:06:03.087 --> 00:06:05.615
+Other behaviors may have different maps.
+
+113
+00:06:05.615 --> 00:06:09.785
+And one checked entry that turns out wrong would disprove a three.
+
+114
+00:06:10.829 --> 00:06:11.731
+Documentation.
+
+115
+00:06:11.731 --> 00:06:15.917
+At level three, every listed command runs at the scored revision,
+
+116
+00:06:15.917 --> 00:06:20.039
+and at least three invariants name the checks that protect them.
+
+117
+00:06:20.039 --> 00:06:24.741
+The evidence is the context file's path, each command with its exit code,
+
+118
+00:06:24.741 --> 00:06:27.188
+and the list of invariants and checks.
+
+119
+00:06:27.529 --> 00:06:31.508
+Say a copy lists three test commands, and two of them fail.
+
+120
+00:06:31.508 --> 00:06:35.015
+Then documentation is a blocker for a fresh session.
+
+121
+00:06:35.015 --> 00:06:39.062
+It says nothing about whether the implementation is correct.
+
+122
+00:06:39.062 --> 00:06:44.120
+And one listed command that fails as written is enough to disprove a three.
+
+123
+00:06:45.163 --> 00:06:45.551
+Tests.
+
+124
+00:06:45.551 --> 00:06:50.799
+At level three, two repeatable runs agree, they stay within the budget you chose,
+
+125
+00:06:50.799 --> 00:06:54.361
+they use no hidden input, and a deliberate break fails.
+
+126
+00:06:54.361 --> 00:06:58.507
+The evidence is the two summaries, the search for hidden inputs,
+
+127
+00:06:58.507 --> 00:07:01.034
+and the result of the deliberate break.
+
+128
+00:07:01.379 --> 00:07:02.859
+What would disprove it?
+
+129
+00:07:02.859 --> 00:07:06.653
+A run that passes while a deliberate break goes undetected.
+
+130
+00:07:06.653 --> 00:07:08.968
+Or a test that reads a hidden input.
+
+131
+00:07:08.968 --> 00:07:13.534
+So run the documented check twice, and inspect whether it uses a clock,
+
+132
+00:07:13.534 --> 00:07:15.335
+the network or hidden files.
+
+133
+00:07:16.379 --> 00:07:16.843
+Checks.
+
+134
+00:07:16.843 --> 00:07:20.820
+At level three, one offline command runs the required gates,
+
+135
+00:07:20.820 --> 00:07:23.670
+and it exits non-zero for an unused import.
+
+136
+00:07:23.670 --> 00:07:27.977
+The evidence is the gate command, its failing and passing output,
+
+137
+00:07:27.977 --> 00:07:30.695
+and the point where the gate is required.
+
+138
+00:07:31.029 --> 00:07:34.119
+Say a hook rejects an unused import with exit two.
+
+139
+00:07:34.119 --> 00:07:37.209
+That shows the hook can stop that class of change.
+
+140
+00:07:37.209 --> 00:07:40.608
+It does not cover other checks, or the paths around it.
+
+141
+00:07:40.608 --> 00:07:44.810
+And a gate you can run by hand, but that nothing requires, is a two.
+
+142
+00:07:45.846 --> 00:07:47.839
+An agent may propose a score.
+
+143
+00:07:47.839 --> 00:07:48.801
+You choose it.
+
+144
+00:07:48.801 --> 00:07:53.544
+A number with no path, no revision and no output attached is a guess.
+
+145
+00:07:53.879 --> 00:07:59.069
+So for each dimension, record five things: the path or command, the revision,
+
+146
+00:07:59.069 --> 00:08:03.989
+the result you observed, the highest level whose anchors are all present,
+
+147
+00:08:03.989 --> 00:08:07.359
+and one observation that would disprove the score.
+
+148
+00:08:08.396 --> 00:08:11.049
+Your first score is a table of four rows.
+
+149
+00:08:11.049 --> 00:08:14.221
+Now remove one blocker that is within your scope.
+
+150
+00:08:14.221 --> 00:08:16.874
+For example, reconcile two test commands,
+
+151
+00:08:16.874 --> 00:08:19.657
+or add a map from a behavior to its module.
+
+152
+00:08:19.996 --> 00:08:23.594
+Then run the same probe at the new commit, and score again.
+
+153
+00:08:23.594 --> 00:08:25.302
+The score may stay the same.
+
+154
+00:08:25.646 --> 00:08:30.518
+A tidier directory, with no changed observation, does not raise a score.
+
+155
+00:08:30.518 --> 00:08:34.984
+And if the same command now passes because its tests were deleted,
+
+156
+00:08:34.984 --> 00:08:37.894
+keep the old score, and record the finding.
+
+157
+00:08:38.929 --> 00:08:40.680
+So: is it ready for an agent?
+
+158
+00:08:40.680 --> 00:08:42.914
+Don't answer from how the tree looks.
+
+159
+00:08:42.914 --> 00:08:46.175
+A passing check is evidence for the inputs it covered.
+
+160
+00:08:46.175 --> 00:08:50.945
+And a score changes only when the observed anchor changes, at a named revision.
+
+161
+00:08:51.279 --> 00:08:55.557
+End your record with one decision: accept, narrow, recheck or stop.
+
+162
+00:08:55.557 --> 00:09:00.474
+Name the evidence that supports it, and the observation that would change it.

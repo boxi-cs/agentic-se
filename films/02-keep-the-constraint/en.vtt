@@ -1,0 +1,633 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:02.500
+A project proposal contains one rule.
+
+2
+00:00:02.500 --> 00:00:07.094
+A report may read the reports folder, but it must never write there.
+
+3
+00:00:07.433 --> 00:00:11.461
+Then someone gives an agent a direct request: add CSV export.
+
+4
+00:00:11.461 --> 00:00:16.083
+The request does not say where the rule came from, or how to check it.
+
+5
+00:00:16.417 --> 00:00:18.363
+So here is this week's question.
+
+6
+00:00:18.363 --> 00:00:21.100
+How does a rule like that survive every step,
+
+7
+00:00:21.100 --> 00:00:23.534
+from the request to the finished change?
+
+8
+00:00:24.583 --> 00:00:28.430
+Between that request and a finished change there are four transitions,
+
+9
+00:00:28.430 --> 00:00:30.957
+and the rule can disappear in any one of them.
+
+10
+00:00:31.300 --> 00:00:36.548
+Research: the agent reads an old README, but not the current permission test.
+
+11
+00:00:36.883 --> 00:00:41.934
+Plan: the plan says, add export, and drops the read-only boundary.
+
+12
+00:00:42.283 --> 00:00:45.318
+Implement: the tool's schema exposes a path,
+
+13
+00:00:45.318 --> 00:00:48.077
+with no description of the allowed root.
+
+14
+00:00:48.417 --> 00:00:51.234
+Verify: the test checks that a CSV exists,
+
+15
+00:00:51.234 --> 00:00:54.520
+but never attempts a write to the reports folder.
+
+16
+00:00:54.520 --> 00:00:57.739
+And the generated code can still look plausible.
+
+17
+00:00:58.783 --> 00:01:02.525
+The notes turn this into a check you can do on paper.
+
+18
+00:01:02.525 --> 00:01:06.760
+Generate: write a one-paragraph plan for the export request.
+
+19
+00:01:06.760 --> 00:01:09.301
+Verify: underline four things in it.
+
+20
+00:01:09.301 --> 00:01:10.360
+The constraint.
+
+21
+00:01:10.360 --> 00:01:11.136
+Its source.
+
+22
+00:01:11.136 --> 00:01:13.113
+The implementation boundary.
+
+23
+00:01:13.113 --> 00:01:14.666
+And the negative test.
+
+24
+00:01:15.000 --> 00:01:17.735
+Here is a plan we wrote for this video.
+
+25
+00:01:17.735 --> 00:01:23.346
+It reads well enough: add an export command, write the file where the user asks,
+
+26
+00:01:23.346 --> 00:01:25.450
+and test that the file exists.
+
+27
+00:01:25.450 --> 00:01:26.923
+Now try to underline.
+
+28
+00:01:26.923 --> 00:01:28.746
+None of the four is there.
+
+29
+00:01:29.083 --> 00:01:30.838
+Here is our second draft.
+
+30
+00:01:30.838 --> 00:01:32.171
+It states the rule.
+
+31
+00:01:32.171 --> 00:01:37.503
+It names the source: the proposal, and the permission test at this revision.
+
+32
+00:01:37.503 --> 00:01:41.363
+It sets the boundary: only paths inside the out folder.
+
+33
+00:01:41.363 --> 00:01:44.239
+And it has one test that must be refused.
+
+34
+00:01:44.239 --> 00:01:45.152
+Four of four.
+
+35
+00:01:45.500 --> 00:01:48.250
+If one is missing, the plan is incomplete,
+
+36
+00:01:48.250 --> 00:01:51.196
+even when the generated code looks plausible.
+
+37
+00:01:51.196 --> 00:01:54.405
+The rest of this video makes each underline real.
+
+38
+00:01:55.450 --> 00:02:01.151
+Use three short artifacts rather than one unbounded prompt: research, a plan,
+
+39
+00:02:01.151 --> 00:02:02.780
+and an implementation.
+
+40
+00:02:02.780 --> 00:02:06.112
+Research asks: what is true at this revision?
+
+41
+00:02:06.112 --> 00:02:11.147
+Its artifact is an evidence table, with paths, symbols and unknowns.
+
+42
+00:02:11.483 --> 00:02:16.703
+Generate: ask for rows that name the export handler and its rejection test.
+
+43
+00:02:16.703 --> 00:02:21.017
+In this example of ours, the draft comes back with three rows,
+
+44
+00:02:21.017 --> 00:02:23.035
+and every row says confirmed.
+
+45
+00:02:23.383 --> 00:02:26.504
+Verify: open the files at your checkout revision.
+
+46
+00:02:26.504 --> 00:02:27.841
+The handler is there.
+
+47
+00:02:27.841 --> 00:02:32.235
+So is the rejection test, which gives the rule a source you can cite.
+
+48
+00:02:32.235 --> 00:02:36.883
+But nothing in these files shows that the handler checks the path itself.
+
+49
+00:02:36.883 --> 00:02:40.067
+So that row changes from confirmed to cannot tell.
+
+50
+00:02:40.417 --> 00:02:43.421
+Mark an unknown explicitly rather than guessing.
+
+51
+00:02:43.421 --> 00:02:48.428
+A plan is more useful when a reader can disagree with one row and run one check.
+
+52
+00:02:49.467 --> 00:02:53.565
+The plan asks: what small change would satisfy the request?
+
+53
+00:02:53.565 --> 00:02:58.218
+Its artifact holds ordered steps, boundaries, and acceptance cases.
+
+54
+00:02:58.218 --> 00:03:01.483
+Write each case as observable input and output.
+
+55
+00:03:01.817 --> 00:03:03.230
+The notes give three.
+
+56
+00:03:03.230 --> 00:03:08.681
+In the first, the request names a file in the out folder, and the rows are valid.
+
+57
+00:03:08.681 --> 00:03:12.718
+Then the file is created, and the command reports: exported.
+
+58
+00:03:13.067 --> 00:03:14.942
+The second carries our rule.
+
+59
+00:03:14.942 --> 00:03:18.090
+The request names a file in the reports folder.
+
+60
+00:03:18.090 --> 00:03:23.046
+Then no file is written, and the command reports: refused, read-only root.
+
+61
+00:03:23.046 --> 00:03:26.395
+This case can pass only when something is refused.
+
+62
+00:03:26.733 --> 00:03:29.438
+In the third, a row is missing its ID.
+
+63
+00:03:29.438 --> 00:03:34.135
+Again no file is written, and the command reports the invalid row.
+
+64
+00:03:34.135 --> 00:03:37.338
+A specification that only says, export works,
+
+65
+00:03:37.338 --> 00:03:40.967
+cannot reveal a missing refusal or a partial write.
+
+66
+00:03:42.017 --> 00:03:45.564
+Implementation asks: what code expresses that plan?
+
+67
+00:03:45.564 --> 00:03:48.486
+For an agent, part of that code is a tool.
+
+68
+00:03:48.486 --> 00:03:53.285
+And a model sees four things about a tool: its name, its description,
+
+69
+00:03:53.285 --> 00:03:56.416
+its input schema, and the message it returns.
+
+70
+00:03:56.416 --> 00:03:58.155
+Treat them as a contract.
+
+71
+00:03:58.500 --> 00:04:01.389
+Read this loose version as a model would.
+
+72
+00:04:01.389 --> 00:04:03.009
+It writes a CSV report.
+
+73
+00:04:03.009 --> 00:04:07.236
+Its path is any string, so the model can attempt any string.
+
+74
+00:04:07.236 --> 00:04:09.843
+Our rule is nowhere in this contract.
+
+75
+00:04:10.183 --> 00:04:12.123
+Now the revision in the notes.
+
+76
+00:04:12.123 --> 00:04:14.257
+The name is a verb and an object.
+
+77
+00:04:14.257 --> 00:04:18.653
+The description states the allowed root and the important exclusion.
+
+78
+00:04:18.653 --> 00:04:23.955
+And the schema makes the rest machine-checkable: required fields, a closed object,
+
+79
+00:04:23.955 --> 00:04:25.636
+and a pattern on the path.
+
+80
+00:04:25.983 --> 00:04:28.929
+Two more checks apply to what comes back.
+
+81
+00:04:28.929 --> 00:04:34.605
+An error identifies the bad field and the next repair; it is never a traceback.
+
+82
+00:04:34.605 --> 00:04:40.496
+And a result returns the observation the next decision needs, including a refusal.
+
+83
+00:04:41.533 --> 00:04:43.365
+Generate: propose two calls.
+
+84
+00:04:43.365 --> 00:04:48.663
+One names a file in the out folder; the other names a file in the reports folder.
+
+85
+00:04:48.663 --> 00:04:52.261
+Before you run anything, predict what each will return.
+
+86
+00:04:52.600 --> 00:04:56.806
+Verify: validate both against the schema, and run the handler.
+
+87
+00:04:56.806 --> 00:04:59.385
+This is our run of the studio's check.
+
+88
+00:04:59.385 --> 00:05:03.455
+The first call reaches the handler and comes back: exported.
+
+89
+00:05:03.800 --> 00:05:05.680
+The second never reaches it.
+
+90
+00:05:05.680 --> 00:05:10.717
+The path fails the pattern, and the refusal names the field and the repair.
+
+91
+00:05:10.717 --> 00:05:14.209
+A third call, with an unknown field, is refused too.
+
+92
+00:05:14.209 --> 00:05:18.103
+Both are rejected before the handler, with no file effect.
+
+93
+00:05:18.450 --> 00:05:19.212
+One caution.
+
+94
+00:05:19.212 --> 00:05:20.989
+MCP names a protocol family:
+
+95
+00:05:20.989 --> 00:05:24.608
+it connects a model application with tools and resources.
+
+96
+00:05:24.608 --> 00:05:27.464
+The protocol does not make a vague tool safe.
+
+97
+00:05:27.464 --> 00:05:30.003
+The handler still enforces its boundary,
+
+98
+00:05:30.003 --> 00:05:34.193
+and the controller still has to pass the result back to the model.
+
+99
+00:05:35.233 --> 00:05:37.377
+The last transition is verify.
+
+100
+00:05:37.377 --> 00:05:42.164
+Generate: the smallest function that could satisfy the three cases.
+
+101
+00:05:42.164 --> 00:05:43.950
+Here is a draft we wrote.
+
+102
+00:05:43.950 --> 00:05:48.594
+And here is the test a plan without the rule would write: export,
+
+103
+00:05:48.594 --> 00:05:50.666
+then check that a CSV exists.
+
+104
+00:05:50.666 --> 00:05:52.381
+On our draft, it passes.
+
+105
+00:05:52.717 --> 00:05:57.402
+Now run the three cases, each against a fresh temporary directory.
+
+106
+00:05:57.402 --> 00:05:58.609
+The first passes.
+
+107
+00:05:58.609 --> 00:06:02.016
+The second fails: the command reported exported,
+
+108
+00:06:02.016 --> 00:06:04.997
+and a file now sits in the reports folder.
+
+109
+00:06:04.997 --> 00:06:10.108
+The third fails too: the export crashed, and left a partial file behind.
+
+110
+00:06:10.450 --> 00:06:14.548
+After a revision that refuses before it writes, all three pass.
+
+111
+00:06:14.548 --> 00:06:17.345
+The existence test passed on both versions.
+
+112
+00:06:17.345 --> 00:06:20.597
+Only the two negative cases could tell them apart.
+
+113
+00:06:20.933 --> 00:06:24.693
+So rerun the acceptance cases after the last write.
+
+114
+00:06:24.693 --> 00:06:30.148
+And record four things: the command, the exit status, the observed output,
+
+115
+00:06:30.148 --> 00:06:31.475
+and your decision.
+
+116
+00:06:32.516 --> 00:06:37.043
+There is one more place to lose a rule, and it is not a transition.
+
+117
+00:06:37.043 --> 00:06:38.732
+It is the history itself.
+
+118
+00:06:38.732 --> 00:06:41.232
+A context window is a working budget.
+
+119
+00:06:41.232 --> 00:06:45.219
+Tool output, repeated reads and failed attempts consume it,
+
+120
+00:06:45.219 --> 00:06:49.746
+and a later request can then miss the one constraint that mattered.
+
+121
+00:06:50.083 --> 00:06:55.221
+The notes show this on a second example: one session of nineteen messages,
+
+122
+00:06:55.221 --> 00:06:56.331
+written by hand.
+
+123
+00:06:56.331 --> 00:06:58.484
+Its task has a rule of its own.
+
+124
+00:06:58.484 --> 00:07:03.969
+That rule arrived once, inside an early tool result: do not edit the view file.
+
+125
+00:07:04.316 --> 00:07:08.694
+A course-written script builds the next request from that history.
+
+126
+00:07:08.694 --> 00:07:12.476
+Then a short policy, also course-written and not a model,
+
+127
+00:07:12.476 --> 00:07:15.394
+picks the next edit from that context alone.
+
+128
+00:07:15.394 --> 00:07:19.839
+In full mode, all nineteen messages are kept, and the check passes.
+
+129
+00:07:20.183 --> 00:07:23.319
+In auto mode, the older tool results are cleared,
+
+130
+00:07:23.319 --> 00:07:26.006
+and the line with the rule goes with them.
+
+131
+00:07:26.006 --> 00:07:27.286
+Now the check fails.
+
+132
+00:07:27.286 --> 00:07:29.462
+No model was called in either run.
+
+133
+00:07:29.462 --> 00:07:33.558
+The history got shorter, and the rule was in the part that went.
+
+134
+00:07:34.600 --> 00:07:38.060
+So before you shorten a history, generate a handoff.
+
+135
+00:07:38.060 --> 00:07:42.918
+It holds the task, the source of each constraint, the current file state,
+
+136
+00:07:42.918 --> 00:07:45.780
+the last failed check, and the next action.
+
+137
+00:07:46.116 --> 00:07:47.057
+Then verify it.
+
+138
+00:07:47.057 --> 00:07:49.879
+Compare each line with the recorded messages,
+
+139
+00:07:49.879 --> 00:07:52.639
+and rerun the check on the current revision.
+
+140
+00:07:52.639 --> 00:07:57.657
+A summary that says, tests passed, without the tested revision, is not evidence.
+
+141
+00:07:58.000 --> 00:08:03.293
+And when most entries are stale or contradictory, restart with a written handoff,
+
+142
+00:08:03.293 --> 00:08:04.992
+and reread the next files.
+
+143
+00:08:04.992 --> 00:08:07.672
+Compacting is a choice about information.
+
+144
+00:08:07.672 --> 00:08:12.442
+It is not a guarantee that the model will remember the right information.
+
+145
+00:08:13.483 --> 00:08:14.555
+Back to our rule.
+
+146
+00:08:14.555 --> 00:08:18.780
+It survives when every transition keeps it somewhere you can check.
+
+147
+00:08:18.780 --> 00:08:22.311
+The research names the permission test and its revision.
+
+148
+00:08:22.311 --> 00:08:24.833
+The plan repeats the read-only boundary.
+
+149
+00:08:24.833 --> 00:08:26.788
+The schema constrains the path.
+
+150
+00:08:26.788 --> 00:08:31.328
+And the negative case attempts the write, and expects nothing to change.
+
+151
+00:08:31.666 --> 00:08:35.678
+This week, you do the same for your own project proposal:
+
+152
+00:08:35.678 --> 00:08:41.239
+three to five acceptance cases that can fail, and one tool schema made tighter.
+
+153
+00:08:41.239 --> 00:08:45.674
+Then you finish with one line: accept, shrink, recheck or stop,
+
+154
+00:08:45.674 --> 00:08:47.363
+and the evidence for it.
+
+155
+00:08:47.700 --> 00:08:48.697
+So try it now.
+
+156
+00:08:48.697 --> 00:08:51.690
+A later plan omits the read-only boundary.
+
+157
+00:08:51.690 --> 00:08:54.398
+Which research artifact would you add?
+
+158
+00:08:54.398 --> 00:08:58.033
+And which negative case, before any implementation?
