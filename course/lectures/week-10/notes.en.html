@@ -6593,8 +6593,10 @@ team. They are a process exercise: you practise the audit on them. They are not
 measurements of any agent, model or tool, and no number here is a performance finding.</p>
 <p>The commands use only <code>python</code> and the standard library. They call no model and need no
 key. Run them in a scratch copy, following the practices in
-<a href="../../SYLLABUS.en.html#tools-and-model-access">Tools and model access</a>. From the course
-checkout:</p>
+<a href="../../SYLLABUS.en.html#tools-and-model-access">Tools and model access</a>. Make the copy from
+the course checkout. If <code>week10-work</code> is left over from an earlier run, delete it first
+(<code>rm -r week10-work</code>): copying into an existing directory puts the fixture in
+<code>week10-work/fixture</code> and keeps the old <code>candidate.py</code>.</p>
 <pre><code class="language-sh">cp -r lectures/week-10/fixture week10-work
 cd week10-work
 </code></pre>
@@ -7235,9 +7237,11 @@ prediction before you run the command that answers it.</p>
 </tbody>
 </table>
 <p>The second session applies the same audit to one instance from your own project: see the
-<a href="activities.en.html">studio</a>. A6 is due this week and asks for this audit on a different,
-supplied instance; its rules and hand-in are on the
-<a href="../../practice/a6/README.en.html">assignment page</a>.</p>
+<a href="activities.en.html">studio</a>. A6 is due this week and asks for part of this audit on a
+different, supplied instance: a counterexample for its check, the complete denominator
+and the limits of the claim. It has no earned-pass, pass@k or judge step, and its
+instance has its own format, which <code>audit.py</code> does not read. Its rules and hand-in are on
+the <a href="../../practice/a6/README.en.html">assignment page</a>.</p>
 <h2 id="verification">Verification</h2>
 <p>Check your run against these observations. Each one can fail, and the failing case is
 named.</p>

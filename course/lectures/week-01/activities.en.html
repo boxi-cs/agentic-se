@@ -1105,6 +1105,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Verification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#from-the-studio-to-a1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From the studio to A1
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -6464,6 +6481,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Verification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#from-the-studio-to-a1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From the studio to A1
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -6522,8 +6556,8 @@ contract. <strong>Verify:</strong> run the untouched check first to expose the m
 then rerun it after the candidate changes. Keep both observations.</p>
 <h2 id="hands-on-exercise">Hands-on exercise</h2>
 <h3 id="prepare-a-fresh-draft-directory">Prepare a fresh draft directory</h3>
-<p>Run these ordinary commands from the course root. They create only public synthetic
-files; no installation or third-party sign-in is required by the task.</p>
+<p>Run these ordinary commands from the root of your course checkout. They create only
+public synthetic files; no installation or third-party sign-in is required by the task.</p>
 <pre><code class="language-sh">mkdir week01-studio
 cat &gt; week01-studio/status_label.py &lt;&lt;'PY'
 def status_label(raw):
@@ -6542,11 +6576,19 @@ python3 week01-studio/check_status.py
 </code></pre>
 <p>Expected baseline: a nonzero exit and an assertion identifying <code>" OK "</code> with
 expected <code>passed</code> and actual <code>unknown</code>. This is the forced failure to preserve in
- your agent session, rather than a requirement to cause unpredictable model failure.</p>
+your agent session, rather than a requirement to cause unpredictable model failure.</p>
+<p>Keep a copy of the two files as they are now, outside the directory the agent will
+work in:</p>
+<pre><code class="language-sh">mkdir week01-studio-before
+cp week01-studio/*.py week01-studio-before/
+</code></pre>
 <h3 id="capture-one-real-session">Capture one real session</h3>
 <p>Before launching the agent in <code>week01-studio</code>, write your prediction: first tool,
-what the failed check will return, what recovery you expect, and what ends the loop.
-Choose a dedicated directory or container without employer or cloud credentials.
+what the failed check will return, what recovery you expect, what ends the loop, and
+which request, tool call or stop condition you expect to be easy to misread (A1 asks
+for this last one). Start the agent in <code>week01-studio</code>, not in the root of the
+checkout. The checkout must already sit inside your dedicated course directory or
+container, which holds no employer or cloud credentials.
 Never put a key in a prompt, repository, screenshot or recording.</p>
 <p>Start the agent with its supplied seat or credit. Use its session export or visible
 transcript feature; check that you can save the record before beginning. Give it:</p>
@@ -6559,7 +6601,9 @@ then explain what you changed and what the result covers.</p>
 </blockquote>
 <p>Read any proposed command before approving execution. Keep the baseline failure
 inside the capture, including command, exit status and output. Export the session
-in its supported format to your private evidence directory. If export is unavailable,
+in its supported format to a private directory of your own. The full export stays
+there, outside <code>week01-studio</code> and outside what you hand in: A1 takes only the
+excerpt or redacted transcript your report cites. If export is unavailable,
 copy the visible messages in order into <code>session.txt</code>, retaining role labels and
 call/result identifiers when shown. Record agent name, version, date and task.
 Exclude credentials and private data from any excerpts you submit.</p>
@@ -6600,9 +6644,10 @@ Exclude credentials and private data from any excerpts you submit.</p>
 </tr>
 </tbody>
 </table>
-<p>At the midpoint of the session, ask for help if recording or the first check is
-blocked. Continue the <a href="#text-participation">text participation</a> exercise while
-access is restored; keep missing real-run evidence explicitly missing.</p>
+<p>Ask for help as soon as the seat, the recording or the first check is blocked. If it
+is still blocked at the midpoint of the session, switch to the
+<a href="#text-participation">text participation</a> exercise and keep the missing real-run
+evidence explicitly missing.</p>
 <p>Make one row per visible request or event:</p>
 <table>
 <thead>
@@ -6641,20 +6686,84 @@ that supports the final message. Count requests separately from tool calls.</p>
 only if it uses its supported course-session or course-trajectory format. Do not
 invent a header or fabricate hidden request fields to make another format fit.</p>
 <h2 id="verification">Verification</h2>
-<p>From the course root, verify the candidate in the actual studio directory:</p>
+<p>From the root of your course checkout, verify the candidate in the actual studio
+directory:</p>
 <pre><code class="language-sh">python3 week01-studio/check_status.py
 </code></pre>
-<p>Expected after repair: zero exit and <code>PASS: four status cases</code>. Confirm the check
-file is unchanged and the candidate only normalizes input before lookup. A passing
+<p>Expected after repair: zero exit and <code>PASS: four status cases</code>. A passing
 result covers these cases; it is not proof for all strings or callers.</p>
+<p>Then compare both files with the copies you kept before the agent started:</p>
+<pre><code class="language-sh">diff week01-studio-before/check_status.py week01-studio/check_status.py
+diff -u week01-studio-before/status_label.py week01-studio/status_label.py
+</code></pre>
+<p>Expected: the first prints nothing, so the check file is unchanged. The second shows
+what changed in the candidate, with removed lines marked <code>-</code> and added lines marked
+<code>+</code>; that output is your bounded diff. <code>diff</code> exits with status 1 when the files
+differ. Confirm from it that the candidate only normalizes input before lookup.</p>
 <p>For the separate live-loop exercise, use the completed draft controller:</p>
 <pre><code class="language-sh">python3 week01-loop/verify_loop.py
 </code></pre>
 <p>The original <code>lectures/week-02/fixture/loop.py</code> is an unfinished starter. Checking it
 would not test your repaired studio candidate or your copied controller.</p>
-<p>Keep the work, verification and brief explanation in A1. Include one AI-use note,
-label each behavior observed or inferred, and end with accept, narrow, re-check or
-stop plus supporting evidence. No unrelated session history is required.</p>
+<h3 id="from-the-studio-to-a1">From the studio to A1</h3>
+<p>A1 is one <code>report.json</code> and the files it cites, in a submission directory of your own
+outside the course checkout. These two lines, run from the root of your course
+checkout, make that directory beside the checkout and copy the starter into it:</p>
+<pre><code class="language-sh">mkdir ../week01-a1
+cp practice/a1/starter/report.json ../week01-a1/report.json
+</code></pre>
+<p>Put in <code>week01-a1</code>, as plain-text files, only what the report cites: your redacted
+session excerpt, the baseline failing output, the output of your own passing rerun
+and your prediction as first written. The check accepts only paths inside that
+directory. No unrelated session history is required. Leave <code>assignment</code> and
+<code>session_kind</code> as supplied and fill in the other fields:</p>
+<table>
+<thead>
+<tr>
+<th>Field in <code>report.json</code></th>
+<th>What goes in it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>agent</code></td>
+<td>The agent's name, version and visible configuration</td>
+</tr>
+<tr>
+<td><code>evidence</code></td>
+<td>One row per file: an <code>id</code>, its <code>path</code> relative to <code>week01-a1</code> (for example <code>session-excerpt.txt</code>) and, as <code>observation</code>, what the file shows</td>
+</tr>
+<tr>
+<td><code>behaviours</code></td>
+<td>One entry per Observed claim and one per Inference from your table: the claim as <code>behaviour</code>, a <code>label</code> of <code>observed</code> or <code>inferred</code>, and as <code>evidence</code> a list holding the ID of the excerpt that shows it</td>
+</tr>
+<tr>
+<td><code>forced_failure</code></td>
+<td>The baseline run: <code>intervention</code> is the padded case that was in <code>check_status.py</code> before the agent started, <code>evidence</code> a list holding the ID of the failing output, <code>recovery_or_stop</code> what the agent did next</td>
+</tr>
+<tr>
+<td><code>explanation</code></td>
+<td>Your short explanation, with who challenged a citation, the date and what you corrected; if nobody could, your self-review date</td>
+</tr>
+<tr>
+<td><code>ai_use_note</code></td>
+<td>Your one AI-use note, or its ID</td>
+</tr>
+<tr>
+<td><code>decision</code></td>
+<td><code>action</code> is exactly one of <code>accept</code>, <code>narrow</code>, <code>recheck</code>, <code>stop</code>; <code>because</code> is a list of evidence IDs; <code>next</code> names the next check</td>
+</tr>
+</tbody>
+</table>
+<p>Then run the public check from the root of your course checkout:</p>
+<pre><code class="language-sh">python3 practice/a1/check.py ../week01-a1
+</code></pre>
+<p>Until the record is complete, it prints one <code>RECHECK:</code> line for each thing that is
+missing and exits with status 1. When nothing is missing it prints
+<code>PASS: record is internally consistent; inspect the evidence yourself.</code> and exits
+with status 0. The check reads the shape of the record only. The
+<a href="../../practice/a1/README.en.html">A1 page</a> has the task, the criteria and an outline
+of the whole record; where it lists a field this table does not, follow the A1 page.</p>
 <h2 id="common-mistakes">Common mistakes</h2>
 <table>
 <thead>

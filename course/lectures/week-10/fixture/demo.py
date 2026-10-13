@@ -61,9 +61,8 @@ def gate(outcomes: list[str], *, expected_count: int) -> bool:
 
 def agreement(pairs: tuple[tuple[str, str], ...]) -> dict:
     """Report abstentions separately and kappa only for definite paired labels."""
-    # This illustration sets UNKNOWN pairs aside before computing kappa. The evaluator
-    # kit's calibrate.py does not: it keeps judge Unknowns in the denominator and the
-    # confusion matrix as disagreements. The workshop uses calibrate.py's rule.
+    # This illustration sets UNKNOWN pairs aside before computing kappa and reports how
+    # many there were.
     if any(left not in LABELS or right not in LABELS for left, right in pairs):
         raise ValueError("Invalid label")
     definite = [(left, right) for left, right in pairs if "UNKNOWN" not in (left, right)]

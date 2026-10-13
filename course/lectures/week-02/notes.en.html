@@ -6605,9 +6605,13 @@ missing, the plan is incomplete even when the generated code looks plausible.</p
 </table>
 <p><strong>Generate:</strong> for the synthetic export request, make an evidence table with two rows naming
 the export handler and its rejection test. Mark an unknown explicitly rather than guessing.
-<strong>Verify:</strong> open both files at your checkout revision;
-change “confirmed” to “cannot tell” when the source does not show the claim. A plan is
-more useful when a reader can disagree with one row and run one check.</p>
+<strong>Verify:</strong> the export request is invented, so there is no file to open yet: every
+“confirmed” in your table becomes “cannot tell”. In the studio the handler is the
+<code>export_result</code> function in <code>week02-studio/check_cases.py</code> and its rejection test is the
+<code>forbidden</code> case in the same file; check your two rows against that file then. In your own
+project, open the file each row names at the revision you are working on, and change
+“confirmed” to “cannot tell” when the source does not show the claim. A plan is more
+useful when a reader can disagree with one row and run one check.</p>
 <h3 id="a-specification-that-can-fail">A specification that can fail</h3>
 <p>Write acceptance cases as observable input and output. The following cases are deliberately
 small:</p>
@@ -6626,10 +6630,15 @@ Then no file is written and the command reports invalid row: id
 <p><strong>Generate:</strong> implement the smallest function that could satisfy the three cases.
 <strong>Verify:</strong> run the positive case and each negative case against a fresh temporary
   directory. A specification that only says “export works” cannot reveal a missing
-  refusal or a partial write.</p>
-<p>The project proposal due this week is the first version of this artifact. Keep its core
-scenario, boundary and three to five failure-capable acceptance cases together. Revise it
-when research shows that a case is not observable.</p>
+  refusal or a partial write. The studio's first checker runs the first two cases and
+  compares returned text only; observing “no file is written” and the row without <code>id</code>
+  is left for your own checker.</p>
+<p>The project proposal due this week asks for less than this. Its
+<a href="../../templates/project-proposal.en.html">form</a> asks for the core scenario, a scope boundary
+and your first observable acceptance case. The three to five cases you write in the studio
+go further: keep them with the proposal, because they are the first draft of the
+requirements table in the technical specification due in week 4. Revise a case when
+research shows that it is not observable.</p>
 <p><span id="context-is-a-bounded-working-record"></span></p>
 <h3 id="context-packets-and-compaction">Context packets and compaction</h3>
 <p>A context window is a working budget. Tool output, repeated reads and failed attempts
@@ -6644,10 +6653,22 @@ It reads the session file beside it, so run it from its own folder:</p>
 <p><code>full</code> keeps all 19 messages, reports <code>"check": "passed"</code> and exits 0. <code>auto</code> clears the
 older tool results, loses the line that says not to edit <code>view.py</code>, reports
 <code>"check": "failed"</code> and exits 1. No model is called in either run.</p>
-<p><strong>Generate:</strong> before shortening a history, write a handoff with the task, source of each
-constraint, current file state, last failed check and next action. <strong>Verify:</strong> compare each
-line with the recorded messages, then rerun the check on the current revision. A summary
-that says “tests passed” without the tested revision is not evidence.</p>
+<p><strong>Generate:</strong> before shortening a history, write a handoff with the task, the source of
+each constraint, the current file state, the last failed check, what is still unknown and
+the next action. <strong>Verify:</strong> compare each line with the recorded messages, then rerun the
+check on the current revision. A summary that says “tests passed” without the tested
+revision is not evidence.</p>
+<p>Try it on the session above. <code>--show</code> prints the recorded messages before the result. Save
+your handoff as <code>handoff.txt</code> at the top of the course checkout, then restart from it alone:</p>
+<pre><code class="language-sh">(cd lectures/week-03/fixture &amp;&amp; python compaction.py full --show)
+(cd lectures/week-03/fixture &amp;&amp; python compaction.py fresh ../../../handoff.txt)
+</code></pre>
+<p><code>fresh</code> gives the course-written policy the task and your handoff and nothing else. The
+policy is not a model: it looks for a line that names <code>view.py</code> and says not to change it,
+and for a line that mentions <code>strip</code> and a failure. The run reports <code>"check": "passed"</code>
+only when your handoff carries both; leave either out and the check fails. Keep the handoff
+within 600 bytes: the script does not run a longer file, and prints its size and the limit
+instead.</p>
 <p>When most entries are stale or contradictory, restart with a written handoff and reread
 the next files. Compacting is a choice about information, not a guarantee that the model
 will remember the right information.</p>
@@ -6670,7 +6691,10 @@ a contract, not decoration. A small example:</p>
 </code></pre>
 <p><strong>Generate:</strong> propose a call for <code>out/summary.csv</code> and one for <code>reports/summary.csv</code>.
 <strong>Verify:</strong> validate both against the schema and run the handler. The first should reach
-the handler; the second should produce a short, actionable error and no file effect.</p>
+the handler; the second should produce a short, actionable error and no file effect. The
+studio gives you a stub that runs both calls and a third with an unknown field. It stands in
+for a schema validator: it reads the required fields and the allowed names from the JSON
+and checks the path with a rule of its own.</p>
 <p>Use five design checks:</p>
 <ol>
 <li><strong>Name:</strong> a verb and object make the intended action selectable.</li>
@@ -6685,6 +6709,12 @@ the handler; the second should produce a short, actionable error and no file eff
 The protocol does not make a vague tool safe: the handler still enforces its boundary,
 and the controller still has to pass the result back to the model. Read the interface as
 a model reader would, then test the behavior with calls.</p>
+<p><a href="../../practice/a2/README.en.html">A2</a> applies these five checks to a real local server. You
+start from the starter that page links, run its protocol check, register the server with
+your coding agent and record three real trials: selection (the agent must pick the right
+tool), arguments (a valid and an invalid call) and recovery (an error the agent recovers
+from). The schema you tighten in the studio is practice for that work; it is not the A2
+hand-in.</p>
 <p><span id="product-comparison-the-permission-primitive"></span></p>
 <h3 id="reading-a-production-agents-instructions">Reading a production agent's instructions</h3>
 <p>The factsheet readings compare two pinned open-source files. Select one rule about plans,
@@ -6706,7 +6736,7 @@ inspection.</p>
 <li>Validate every acceptance case once on a fresh temporary directory, including its
    expected failure.</li>
 <li>Validate the revised schema with a valid call, an invalid call and an unknown field.</li>
-<li>Record the command, exit status, observed output and the decision to accept, shrink,
+<li>Record the command, exit status, observed output and the decision to accept, narrow,
    recheck or stop.</li>
 </ol>
 <h2 id="common-mistakes">Common mistakes</h2>
@@ -6723,8 +6753,8 @@ inspection.</p>
   the last write; preserve the failed result and tested revision.</li>
 <li><strong>Treating a protocol name as enforcement:</strong> identify the handler and runtime checks;
   mark anything else as unknown.</li>
-<li><strong>Compacting away the rule:</strong> keep the task, constraint source, current state, open
-  failure, paths and next action in the handoff.</li>
+<li><strong>Compacting away the rule:</strong> keep the task, constraint source, current file state,
+  last failed check, remaining unknown and next action in the handoff.</li>
 </ul>
 
 

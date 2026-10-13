@@ -6589,9 +6589,18 @@ count comes from the commands shown, which you can rerun.</p>
 on the tests: a green run is evidence only for the faults those tests could have noticed.</p>
 <h2 id="minimal-example">Minimal example</h2>
 <p>Run every command on this page from the course checkout, in the repository root, with
-plain <code>python</code>. The fixture uses only the standard library, calls no model and needs no
-key. When you use a coding agent on your own code this week, follow
+plain <code>python</code> in the course's Python environment (see the
+<a href="../../site/docs/week0/setup.en.html#lay-out-your-dedicated-directory">setup page</a>). The
+fixture uses only the standard library, calls no model and needs no key. When you use a
+coding agent on your own code this week, follow
 <a href="../../SYLLABUS.en.html#tools-and-model-access">Tools and model access</a>.</p>
+<p>The part on a weakened test runs <code>git diff</code> and <code>git status</code> on the course files, so the
+course checkout must be a Git working tree. Check before you start:
+<code>git status --short lectures/week-07</code> should print nothing. If Git answers "not a git
+repository", your copy came without Git history; make it a repository once, as the
+<a href="../../site/docs/week0/setup.en.html#lay-out-your-dedicated-directory">setup page</a> shows.
+Uncommitted changes of your own elsewhere in the checkout also show up in
+<code>git diff --stat</code>; commit them first.</p>
 <h3 id="the-contract-and-the-candidate">The contract and the candidate</h3>
 <p>A configuration field holds a level. The contract is written before any code or test:</p>
 <pre><code class="language-text">requires: text is a string
@@ -7005,8 +7014,8 @@ not close in the session become items in your task backlog.</p>
 <ol>
 <li>Run <code>survivors</code> and, before reading the output, write down which mutants
    <code>example_checks</code> should kill.</li>
-<li>Run <code>shrink</code> with <code>--seed 7</code> instead of <code>--seed 19</code>. The inputs first found differ.
-   Check whether the shrunk inputs do.</li>
+<li>Run <code>shrink</code> with <code>--seed 7</code> instead of <code>--seed 19</code>. The multi-digit input first found
+   differs, and the two lines swap order. Check whether the shrunk inputs differ too.</li>
 <li>Apply the patch, find the weakening in the diff without looking at this page, and
    reverse the patch.</li>
 </ol>

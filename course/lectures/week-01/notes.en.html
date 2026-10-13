@@ -6570,7 +6570,10 @@ ordinary and unknown-status checks as well. A plausible patch needs a completed
 check on the changed code.</p>
 <h3 id="build-the-agent-around-a-proposer">Build the agent around a proposer</h3>
 <p>Open <a href="../week-02/fixture/loop.py"><code>loop.py</code></a>. It supplies <code>checked</code>, <code>tool</code> and
-<code>last_check</code>; <code>run()</code> is deliberately unfinished. A model supplies proposals, while
+<code>last_check</code>; <code>run()</code> is deliberately unfinished. To type along, make your draft copy
+first (the two setup lines under
+<a href="#finish-and-check-the-live-loop">Finish and check the live loop</a>) and edit
+<code>week01-loop/loop.py</code>, not the original. A model supplies proposals, while
 the controller executes permitted calls and feeds observations into the next
 request. For the live build, a scripted proposer lets us inspect this behavior
 without making a model request.</p>
@@ -6603,7 +6606,8 @@ without making a model request.</p>
 <p>Despite its name, <code>bash</code> does not accept arbitrary shell commands. For example,
 <code>echo 4 &gt; result.txt</code> is refused. This restriction is in the tool's code; a prompt
 asking the model to be careful would not enforce it.</p>
-<p>The instructor builds <code>run()</code> from its public five-step contract:</p>
+<p>In class the instructor builds steps 1-3 of <code>run()</code> on screen and you type along in
+your copy; steps 4 and 5 are yours. The public five-step contract:</p>
 <ol>
 <li>Begin with a user message holding the task and an empty set of used call IDs.</li>
 <li>On each turn, send a copy of history to the proposer. Apply <code>checked()</code> and reject
@@ -6663,6 +6667,9 @@ may omit system messages or the wire request; record that limit.</p>
 <pre><code class="language-sh">python3 lectures/week-02/session/show_session.py \
   lectures/week-02/session/sample-session.jsonl --request 4
 </code></pre>
+<p>Change the number to read another request. Without <code>--request</code>, the same command
+prints a short summary of all ten requests; its first line says the record is a
+course-made sample, not a recording of a product.</p>
 <p>Identify a role/goal instruction, a tool argument rule, a stopping rule and a request
 for caution. Locate calls and the results matched by call ID. Request 4 proposes an
 edit; request 5 carries its failed result. Request 6 shows a retry and request 7
@@ -6671,20 +6678,27 @@ Finally locate the verification supporting the last response.</p>
 <p><strong>Observed:</strong> the record contains a particular call, result or instruction at a
 citable location. <strong>Inferred:</strong> you explain why it happened or what might happen next.
 An error message is observed; an explanation of the model's private reasoning is
-inferred. Use the questions in the existing <a href="../week-02/dissection.en.html#step-3-dissect">request dissection</a>
+inferred. Use the questions in the <a href="../week-02/dissection.en.html#step-3-dissect">request dissection</a>
 and <a href="../week-02/prompt-dissection.en.html#part-2-tools-and-schemas">prompt dissection</a>
-for this reading; this week's activity and due item are on this page.</p>
+for this reading. Both are optional Week 2 practice pages; you only borrow their
+questions. This week's work is the studio and A1.</p>
 <h2 id="hands-on-exercise">Hands-on exercise</h2>
 <h3 id="finish-and-check-the-live-loop">Finish and check the live loop</h3>
-<p>From the course root, make a fresh draft copy. The scripts import the existing
-model client for definitions, but these commands use only scripted practice.</p>
+<p>From the root of your course checkout (the folder that holds <code>lectures/</code> and
+<code>practice/</code>), make a fresh draft copy. <code>demo.py</code> imports a small model client from
+the same folder, but these commands run only scripted practice and make no model
+request. Run these two lines once:</p>
 <pre><code class="language-sh">mkdir week01-loop
 cp lectures/week-02/fixture/*.py week01-loop/
-python3 week01-loop/verify_loop.py
+</code></pre>
+<p>Do not run them again after you start editing: <code>cp</code> puts the unfinished starter back
+over your <code>loop.py</code> and <code>demo.py</code>.</p>
+<p>The check is one command, and it is the only one of the three that you rerun:</p>
+<pre><code class="language-sh">python3 week01-loop/verify_loop.py
 </code></pre>
 <p>Before implementing <code>run()</code>, expect the nonzero message <code>Write run() in loop.py
-first</code>. Edit only your copy's <code>run()</code> using the five steps above, then rerun that
-same command. With the controller complete, expect <code>Ran 15 tests</code> and <code>OK</code>. Until
+first</code>. Edit only your copy's <code>run()</code> using the five steps above, then run the check
+again. With the controller complete, expect <code>Ran 15 tests</code> and <code>OK</code>. Until
 then, the named failures tell you which behavior still needs work.</p>
 <p>At the class help checkpoint, trace one call/result pair on paper if the controller
 still fails. Then complete the missing behavior and rerun the checks before the
@@ -6713,9 +6727,10 @@ credentials. Seats or credit are provided by the course; students do not pay.</p
   denied calls have no effect, and every result matches its call ID.</li>
 <li><strong>Request:</strong> point to an instruction, a tool schema, a returned result and a stop
   in the record. If the capture omits one, state that it was not visible.</li>
-<li><strong>Studio:</strong> retain the baseline failure, the repaired check and a bounded diff.
-  A test on the untouched original fixture cannot verify your studio candidate.</li>
-<li><strong>Decision:</strong> end A1 with accept, narrow, re-check or stop and the specific evidence
+<li><strong>Studio:</strong> retain the baseline failure, the repaired check and a bounded diff
+  (the studio page shows the command). A test on the untouched original fixture
+  cannot verify your studio candidate.</li>
+<li><strong>Decision:</strong> end A1 with accept, narrow, recheck or stop and the specific evidence
   supporting it. Keep one AI-use note with the work and reuse its ID.</li>
 </ul>
 <p>The loop's turn budget guarantees a bound on requests. It does not prove progress,

@@ -6477,7 +6477,7 @@
 <h2 id="at-a-glance">At a glance</h2>
 <ul>
 <li><strong>Task:</strong> capture one real coding-agent session, force one safe failure, and label what you observed or inferred.</li>
-<li><strong>Week:</strong> 1</li>
+<li><strong>Week:</strong> <a href="../../lectures/week-01/README.en.html">1</a></li>
 <li><strong>Weight:</strong> 2.5 points</li>
 <li><strong>Due:</strong> Sunday 23:59 in the listed week</li>
 <li><strong>Hand in:</strong> one <code>report.json</code> and the session excerpt or redacted transcript it cites.</li>
@@ -6487,7 +6487,7 @@
 <h2 id="objectives">Objectives</h2>
 <p>Explain an agent's system instructions, tools, loop and stopping condition (LO1). Separate a line visible in the session from an explanation you infer from it.</p>
 <h2 id="prerequisites">Prerequisites</h2>
-<p>Follow the <a href="../../SYLLABUS.en.html">safety practices in syllabus §9</a>:</p>
+<p>Follow the <a href="../../SYLLABUS.en.html#tools-and-model-access">course safety practices</a>:</p>
 <ul>
 <li>Run the agent in a dedicated directory or container.</li>
 <li>Keep residency, employer and cloud credentials out of that environment.</li>
@@ -6507,8 +6507,8 @@ feedback was available, record your self-review date and finish the decision lin
 </ol>
 <p>Generation is the agent's proposed change; verification is your command output and file inspection. The supplied <code>check.py</code> checks the record shape only, so read every cited file yourself.</p>
 <h2 id="deliverables">Deliverables</h2>
-<p>Copy <code>starter/report.json</code> to <code>report.json</code>. Include the redacted session excerpt, the forced-failure output, and one AI-use note ID. Keep only task-relevant lines; remove keys, personal data and unrelated source.</p>
-<p>The report must include <code>assignment</code>, <code>session_kind: "real"</code>, an agent description, behaviour rows, a forced-failure record, evidence rows, an explanation and a decision. Run:</p>
+<p>Copy <code>starter/report.json</code> to <code>report.json</code> in a submission directory of your own outside the course checkout. Include the redacted session excerpt, the forced-failure output, and one AI-use note ID. Keep only task-relevant lines; remove keys, personal data and unrelated source.</p>
+<p>The report must include <code>assignment</code>, <code>session_kind: "real"</code>, an agent description, behaviour rows, a forced-failure record, evidence rows, an explanation and a decision. Run from the course checkout:</p>
 <pre><code class="language-bash">python practice/a1/check.py path/to/submission
 </code></pre>
 <h2 id="grading">Grading</h2>
@@ -6518,18 +6518,20 @@ feedback was available, record your self-review date and finish the decision lin
 <h2 id="estimated-time">Estimated time</h2>
 <p>Published after a timed pilot. Record predicted and actual time in the report; ask for help if the safety boundary or failure cannot be reproduced.</p>
 <h2 id="work-record-outline">Work record outline</h2>
-<pre><code class="language-text">A1 report
+<pre><code class="language-text">assignment: A1
 session_kind: real
 agent: TODO
 evidence: [{id: TODO, path: TODO, observation: TODO}]
 behaviours: [{behaviour: TODO, label: observed|inferred, evidence: [TODO]}]
 forced_failure: {intervention: TODO, evidence: [TODO], recovery_or_stop: TODO}
+prediction: TODO (written before you start)
 explanation: TODO
 ai_use_note: TODO
-decision: accept | narrow | recheck | stop
-because: evidence ID(s)
-next: TODO
+predicted_time: TODO
+actual_time: TODO
+decision: {action: accept | narrow | recheck | stop, because: [evidence ID(s)], next: TODO}
 </code></pre>
+<p>The outline lists the fields of <code>report.json</code> in plain text. <code>starter/report.json</code> holds them as JSON, except <code>prediction</code>, <code>predicted_time</code> and <code>actual_time</code>, which you add yourself. Evidence paths are relative to your submission directory. The check reads a field that still contains the word <code>TODO</code>, or text in angle brackets such as <code>&lt;name&gt;</code>, as unfilled.</p>
 
 
 

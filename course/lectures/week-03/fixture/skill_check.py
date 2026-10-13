@@ -1,8 +1,8 @@
-"""Check a SKILL.md and its trigger test as data; nothing in them is executed.
+r"""Check a SKILL.md and its trigger test as data; nothing in them is executed.
 
 Run from the course root (it reads files only):
 
-    uv run --locked python lectures/week-03/fixture/skill_check.py \
+    python lectures/week-03/fixture/skill_check.py \
         "$PROJECT_ROOT/A3-work/skills/my-workflow/SKILL.md" \
         "$PROJECT_ROOT/A3-work/trigger-test.yaml"
 

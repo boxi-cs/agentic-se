@@ -6388,11 +6388,11 @@
 graded answer key: cite the fixture, the request index or your own captured record.</p>
 <h2 id="the-minimal-loop">The minimal loop</h2>
 <p><strong>Q1.</strong> The proposer generates an assistant message containing tool calls. The
-controller checks the message and executes permitted calls; the tool returns the
+controller checks the message and passes each call to the tool; the tool returns the
 file text, <code>written</code>, <code>verified</code> or a refusal. A tool result is an observation, not
 the proposal that caused it.</p>
-<p><strong>Q2.</strong> <code>written</code> reports that the controller wrote bytes to the permitted path. It
-does not compare those bytes with the requirement. The fixed <code>bash</code> verification is
+<p><strong>Q2.</strong> <code>written</code> reports that the tool wrote the text it was given to the permitted
+path. It does not compare that text with the requirement. The fixed <code>bash</code> verification is
 the observation that checks the required <code>4\n</code> content.</p>
 <p><strong>Q3.</strong> The controller answers calls in their listed order and returns one tool
 message per call. Each message carries the corresponding <code>tool_call_id</code>, including
@@ -6423,15 +6423,15 @@ session did.</p>
 result or visible instruction. An inference explains why it happened or predicts a
 next action. A follow-up run of the same check, or a newly visible request field,
 can turn a bounded inference into an observation.</p>
-<p><strong>Q11.</strong> With no verification result, choose <strong>re-check</strong> (or <strong>narrow</strong> if a
-re-check is impossible). The evidence supports that a proposal or write occurred,
+<p><strong>Q11.</strong> With no verification result, choose <strong>recheck</strong> (or <strong>narrow</strong> if a
+recheck is impossible). The evidence supports that a proposal or write occurred,
 not that the required behavior is correct.</p>
 <p><strong>Q12.</strong> Preserve both sentences: “I predicted ___ before the check” and “After
 the check on revision <strong><em>, I observed </em></strong>.” This keeps the original prediction
 available while recording what the new evidence changed.</p>
 <h2 id="decision-line">Decision line</h2>
 <p><strong>Decision.</strong> Accept only the current revision and cases covered by a passing check;
-otherwise narrow the claim, re-check the current revision or stop. Name the command,
+otherwise narrow the claim, recheck the current revision or stop. Name the command,
 result and next check that support the selected decision.</p>
 <p><strong>Retrieval 1.</strong> A generated call is an assistant proposal with a call ID; a tool
 effect is the returned result carrying that same ID. Record both sides before

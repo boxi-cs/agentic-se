@@ -6606,10 +6606,11 @@ is attached to an event the repository controls: “before a commit, refuse stag
 files with an unused import.” The agent may omit the request. Git invokes the hook even
 when the agent forgets the request. A hook is therefore a narrow invariant, not a
 replacement for tests or review.</p>
-<p>The studio uses the course-written hook in <code>example/pre_commit.py</code>. It accepts a JSON event,
-checks protected paths and reports an unused Python import without importing or running the
-file. The studio wraps it as <code>.git/hooks/pre-commit</code>; the wrapper supplies the staged path
-list. It returns exit code 2 for a finding and exit code 0 for a clean list.</p>
+<p>The studio uses the course-written hook in
+<a href="example/pre_commit.py"><code>example/pre_commit.py</code></a>. It accepts a JSON event, checks protected
+paths and reports an unused Python import without importing or running the file. The studio
+wraps it as <code>.git/hooks/pre-commit</code>; the wrapper supplies the staged path list. It returns
+exit code 2 for a finding and exit code 0 for a clean list.</p>
 <p><strong>Generated proposal:</strong> add <code>import json</code> to <code>report.py</code>, stage it, and commit. The hook
 should stop the commit because <code>json</code> is unused. <strong>Verification:</strong> read the hook output,
 fix the import, stage again and commit; the second run should print <code>PASS</code> and exit 0.
@@ -6659,18 +6660,22 @@ issue, diff and test evidence in a fresh context can check the contract rather t
 the implementer's summary.</p>
 <h2 id="hands-on-exercise">Hands-on exercise</h2>
 <p>Follow the <a href="activities.en.html">studio</a>. You will write an instruction file for your own
-repository, install a hook that blocks one intentionally bad staged change, and retain one
-blocked and one passing commit record. Use ordinary <code>git</code> and <code>python</code>; do not put keys or
-employer data in the practice repository.</p>
-<p>For the second session, use a guest's workflow or complete the studio continuation. Bring
-the same instruction file and gate to your project's technical specification. Contribution
-1 and the technical specification are due this week; link the evidence you actually have.</p>
+repository, install a hook in a small practice repository so that it blocks one
+intentionally bad staged change, and retain one blocked and one passing commit record. Use
+ordinary <code>git</code> and <code>python</code>; do not put keys or employer data in the practice repository.</p>
+<p>The second session is a guest session or this studio; the studio page says which sections
+to do beforehand in a guest week. Contribution 1 and the project technical specification
+are due this week, on Sunday at 23:59: see the
+<a href="../../capstone/kit/open-source-contributions.en.html">contributions guide</a> and the
+<a href="../../site/docs/project.en.html">project page</a>. In the “Agent workflow and gates” section of
+the <a href="../../templates/project-specification.en.html">specification template</a>, name your
+instruction file and the gate you will keep, and link the evidence you actually have.</p>
 <h2 id="verification">Verification</h2>
 <p>The studio has two independent checks:</p>
 <ol>
-<li><code>python pre_commit.py</code> (through the Git wrapper) returns a nonzero exit for the bad
-   staged change and prints the finding; the saved <code>blocked.txt</code> records the command and
-   output.</li>
+<li>The bad staged change is stopped: <code>git commit</code> exits nonzero and prints the hook's
+   finding, and the saved <code>blocked.txt</code> records that output and the exit status. Git
+   reports 1 for a commit that a hook stopped; the hook's own exit code is 2.</li>
 <li>The corrected staged change commits with exit 0 and the saved <code>passed.txt</code> contains the
    <code>PASS</code> line. <code>git show --stat --oneline HEAD</code> confirms which files entered the commit.</li>
 </ol>
@@ -6684,6 +6689,9 @@ run happened when you used a course-written example.</p>
   correctly.</li>
 <li>A passing hook run proves only that this input satisfied this hook's narrow checks. Run
   the focused test and inspect the diff separately.</li>
+<li>This hook reads the file in your working directory at each staged path, not the staged
+  content, and <code>git commit --no-verify</code> skips it. A local hook stops a commit made by
+  mistake; it does not stop someone who chooses to skip it.</li>
 <li>A role hand-back is evidence only for the fields it names. Open every cited location and
   rerun the named check; mark an unsupported claim <strong>cannot tell</strong>.</li>
 </ul>

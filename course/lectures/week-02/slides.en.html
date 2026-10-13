@@ -6902,7 +6902,11 @@ And the result says refused: read-only root
  &quot;description&quot;:&quot;Write below out/; never writes reports/.&quot;,
  &quot;inputSchema&quot;:{&quot;type&quot;:&quot;object&quot;,
   &quot;additionalProperties&quot;:false,
-  &quot;required&quot;:[&quot;path&quot;,&quot;rows&quot;]}}
+  &quot;required&quot;:[&quot;path&quot;,&quot;rows&quot;],
+  &quot;properties&quot;:{
+   &quot;path&quot;:{&quot;type&quot;:&quot;string&quot;,
+    &quot;pattern&quot;:&quot;^out/[A-Za-z0-9_.-]+\\.csv$&quot;},
+   &quot;rows&quot;:{&quot;type&quot;:&quot;array&quot;}}}}
 </code></pre>
 <hr />
 <h2 id="five-contract-checks">Five contract checks</h2>
@@ -6934,7 +6938,7 @@ And the result says refused: read-only root
 <p>Ask: text, schema, code, runtime—or unknown?</p>
 <hr />
 <h2 id="studio-cases-first">Studio: cases first</h2>
-<p>Write three to five cases for your project proposal.</p>
+<p>Write three to five cases for your project's core scenario.</p>
 <p>Predict one failure before running it.</p>
 <hr />
 <h2 id="studio-tighten-one-schema">Studio: tighten one schema</h2>
@@ -6951,7 +6955,7 @@ And the result says refused: read-only root
 <hr />
 <h2 id="week-2-handoff">Week 2 handoff</h2>
 <p>Due: A2 and project proposal.</p>
-<p>Keep the acceptance cases, schema diff and evidence together.</p>
+<p>The studio files are practice. The A2 page and the proposal form say what to hand in.</p>
 <hr />
 <!-- _class: end -->
 <h1 id="questions">Questions</h1>

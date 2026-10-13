@@ -2196,10 +2196,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#one-task-two-repositories" class="md-nav__link">
+  <a href="#one-task-three-states-of-one-function" class="md-nav__link">
     <span class="md-ellipsis">
       
-        One task, two repositories
+        One task, three states of one function
       
     </span>
   </a>
@@ -6457,10 +6457,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#one-task-two-repositories" class="md-nav__link">
+  <a href="#one-task-three-states-of-one-function" class="md-nav__link">
     <span class="md-ellipsis">
       
-        One task, two repositories
+        One task, three states of one function
       
     </span>
   </a>
@@ -6616,14 +6616,14 @@
 </ul>
 <p>A repository is agent-ready when a fresh session can find the relevant code, learn the local contract, run a short check and report what it did not check. Readiness is a property of evidence at a named revision, not a feeling about how tidy the tree looks.</p>
 <h2 id="minimal-example">Minimal example</h2>
-<h3 id="one-task-two-repositories">One task, two repositories</h3>
-<p>The task is deliberately small: replace a chain of status conditionals with a lookup while preserving whitespace, case and the unknown fallback. The public fixture contains the same function in three states:</p>
+<h3 id="one-task-three-states-of-one-function">One task, three states of one function</h3>
+<p>The task is deliberately small: replace a chain of status conditionals with a lookup while keeping the whitespace and case normalization, both aliases for <code>passed</code> (<code>ok</code> and <code>pass</code>) and the <code>unknown</code> fallback. The public fixture contains the same function in three states:</p>
 <ul>
 <li><code>before.py</code> is the disordered starting point: the caller and contract are not written beside the function;</li>
 <li><code>rejected.py</code> is a tempting proposal that removes <code>strip()</code>;</li>
 <li><code>refactored.py</code> is a structure change that keeps the contract.</li>
 </ul>
-<p>The request is generated as text and inspected before it is copied into a candidate. The request is never executed as code. Verify the candidates from the root of your course checkout; the verifier reads the variant files that sit beside it, so it gives the same result from any directory:</p>
+<p>Generation here is a request and a proposal, both text. A request for this task could read: “Replace the conditionals in <code>status_label</code> with a dictionary lookup. Return the same label for every input. Reply with the function only and run nothing.” <code>rejected.py</code> and <code>refactored.py</code> are two course-written proposals of the kind such a request gets back; neither is a recorded model run. Read a proposal before anything runs it. Then verify from the root of your course checkout; the verifier reads the variant files that sit beside it, so it gives the same result from any directory:</p>
 <pre><code class="language-sh">python lectures/week-05/fixture/verify.py rejected
 python lectures/week-05/fixture/verify.py refactored
 </code></pre>
@@ -6634,12 +6634,13 @@ python lectures/week-05/fixture/verify.py refactored
 <pre><code class="language-text">{&quot;cases&quot;: 10, &quot;failures&quot;: [], &quot;if_statement_count&quot;: 0, &quot;passed&quot;: 10, &quot;scope&quot;: &quot;course synthetic fixture; public feedback, not a grade&quot;, &quot;variant&quot;: &quot;refactored&quot;}
 </code></pre>
 <p>The result establishes those ten cases only. It does not prove behavior for every string or prove that a caller accepts the change.</p>
+<p>To check a proposal from your own agent, read it first: the verifier imports the file, so every line in it runs. It should hold only the function <code>status_label</code> and its lookup table, with no imports. Save it as <code>candidate.py</code> beside <code>verify.py</code> and run <code>python lectures/week-05/fixture/verify.py candidate</code>; it meets the same ten cases. Without that file the command prints a traceback ending <code>ModuleNotFoundError: No module named 'candidate'</code> and exits with status 1: that is a check that did not run, not a failed case. Delete <code>candidate.py</code> when you have finished.</p>
 <p>Now run the same fixed cases against the starting point:</p>
 <pre><code class="language-sh">python lectures/week-05/fixture/verify.py before
 </code></pre>
 <pre><code class="language-text">{&quot;cases&quot;: 10, &quot;failures&quot;: [], &quot;if_statement_count&quot;: 3, &quot;passed&quot;: 10, &quot;scope&quot;: &quot;course synthetic fixture; public feedback, not a grade&quot;, &quot;variant&quot;: &quot;before&quot;}
 </code></pre>
-<p><code>before</code> and <code>refactored</code> both pass all ten cases; only <code>if_statement_count</code> differs (3 and 0). The cases cannot tell the two states apart, which is the point: behaviour is preserved, and what changed is how much a fresh session has to guess. In <code>before.py</code> a session must infer the contract from a chain of conditionals. In <code>refactored.py</code> the lookup table and the fallback are visible beside the change point. In a real project, a prepared repository would also name its entry point, contract and offline check in its context files; the agent still needs permission to read and edit, but the repository has removed avoidable guesses.</p>
+<p><code>before</code> and <code>refactored</code> both pass all ten cases; only <code>if_statement_count</code> differs (3 and 0). The cases cannot tell the two states apart, which is the point: behaviour is preserved, and what changed is how much a fresh session has to guess. In <code>before.py</code> a session must infer the contract from a chain of conditionals. In <code>refactored.py</code> the lookup table and the fallback are visible beside the change point. In a real project, a prepared repository would also name its entry point, contract and offline check in its instruction file; the agent still needs permission to read and edit, but the repository has removed avoidable guesses.</p>
 <h3 id="what-the-comparison-can-and-cannot-show">What the comparison can and cannot show</h3>
 <p>The fixture is one function, so it cannot show every kind of blocker. The rows below are illustrative: they are the kinds of observation you will record in the studio on a whole repository, not results of the commands above.</p>
 <table>
@@ -6662,7 +6663,7 @@ python lectures/week-05/fixture/verify.py refactored
 <td>Callers, permissions and unlisted inputs</td>
 </tr>
 <tr>
-<td>The disordered copy has three test commands, two of which fail</td>
+<td>A repository lists three test commands, two of which fail</td>
 <td>Documentation is a blocker for a fresh session</td>
 <td>Whether the implementation itself is correct</td>
 </tr>
@@ -6676,7 +6677,8 @@ python lectures/week-05/fixture/verify.py refactored
 <p>An agent may propose the score, but you choose it. For each dimension record the path or command, revision, observed result, the highest level whose anchors are all present, and one observation that would disprove the score.</p>
 <p><a id="is-this-repository-ready-for-an-agent"></a></p>
 <h2 id="four-observable-readiness-dimensions">Four observable readiness dimensions</h2>
-<p>Use levels 1–4. A level includes every lower-level anchor.</p>
+<p>Use levels 1–4, and give each dimension the highest level at which you can show every anchor at the named revision. Level 1 means the map, file, test or gate is absent. Level 2 means it exists but at least one level-3 anchor cannot be shown yet; name which one. Level 4 needs every level-3 anchor as well as its own.</p>
+<p><a href="../../practice/a5/README.en.html">A5</a>, due in Week 6, asks for this four-row score on your finished A4 repository, not on the repository you use in the studio. A5 prints its own, shorter anchor table; in A5, score from that table and use its wording. The lists below are the fuller version used in class.</p>
 <h3 id="structure">Structure</h3>
 <ul>
 <li><strong>1:</strong> no map from a behaviour to its change point;</li>
@@ -6687,18 +6689,18 @@ python lectures/week-05/fixture/verify.py refactored
 <p>Evidence is a behaviour, the files opened in order, a <code>path:line</code> change point and, at level 4, the failing result.</p>
 <h3 id="documentation">Documentation</h3>
 <ul>
-<li><strong>1:</strong> no context file or no runnable command;</li>
+<li><strong>1:</strong> no instruction file (A5's table calls it a context file) or no runnable command;</li>
 <li><strong>2:</strong> commands exist but one fails as written, or no invariant names the check that protects it;</li>
 <li><strong>3:</strong> every listed command runs at the scored revision and at least three invariants name their checks;</li>
 <li><strong>4:</strong> an automated check runs the documented commands and fails when one goes stale.</li>
 </ul>
-<p>Evidence is the context-file path, each command and exit code, and the invariant-to-check list.</p>
+<p>Evidence is the instruction-file path, each command and exit code, and the invariant-to-check list.</p>
 <h3 id="tests">Tests</h3>
 <ul>
 <li><strong>1:</strong> no runnable test exercises the change point;</li>
 <li><strong>2:</strong> one run passes but a hidden input, nondeterminism or a deliberate break goes undetected;</li>
 <li><strong>3:</strong> two repeatable runs agree, stay within the chosen budget, use no hidden input, and a deliberate break fails;</li>
-<li><strong>4:</strong> failure messages identify the broken behaviour and mutation evidence accounts for surviving gaps.</li>
+<li><strong>4:</strong> failure messages identify the broken behaviour and mutation evidence (small faults planted in the code on purpose, with a record of which ones the tests miss; Week 7 teaches it) accounts for surviving gaps.</li>
 </ul>
 <p>Evidence is the two summaries, the hidden-input search, and the deliberate-break result.</p>
 <h3 id="checks">Checks</h3>
@@ -6706,20 +6708,20 @@ python lectures/week-05/fixture/verify.py refactored
 <li><strong>1:</strong> no automatic gate;</li>
 <li><strong>2:</strong> a gate can be run by hand but is not required, or it ignores an unused import;</li>
 <li><strong>3:</strong> one offline command runs the required gates and exits non-zero for an unused import;</li>
-<li><strong>4:</strong> the gate runs before a commit is offered and a secret canary is stopped by the project scanner.</li>
+<li><strong>4:</strong> the gate runs before a commit is offered and a secret canary (a fake key such as <code>sk-EXAMPLE</code>, planted to see whether it is caught) is stopped by the project scanner.</li>
 </ul>
 <p>Evidence is the gate command, failing and passing output, and the point where the gate is required.</p>
 <h2 id="hands-on-exercise">Hands-on exercise</h2>
 <p>Use the <a href="activities.en.html">studio activity</a> on your own project or contribution target repository. First freeze a baseline at a named commit. Give the agent only the files needed to answer one bounded question; inspect its proposal as untrusted text. Then run the repository's documented check and inspect the diff. If a command needs a credential, network access or an unknown install, stop and revise the boundary rather than running it.</p>
 <p>Your first score is a four-row table with one evidence link and one disproving observation per row. Remove one blocker that is within your scope—for example, reconcile two test commands, add a map from a behaviour to its module, or make a check command deterministic. Run the same probe at the new commit and score again. A tidy directory without a changed observation does not raise a score.</p>
-<p>Time-box the work: 15 minutes to choose the task and baseline, 25 minutes to score, 25 minutes to remove one blocker, 15 minutes to rerun the probes, and 10 minutes to write the decision. Ask for help at the first failed command; reserve the final ten minutes for revision.</p>
+<p>The <a href="activities.en.html#90-minute-route">studio page</a> sets the clock for the 90 minutes. Ask for help at the first failed command.</p>
 <p><a id="supported-execution"></a></p>
 <h2 id="supported-execution">Supported execution</h2>
-<p>Run the fixture commands on this page directly. Before running a project's own check, follow <a href="../../SYLLABUS.en.html#tools-and-model-access">Tools and model access</a>.</p>
+<p>Run the fixture commands on this page directly, from the root of your course checkout with the Python environment from the <a href="../../site/docs/week0/setup.en.html">setup page</a> active. Before running a project's own check, follow <a href="../../SYLLABUS.en.html#tools-and-model-access">Tools and model access</a>.</p>
 <h2 id="verification">Verification</h2>
-<p>Run the public fixture before and after reading the candidate:</p>
-<pre><code class="language-sh">python lectures/week-05/fixture/verify.py rejected  # expected: exit 1, 7 of 10 passed
-python lectures/week-05/fixture/verify.py refactored  # expected: exit 0, 10 of 10 passed
+<p>Run the public fixture before and after reading the candidate. Expected: <code>rejected</code> exits with status 1 and reports 7 of 10 passed; <code>refactored</code> exits with status 0 and reports 10 of 10.</p>
+<pre><code class="language-sh">python lectures/week-05/fixture/verify.py rejected
+python lectures/week-05/fixture/verify.py refactored
 </code></pre>
 <p>For your repository, run the exact command it documents, record its exit code and inspect the changed-file list:</p>
 <pre><code class="language-sh">git status --short

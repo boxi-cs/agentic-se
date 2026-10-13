@@ -5265,6 +5265,61 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#deliverables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deliverables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Grading
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ai-use-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AI use rules
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#estimated-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estimated time
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#work-record-outline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Work record outline
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -6346,6 +6401,61 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#deliverables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deliverables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Grading
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ai-use-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AI use rules
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#estimated-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estimated time
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#work-record-outline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Work record outline
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -6367,7 +6477,7 @@
 <h2 id="at-a-glance">At a glance</h2>
 <ul>
 <li><strong>Task:</strong> improve the supplied small, course-made synthetic messy repository with instructions, a blocking hook, structure and checks.</li>
-<li><strong>Week:</strong> 5</li>
+<li><strong>Week:</strong> <a href="../../lectures/week-05/README.en.html">5</a>; hooks are taught in <a href="../../lectures/week-04/README.en.html">week 4</a></li>
 <li><strong>Weight:</strong> 2.5 points</li>
 <li><strong>Due:</strong> Sunday 23:59 in the listed week</li>
 <li><strong>Hand in:</strong> your revised repository, probe outputs, and <code>report.json</code>.</li>
@@ -6377,7 +6487,7 @@
 <h2 id="objectives">Objectives</h2>
 <p>Create repository guidance and gates that support safe agent changes (LO2, LO4).</p>
 <h2 id="prerequisites">Prerequisites</h2>
-<p>Follow the <a href="../../SYLLABUS.en.html">safety practices in syllabus §9</a>:</p>
+<p>Follow the <a href="../../SYLLABUS.en.html#tools-and-model-access">course safety practices</a>:</p>
 <ul>
 <li>Run the agent in a dedicated directory or container.</li>
 <li>Keep residency, employer and cloud credentials out of that environment.</li>
@@ -6385,41 +6495,36 @@
 <li>Run injection demonstrations offline against the local machine only.</li>
 </ul>
 <p>Use the mature coding-agent seat supplied for the course. Do not run an unknown generated command on a credential-bearing host.</p>
+<p>The probes need Git and pytest in the environment you prepared on the <a href="../../site/docs/week0/setup.en.html">setup page</a>. Check before you start: <code>python -m pytest --version</code> must print a version.</p>
 <h2 id="tasks">Tasks</h2>
-<ol>
-<li><strong>Inspect.</strong> Copy <a href="starter/"><code>starter/</code></a>, make the baseline commit described in its README, and map one behaviour to its files, tests and check command before asking for a change. The assigned bad commit adds <code>print("debug: leaked value")</code> to <code>app.py</code>; your hook must make that <code>git commit</code> exit non-zero.</li>
-<li>
-<p><strong>Generate.</strong> Ask the agent to propose an instruction file, a small pre-commit hook and a structural cleanup. Review every command before running it. Put the hook where Git and your reader can both find it:</p>
-<p>```bash
-mkdir -p .githooks</p>
-<h1 id="write-your-hook-to-githookspre-commit-then">write your hook to .githooks/pre-commit, then:</h1>
-<p>chmod +x .githooks/pre-commit
+<p><strong>1. Inspect.</strong> Copy <a href="starter/"><code>starter/</code></a> to a directory of your own outside the course checkout. That copy is your repository and your submission directory; run every command in tasks 1 to 5 inside it. Make the baseline commit described in its README, and map one behaviour to its files, tests and check command before asking for a change. The assigned bad commit adds <code>print("debug: leaked value")</code> to <code>app.py</code>; your hook must make that <code>git commit</code> exit non-zero.</p>
+<p><strong>2. Generate.</strong> Ask the agent to propose an instruction file, a small pre-commit hook and a structural cleanup. Review every command before running it. Put the hook where Git and your reader can both find it: create the directory with <code>mkdir -p .githooks</code>, write your hook to <code>.githooks/pre-commit</code>, then run:</p>
+<pre><code class="language-bash">chmod +x .githooks/pre-commit
 git config core.hooksPath .githooks
 git add .githooks/pre-commit
-git commit -m "Add pre-commit hook"
-```</p>
-<p><code>core.hooksPath</code> is a local setting and is not part of a commit, so name that command in your instruction file. The hook file itself must be committed; a hook left in <code>.git/hooks/</code> is not handed in.
-3. <strong>Verify the gate.</strong> Run the three probes as commands and keep each command, exit code and output:</p>
-<p>```bash</p>
-<h1 id="bad-commit-must-exit-non-zero">bad commit: must exit non-zero</h1>
-<p>echo 'print("debug: leaked value")' &gt;&gt; app.py
+git commit -m &quot;Add pre-commit hook&quot;
+</code></pre>
+<p><code>core.hooksPath</code> is a local setting and is not part of a commit, so name that command in your instruction file. The hook file itself must be committed; a hook left in <code>.git/hooks/</code> is not handed in.</p>
+<p>Commit your structural cleanup too before you go on to task 3: the bad probe there ends by resetting <code>app.py</code> to the last commit, which discards any uncommitted change to that file.</p>
+<p><strong>3. Verify the gate.</strong> Run the three probes as commands and keep each command, exit code and output. The bad commit must exit non-zero; the last line resets <code>app.py</code> to the last commit:</p>
+<pre><code class="language-bash">echo 'print(&quot;debug: leaked value&quot;)' &gt;&gt; app.py
 git add app.py
-git commit -m "bad probe"; echo "exit=$?"
-git restore --staged app.py &amp;&amp; git restore app.py</p>
-<h1 id="good-commit-a-documentation-or-behaviour-preserving-change-must-exit-zero">good commit: a documentation or behaviour-preserving change; must exit zero</h1>
-<p>printf '\nReviewed.\n' &gt;&gt; NOTES.md
+git commit -m &quot;bad probe&quot;; echo &quot;exit=$?&quot;
+git restore --staged app.py &amp;&amp; git restore app.py
+</code></pre>
+<p>The good commit is a documentation or behaviour-preserving change and must exit zero:</p>
+<pre><code class="language-bash">printf '\nReviewed.\n' &gt;&gt; NOTES.md
 git add NOTES.md
-git commit -m "good probe"; echo "exit=$?"</p>
-<h1 id="regression-must-pass">regression: must pass</h1>
-<p>python -m pytest -q; echo "exit=$?"
-```
-4. <strong>Check structure.</strong> Confirm the instruction file names the same commands and invariants that the repository actually contains.
-5. <strong>Revise.</strong> Fix one stale instruction or weak check and repeat all three probes. Write the decision line.</p>
-</li>
-</ol>
+git commit -m &quot;good probe&quot;; echo &quot;exit=$?&quot;
+</code></pre>
+<p>The regression run must pass:</p>
+<pre><code class="language-bash">python -m pytest -q; echo &quot;exit=$?&quot;
+</code></pre>
+<p><strong>4. Check structure.</strong> Confirm the instruction file names the same commands and invariants that the repository actually contains.</p>
+<p><strong>5. Revise.</strong> Fix one stale instruction or weak check, commit that fix with the instruction file, the map and your cleanup, and then repeat all three probes, so that the revision you record as <code>after_revision</code> contains them (print it with <code>git rev-parse HEAD</code>); A5 later scores this repository at a named commit. Write the decision line.</p>
 <p>Generation is the agent's proposed repository change; verification is the three probes and direct file inspection.</p>
 <h2 id="deliverables">Deliverables</h2>
-<p>Include the revised repository, the behaviour-to-code map, probe outputs and <code>report.json</code>. Name before and after revisions. Run:</p>
+<p>Include the revised repository, the behaviour-to-code map, probe outputs and <code>report.json</code>. Name before and after revisions. Run from the course checkout:</p>
 <pre><code class="language-bash">python practice/a4/check.py path/to/submission
 </code></pre>
 <h2 id="grading">Grading</h2>
@@ -6429,7 +6534,8 @@ git commit -m "good probe"; echo "exit=$?"</p>
 <h2 id="estimated-time">Estimated time</h2>
 <p>Published after a timed pilot. Record predicted and actual time; ask for support when a hook or check behaves differently from its description.</p>
 <h2 id="work-record-outline">Work record outline</h2>
-<pre><code class="language-text">A4 report
+<pre><code class="language-text">assignment: A4
+evidence: [{id: TODO, path: TODO, observation: TODO}]
 before_revision: TODO
 after_revision: TODO
 instruction_path: TODO
@@ -6437,10 +6543,11 @@ structure_evidence: [TODO]
 probes: [{case: bad_commit|good_commit|regression, command: TODO, exit_code: TODO, evidence: [TODO]}]
 explanation: TODO
 ai_use_note: TODO
-decision: accept | narrow | recheck | stop
-because: evidence ID(s)
-next: TODO
+predicted_time: TODO
+actual_time: TODO
+decision: {action: accept | narrow | recheck | stop, because: [evidence ID(s)], next: TODO}
 </code></pre>
+<p>The outline lists the fields of <code>report.json</code> in plain text. <code>starter/report.json</code> holds them as JSON, except <code>predicted_time</code> and <code>actual_time</code>, which you add yourself. Evidence paths are relative to your submission directory. The check reads a field that still contains the word <code>TODO</code>, or text in angle brackets such as <code>&lt;name&gt;</code>, as unfilled.</p>
 
 
 

@@ -6368,50 +6368,60 @@
 <a href="../notes.en.html#the-continuing-dashboard-case">incident replay</a>. Every record, unit, log line
 and agent summary is synthetic. None of the scripts calls a model, opens a network connection
 or writes a file, and each uses only the Python standard library. Read each one as text
-before running it. Run the commands from the course checkout; if your system has no <code>python</code>
-command, type <code>python3</code>.</p>
+before running it. Run the commands from the course checkout.</p>
 <h2 id="files">Files</h2>
 <ul>
-<li><a href="org_check.py">org_check.py</a> checks one JSON record with one of four commands and ends
-  with a <code>result:</code> line.</li>
+<li>
+<p><a href="org_check.py">org_check.py</a> checks one JSON record with one of four commands and ends
+  with a <code>result:</code> line.</p>
+<ul>
 <li><code>portal</code> replays each call through the grants: a call is allowed when a grant for its
-    tool names its repository, or every repository with <code>*</code>. It then lists what each grant
-    can reach and marks the repositories the task does not need. It exits 1 when any grant
-    reaches beyond the task.</li>
+  tool names its repository, or every repository with <code>*</code>. It then lists what each
+  grant can reach and marks the repositories the task does not need. It exits 1 when
+  any grant reaches beyond the task.</li>
 <li><code>gateway</code> replays each run through the policy: a request is refused before it is sent
-    when it would exceed the request cap, when the tokens already used plus its own
-    reservation would exceed the token cap, or when its route is not listed; when the
-    provider is unavailable, the policy's fallback must answer. It also searches every line
-    logged on the agent's side (<code>sandbox_log</code> in the file) for the key. It exits 1 when a
-    recorded decision differs from the policy or the key appears.</li>
+  when it would exceed the request cap, when the tokens already used plus its own
+  reservation would exceed the token cap, or when its route is not listed; when the
+  provider is unavailable, the policy's fallback must answer. It also searches every
+  line logged on the agent's side (<code>sandbox_log</code> in the file) for the key. It exits 1
+  when a recorded decision differs from the policy or the key appears.</li>
 <li><code>cost</code> adds the units of every run, including failed, retried and rejected ones, and
-    every review minute, then divides each total by the number of accepted changes. It
-    prints one run's total beside the result. It exits 1 only when no change was accepted.</li>
+  every review minute, then divides each total by the number of accepted changes. It
+  prints one run's total beside the result. It exits 1 only when no change was
+  accepted.</li>
 <li><code>route</code> supports a chosen route only when its evaluator results are for the route's
-    current revision and it fails no case that the current route passes. It exits 1 when any
-    choice is not supported.</li>
+  current revision and it fails no case that the current route passes. It exits 1 when
+  any choice is not supported.</li>
 </ul>
-<p>A command exits 2 when its file is missing, is not JSON, lacks a field or holds a value of
-  the wrong kind.
-- <a href="org-portal.json">org-portal.json</a>, <a href="org-gateway.json">org-gateway.json</a>,
+<p>A command exits 2 when its file is missing, is not JSON, lacks a field or holds a value
+of the wrong kind.</p>
+</li>
+<li>
+<p><a href="org-portal.json">org-portal.json</a>, <a href="org-gateway.json">org-gateway.json</a>,
   <a href="org-changes.json">org-changes.json</a> and <a href="org-routes.json">org-routes.json</a> hold the
   records: a portal's grants and one agent session, a gateway policy and six runs, the runs
   and review minutes behind four changes, and a routing policy with its evaluator results.
   Each holds an <code>agent_summary</code> that stands in for an agent's report; no model wrote it. The
-  route names are placeholders and the only key is the placeholder <code>sk-EXAMPLE</code>.
-- <a href="budget_ledger.py">budget_ledger.py</a> replays a per-run ledger through the small <code>Budget</code>
+  route names are placeholders and the only key is the placeholder <code>sk-EXAMPLE</code>.</p>
+</li>
+<li>
+<p><a href="budget_ledger.py">budget_ledger.py</a> replays a per-run ledger through the small <code>Budget</code>
   class at the top of the file: reserve a worst case before sending, settle to the actual
   cost after the reply, and keep the whole reservation when a reply is lost. Its units are
   course-made numbers, not prices. Change the numbers with <code>--cap</code>, <code>--reserve</code>, <code>--actual</code>
-  and <code>--lost-reply N</code>.
-- <a href="check_rca.py">check_rca.py</a> reads <a href="request_log.jsonl">request_log.jsonl</a>, forty request
+  and <code>--lost-reply N</code>.</p>
+</li>
+<li>
+<p><a href="check_rca.py">check_rca.py</a> reads <a href="request_log.jsonl">request_log.jsonl</a>, forty request
   records, and <a href="agent_rca.json">agent_rca.json</a>, a course-authored stand-in for an agent's
   draft root-cause analysis that no model wrote. For each five-minute window it prints the
   request count, the number and share of 5xx responses and the 95th-percentile duration by
   nearest rank; <code>--path</code> limits that summary to paths with one prefix. Then it prints every
   log line each claim cites. It never decides whether a claim is confirmed, refuted or cannot
-  tell.
-- <a href="retry_replay.py">retry_replay.py</a> plays the four replay rows from the notes against an
+  tell.</p>
+</li>
+<li>
+<p><a href="retry_replay.py">retry_replay.py</a> plays the four replay rows from the notes against an
   in-memory SQLite database with one of three handlers: <code>unprotected</code>, <code>check-then-insert</code>
   (look the key up, then insert it if absent) and <code>repaired</code>. Row 2 forces the race: its two
   requests run in two threads, and each handler pauses just before its first write, so both
@@ -6420,6 +6430,8 @@ command, type <code>python3</code>.</p>
   repaired handler an operation key is unique within its pipeline, the whole batch is one
   statement so a conflicting row saves nothing, and the dashboard shows the job of a build's
   greatest attempt.</p>
+</li>
+</ul>
 <h2 id="expected-distinction">Expected distinction</h2>
 <p><code>portal</code> on the supplied file exits 1: every call but the deploy is allowed, and grant G2
 reaches three repositories the task does not need, one of which the session read. With G2
@@ -6457,8 +6469,10 @@ copy about 20 times and read the last line of each run:</p>
 </code></pre>
 <p>Record how many runs printed <code>3 of 4</code>. How often the race appears depends on the machine and
 on thread timing; any single run may print <code>4 of 4</code> and exit 0, so one pass proves nothing.
-Explain which line of the handler lets the duplicate through when it does appear, then
-delete <code>week11-replay</code>.</p>
+If none of your 20 runs prints <code>3 of 4</code>, that does not show your edit is wrong: it is twenty
+green runs for a repair that is still broken. Run it more times if you want to see the
+duplicate. Explain which line of the handler lets the duplicate through when it does appear,
+then delete <code>week11-replay</code>.</p>
 
 
 

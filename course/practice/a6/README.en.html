@@ -6477,7 +6477,7 @@
 <h2 id="at-a-glance">At a glance</h2>
 <ul>
 <li><strong>Task:</strong> inspect one evaluation instance and scorer, then state exactly what its result supports and does not support.</li>
-<li><strong>Week:</strong> 10</li>
+<li><strong>Week:</strong> <a href="../../lectures/week-10/README.en.html">10</a></li>
 <li><strong>Weight:</strong> 2.5 points</li>
 <li><strong>Due:</strong> Sunday 23:59 in the listed week</li>
 <li><strong>Hand in:</strong> an audit record, recomputed counts and <code>report.json</code>.</li>
@@ -6487,7 +6487,7 @@
 <h2 id="objectives">Objectives</h2>
 <p>Check whether an evaluation can fail, whether its denominator is complete and how far a small result generalizes (LO6).</p>
 <h2 id="prerequisites">Prerequisites</h2>
-<p>Follow the <a href="../../SYLLABUS.en.html">safety practices in syllabus §9</a>:</p>
+<p>Follow the <a href="../../SYLLABUS.en.html#tools-and-model-access">course safety practices</a>:</p>
 <ul>
 <li>Run the agent in a dedicated directory or container.</li>
 <li>Keep residency, employer and cloud credentials out of that environment.</li>
@@ -6499,13 +6499,13 @@
 <ol>
 <li><strong>Predict.</strong> Identify one check you expect to be weak and one outcome likely to be missing.</li>
 <li><strong>Generate.</strong> Ask an agent to propose an audit plan. Keep it as claims, not truth.</li>
-<li><strong>Audit the instance.</strong> Open <code>starter/instance.json</code>, including its prompt, inputs, checks and four declared attempts. Run a safe counterexample showing a check can fail or a wrong answer can pass.</li>
-<li><strong>Audit the scorer.</strong> Run <code>python starter/run_scorer.py starter/instance.json</code>, then recompute the result with success, failure, timeout and missing rows visible. Compare the reported rate with a denominator that includes every declared attempt and record any difference you find.</li>
+<li><strong>Audit the instance.</strong> Copy <a href="starter/"><code>starter/</code></a> to a submission directory of your own outside the course checkout and work in that copy; <code>instance.json</code>, <code>scorer.py</code> and <code>report.json</code> stay in it. Open <code>instance.json</code>, including its prompt, inputs, checks and four declared attempts. Run a safe counterexample showing a check can fail or a wrong answer can pass.</li>
+<li><strong>Audit the scorer.</strong> In your copy, run <code>python run_scorer.py instance.json</code>, then recompute the result with success, failure, timeout and missing rows visible. Compare the reported rate with a denominator that includes every declared attempt and record any difference you find.</li>
 <li><strong>Claim limits.</strong> Write one supported claim and at least three unsupported claims, such as a ranking, unseen-task generalization or stable rate from one attempt. Revise after feedback from a peer or the teaching team during the assignment week; record who gave it and the date, or your self-review date if no feedback was available. Finish the decision line.</li>
 </ol>
 <p>Generation is a proposed audit; verification is the counterexample and recomputation. Never copy a reference answer or treat a course fixture as an industry result.</p>
 <h2 id="deliverables">Deliverables</h2>
-<p>Include the instance and scorer paths, audit output, counts and <code>report.json</code>. Counts must include <code>declared</code>, <code>success</code>, <code>failure</code>, <code>timeout</code> and <code>missing</code>. Run:</p>
+<p>Include the instance and scorer paths, audit output, counts and <code>report.json</code>. Counts must include <code>declared</code>, <code>success</code>, <code>failure</code>, <code>timeout</code> and <code>missing</code>. Run from the course checkout:</p>
 <pre><code class="language-bash">python practice/a6/check.py path/to/submission
 </code></pre>
 <h2 id="grading">Grading</h2>
@@ -6515,19 +6515,22 @@
 <h2 id="estimated-time">Estimated time</h2>
 <p>Published after a timed pilot. Record predicted and actual time, including recomputation and revision.</p>
 <h2 id="work-record-outline">Work record outline</h2>
-<pre><code class="language-text">A6 report
+<pre><code class="language-text">assignment: A6
+evidence: [{id: TODO, path: TODO, observation: TODO}]
 instance: TODO
 scorer_path: TODO
 supported_claim: TODO
 audit_evidence: [TODO]
 counts: {declared: TODO, success: TODO, failure: TODO, timeout: TODO, missing: TODO}
 unsupported_claims: [TODO, TODO, TODO]
+prediction: TODO (written before you start)
 explanation: TODO
 ai_use_note: TODO
-decision: accept | narrow | recheck | stop
-because: evidence ID(s)
-next: TODO
+predicted_time: TODO
+actual_time: TODO
+decision: {action: accept | narrow | recheck | stop, because: [evidence ID(s)], next: TODO}
 </code></pre>
+<p>The outline lists the fields of <code>report.json</code> in plain text. <code>starter/report.json</code> holds them as JSON, except <code>prediction</code>, <code>predicted_time</code> and <code>actual_time</code>, which you add yourself. Evidence paths are relative to your submission directory. The check reads a field that still contains the word <code>TODO</code>, or text in angle brackets such as <code>&lt;name&gt;</code>, as unfilled.</p>
 
 
 

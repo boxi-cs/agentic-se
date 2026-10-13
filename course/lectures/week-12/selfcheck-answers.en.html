@@ -6579,9 +6579,10 @@ run ends in <code>released</code>, and the first step is to read the failed case
 the different digest both show. The change itself is the same, so the second pass says
 only that it agrees with the seven cases that are left. An acceptance can rest on the first
 record alone, because that is the evidence someone agreed to. Before deciding, ask who
-changed the cases, which two went and why, and run the change against the original nine.
-If the two removed cases are the ones the change fails, the second run is evidence about
-the cases file, not about the change.</p>
+changed the cases, which two went and why, and whether the first record's cases digest is
+the one that was frozen. The second pass is evidence that the cases file changed. If the
+seven left are among the original nine, it adds nothing about the change, which had already
+passed all nine.</p>
 <h2 id="q4">Q4</h2>
 <p>The green gate supports one sentence: the change agrees with the contract on the frozen
 cases. "No other behaviour changes" is a claim about every input, and the gate tested only

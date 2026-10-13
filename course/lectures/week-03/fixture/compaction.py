@@ -1,11 +1,11 @@
-"""Week 3 compaction comparison: the same next step from four versions of one history.
+"""Compaction comparison for the Week 2 notes: the same next step from four versions of a history.
 
 Course-synthesised. `long-session.json` is a session the course team wrote by hand in
-the Week 2 message format: an agent repairing the dashboard's status label has read five
-files, tried one fix and seen it fail. No model wrote it. This script builds the context
-the next request would carry, in one of four ways:
+the message format of the Week 1 loop: an agent repairing the dashboard's status label
+has read five files, tried one fix and seen it fail. No model wrote it. This script
+builds the context the next request would carry, in one of four ways:
 
-- `full`: every message, as your Week 2 loop sends it;
+- `full`: every message, as your Week 1 loop sends it;
 - `auto`: the supplied mechanical compaction. It keeps the task, every assistant message
   and the newest call/result group, and clears every older tool result longer than 80
   bytes to a one-line stub. It writes no summary;

@@ -6549,7 +6549,11 @@ it to the task's repository and keep one denied call as its test.</p>
 <p>The third request is refused. After two replies 1200 tokens are used; the third reservation
 would make 1200 + 900 = 2100, which is more than 2000. At that moment 800 tokens are unspent.
 It is refused because the gateway reserves the worst case before sending: the actual use is
-unknown until the reply arrives, and a cap checked only afterwards would already be passed.</p>
+unknown until the reply arrives, and a cap checked only afterwards would already be passed.
+To check it with the fixture, work in hundreds, because the ledger takes whole numbers up to
+1000: <code>python lectures/week-11/fixture/budget_ledger.py --cap 20 --reserve 9 --actual 6</code>
+ends with
+<code>request 3: refused before sending (Request exceeds the remaining budget.) spent 12 of 20</code>.</p>
 <h2 id="q3">Q3</h2>
 <p>Four requests are sent and the fifth is refused. Each reply settles at 2 units, so four
 replies leave 8 units spent; the fifth reservation would make 8 + 5 = 13, more than 12, so it
@@ -6574,6 +6578,10 @@ passes now fails. Even then the result says nothing about inputs outside the 50 
 <p>Refuted. The claim says the errors rose; the log shows 2 in 50 before and 1 in 50 after.
 Refuting it leaves the server errors in both windows unexplained, and it does not show that
 imports are healthy. Record those errors as a separate observation to follow up.</p>
+<p>If you wrote cannot tell because the counts are small: cannot tell is for a claim that no
+field in the log could show either way. Here time, path and status show a window without the
+rise the claim asserts. Small counts are a reason not to conclude that the change reduced
+errors, which nobody claimed.</p>
 <h2 id="q8">Q8</h2>
 <p>Cannot tell. No field in the request log records a query or an index, so the log can neither
 confirm nor refute the claim; slow lines show only that the page was slow. A check that
@@ -6597,9 +6605,10 @@ results table, record why each is absent, and either run them or report the rate
 instances with the missing ones shown as not run. A pass rate over 10 is not a result for a
 manifest of 12.</p>
 <p><strong>Retrieval 2.</strong> The text is data. A tool result carries no authority, whatever it says;
-whether a command runs is decided by the task, the instruction file and the permission
-check, and by the person who owns the session. Record the text as an injection attempt and
-do not act on it.</p>
+whether a command runs is decided by a check of the proposed action against what the user
+authorised for the task, before any effect. An instruction file can ask the agent to ignore
+such text, but the agent may skip a request, so it is not that check. Record the text as an
+injection attempt and do not act on it.</p>
 <p><strong>Transfer.</strong> A useful answer names a condition outside the tested path, for example a
 repeat after a restart or three deliveries at once, gives the input and the expected stored
 state, and says which decision moves: a failure on that input changes accept to narrow or

@@ -4836,6 +4836,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#how-to-work-on-an-assignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to work on an assignment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#safety" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6268,6 +6279,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#how-to-work-on-an-assignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to work on an assignment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#safety" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6297,53 +6319,60 @@
 
 <h1 id="assignments-a1a6">Assignments A1–A6</h1>
 <p>These six small assignments are the practical line through the first ten teaching weeks. Each is worth 2.5 points under the <a href="../SYLLABUS.en.html">syllabus</a>. Submit the artifact, verification evidence and a short explanation. End every report with <code>decision: accept | narrow | recheck | stop</code>, <code>because:</code> evidence IDs and <code>next:</code>.</p>
+<h2 id="how-to-work-on-an-assignment">How to work on an assignment</h2>
+<ol>
+<li>Copy the assignment's <code>starter/</code> folder to a directory of your own outside the course checkout. That copy is your submission directory.</li>
+<li>Fill in its <code>report.json</code>. The decision line is the <code>decision</code> object with the fields <code>action</code>, <code>because</code> (evidence IDs) and <code>next</code>. Every evidence row names a file inside the submission directory.</li>
+<li>Write your AI-use note once with the <a href="../templates/disclosure.en.html">AI-use note template</a>: the tool, the purpose and what you verified yourself. Put the note, or its ID when you reuse an earlier one, in <code>ai_use_note</code>.</li>
+<li>Run the check in the table below from the course checkout, with <code>path/to/submission</code> replaced by your submission directory.</li>
+</ol>
 <h2 id="safety">Safety</h2>
-<p>Follow the <a href="../SYLLABUS.en.html">safety practices in syllabus §9</a>: run the agent in a dedicated directory or container; keep residency, employer and cloud credentials out of it; keep keys out of repositories, prompts, screenshots and logs; and run injection demonstrations offline against the local machine only. Use the mature coding-agent seat supplied for the course and do not run unknown generated commands on a credential-bearing host.</p>
+<p>Follow the <a href="../SYLLABUS.en.html#tools-and-model-access">course safety practices</a>: run the agent in a dedicated directory or container; keep residency, employer and cloud credentials out of it; keep keys out of repositories, prompts, screenshots and logs; and run injection demonstrations offline against the local machine only. Use the mature coding-agent seat supplied for the course and do not run unknown generated commands on a credential-bearing host.</p>
 <table>
 <thead>
 <tr>
 <th>Assignment</th>
 <th style="text-align: right;">Week</th>
 <th>Capability</th>
-<th>Start</th>
+<th>Check your record</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><a href="a1/README.en.html">A1: Read a coding-agent session</a></td>
-<td style="text-align: right;">1</td>
+<td style="text-align: right;"><a href="../lectures/week-01/README.en.html">1</a></td>
 <td>Capture a real session and a forced failure</td>
-<td><code>python practice/a1/check.py &lt;submission&gt;</code></td>
+<td><code>python practice/a1/check.py path/to/submission</code></td>
 </tr>
 <tr>
 <td><a href="a2/README.en.html">A2: Build a small MCP tool server</a></td>
-<td style="text-align: right;">2</td>
+<td style="text-align: right;"><a href="../lectures/week-02/README.en.html">2</a></td>
 <td>Tool selection, arguments and recovery</td>
-<td><code>python practice/a2/check.py &lt;submission&gt;</code></td>
+<td><code>python practice/a2/check.py path/to/submission</code></td>
 </tr>
 <tr>
 <td><a href="a3/README.en.html">A3: Turn a manual workflow into a skill</a></td>
-<td style="text-align: right;">3</td>
+<td style="text-align: right;"><a href="../lectures/week-03/README.en.html">3</a></td>
 <td>Trigger and near-miss testing</td>
-<td><code>python practice/a3/check.py &lt;submission&gt;</code></td>
+<td><code>python practice/a3/check.py path/to/submission</code></td>
 </tr>
 <tr>
 <td><a href="a4/README.en.html">A4: Make a messy repository agent-ready</a></td>
-<td style="text-align: right;">5</td>
+<td style="text-align: right;"><a href="../lectures/week-05/README.en.html">5</a></td>
 <td>Instructions, hook and checks</td>
-<td><code>python practice/a4/check.py &lt;submission&gt;</code></td>
+<td><code>python practice/a4/check.py path/to/submission</code></td>
 </tr>
 <tr>
 <td><a href="a5/README.en.html">A5: Score agent readiness from observations</a></td>
-<td style="text-align: right;">6</td>
+<td style="text-align: right;"><a href="../lectures/week-06/README.en.html">6</a></td>
 <td>Anchored evidence and change conditions</td>
-<td><code>python practice/a5/check.py &lt;submission&gt;</code></td>
+<td><code>python practice/a5/check.py path/to/submission</code></td>
 </tr>
 <tr>
 <td><a href="a6/README.en.html">A6: Audit an evaluation instance and scorer</a></td>
-<td style="text-align: right;">10</td>
+<td style="text-align: right;"><a href="../lectures/week-10/README.en.html">10</a></td>
 <td>Denominators, counterexamples and limits</td>
-<td><code>python practice/a6/check.py &lt;submission&gt;</code></td>
+<td><code>python practice/a6/check.py path/to/submission</code></td>
 </tr>
 </tbody>
 </table>

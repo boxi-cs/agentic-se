@@ -6576,15 +6576,15 @@ before running the viewer, write down your answers:</p>
 </ol>
 <p>Keep these answers unchanged. You compare them with the record in step 4.</p>
 <h2 id="step-2-read-the-record-request-by-request">Step 2: read the record request by request</h2>
-<p>Run the viewer from the course root. It uses only Python's standard library, reads the file
-and prints text. It never runs anything found in the record and never uses the network.</p>
-<pre><code class="language-sh">python3 lectures/week-02/session/show_session.py lectures/week-02/session/sample-session.jsonl
+<p>Run the viewer from the course checkout. It uses only Python's standard library, reads the
+file and prints text. It never runs anything found in the record and never uses the network.</p>
+<pre><code class="language-sh">python lectures/week-02/session/show_session.py lectures/week-02/session/sample-session.jsonl
 </code></pre>
 <p>The summary prints one block per request: whether the instructions and tools were sent again,
 which messages are new since the previous request, which earlier messages changed, and what
 came back. To see everything one request sent and received, including the full instructions,
 every tool schema and every message, name the request:</p>
-<pre><code class="language-sh">python3 lectures/week-02/session/show_session.py lectures/week-02/session/sample-session.jsonl --request 4
+<pre><code class="language-sh">python lectures/week-02/session/show_session.py lectures/week-02/session/sample-session.jsonl --request 4
 </code></pre>
 <p>Expected: the summary starts with a <code>Session:</code> line naming the source and ends with an
 <code>End of record</code> block. A file the viewer cannot read as a session record gives one
@@ -6620,7 +6620,8 @@ the record (give the request number and message index, for example <code>request
 <strong>[inferred]</strong> when you are reasoning from what you read without having seen it happen.
 Both kinds are acceptable. A wrong label is the mistake to avoid.</p>
 <p><strong>A. The instructions.</strong> Open the instructions in request 1. Sort each sentence into the four
-groups from the notes: role or goal, tool contract, stopping or escalation rule, request for
+groups the <a href="../week-01/notes.en.html#read-a-real-agents-instructions-and-your-visible-request">Week 1 notes</a>
+ask you to find: role or goal, tool contract, stopping or escalation rule, request for
 caution. Pick one sentence from each group and say which failure it guards against. Then say
 what, if anything, enforces it: a tool schema, the tool's own checks, a sandbox, an approval
 step, or nothing. Where does the description of the environment (working directory, date)

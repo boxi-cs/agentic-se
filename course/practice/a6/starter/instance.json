@@ -1,0 +1,18 @@
+{
+  "id": "synthetic-label-01",
+  "prompt": "Return the expected label for each local input.",
+  "inputs": [
+    {"id": "i1", "text": "a", "expected": "red"},
+    {"id": "i2", "text": "b", "expected": "blue"}
+  ],
+  "checks": [
+    {"name": "exact_label", "kind": "exact", "field": "output", "description": "The recorded output equals the expected label."},
+    {"name": "non_empty", "kind": "presence", "field": "output", "description": "A completed attempt has a non-empty output."}
+  ],
+  "declared_attempts": [
+    {"id": "run-1", "input_id": "i1", "output": "red", "outcome": "success"},
+    {"id": "run-2", "input_id": "i2", "output": "green", "outcome": "failure"},
+    {"id": "run-3", "input_id": "i1", "output": null, "outcome": "timeout"},
+    {"id": "run-4", "input_id": "i2", "output": null, "outcome": "missing"}
+  ]
+}

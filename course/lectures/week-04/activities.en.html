@@ -6406,9 +6406,13 @@
 
 
 <h1 id="week-4-studio">Week 4 studio</h1>
-<p>This 90-minute studio is individual work with a written alternative. Use a disposable
-copy of your project repository. Do not place credentials, employer data or private
-material in it. The commands below use only ordinary <code>git</code> and <code>python</code>.</p>
+<p>This 90-minute studio is individual work. Use a disposable copy of your project
+repository. Do not place credentials, employer data or private material in it. The
+commands below use only ordinary <code>git</code> and <code>python</code>. Section 3 has a written alternative
+for a student with no agent at hand.</p>
+<p>In a guest week, do sections 1 and 2 before the session and bring <code>AGENTS.md</code>,
+<code>instruction-review.md</code>, <code>blocked.txt</code>, <code>passed.txt</code> and <code>hook-record.md</code>; sections 3 and
+4 follow the talk.</p>
 <h2 id="studio-sequence">Studio sequence</h2>
 <table>
 <thead>
@@ -6432,7 +6436,7 @@ material in it. The commands below use only ordinary <code>git</code> and <code>
 <tr>
 <td>30–55</td>
 <td>Install the hook and make it block a bad commit</td>
-<td><code>blocked.txt</code> and the nonzero exit</td>
+<td><code>blocked.txt</code> with the finding and the nonzero exit status</td>
 </tr>
 <tr>
 <td>55–70</td>
@@ -6454,7 +6458,7 @@ material in it. The commands below use only ordinary <code>git</code> and <code>
 <p>Keyboard-only editing and a text record provide the same outputs. A partner may read your
 rule, but each student makes the decision and keeps their own records.</p>
 <h2 id="1-write-the-instruction-file">1. Write the instruction file</h2>
-<p>From the root of a disposable checkout, create <code>AGENTS.md</code>:</p>
+<p>From the root of the disposable project copy, create <code>AGENTS.md</code>:</p>
 <pre><code class="language-sh">cat &gt; AGENTS.md &lt;&lt;'__INSTRUCTIONS__'
 # Repository instructions
 
@@ -6464,18 +6468,20 @@ rule, but each student makes the decision and keeps their own records.</p>
 - Stop: do not change lockfiles or files outside this checkout for this task.
 __INSTRUCTIONS__
 </code></pre>
-<p>Replace the paths and command with ones that exist in your repository. Under the file,
-write a four-row table in <code>instruction-review.md</code>: each rule, the failure it prevents,
-and the evidence a reviewer could inspect. Mark any rule that is only a request; an
-instruction file alone cannot enforce it.</p>
+<p>Replace the paths and command with ones that exist in your repository or, if the project
+has no code yet, ones your specification plans. Under the file, write a four-row table in
+<code>instruction-review.md</code>: each rule, the failure it prevents, and the evidence a reviewer
+could inspect. Mark any rule that is only a request; an instruction file alone cannot
+enforce it.</p>
 <h2 id="2-install-a-small-hook-gate">2. Install a small hook gate</h2>
-<p>First, from this course checkout, copy the course-written hook to a temporary path. Keep
-the same shell open while you work in your disposable project checkout:</p>
+<p>First, from the root of the course checkout, copy the course-written hook to a temporary
+path. Keep the same shell open while you work in the disposable project copy:</p>
 <pre><code class="language-sh">HOOK_SOURCE=&quot;$(mktemp)&quot;
 cp lectures/week-04/example/pre_commit.py &quot;$HOOK_SOURCE&quot;
 </code></pre>
-<p>From the root of a disposable project checkout, make a directory if the project has no
-<code>src/</code>:</p>
+<p>From the root of the disposable project copy, make a small practice repository for the
+two commits. It is a separate repository inside the copy, so the hook you install here
+does not run on your project's own commits:</p>
 <pre><code class="language-sh">mkdir -p week04-studio-hook/src
 cp &quot;$HOOK_SOURCE&quot; week04-studio-hook/pre_commit.py
 cd week04-studio-hook
@@ -6503,19 +6509,22 @@ chmod +x .git/hooks/pre-commit
 </code></pre>
 <p>The copied hook is course-written teaching code. Read it before using it. It checks staged
 paths and returns 2 for a protected path or an unused import; it does not execute the
-staged file.</p>
+staged file. Compare its <code>PROTECTED</code> set with the Stop rule you wrote: the set names only
+<code>Dockerfile</code>, <code>pyproject.toml</code> and <code>uv.lock</code> at the repository root.</p>
 <p>Create the intentionally bad change and capture the failed attempt:</p>
 <pre><code class="language-sh">printf 'import json\n\nvalue = 1\n' &gt; src/report.py
 git add src/report.py
-status=0
-git commit -m &quot;practice: blocked import&quot; &gt; blocked.txt 2&gt;&amp;1 || status=$?
+rc=0
+git commit -m &quot;practice: blocked import&quot; &gt; blocked.txt 2&gt;&amp;1 || rc=$?
+echo &quot;exit status: $rc&quot; &gt;&gt; blocked.txt
 cat blocked.txt
-echo &quot;exit status: $status&quot;
-[ &quot;$status&quot; -ne 0 ]
+[ &quot;$rc&quot; -ne 0 ] &amp;&amp; grep -F &quot;unused import 'json'&quot; blocked.txt
 </code></pre>
-<p>The command must leave the commit uncreated and <code>blocked.txt</code> must contain the hook's
-finding. If it commits, stop and inspect the wrapper before proceeding; do not rewrite the
-record to make it look blocked.</p>
+<p>The command must leave the commit uncreated, and <code>blocked.txt</code> must contain the hook's
+finding and <code>exit status: 1</code>. Git reports 1 for a commit that a hook stopped; the hook's
+own exit code is 2. If it commits, or the record shows an error in place of the finding,
+stop and inspect the wrapper before proceeding; do not rewrite the record to make it look
+blocked.</p>
 <p>Now fix the violation and capture the passing run:</p>
 <pre><code class="language-sh">printf 'value = 1\n' &gt; src/report.py
 git add src/report.py
@@ -6527,6 +6536,21 @@ git show --stat --oneline HEAD
 <p>Keep <code>blocked.txt</code>, <code>passed.txt</code>, and the commit hash in <code>hook-record.md</code>. Explain that
 the hook proves this staged-path check ran; it does not prove the Python behavior is
 correct. Run the repository's focused test separately when one exists.</p>
+<p>These two records come from the practice repository, and its hook sits in <code>.git/hooks/</code>,
+which Git does not commit. Your project needs a gate of its own by the alpha in week 7.
+Choose one rule in your <code>AGENTS.md</code> that a commit can break and keep the hook in a
+committed directory such as <code>.githooks/</code>. To start from this section's two files, put
+<code>pre_commit.py</code> at the root of the project and save the wrapper as <code>.githooks/pre-commit</code>,
+executable as before. In the wrapper, change <code>parents[2]</code> to <code>parents[1]</code>: it now sits one
+directory below the root, not two. Unchanged, it looks for <code>pre_commit.py</code> above the
+project, and every commit stops with an import error in place of a finding. Then run
+<code>git config core.hooksPath .githooks</code> in the project and record one blocked and one
+passing commit there in the same way. Change <code>pre_commit.py</code> to fit your project before
+you rely on it: as written it stops every commit that touches <code>pyproject.toml</code>, <code>uv.lock</code>
+or <code>Dockerfile</code> at the repository root, that deletes a <code>.py</code> file, that stages a <code>.py</code>
+file under a directory whose name starts with a dot, or that stages nothing, such as an
+amend that only rewords the message. The dot rule is why <code>pre_commit.py</code> stays at the
+root: a commit that adds it under <code>.githooks/</code> is refused.</p>
 <h2 id="3-give-a-subagent-a-role">3. Give a subagent a role</h2>
 <p>Write <code>role-contract.md</code> with exactly one role. This is a prompt and review exercise; you
 may use your coding agent directly, but do not give it credentials or an unrestricted
@@ -6538,12 +6562,29 @@ Forbidden: edits, network, dependency installation, commits.
 Hand-back: research.md with file/function references, the test command and two open questions.
 Stop condition: stop if the parser is generated or the named test is absent.
 </code></pre>
+<p>Run the role where there is code to read. If your project copy already has a function with
+a test, replace the task and the named test with yours, as you did in section 1. If it has
+no code yet, run the role in <code>week04-studio-hook</code>: ask for the function in <code>pre_commit.py</code>
+that decides whether a path is protected, and for its callers, and name this read-only
+check, which prints a finding, exits 2 and changes no file:</p>
+<pre><code class="language-sh">python pre_commit.py '{&quot;event&quot;:&quot;before_commit&quot;,&quot;paths&quot;:[&quot;pyproject.toml&quot;]}'
+</code></pre>
 <p>Ask for the hand-back using that role contract. Open every cited file and run the named
 read-only check yourself. In <code>role-review.md</code>, mark each claim <strong>confirmed</strong>, <strong>refuted</strong>
 or <strong>cannot tell</strong>, with the location or output that supports the mark. If you continue to
 an implementer role, pass only <code>role-contract.md</code>, <code>research.md</code> and the named files; record
 its diff and test output separately. A role name without an allowlist and hand-back is not
 a boundary.</p>
+<p><strong>Written alternative.</strong> With no agent at hand, check this course-written hand-back about
+<code>pre_commit.py</code> in <code>week04-studio-hook</code> in place of an agent's. A person wrote it: say so
+in <code>role-review.md</code> and do not record it as a model run.</p>
+<pre><code class="language-text">research.md (course-written for teaching; a person wrote it, not an agent)
+
+1. run() in pre_commit.py reports a staged pyproject.toml as protected and exits 2.
+   Check: python pre_commit.py '{&quot;event&quot;:&quot;before_commit&quot;,&quot;paths&quot;:[&quot;pyproject.toml&quot;]}'; echo $?
+2. unused_imports() in pre_commit.py imports the staged file to find unused names.
+3. The gate makes the commit safe.
+</code></pre>
 <h2 id="4-decision-line">4. Decision line</h2>
 <p>End <code>studio-record.md</code> with one line:</p>
 <pre><code class="language-text">Decision: accept | narrow | recheck | stop — evidence: blocked.txt, passed.txt, and role-review.md

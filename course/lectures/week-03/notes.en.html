@@ -6527,7 +6527,7 @@ runs. The examples on this page are course-authored records, not model observati
 one run without an agent:</p>
 <pre><code class="language-sh">git status --short
 git diff --check
-uv run --locked pytest -q
+python -m pytest -q
 </code></pre>
 <p>The first command tells you whether unrelated edits are present, the second catches
 whitespace errors, and the last command is the project's check. Record the revision with
@@ -6548,7 +6548,7 @@ description: Run the repository's release checks and report evidence when a chan
 - If unrelated files are modified, stop and report them before testing.
 - If a check fails, keep its output and do not call the change ready.
 ## Verification
-Run `git diff --check` and `uv run --locked pytest -q`; include the revision and output.
+Run `git diff --check` and `python -m pytest -q`; include the revision and output.
 </code></pre>
 <p>The description is the selection surface. The format uses progressive disclosure: metadata
 is available before activation, while the body is loaded after selection and bundled
@@ -6560,8 +6560,14 @@ from the output alone?</p>
 <h3 id="test-selection-including-a-near-miss">Test selection, including a near miss</h3>
 <p>The course kit contains three complete examples: <a href="../../capstone/kit/skills/research-codebase/">research-codebase</a>,
 <a href="../../capstone/kit/skills/plan-change/">plan-change</a> and <a href="../../capstone/kit/skills/review-diff/">review-diff</a>.
-Read only each <code>SKILL.md</code> description first. For <code>research-codebase</code>, predict this table
-before looking at its trigger record:</p>
+Read only each <code>SKILL.md</code> description first. For <code>research-codebase</code>, predict before you
+look at its trigger record. From the course checkout, print the description and the four
+requests without their recorded values, and write trigger or quiet for each before reading
+on:</p>
+<pre><code class="language-sh">grep '^description:' capstone/kit/skills/research-codebase/SKILL.md
+grep 'prompt:' capstone/kit/skills/research-codebase/trigger-test.yaml
+</code></pre>
+<p>Here is one worked prediction to compare with yours, with the requests shortened:</p>
 <table>
 <thead>
 <tr>
@@ -6593,17 +6599,28 @@ before looking at its trigger record:</p>
 </tr>
 </tbody>
 </table>
-<p>Now open <code>trigger-test.yaml</code> and compare <code>predicted</code> with <code>observed</code>. The checker
-verifies the record's shape and that it contains at least three positive prompts and one
-negative prompt; it cannot observe a model's hidden selection. Keep a mismatch instead
-of rewriting history, describe the description change under <code>revision</code>, and recheck only
-the mismatched prompts.</p>
+<p>Now open <code>trigger-test.yaml</code>. Each row has <code>should_trigger</code> (the intended boundary),
+<code>predicted</code> (written before the run) and <code>observed</code>. Compare your prediction with
+<code>observed</code>. When <code>observed</code> differs from <code>should_trigger</code>, keep the row instead of
+rewriting history, describe the description change under <code>revision</code>, and recheck only
+those prompts. A wrong prediction on a row where the boundary held stays in its row and
+needs no <code>revision</code>.</p>
+<p>Then run the checker on the kit example, from the course checkout:</p>
+<pre><code class="language-sh">python lectures/week-03/fixture/skill_check.py \
+  capstone/kit/skills/research-codebase/SKILL.md \
+  capstone/kit/skills/research-codebase/trigger-test.yaml
+</code></pre>
+<p>The last line is <code>Structure checked.</code> The checker needs the PyYAML package, which the
+course environment from the <a href="../../site/docs/week0/setup.en.html">setup page</a> includes;
+without it the command stops at <code>ModuleNotFoundError: No module named 'yaml'</code>. The
+checker verifies the record's shape and that it contains at least three positive prompts
+and one negative prompt; it cannot observe a model's hidden selection.</p>
 <p>Run the same check for the other two kit examples. Their trigger records are synthetic
 course examples, so label them as such in your notes. A passing structure check is not
 evidence that a particular agent selected the skill.</p>
 <h3 id="evidence-from-a-cli-run">Evidence from a CLI run</h3>
 <p>A command-line session is evidence only when another reader can identify what happened.
-Save these fields for the run that uses your skill:</p>
+Save these fields for each run that uses your skill:</p>
 <table>
 <thead>
 <tr>
@@ -6634,12 +6651,12 @@ Save these fields for the run that uses your skill:</p>
 </tr>
 <tr>
 <td>Boundary</td>
-<td>files changed, or <code>git diff --name-only</code> if none</td>
+<td><code>git status --short</code> after the run: files edited and files created</td>
 </tr>
 </tbody>
 </table>
-<p>Keep the transcript in a scratch directory outside the repository's product files, then
-copy only the short evidence summary needed for A3. Never put a key in a prompt,
+<p>Keep each exact request and its CLI output in <code>A3-work/agent-run.txt</code>, apart from the
+repository's product files; A3 cites that file as evidence. Never put a key in a prompt,
 screenshot, transcript, or repository. Follow the <a href="../../SYLLABUS.en.html#tools-and-model-access">course safety practices</a>
 when you run an agent.</p>
 <h2 id="hands-on-exercise">Hands-on exercise</h2>
@@ -6651,43 +6668,60 @@ compare predictions.</p>
 <ol>
 <li><strong>Hand run (15 minutes).</strong> Write the workflow as shell commands. Run it once by hand,
    save the output, and mark each line as input, decision, action, or check.</li>
-<li><strong>Write (20 minutes).</strong> Create <code>A3-work/skills/&lt;your-name&gt;/SKILL.md</code> with the same
-   three sections as the example. The description must say what the skill does and when
-   it applies. Keep the body below 500 lines.</li>
+<li><strong>Write (20 minutes).</strong> Create <code>A3-work/skills/&lt;skill-name&gt;/SKILL.md</code> with the same
+   three sections as the example. The directory name must equal the front-matter <code>name</code>;
+   the studio page uses <code>my-workflow</code>. The description must say what the skill does and
+   when it applies. Keep the body below 500 lines.</li>
 <li><strong>Predict (10 minutes).</strong> Add three requests that should trigger and one near miss to
    <code>A3-work/trigger-test.yaml</code>. Fill <code>predicted</code> before you run the agent. Use a neutral
    <code>observer_detail</code> such as the CLI name and date; do not invent a classmate or teacher.</li>
-<li><strong>Run and observe (15 minutes).</strong> Use your provided coding-agent CLI once on the fixed
-   revision. Preserve the exact request and the CLI output. Keep <code>observed</code> as <code>true</code> or
-   <code>false</code>, based only on the selection evidence the CLI actually reports. If selection is
-   not shown, write <code>selection: not shown</code> in <code>A3-work/agent-run.txt</code> and explain the basis
-   for each boolean in <code>observer_detail</code>; do not put that phrase in the YAML boolean field.</li>
+<li><strong>Run and observe (15 minutes).</strong> First make the skill visible to your agent, as step 4
+   of the <a href="activities.en.html">studio page</a> describes. Then send the four requests to your
+   provided coding-agent CLI one at a time, each in a new session, all on the same fixed
+   revision. Keep each exact request and its output in <code>A3-work/agent-run.txt</code> under the
+   prompt's <code>id</code>. Keep <code>observed</code> as <code>true</code> or <code>false</code>, based only on the selection
+   evidence the CLI actually reports. If selection is not shown, write
+   <code>selection: not shown</code> in <code>A3-work/agent-run.txt</code> and explain the basis for each boolean
+   in <code>observer_detail</code>; do not put that phrase in the YAML boolean field. Keep the
+   <code>observer_detail</code> value in double quotes and at most 200 characters: an unquoted colon
+   followed by a space, as in <code>selection: not shown</code>, is not valid YAML there, and the
+   checker then stops with a Python error instead of a <code>FAIL</code> line.</li>
 <li><strong>Check (10 minutes).</strong> Run the structure checker, compare prediction with observation,
    and record one correction or a justified “no change.” The decision line at the end of
-   A3 must say <strong>accept, narrow, recheck, or stop</strong>, followed by the evidence ID that
-   supports it.</li>
+   <a href="../../practice/a3/README.en.html">A3</a> must say <strong>accept, narrow, recheck, or stop</strong>,
+   followed by the evidence ID that supports it: the <code>id</code> of an <code>evidence</code> entry in A3's
+   <code>report.json</code>. The <a href="activities.en.html#a3-handoff">studio page</a> shows where each studio
+   file goes in that record.</li>
 </ol>
 <h2 id="verification">Verification</h2>
-<p>Run the checker from the course checkout, with paths that point to the files in your project.
-Run the Git commands from your project root. These commands are offline and use only the
-repository tools:</p>
+<p>Run the checker from the course checkout, with paths that point to the files in your
+project; the <code>git -C</code> lines read your project from any directory. These commands are
+offline: they read files and call no model. Replace <code>release-check</code> with your skill's
+directory name. First create the directory:</p>
 <pre><code class="language-sh">PROJECT_ROOT=/path/to/your/project
 mkdir -p &quot;$PROJECT_ROOT/A3-work/skills/release-check&quot;
-# Write A3-work/skills/release-check/SKILL.md and A3-work/trigger-test.yaml now.
-uv run --locked python lectures/week-03/fixture/skill_check.py \
+</code></pre>
+<p>Write <code>A3-work/skills/release-check/SKILL.md</code> and <code>A3-work/trigger-test.yaml</code> in your
+project, then run the check in the same terminal:</p>
+<pre><code class="language-sh">python lectures/week-03/fixture/skill_check.py \
   &quot;$PROJECT_ROOT/A3-work/skills/release-check/SKILL.md&quot; \
   &quot;$PROJECT_ROOT/A3-work/trigger-test.yaml&quot;
 
 git -C &quot;$PROJECT_ROOT&quot; rev-parse HEAD
 git -C &quot;$PROJECT_ROOT&quot; diff --check
 git -C &quot;$PROJECT_ROOT&quot; diff --name-only
+git -C &quot;$PROJECT_ROOT&quot; status --short
 </code></pre>
-<p>The checker must print <code>Structure checked.</code> and no structural problems. Then inspect the
+<p>The checker must print <code>Structure checked.</code> and no <code>FAIL</code> line. It also prints an
+<code>Advisory</code> block listing the words each prompt shares with your description; that block is
+information, not a problem, and does not change the exit status. Then inspect the
 trigger table yourself: there are at least three <code>should_trigger: true</code> prompts and one
 near miss, and <code>observed</code> records what the CLI showed. A successful checker run does not
 prove that the agent selected the skill. A failed checker run is useful evidence: fix the
 smallest structural problem, rerun the same command, and keep both outcomes in your A3
 record.</p>
+<p><code>git diff</code> reads only tracked files; new files, including everything under <code>A3-work/</code> that
+you have not committed, appear only in <code>git status --short</code>.</p>
 <h2 id="common-mistakes">Common mistakes</h2>
 <ul>
 <li><strong>Starting with a description instead of a hand run.</strong> Re-run the workflow manually and

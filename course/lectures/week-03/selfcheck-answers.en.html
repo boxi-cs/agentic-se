@@ -6433,9 +6433,9 @@
 expectation before the run, and boolean <code>observed</code> records the selection evidence the CLI
 showed. If the CLI omits selection, the transcript says <code>selection: not shown</code>; the YAML
 field remains boolean and <code>observer_detail</code> explains the basis.</p>
-<p><strong>Retrieval 2.</strong> Run <code>uv run --locked python lectures/week-03/fixture/skill_check.py</code>
-with the two student paths. It checks file structure and consistency; it cannot observe
-hidden skill selection or prove that a model ran.</p>
+<p><strong>Retrieval 2.</strong> Run <code>python lectures/week-03/fixture/skill_check.py</code> with the two student
+paths. It checks file structure and consistency; it cannot observe hidden skill selection
+or prove that a model ran.</p>
 <h2 id="q1">Q1</h2>
 <p>The answer names the hand-run commands, their inputs and decisions, and the exact focused
 check command. The saved output and revision make the baseline reproducible.</p>
@@ -6449,9 +6449,10 @@ boundary rather than copying the description into every prompt.</p>
 transcript records <code>selection: not shown</code> and the YAML keeps a boolean supported by the
 record. It never means inventing a positive observation.</p>
 <h2 id="q4">Q4</h2>
-<p>The five fields are the exact request, repository revision, selection line (or a
-<code>selection: not shown</code> entry in the transcript), command with exit status and output, and
-verification command with its result.</p>
+<p>The six fields are the exact request, repository revision, selection line (or a
+<code>selection: not shown</code> entry in the transcript), command with exit status and output,
+verification command with its result, and the boundary: the files the run edited or
+created (<code>git status --short</code>).</p>
 <h2 id="q5">Q5</h2>
 <p><code>skill_check.py</code> proves front matter, sections, links, prompt counts, and any required
 mismatch revision. It reads data only; it does not run a model, execute a skill, or certify

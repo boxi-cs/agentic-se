@@ -2483,10 +2483,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-continuing-dashboard-case" class="md-nav__link">
+  <a href="#a-small-access-guard" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The continuing dashboard case
+        A small access guard
       
     </span>
   </a>
@@ -6385,10 +6385,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-continuing-dashboard-case" class="md-nav__link">
+  <a href="#a-small-access-guard" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The continuing dashboard case
+        A small access guard
       
     </span>
   </a>
@@ -6470,8 +6470,8 @@
 <li>explain what a silent review does not establish and who owns an acceptance decision (LO9).</li>
 </ul>
 <h2 id="minimal-example">Minimal example</h2>
-<h3 id="the-continuing-dashboard-case">The continuing dashboard case</h3>
-<p>An archived build is analogous to an inactive account: ownership must not bypass the
+<h3 id="a-small-access-guard">A small access guard</h3>
+<p>An inactive account must not edit, even when it is an owner: ownership must not bypass the
 edit restriction. This course-created guard is a small demonstration, separate from any
 student project or graded instance. Review the change yourself before asking a model to
 review it:</p>
@@ -6488,17 +6488,28 @@ result, the observed or traced result, and the consequence. The input
 <code>active=False, owner=True, staff=False</code> separates the two readings of the expression:
 the candidate allows it because <code>and</code> binds more tightly than <code>or</code>, while the contract
 requires denial. A passing active-staff example cannot establish the inactive owner case.</p>
-<p>Save that first note before reading further. Run the unchanged public checks from the
-course root using the supplied code, after inspecting it:</p>
+<p>Save that first note before reading further. Inspect the two fixture files, then run the
+unchanged public checks from the root of the course checkout:</p>
 <pre><code class="language-sh">python lectures/week-06/fixture/check_access.py -v
 </code></pre>
 <p>The bundled candidate fails <code>test_inactive_owner</code> and the inactive assertion in
 <code>test_overlapping_roles</code>, with exit 1. Record your actual output, not this prediction.
-The public checks cover the eight boolean combinations. After an agent proposes
-<code>return active and (owner or staff)</code>, inspect the diff, apply only that expression in a
-separate copy, and rerun the unchanged checks there. All seven tests should pass.
-A deny-all patch would fail the active owner and staff cases. Inspect the tests too:
-changing their expectations to fit the candidate would not verify the contract.</p>
+The public checks cover the eight boolean combinations.</p>
+<p>Suppose an agent proposes <code>return active and (owner or staff)</code>. Leave the fixture as it
+is and make a copy, from the root of the course checkout:</p>
+<pre><code class="language-sh">cp -r lectures/week-06/fixture week06-copy
+</code></pre>
+<p>Change only line 6 of <code>week06-copy/access.py</code> to that expression. Then inspect the diff
+and rerun the unchanged checks in the copy:</p>
+<pre><code class="language-sh">diff -r -x __pycache__ lectures/week-06/fixture week06-copy
+python week06-copy/check_access.py -v
+</code></pre>
+<p><code>diff</code> should list one changed line of <code>access.py</code> and nothing from <code>check_access.py</code>.
+All seven tests should pass. A deny-all patch, <code>return False</code>, passes
+<code>test_inactive_owner</code> and fails three others: <code>test_active_owner</code>, <code>test_active_staff</code> and
+the active assertion in <code>test_overlapping_roles</code>. Inspect the tests too: changing their
+expectations to fit the candidate would not verify the contract. Delete <code>week06-copy</code> when
+you finish.</p>
 <h3 id="the-model-reviews-you-verify-each-point">The model reviews; you verify each point</h3>
 <p>Now request a review of the same diff with the contract and the exact files in context.
 Treat each comment as a hypothesis. A useful comment names a location and a check; a
@@ -6531,17 +6542,20 @@ output. It is synthetic text, not a real model run:</p>
 </table>
 <p>If the model only reports the string claim, it misses the actual inactive-owner defect.
 Compare your first finding with every model comment; keep any finding the model omitted.</p>
-<p>The same precedence pattern appears in this older notation:</p>
+<p>The same precedence pattern appears under other names. Here is a guard for archived items,
+written twice:</p>
 <pre><code class="language-text">allowed = is_owner or is_staff and not archived
 allowed = (is_owner or is_staff) and not archived
 </code></pre>
-<p>The current fixture uses <code>active</code>, <code>owner</code> and <code>staff</code>; the older names are only a
-notation bridge. In either form, an inactive or archived owner is the separating case.</p>
+<p>Before reading on, write an input on which the two lines disagree. One is
+<code>is_owner=True, is_staff=False, archived=True</code>: the first line allows the edit and the
+second denies it. The owner of a restricted item is again the separating case.</p>
 <h2 id="hands-on-exercise">Hands-on exercise</h2>
-<p>Follow the <a href="activities.en.html">studio guide</a>. Bring one change from your first open-source
-contribution or from your project. Before using a model, inspect the diff and write a
-small review record. Then run one model review with the same contract, diff and relevant
-tests in context. For every finding, choose exactly one disposition:</p>
+<p>The second session opens with CP1 (30 minutes, on paper, without AI); the
+<a href="activities.en.html">studio guide</a> covers the rest. Bring one change from your first
+open-source contribution or from your project. Before using a model, inspect the diff and
+write a small review record. Then run one model review with the same contract, diff and
+relevant tests in context. For every finding, choose exactly one disposition:</p>
 <table>
 <thead>
 <tr>
@@ -6573,7 +6587,7 @@ the change is correct or that an unmentioned requirement is satisfied.</p>
 <li>Pin the base and candidate revisions and write the behavior the change is meant to preserve or add.</li>
 <li>Review the diff unaided. Pick boundary inputs, not only the example shown in the issue.</li>
 <li>Ask the model for findings, keeping its output separate from executable code and from your own first notes.</li>
-<li>For each finding, run the smallest safe check you can explain. Inspect any command before running it and follow the safety practices in the <a href="../../SYLLABUS.en.html#tools-and-model-access">Tools and model access</a> practices.</li>
+<li>For each finding, run the smallest safe check you can explain. Inspect any command before running it and follow the <a href="../../SYLLABUS.en.html#tools-and-model-access">Tools and model access</a> practices.</li>
 <li>Record the disposition, evidence, unresolved questions and the final decision to accept, narrow, recheck or stop.</li>
 </ol>
 <p>Your record should let another reader reproduce the accepted claim. A model can suggest a

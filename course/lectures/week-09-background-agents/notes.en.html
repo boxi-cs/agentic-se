@@ -6484,7 +6484,8 @@
 
 
 <h1 id="week-9-background-agents">Week 9: Background agents</h1>
-<p>The example below is course-written and hand-worked; its predictions are not a model run.</p>
+<p>The example below is course-written. Its base and its two candidates are files in this
+week's <code>fixture/</code> folder; none of them was returned by a model.</p>
 <h2 id="learning-objectives">Learning objectives</h2>
 <table>
 <thead>
@@ -6549,11 +6550,43 @@ It does not require a cloud service. Neither mode changes what counts as correct
 <p><strong>Verify.</strong> Trace the three summary inputs through each candidate. Both could satisfy
 them. Then compare the unchanged display requirement with each returned diff. A check
 that uses the base display test against the unattended implementation would fail:
-<code>3:05 != 3m 05s</code>. The branch's green report does not resolve that disagreement.
-This is a possible pair of outcomes, not a claim that one mode always performs better.</p>
+<code>3:05 != 3m 05s</code>. Write that prediction down, then run it.</p>
+<p>The base and both candidates are small file trees under
+<code>lectures/week-09-background-agents/fixture/</code>. There, <code>verify.py</code> runs one copy of the
+tests against one candidate, prints one JSON line and exits with status 1 if any test
+fails. Run the fixture commands on this page from the course checkout, in the repository
+root, with plain <code>python</code>; if your terminal has no <code>python</code> command, type <code>python3</code>. The
+fixture uses only the standard library, calls no model and needs no key. First run each
+candidate's own tests, as its branch report did, then the base tests against the unattended
+candidate:</p>
+<pre><code class="language-sh">python lectures/week-09-background-agents/fixture/verify.py foreground --tests own; echo &quot;exit $?&quot;
+python lectures/week-09-background-agents/fixture/verify.py unattended --tests own; echo &quot;exit $?&quot;
+python lectures/week-09-background-agents/fixture/verify.py unattended --tests base; echo &quot;exit $?&quot;
+</code></pre>
+<pre><code class="language-text">{&quot;candidate&quot;: &quot;foreground&quot;, &quot;tests&quot;: &quot;own&quot;, &quot;ran&quot;: 4, &quot;passed&quot;: 4, &quot;problems&quot;: [], &quot;scope&quot;: &quot;course-written candidate; not an agent run&quot;}
+exit 0
+{&quot;candidate&quot;: &quot;unattended&quot;, &quot;tests&quot;: &quot;own&quot;, &quot;ran&quot;: 4, &quot;passed&quot;: 4, &quot;problems&quot;: [], &quot;scope&quot;: &quot;course-written candidate; not an agent run&quot;}
+exit 0
+{&quot;candidate&quot;: &quot;unattended&quot;, &quot;tests&quot;: &quot;base&quot;, &quot;ran&quot;: 2, &quot;passed&quot;: 1, &quot;problems&quot;: [{&quot;test&quot;: &quot;test_display&quot;, &quot;reason&quot;: &quot;AssertionError: '3:05' != '3m 05s'&quot;}], &quot;scope&quot;: &quot;course-written candidate; not an agent run&quot;}
+exit 1
+</code></pre>
+<p>Both branch reports were accurate. The unattended branch's own tests pass because the
+branch rewrote the display test; the base copy of that test fails on the same code. The
+branch's green report does not resolve that disagreement. This is a possible pair of
+outcomes, not a claim that one mode always performs better.</p>
 <p>A file allowlist permits edits to the test file; it does not permit every edit within
-that file. Read the hunks. Keep the acceptance cases under the student's control and
-run them yourself against the returned revision. The unattended candidate needs revision.</p>
+that file. Read the hunks:</p>
+<pre><code class="language-sh">git diff --no-index lectures/week-09-background-agents/fixture/base lectures/week-09-background-agents/fixture/unattended
+</code></pre>
+<p>One hunk of <code>test_durations.py</code> holds these two lines together with the permitted new
+tests:</p>
+<pre><code class="language-diff">-        self.assertEqual(format_duration(185), &quot;3m 05s&quot;)
++        self.assertEqual(format_duration(185), &quot;3:05&quot;)
+</code></pre>
+<p>Keep the acceptance cases under the student's control and run them yourself against the
+returned revision. In the fixture they are <code>acceptance.py</code>, the request's four cases in a
+file that belongs to no candidate; <code>--tests acceptance</code> runs them. The unattended candidate
+needs revision.</p>
 <h3 id="parallel-work-has-three-different-boundaries">Parallel work has three different boundaries</h3>
 <p><strong>Generate.</strong> Suppose another agent adds the summary tests while the implementation
 agent changes the summary. Give each a separate worktree and branch from the same base,
@@ -6648,11 +6681,14 @@ base in two local worktrees. Hold the request and acceptance checks constant. Re
 interventions in the foreground run and unresolved questions in the unattended run.
 Compare correctness, scope, waiting and rework; do not infer general agent performance
 from this single pair. If the supplied agent seat is unavailable, stop and record the access
-blocker; you may still complete the hand-worked verification table as a paper exercise.</p>
+blocker; you can still read and run the two fixture candidates by the
+<a href="activities.en.html#when-an-agent-seat-is-unavailable">studio's route for that case</a>.</p>
 <h2 id="verification">Verification</h2>
 <ol>
 <li>Before generation, preserve a reproducer that fails on the base and the relevant
-   existing checks. Verify that the check notices the fault; otherwise recheck the test.</li>
+   existing checks. Verify that the check notices the fault; otherwise recheck the test.
+   In the example, <code>verify.py base --tests acceptance</code> is that reproducer: on the base it
+   exits with status 1, and two of the request's four cases fail.</li>
 <li>After each run, use <code>git status --short</code>, <code>git diff BASE_SHA</code> and the project's exact
    verification command recorded in the request. Review untracked files as well as the diff.</li>
 <li>Keep command, candidate revision, exit status and the meaningful failing/passing output.

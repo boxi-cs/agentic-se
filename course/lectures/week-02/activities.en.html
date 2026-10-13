@@ -6406,13 +6406,19 @@
 
 
 <h1 id="week-2-studio-specifications-and-model-facing-tools">Week 2 studio: specifications and model-facing tools</h1>
-<p><strong>Duration:</strong> 75 minutes, including a revision and a final check.</p>
+<p><strong>Duration:</strong> 75 minutes, including a revision and a final check. The session opens with a
+short introduction to the
+<a href="../../capstone/kit/open-source-contributions.en.html">contribution projects</a>; the studio
+takes the rest.</p>
 <p><strong>Purpose:</strong> turn your project proposal into failure-capable acceptance cases and make one
-small tool harder for a model to misuse. Work individually on a disposable copy of your
-project. This is formative studio work; the A2 and project proposal pages define the
-submissions.</p>
-<p><strong>Materials:</strong> your proposal, the <a href="notes.en.html">notes</a>, a text editor, Python 3.12, and a
-terminal. The retained <a href="fixture/">fixture</a> and <a href="session/">session</a> are optional reading.</p>
+small tool harder for a model to misuse. Work individually in an empty working directory
+inside your dedicated course directory; if you already have a project repository, use a
+disposable copy of it instead. Run every block on this page from that one directory. This
+is formative studio work; the <a href="../../practice/a2/README.en.html">A2 page</a> and the
+<a href="../../templates/project-proposal.en.html">proposal form</a> define the submissions.</p>
+<p><strong>Materials:</strong> a draft of your project proposal, the <a href="notes.en.html">notes</a>, a text editor,
+Python 3.12, and a terminal. The retained <a href="fixture/">fixture</a> and <a href="session/">session</a> are
+optional reading.</p>
 <h2 id="1-write-cases-before-code-25-minutes">1. Write cases before code (25 minutes)</h2>
 <p>Create a scratch directory and a proposal record:</p>
 <pre><code class="language-sh">mkdir -p week02-studio
@@ -6466,6 +6472,10 @@ function. Keep the first failing output by changing the forbidden path temporari
 restore it and make the smallest change that makes the checker pass. If your project cannot
 run locally, use a pure Python function in the scratch directory and state that boundary in
 the record.</p>
+<p>The example compares returned text only. It never looks at a directory, so it does not yet
+observe “no file is written”, and it cannot express the notes' third case, a row without
+<code>id</code>, because <code>export_result</code> takes only a path. In your own checker, also read or list the
+state that case 2 says must not change.</p>
 <h2 id="3-tighten-one-model-facing-schema-20-minutes">3. Tighten one model-facing schema (20 minutes)</h2>
 <p>Choose one small tool your project uses. Copy its current name, description, schema and
 error text into <code>week02-studio/tool-before.json</code>. Add a closed schema, a required field, or
@@ -6515,7 +6525,9 @@ assert schema.get(&quot;required&quot;), &quot;name a required input&quot;
 print(&quot;schema smoke test passed&quot;)
 PY
 </code></pre>
-<p>Run three calls through a tiny stub so the schema and handler boundary are both exercised:</p>
+<p>Run three calls through a tiny stub. It is not a schema validator: it takes the required
+fields and the allowed field names from <code>tool-after.json</code>, checks the path with a rule
+written again in its own code, and never looks inside <code>rows</code>:</p>
 <pre><code class="language-sh">cat &gt; week02-studio/check_tool.py &lt;&lt;'PY'
 import json
 import re
@@ -6548,23 +6560,30 @@ PY
 python week02-studio/check_tool.py
 </code></pre>
 <p>The valid call reaches the stub handler; the two invalid calls are rejected first, with a
-field-specific repair and no file effect. Replace the example with your tool and keep the
-same three observations. The invalid calls must be rejected before the handler changes
-state, and their messages must tell the model what to fix.</p>
+field-specific repair and no file effect. The stub's own message for a missing field names
+no field: add a fourth call that omits <code>rows</code>, make the message name it, and rerun. Then
+replace the example with your tool and keep the same three observations. The invalid calls
+must be rejected before the handler changes state, and their messages must tell the model
+what to fix.</p>
+<p>A2 asks for more than this schema. There the same four things, a name, a description, a
+schema and error text, go into a running local server, and your agent calls it in three
+real trials; the <a href="../../practice/a2/README.en.html">A2 page</a> has the starter and the checks.
+The <code>export_report</code> files here are practice and are not handed in.</p>
 <p><span id="execution-route"></span></p>
 <h2 id="4-handoff-and-verify-10-minutes">4. Handoff and verify (10 minutes)</h2>
 <p>Write a six-line handoff containing the goal, constraint source, current files, last failed
 check, remaining unknown and next action. Compare each line with the evidence you collected.
 Then rerun the happy and failure cases after the schema edit. Finish with one decision line:
-<code>Decision: accept | shrink | recheck | stop — evidence: &lt;commands or paths&gt;</code>.</p>
+<code>Decision: accept | narrow | recheck | stop — evidence: &lt;commands or paths&gt;</code>.</p>
 <p>A partner is not required. At minute 45, pause for a staff check-in if your case
 cannot fail or your tool has no observable refusal. More time or an approved access
 accommodation should preserve the same cases and evidence.</p>
 <h2 id="studio-record">Studio record</h2>
 <p>Keep <code>acceptance.md</code>, the before/after schema, the smoke-test output, the first failing run,
 the corrected run and the decision line in the scratch directory until feedback. Do not put
-credentials in the proposal, prompt, screenshots or logs. Use the Week 0 safety practices
-for any coding agent you choose; the studio commands themselves use no model or network.</p>
+credentials in the proposal, prompt, screenshots or logs. Follow the
+<a href="../../SYLLABUS.en.html#tools-and-model-access">safety practices</a> for the coding agent you
+use; the studio commands themselves use no model or network.</p>
 
 
 

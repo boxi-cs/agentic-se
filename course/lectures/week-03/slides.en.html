@@ -6267,7 +6267,7 @@
 <h1 id="start-by-hand">Start by hand</h1>
 <pre><code class="language-sh">git status --short
 git diff --check
-uv run --locked pytest -q
+python -m pytest -q
 </code></pre>
 <p>Save the revision and output before writing the skill.</p>
 <hr />
@@ -6281,7 +6281,7 @@ uv run --locked pytest -q
 1. Read the boundary.
 2. Run the check.
 ## Judgement
-- Stop on unrelated edits.
+- If unrelated files are edited, stop.
 ## Verification
 Run `git diff --check` and the focused test.
 </code></pre>
@@ -6333,8 +6333,8 @@ Run `git diff --check` and the focused test.
 <p>It does not run a model or observe hidden selection.</p>
 <hr />
 <h1 id="run-it-directly">Run it directly</h1>
-<pre><code class="language-sh"># From the course checkout; PROJECT_ROOT is your project.
-uv run --locked python lectures/week-03/fixture/skill_check.py \
+<p>From the course checkout; <code>PROJECT_ROOT</code> is your project.</p>
+<pre><code class="language-sh">python lectures/week-03/fixture/skill_check.py \
   &quot;$PROJECT_ROOT/A3-work/skills/my-workflow/SKILL.md&quot; \
   &quot;$PROJECT_ROOT/A3-work/trigger-test.yaml&quot;
 </code></pre>
@@ -6358,20 +6358,24 @@ stdout/stderr, and verification result.</p>
 prompts, screenshots, logs, or commits. For generated commands, inspect before running.</p>
 <hr />
 <h1 id="studio-handoff">Studio handoff</h1>
-<p>A3 contains:</p>
+<p>A3 is <code>report.json</code> plus the files it cites:</p>
 <ol>
-<li>hand-run commands and output</li>
+<li>hand-run output</li>
 <li><code>SKILL.md</code></li>
-<li>four trigger records</li>
-<li>CLI evidence summary</li>
-<li>checker output and one decision line</li>
+<li>two trials: one trigger, the near miss</li>
+<li><code>agent-run.txt</code>, with the four-row record and checker output as supporting evidence</li>
+<li>one decision line</li>
 </ol>
+<pre><code class="language-sh">python practice/a3/check.py &quot;$PROJECT_ROOT/A3-work&quot;
+</code></pre>
 <hr />
 <h1 id="verify-before-accepting">Verify before accepting</h1>
 <pre><code class="language-sh">git rev-parse HEAD
 git diff --check
 git diff --name-only
+git status --short
 </code></pre>
+<p><code>git diff</code> reads tracked files only; <code>git status --short</code> also lists new ones.</p>
 <p>Then compare every <code>observed</code> value with the saved transcript.</p>
 <hr />
 <h1 id="common-failure-modes">Common failure modes</h1>

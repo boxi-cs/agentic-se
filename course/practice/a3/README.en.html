@@ -6477,7 +6477,7 @@
 <h2 id="at-a-glance">At a glance</h2>
 <ul>
 <li><strong>Task:</strong> perform a small workflow by hand, encode it as one skill, and test its trigger and near miss.</li>
-<li><strong>Week:</strong> 3</li>
+<li><strong>Week:</strong> <a href="../../lectures/week-03/README.en.html">3</a></li>
 <li><strong>Weight:</strong> 2.5 points</li>
 <li><strong>Due:</strong> Sunday 23:59 in the listed week</li>
 <li><strong>Hand in:</strong> the skill file, manual-work evidence, two trigger trials and <code>report.json</code>.</li>
@@ -6487,7 +6487,7 @@
 <h2 id="objectives">Objectives</h2>
 <p>Write a precise, bounded skill and evaluate when it should activate (LO2).</p>
 <h2 id="prerequisites">Prerequisites</h2>
-<p>Follow the <a href="../../SYLLABUS.en.html">safety practices in syllabus §9</a>:</p>
+<p>Follow the <a href="../../SYLLABUS.en.html#tools-and-model-access">course safety practices</a>:</p>
 <ul>
 <li>Run the agent in a dedicated directory or container.</li>
 <li>Keep residency, employer and cloud credentials out of that environment.</li>
@@ -6507,7 +6507,7 @@ feedback was available, record your self-review date and explain the choice in t
 </ol>
 <p>Generation is the proposed skill; verification is the manual baseline and the two controlled requests. Do not count a plausible activation as proof without an observable marker.</p>
 <h2 id="deliverables">Deliverables</h2>
-<p>Include the skill, manual evidence, both trial records and <code>report.json</code>. Run:</p>
+<p>Copy <a href="starter/"><code>starter/</code></a> to a submission directory of your own outside the course checkout; it holds <code>report.json</code>, <code>SKILL.md</code> and <code>manual-workflow.md</code> to fill in. Include the skill, manual evidence, both trial records and <code>report.json</code>. Run from the course checkout:</p>
 <pre><code class="language-bash">python practice/a3/check.py path/to/submission
 </code></pre>
 <h2 id="grading">Grading</h2>
@@ -6517,17 +6517,19 @@ feedback was available, record your self-review date and explain the choice in t
 <h2 id="estimated-time">Estimated time</h2>
 <p>Published after a timed pilot. Record predicted and actual time and ask for support if the agent's activation signal is not observable.</p>
 <h2 id="work-record-outline">Work record outline</h2>
-<pre><code class="language-text">A3 report
+<pre><code class="language-text">assignment: A3
+evidence: [{id: TODO, path: TODO, observation: TODO}]
 manual_evidence: [TODO]
 skill_path: TODO
 trials: [{case: trigger|near_miss, request: TODO, expected_trigger: true|false, actual_trigger: true|false, evidence: [TODO]}]
 revision: TODO
 explanation: TODO
 ai_use_note: TODO
-decision: accept | narrow | recheck | stop
-because: evidence ID(s)
-next: TODO
+predicted_time: TODO
+actual_time: TODO
+decision: {action: accept | narrow | recheck | stop, because: [evidence ID(s)], next: TODO}
 </code></pre>
+<p>The outline lists the fields of <code>report.json</code> in plain text. <code>starter/report.json</code> holds them as JSON, except <code>predicted_time</code> and <code>actual_time</code>, which you add yourself. Evidence paths are relative to your submission directory. The check reads a field that still contains the word <code>TODO</code>, or text in angle brackets such as <code>&lt;name&gt;</code>, as unfilled.</p>
 
 
 

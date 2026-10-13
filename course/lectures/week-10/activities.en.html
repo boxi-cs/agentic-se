@@ -6555,7 +6555,12 @@ one task that an agent attempted in your project, the check that decided it, and
 record of its attempts. The lecture did this on an invented table; here the record is
 yours, so the result is a statement about your project's evidence.</p>
 <p><strong>Due this week:</strong> A6. Its rules and hand-in are on the
-<a href="../../practice/a6/README.en.html">assignment page</a>.</p>
+<a href="../../practice/a6/README.en.html">assignment page</a>. A6 asks for part of this audit on a
+supplied instance: a counterexample for its check, the complete denominator and the
+limits of the claim. Its instance has its own format and words: <code>success</code> and <code>failure</code>
+for pass and fail, and a <code>missing</code> row where the table in step 4 below leaves the row
+out. <code>audit.py</code> does not read that format, so you recompute A6's counts yourself. A6 asks
+for at least three unsupported claims; this studio asks for two.</p>
 <p>Work individually, with a written alternative to any discussion. Follow the practices in
 <a href="../../SYLLABUS.en.html#tools-and-model-access">Tools and model access</a>. Nothing below calls
 a model. If you choose to run your agent again to add attempts, use your course seat as
@@ -6641,20 +6646,36 @@ working tree stays as recorded:</p>
 <pre><code class="language-text">Preparing worktree (detached HEAD 347c1a7)
 HEAD is now at 347c1a7 practice: first commit
 </code></pre>
-<p>Your hash and commit subject will differ. In <code>../week10-audit-scratch</code>, make one small
-wrong change to the code the task was about: return a constant, drop a condition, or
-swap a comparison. Run the instance's check command there, exactly as written in step 1,
-and record its exit status.</p>
+<p>Your hash and commit subject will differ. Change to <code>../week10-audit-scratch</code> and first
+run the instance's check command with nothing edited, exactly as written in step 1. It
+must give the same result as in your working tree, normally a pass. It may not: a new
+worktree holds only committed files, so ignored files such as installed dependencies,
+build output and local settings are absent. In that case prepare the worktree the way
+your project prepares a fresh clone, then rerun. A failure before any change is a setup
+gap, not a finding.</p>
+<p>Then make one small wrong change to the code the task was about: return a constant, drop
+a condition, or swap a comparison. Run the check command again and record its exit
+status.</p>
 <ul>
 <li><strong>The check fails.</strong> It can detect this defect. Write down which one; that is all it
   shows.</li>
-<li><strong>The check still passes.</strong> You found a wrong result the check accepts. Write the
-  smallest case that would catch it. Do not add it to the project yet: note it as a
-  proposed repair, with the wrong change that motivated it.</li>
+<li><strong>The check still passes.</strong> First confirm that the check ran your change. Break the
+  changed file so that it cannot load, for example with a syntax error, and rerun. If the
+  check fails now, it does run that file: undo the break and keep the wrong change. If it
+  still passes, it did not load that file from the scratch worktree; a common cause is a
+  package installed in editable mode, which the check imports from your working tree.
+  Make your wrong changes in the working tree instead, run the check there, and undo each
+  one with <code>git restore</code> followed by the file's path, so that <code>git status --short</code> prints
+  nothing again. Once the check has run your wrong change and still passed, you have
+  found a wrong result the check accepts. Write the smallest case that would catch it. Do
+  not add it to the project yet: note it as a proposed repair, with the wrong change that
+  motivated it.</li>
 </ul>
 <p>Try a second wrong change that targets a different clause of the task. You may ask your
 agent to propose wrong changes; you choose which ones to run, and you read each one
-before running it. Then remove the scratch worktree:</p>
+before running it. Then change back to your project repository and remove the scratch
+worktree. Run from inside the scratch worktree, the command would delete the directory
+your shell is in:</p>
 <pre><code class="language-sh">git worktree remove --force ../week10-audit-scratch
 </code></pre>
 <h3 id="3-was-the-pass-earned-15-minutes">3. Was the pass earned? (15 minutes)</h3>

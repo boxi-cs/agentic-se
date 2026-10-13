@@ -6575,8 +6575,8 @@
 <h2 id="learning-objectives">Learning objectives</h2>
 <p>This studio turns one repeated workflow into a tested skill. You will run it by hand,
 write a <code>SKILL.md</code>, predict three matches and one near miss, run the supplied checker,
-and preserve the evidence from one command-line agent session. The work supports LO2 and
-is the main preparation for A3.</p>
+and preserve the evidence from four command-line agent requests. The work supports LO2 and
+is the main preparation for <a href="../../practice/a3/README.en.html">A3</a>.</p>
 <h2 id="minimal-example">Minimal example</h2>
 <p>Use the release-check example in the <a href="notes.en.html#minimal-example">lecture notes</a>. The
 hand run is the baseline. The skill is a proposal. The trigger table records a prediction
@@ -6586,35 +6586,44 @@ and an observation; the checker reports structure, not whether an agent really s
 <p><strong>Time:</strong> 70 minutes. <strong>Format:</strong> individual work with a ten-minute peer check. <strong>Materials:</strong>
 your project repository, the course checkout, and the read-only checker in
  <a href="fixture/skill_check.py"><code>lectures/week-03/fixture/skill_check.py</code></a>.
-No special runner or paid account is required for the file check.</p>
+No special runner or paid account is required for the file check. The checker needs the
+PyYAML package, which the course environment from the
+<a href="../../site/docs/week0/setup.en.html">setup page</a> includes.</p>
 <h3 id="1-choose-and-run-a-workflow-15-minutes">1. Choose and run a workflow (15 minutes)</h3>
 <p>Choose a non-destructive workflow you have already done twice. Write its shell commands
 and run them once by hand. Run steps 1 to 3 from the root of your own project repository:
 <code>git rev-parse</code> needs a Git repository, and every studio file goes in an <code>A3-work/</code>
-directory there. The commands below are one such workflow:</p>
+directory there. The commands below are one such workflow; each line saves a command's
+output and then that command's own exit status:</p>
 <pre><code class="language-sh">mkdir -p A3-work/hand-run
-printf '%s\n' &quot;revision: $(git rev-parse --short HEAD)&quot; | tee A3-work/hand-run/run.txt
-git status --short | tee -a A3-work/hand-run/run.txt
-git diff --check 2&gt;&amp;1 | tee -a A3-work/hand-run/run.txt
+echo &quot;revision: $(git rev-parse --short HEAD)&quot; &gt; A3-work/hand-run/run.txt
+git status --short &gt;&gt; A3-work/hand-run/run.txt 2&gt;&amp;1; echo &quot;git status --short exit: $?&quot; &gt;&gt; A3-work/hand-run/run.txt
+git diff --check &gt;&gt; A3-work/hand-run/run.txt 2&gt;&amp;1; echo &quot;git diff --check exit: $?&quot; &gt;&gt; A3-work/hand-run/run.txt
+cat A3-work/hand-run/run.txt
 </code></pre>
-<p>Add the project's focused test command and its output. If a command fails, preserve the
-failure and explain whether the skill should stop or continue. Do not run model-generated
-unknown commands in a directory containing employer, cloud, or other real credentials.</p>
+<p>The status output lists <code>?? A3-work/</code>: that is this record, not an unrelated edit. Add the
+project's focused test command in the same form, so that its output and exit status are in
+the file too. If a command fails, preserve the failure and explain whether the skill should
+stop or continue. Do not run model-generated unknown commands in a directory containing
+employer, cloud, or other real credentials.</p>
 <h3 id="2-write-the-skill-20-minutes">2. Write the skill (20 minutes)</h3>
-<p>Still in your project root, create the directory and file, then edit the file in your
-normal editor:</p>
+<p>Still in your project root, create the directory:</p>
 <pre><code class="language-sh">mkdir -p A3-work/skills/my-workflow
-# Write A3-work/skills/my-workflow/SKILL.md from the notes' three-section example.
 </code></pre>
+<p>Then write <code>A3-work/skills/my-workflow/SKILL.md</code>, starting from the three-section example
+in the notes. A3 asks you to have your agent draft this file: give the agent your hand-run
+record, treat its draft as a proposal, and in your normal editor remove any step you did
+not run by hand.</p>
 <p>The front matter <code>name</code> must match <code>my-workflow</code> (or your chosen hyphenated directory).
 The description must say what the workflow does and include <code>when</code>. In <code>Steps</code>, name the
-commands. In <code>Judgement</code>, state at least one stop or branch. In <code>Verification</code>, name the
-exact check command and the evidence it leaves.</p>
+commands. In <code>Judgement</code>, state at least one stop or branch as a condition (<code>if</code>, <code>unless</code>
+or <code>when</code>). In <code>Verification</code>, name the exact check command in backticks and the evidence
+it leaves.</p>
 <h3 id="3-predict-four-requests-10-minutes">3. Predict four requests (10 minutes)</h3>
 <p>Copy this starter into <code>A3-work/trigger-test.yaml</code> and replace the prompts with your own:</p>
 <pre><code class="language-yaml">skill: my-workflow
 observer: agent
-observer_detail: CLI run on the fixed revision of the student's project; each boolean is tied to the saved selection evidence.
+observer_detail: &quot;CLI run on the fixed revision of my project; each boolean is tied to the saved selection evidence.&quot;
 prompts:
   - id: matching-request
     prompt: Run my repeated workflow and report the check output.
@@ -6637,41 +6646,82 @@ prompts:
     predicted: false
     observed: false
 </code></pre>
-<p>The <code>observed</code> values are placeholders only. Fill them after the agent run. If any
-observation differs from <code>should_trigger</code>, add a <code>revision</code> section naming the description
-change and recheck exactly those IDs. Do not rewrite the original prediction.</p>
-<h3 id="4-run-the-cli-and-preserve-evidence-15-minutes">4. Run the CLI and preserve evidence (15 minutes)</h3>
-<p>Run the coding-agent command supplied for your seat once on the fixed revision of your
-project. Keep the exact request and output in <code>A3-work/agent-run.txt</code>; do not include
-secrets. If the CLI does not print skill selection, record <code>selection: not shown</code> there.
-Keep each YAML <code>observed</code> value boolean and explain its evidence in <code>observer_detail</code>.
-Then change to the course checkout, where the checker lives, and run it with paths that
-point into your project:</p>
-<pre><code class="language-sh">PROJECT_ROOT=/path/to/your/project
-uv run --locked python lectures/week-03/fixture/skill_check.py \
-  &quot;$PROJECT_ROOT/A3-work/skills/my-workflow/SKILL.md&quot; \
-  &quot;$PROJECT_ROOT/A3-work/trigger-test.yaml&quot;
+<p>The <code>observed</code> values are placeholders only. Fill them after the agent run. Until you
+fill in <code>observed</code>, the checker reports
+<code>A mismatch needs 'revision' with description_change, rechecked.</code> for these placeholders;
+that is expected and no reason to change them. If any observation differs from
+<code>should_trigger</code>, add a <code>revision</code> section naming the description change and recheck
+exactly those IDs. Do not rewrite the original prediction or the first observation. After
+you have changed the description and sent those prompts again, append a block like this
+one to <code>trigger-test.yaml</code>. It shows the shape for one mismatch, a <code>matching-paraphrase</code>
+request that stayed quiet at first:</p>
+<pre><code class="language-yaml">revision:
+  description_change: Added the words repository check to the when clause.
+  rechecked:
+    - id: matching-paraphrase
+      observed: true
 </code></pre>
-<p>The command reads YAML and Markdown only. It does not execute your skill or claim that the
-agent selected it.</p>
+<p>List exactly the mismatched ids under <code>rechecked</code>, each with what you observed when you
+sent that prompt again.</p>
+<h3 id="4-run-the-cli-and-preserve-evidence-15-minutes">4. Run the CLI and preserve evidence (15 minutes)</h3>
+<p>First make the skill visible to your agent. Copy the <code>A3-work/skills/my-workflow/</code>
+directory to the place your agent's documentation names for skills, and copy it again
+after every edit, so that the file the agent loads is the file you hand in. Copy it, do
+not link it: the A3 check does not accept a skill file reached through a symbolic link.
+Start a new session and confirm, in the way that documentation describes, that the agent
+lists the skill. Write the location and how you confirmed it at the top of
+<code>A3-work/agent-run.txt</code>. If you cannot confirm it, stop and ask the teaching team before
+sending any request: four quiet results from an agent that never loaded the skill say
+nothing about your description.</p>
+<p>Then use the coding-agent command supplied for your seat. Send the four requests one at a
+time, each in a new session, all on the same fixed revision of your project; keep each
+exact request and its output in <code>A3-work/agent-run.txt</code> under the prompt's <code>id</code>, and do
+not include secrets. If the CLI does not print skill selection, record
+<code>selection: not shown</code> there. Keep each YAML <code>observed</code> value boolean and explain its
+evidence in <code>observer_detail</code>. Keep the <code>observer_detail</code> value in double quotes and at
+most 200 characters: an unquoted colon followed by a space, as in <code>selection: not shown</code>,
+is not valid YAML there, and the checker then stops with a Python error instead of a
+<code>FAIL</code> line. A longer explanation belongs in <code>agent-run.txt</code>.</p>
+<p>Then change to the course checkout, where the checker lives, and run it with paths that
+point into your project. The redirection saves what the checker prints, and the next line
+adds its exit status:</p>
+<pre><code class="language-sh">PROJECT_ROOT=/path/to/your/project
+python lectures/week-03/fixture/skill_check.py \
+  &quot;$PROJECT_ROOT/A3-work/skills/my-workflow/SKILL.md&quot; \
+  &quot;$PROJECT_ROOT/A3-work/trigger-test.yaml&quot; \
+  &gt;&gt; &quot;$PROJECT_ROOT/A3-work/skill-check.txt&quot; 2&gt;&amp;1
+echo &quot;skill_check.py exit: $?&quot; &gt;&gt; &quot;$PROJECT_ROOT/A3-work/skill-check.txt&quot;
+cat &quot;$PROJECT_ROOT/A3-work/skill-check.txt&quot;
+</code></pre>
+<p>Every run is added to <code>A3-work/skill-check.txt</code>, so a failed run stays in the record beside
+the passing one. The command reads YAML and Markdown only. It does not execute your skill
+or claim that the agent selected it. Besides any <code>FAIL</code> lines it prints an <code>Advisory</code> block
+listing the words each prompt shares with your description; that block is information, not
+a problem, and does not change the exit status.</p>
 <h3 id="5-compare-and-decide-10-minutes">5. Compare and decide (10 minutes)</h3>
-<p>Make a four-row prediction-versus-observation table. Cite the hand-run file, the CLI run,
-the checker output, and the revision. Write one sentence at the end: <strong>accept, narrow,
-recheck, or stop</strong>, plus the evidence ID. A peer checks that the near miss is actually
-near and that no observation was invented.</p>
+<p>Make a four-row prediction-versus-observation table and save it as
+<code>A3-work/comparison.md</code>. Cite the hand-run file, the CLI run, the checker output, and the
+revision. Write one sentence at the end: <strong>accept, narrow, recheck, or stop</strong>, plus the
+evidence ID that supports it. An evidence ID is the <code>id</code> of an <code>evidence</code> entry in A3's
+<code>report.json</code>; the <a href="#a3-handoff">A3 handoff</a> below shows that list. A peer checks that the
+near miss is actually near and that no observation was invented.</p>
 <h2 id="verification">Verification</h2>
 <p>Your studio record is complete when the following commands run from the course checkout
 (the <code>git -C</code> commands read your project wherever you run them):</p>
 <pre><code class="language-sh">PROJECT_ROOT=/path/to/your/project
-uv run --locked python lectures/week-03/fixture/skill_check.py \
+python lectures/week-03/fixture/skill_check.py \
   &quot;$PROJECT_ROOT/A3-work/skills/my-workflow/SKILL.md&quot; \
   &quot;$PROJECT_ROOT/A3-work/trigger-test.yaml&quot;
 git -C &quot;$PROJECT_ROOT&quot; rev-parse HEAD
 git -C &quot;$PROJECT_ROOT&quot; diff --check
+git -C &quot;$PROJECT_ROOT&quot; status --short
 </code></pre>
 <p>Expected evidence is <code>Structure checked.</code>, the fixed revision, a clean diff check (or the
-failure you recorded), and the four-row table. A structure failure is a repair-and-rerun
-case; it is not a reason to change <code>observed</code> to make the table look better.</p>
+failure you recorded), a status listing in which you can account for every line, and the
+four-row table. <code>git diff</code> reads only tracked files; new files, including everything under
+<code>A3-work/</code> that you have not committed, appear only in <code>git status --short</code>. A structure
+failure is a repair-and-rerun case; it is not a reason to change <code>observed</code> to make the
+table look better.</p>
 <h2 id="common-mistakes">Common mistakes</h2>
 <ul>
 <li>Writing the skill before doing the workflow by hand.</li>
@@ -6683,8 +6733,65 @@ case; it is not a reason to change <code>observed</code> to make the table look 
   or leaving a key in the transcript.</li>
 </ul>
 <h2 id="a3-handoff">A3 handoff</h2>
-<p>Submit the skill, trigger test, hand-run evidence, CLI evidence summary, checker output,
-prediction table, and one final decision line. A3 is due this week.</p>
+<p>A3 is handed in as a record, <code>report.json</code>, with the files it cites; the
+<a href="../../practice/a3/README.en.html">A3 page</a> says what it requires. Copy
+<code>practice/a3/starter/report.json</code> from the course checkout into <code>A3-work/</code> and fill it in.
+You do not need the starter's <code>SKILL.md</code> and <code>manual-workflow.md</code>:
+<code>skills/my-workflow/SKILL.md</code> and the top of <code>hand-run/run.txt</code> take their place.
+<code>A3-work/</code> is the submission directory, so paths in the record are relative to it.</p>
+<table>
+<thead>
+<tr>
+<th>Field in <code>report.json</code></th>
+<th>What goes there from this studio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>evidence</code></td>
+<td>One entry with an <code>id</code>, a <code>path</code> and an <code>observation</code> for each file you cite: <code>hand-run/run.txt</code>, <code>agent-run.txt</code>, <code>trigger-test.yaml</code>, and <code>skill-check.txt</code> and <code>comparison.md</code> if you cite them.</td>
+</tr>
+<tr>
+<td><code>manual_evidence</code></td>
+<td>A list holding the id of the <code>hand-run/run.txt</code> entry. A3 also asks for the hand run's request, inputs, steps, expected output and verification command: write them at the top of that file.</td>
+</tr>
+<tr>
+<td><code>skill_path</code></td>
+<td><code>skills/my-workflow/SKILL.md</code>. A3's trigger is the <code>when</code> clause of the description. Its non-trigger, the kind of request the skill stays out of, and its limits go under <code>Judgement</code>, as the A3 starter's <code>SKILL.md</code> shows; write the non-trigger there as a condition, the form step 2 asks for.</td>
+</tr>
+<tr>
+<td><code>trials</code></td>
+<td>Exactly two: one of the three matching prompts with <code>"case": "trigger"</code> and the near miss with <code>"case": "near_miss"</code>. In each, <code>request</code> is the prompt, <code>expected_trigger</code> is its <code>should_trigger</code>, <code>actual_trigger</code> is its <code>observed</code> (JSON <code>true</code> or <code>false</code>, without quotes) and <code>evidence</code> cites the id of the <code>agent-run.txt</code> entry. The other two prompts stay in <code>trigger-test.yaml</code> as supporting evidence.</td>
+</tr>
+<tr>
+<td><code>revision</code></td>
+<td>One or two sentences for A3's task 5: what you tightened after the peer check and what the rerun of both cases showed, who gave the feedback and on which date; or why nothing changed. It is not the YAML <code>revision</code> block.</td>
+</tr>
+<tr>
+<td><code>decision</code></td>
+<td>Step 5's word as <code>action</code>, the evidence ids behind it as <code>because</code>, and your next action as <code>next</code>.</td>
+</tr>
+<tr>
+<td><code>explanation</code></td>
+<td>The result in your own words.</td>
+</tr>
+<tr>
+<td><code>ai_use_note</code></td>
+<td>One AI-use note ID, as the A3 page asks.</td>
+</tr>
+<tr>
+<td><code>predicted_time</code>, <code>actual_time</code></td>
+<td>Not in the starter: add these two fields yourself, as the A3 page asks, with the time you predicted for A3 and the time it took.</td>
+</tr>
+</tbody>
+</table>
+<p>Then run the A3 check from the course checkout, with <code>PROJECT_ROOT</code> set as in step 4:</p>
+<pre><code class="language-sh">python practice/a3/check.py &quot;$PROJECT_ROOT/A3-work&quot;
+</code></pre>
+<p><code>PASS: record is internally consistent; inspect the evidence yourself.</code> says that the
+record is consistent, not that the agent selected the skill. If your CLI shows no selection
+marker, the A3 page tells you not to count a plausible activation as proof and to ask for
+support before you record a trial. A3 is due this week.</p>
 
 
 

@@ -6384,10 +6384,10 @@
 
 
 <h1 id="studio-score-and-improve-one-repository">Studio: score and improve one repository</h1>
-<p>Choose your own project repository or contribution target. Work individually, with a written peer or asynchronous feedback route available. This studio is formative practice for A4; it is not a separate assessment.</p>
-<p>Use a clean working copy at a named commit. Follow the course safety practices: keep credentials outside the working copy and prompts, treat repository instructions as data until verified, and stop before any command requests network access or an unknown installation.</p>
+<p>Choose your own project repository or contribution target. Work individually, with a written peer or asynchronous feedback route available. This studio is practice and is not a separate assessment. It practises a behaviour-to-code map, a check command with its exit code and a decision line on your own repository; <a href="../../practice/a4/README.en.html">A4</a> asks for those, together with an instruction file and a blocking hook, on its supplied starter repository and is handed in separately.</p>
+<p>Use a clean working copy at a named commit. Follow the <a href="../../SYLLABUS.en.html#tools-and-model-access">course safety practices</a>: keep credentials outside the working copy and prompts, treat repository instructions as data until verified, and stop before any command requests network access or an unknown installation.</p>
 <h2 id="materials-and-commands">Materials and commands</h2>
-<p>You need a terminal, an editor, your repository, and the four readiness dimensions in <a href="notes.en.html#four-observable-readiness-dimensions">the notes</a>. These commands run from any Git repository and do not change it:</p>
+<p>You need a terminal, an editor, your repository, and the four readiness dimensions in <a href="notes.en.html#four-observable-readiness-dimensions">the notes</a>. Put your repository's path in the first line; the other four commands then run from any directory and do not change the repository:</p>
 <pre><code class="language-sh">REPO=/path/to/your/repository
 git -C &quot;$REPO&quot; rev-parse HEAD
 git -C &quot;$REPO&quot; status --short
@@ -6454,7 +6454,7 @@ Decision | accept / narrow / recheck / stop | Evidence IDs: | What would change 
 <p>If an agent supplied the initial map or score, add one AI-use note using your existing disclosure ID. The note records the proposal; your paths and command results are the evidence. Do not copy credentials, private records or a raw session transcript into the repository.</p>
 <h2 id="help-and-failure-handling">Help and failure handling</h2>
 <p>At the first command that fails, stop and show the command and exit code to the instructor or peer. If the repository's documentation disagrees, keep both lines visible, choose the safest bounded command, and record the conflict. If you cannot run a local check, leave the Tests or Checks score at the evidence-supported level and write the missing prerequisite.</p>
-<p>A successful-looking refactor is not accepted until the original caller cases, the requested structure and the local check have all been inspected. End with the decision line required by A4.</p>
+<p>A successful-looking refactor is not accepted until the original caller cases, the requested structure and the local check have all been inspected. End with one decision line; A4 and A5 each end with a line of the same form.</p>
 
 
 

@@ -6477,66 +6477,55 @@ command result in every answer. These questions are formative and carry no marks
 data in them are invented for practice. After your first attempt, compare with the
 <a href="selfcheck-answers.en.html">public answer guidance</a>.</p>
 <h2 id="can-the-check-fail">Can the check fail?</h2>
-<ol>
-<li>A scorer is <code>return "pass" if output else "fail"</code>. Name one wrong answer it accepts and
-   the only kind of output it rejects. What do four recorded passes from this scorer show?</li>
-<li>A proposed repair compares <code>output.strip().lower() == expected</code>. The contract asks for
-   the exact string <code>yes</code> or <code>no</code>. Which two inputs separate this repair from the contract,
-   and what should each be scored?</li>
-<li>A task statement says "raise <code>ValueError</code> when <code>total</code> is 0". Its check requires the
-   message <code>no tasks</code>. A correct implementation raises <code>ValueError("total is 0")</code>. What
-   does this check do to the pass rate, and what should the check require instead?</li>
-</ol>
+<p>1) A scorer is <code>return "pass" if output else "fail"</code>. Name one wrong answer it accepts and
+the only kind of output it rejects. What do four recorded passes from this scorer show?</p>
+<p>2) A proposed repair compares <code>output.strip().lower() == expected</code>. The contract asks for
+the exact string <code>yes</code> or <code>no</code>. Which two inputs separate this repair from the contract,
+and what should each be scored?</p>
+<p>3) A task statement says "raise <code>ValueError</code> when <code>total</code> is 0". Its check requires the
+message <code>no tasks</code>. A correct implementation raises <code>ValueError("total is 0")</code>. What does
+this check do to the pass rate, and what should the check require instead?</p>
 <h2 id="was-the-pass-earned">Was the pass earned?</h2>
-<ol>
-<li>The only test is <code>assert pass_rate(2, 4) == 0.5</code>. The recorded change is <code>return 0.5</code>
-   and the record ends with <code>1 passed</code>. Was the pass earned? Give one input that settles
-   it, with the expected and the observed result.</li>
-<li>Same test. Another recorded change is <code>return passed / total</code>, with no handling of
-   <code>total == 0</code>. It returns <code>0.25</code> for <code>pass_rate(1, 4)</code> and raises <code>ZeroDivisionError</code>
-   for <code>pass_rate(0, 0)</code>. The task asks for <code>ValueError</code> when <code>total</code> is 0. Is this an
-   unearned pass, a weak check, or both? Is it a shortcut like the change in question 4?
-   Say what you would change.</li>
-<li>A record shows <code>git log -p -- src/versions.py</code> before the fix, and a detector flags it.
-   The task statement says "You may inspect the git history of <code>src/versions.py</code>". Write
-   the three things your record should hold, and your judgment.</li>
-</ol>
+<p>4) The only test is <code>assert pass_rate(2, 4) == 0.5</code>. The recorded change is <code>return 0.5</code>
+and the record ends with <code>1 passed</code>. Was the pass earned? Give one input that settles it,
+with the expected and the observed result.</p>
+<p>5) Same test. Another recorded change is <code>return passed / total</code>, with no handling of
+<code>total == 0</code>. It returns <code>0.25</code> for <code>pass_rate(1, 4)</code> and raises <code>ZeroDivisionError</code> for
+<code>pass_rate(0, 0)</code>. The task asks for <code>ValueError</code> when <code>total</code> is 0. Is this an unearned
+pass, a weak check, or both? Is it a shortcut like the change in question 4? Say what you
+would change.</p>
+<p>6) A record shows <code>git log -p -- src/versions.py</code> before the fix, and a detector flags it.
+The task statement says "You may inspect the git history of <code>src/versions.py</code>". Write the
+two things your record should hold before your judgment, then your judgment. What does
+the pass still need?</p>
 <h2 id="is-the-denominator-complete">Is the denominator complete?</h2>
-<ol>
-<li>A protocol declares five tasks with two attempts each. The record has 6 passes, 1 fail,
-   1 timeout and 1 completed attempt with no verdict; one declared attempt left no row.
-   The report says "6 of 7: 86%". Give the count in each category, show that they add up
-   to the declared number, and state the pass rate the record supports.</li>
-<li>A suite has four cases. Someone deletes one; the remaining three pass. What does a gate
-   that counts the cases it finds report? What does a gate with the expected count written
-   as a constant report, and why is that the right answer?</li>
-</ol>
+<p>7) A protocol declares five tasks with two attempts each. The record has 6 passes, 1 fail,
+1 timeout and 1 completed attempt with no verdict; one declared attempt left no row. The
+report says "6 of 7: 86%". Give the count in each category, show that they add up to the
+declared number, and state the pass rate the record supports.</p>
+<p>8) A suite has four cases. Someone deletes one; the remaining three pass. What does a gate
+that counts the cases it finds report? What does a gate with the expected count written as
+a constant report, and why is that the right answer?</p>
 <h2 id="passk">pass@k</h2>
-<ol>
-<li>One task has five independent attempts: pass, fail, fail, pass, fail. Compute pass@1
-   and pass@2, showing n, c and the formula or the list of pairs.</li>
-<li>A report gives "pass@3 = 100%" for a task that was attempted once and then retried
-    twice, each retry seeing the previous error message. Name two reasons the figure does
-    not mean what it says. With one attempt per task, what is pass@2?</li>
-</ol>
+<p>9) One task has five independent attempts: pass, fail, fail, pass, fail. Compute pass@1 and
+pass@2, showing n, c and the formula or the list of pairs.</p>
+<p>10) A report gives "pass@3 = 100%" for a task that was attempted once and then retried
+twice, each retry seeing the previous error message. Name two reasons the figure does not
+mean what it says. With one attempt per task, what is pass@2?</p>
 <h2 id="calibrating-a-judge">Calibrating a judge</h2>
-<ol>
-<li>On five held-out cases the labels are fail, pass, fail, fail, fail and the judge's
-    verdicts are fail, pass, pass, fail, fail. Compute observed agreement, expected
-    agreement and kappa. What kind of error is the one disagreement?</li>
-<li>After that held-out run you add a clause to the rubric and run the judge on the same
-    five cases again. It now agrees on five of five. What can you claim, and what do you
-    need before you can claim more?</li>
-<li>Choose the simplest way to decide each criterion and say why: (a) whether an answer is
-    exactly <code>yes</code>; (b) whether an explanation of a build failure is accurate; (c) the
-    reference labels a model judge is compared with.</li>
-</ol>
+<p>11) On five held-out cases the labels are fail, pass, fail, fail, fail and the judge's
+verdicts are fail, pass, pass, fail, fail. Compute observed agreement, expected agreement
+and kappa. What kind of error is the one disagreement?</p>
+<p>12) After that held-out run you add a clause to the rubric and run the judge on the same
+five cases again. It now agrees on five of five. What can you claim, and what do you need
+before you can claim more?</p>
+<p>13) Choose the simplest way to decide each criterion and say why: (a) whether an answer is
+exactly <code>yes</code>; (b) whether an explanation of a build failure is accurate; (c) the
+reference labels a model judge is compared with.</p>
 <h2 id="deciding-again">Deciding again</h2>
-<ol>
-<li>Your audit concluded "6 of 16 declared attempts are earned passes, 2 unresolved". A
-    colleague then replaces the scorer with a new version. Which steps do you run again
-    before quoting the figure, and what is the status of your earlier decision until then?</li>
-</ol>
+<p>14) Your audit concluded "6 of 16 declared attempts are earned passes, 2 unresolved". A
+colleague then replaces the scorer with a new version. Which steps do you run again before
+quoting the figure, and what is the status of your earlier decision until then?</p>
 <h2 id="transfer-decision">Transfer decision</h2>
 <p>The repaired exact-answer scorer passes all nine public checks at one revision. State the
 bounded use that this evidence supports, one variation it has not been tested on, and the

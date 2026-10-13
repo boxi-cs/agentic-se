@@ -6742,7 +6742,7 @@
 <hr />
 <h2 id="start-with-your-own-review">Start with your own review</h2>
 <p>Read the contract and diff before any model output.</p>
-<p>Write one boundary input, expected result, observed or traced result, and consequence.</p>
+<p>Write a location, one boundary input, the expected result, the observed or traced result, and the consequence.</p>
 <hr />
 <h2 id="the-contract-is-the-oracle">The contract is the oracle</h2>
 <p>An account may edit exactly when it is active and is an owner or staff member.</p>
@@ -6755,7 +6755,7 @@
 <hr />
 <h2 id="a-happy-path-is-one-data-point">A happy path is one data point</h2>
 <p>active=True, owner=False, staff=True returns True.</p>
-<p>That does not test an inactive owner.</p>
+<p>One passing input leaves seven combinations untested.</p>
 <hr />
 <h2 id="choose-a-separating-input">Choose a separating input</h2>
 <p>active=False, owner=True, staff=False</p>

@@ -6477,7 +6477,7 @@
 <h2 id="at-a-glance">At a glance</h2>
 <ul>
 <li><strong>Task:</strong> build a local MCP server whose tools, schemas and errors help an agent select, call and recover correctly.</li>
-<li><strong>Week:</strong> 2</li>
+<li><strong>Week:</strong> <a href="../../lectures/week-02/README.en.html">2</a></li>
 <li><strong>Weight:</strong> 2.5 points</li>
 <li><strong>Due:</strong> Sunday 23:59 in the listed week</li>
 <li><strong>Hand in:</strong> the server, a <code>report.json</code>, and outputs from the public protocol check.</li>
@@ -6487,7 +6487,7 @@
 <h2 id="objectives">Objectives</h2>
 <p>Design a small model-readable tool surface and verify its behaviour (LO2). No third-party sign-in or OAuth is required.</p>
 <h2 id="prerequisites">Prerequisites</h2>
-<p>Follow the <a href="../../SYLLABUS.en.html">safety practices in syllabus §9</a>:</p>
+<p>Follow the <a href="../../SYLLABUS.en.html#tools-and-model-access">course safety practices</a>:</p>
 <ul>
 <li>Run the agent in a dedicated directory or container.</li>
 <li>Keep residency, employer and cloud credentials out of that environment.</li>
@@ -6509,13 +6509,19 @@
 <p>Include the server source, schemas, <code>report.json</code>, and protocol output. The report has a
 <code>server_path</code> naming the submitted <code>tool_server.py</code> and exactly three trial cases:
 <code>selection</code>, <code>arguments</code> and <code>recovery</code>, each with request, expected, actual, disposition and
-evidence IDs. Start from <a href="starter/"><code>starter/</code></a> and run:</p>
+evidence IDs. Copy <a href="starter/"><code>starter/</code></a> to a submission directory of your own outside the
+course checkout, work in that copy, and run from the course checkout:</p>
 <pre><code class="language-bash">python practice/a2/protocol_check.py path/to/submission/tool_server.py
 python practice/a2/check.py path/to/submission
 </code></pre>
 <p><code>protocol_check.py</code> is an envelope smoke test. It checks the handshake, the shape of the
 tool list, one valid call and one refused invalid call. It never calls a model, so it does not
-show that a model can choose and use your tool; a pass prints that limitation on its own line.</p>
+show that a model can choose and use your tool; a pass states that limitation in its output.</p>
+<p>The check calls your first listed tool three times: valid, invalid, valid. By default it sends
+the string <code>alpha</code> for each required argument. If your first tool needs other values, pass them
+as JSON. This form works on the starter server:</p>
+<pre><code class="language-bash">python practice/a2/protocol_check.py path/to/submission/tool_server.py --arguments '{&quot;key&quot;: &quot;beta&quot;}'
+</code></pre>
 <p>Register the same <code>tool_server.py</code> command in your mature agent's documented local-stdio
 tool configuration. The three report trials are the real agent runs that establish selection,
 argument handling and recovery.</p>
@@ -6526,16 +6532,18 @@ argument handling and recovery.</p>
 <h2 id="estimated-time">Estimated time</h2>
 <p>Published after a timed pilot. Record predicted and actual time and request help if a local protocol failure is unclear.</p>
 <h2 id="work-record-outline">Work record outline</h2>
-<pre><code class="language-text">A2 report
+<pre><code class="language-text">assignment: A2
 server_path: TODO
+evidence: [{id: TODO, path: TODO, observation: TODO}]
 trials: [{case: selection|arguments|recovery, run_kind: real, request: TODO, expected: TODO, actual: TODO, disposition: TODO, evidence: [TODO]}]
 protocol_evidence: [TODO]
 explanation: TODO
 ai_use_note: TODO
-decision: accept | narrow | recheck | stop
-because: evidence ID(s)
-next: TODO
+predicted_time: TODO
+actual_time: TODO
+decision: {action: accept | narrow | recheck | stop, because: [evidence ID(s)], next: TODO}
 </code></pre>
+<p>The outline lists the fields of <code>report.json</code> in plain text. <code>starter/report.json</code> holds them as JSON, except <code>predicted_time</code> and <code>actual_time</code>, which you add yourself. Evidence paths are relative to your submission directory. The check reads a field that still contains the word <code>TODO</code>, or text in angle brackets such as <code>&lt;name&gt;</code>, as unfilled.</p>
 
 
 

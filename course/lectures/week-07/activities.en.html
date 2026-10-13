@@ -6578,6 +6578,13 @@ leave with one closed gap, one property and a reviewed agent diff.</p>
 <h2 id="due-this-week">Due this week</h2>
 <p>The project alpha and task backlog are due this week; the
 <a href="../../SYLLABUS.en.html#term-project">syllabus</a> says what they contain.</p>
+<p>You hand them in on the alpha template that the
+<a href="../../site/docs/project.en.html#four-milestones">project page</a> links. Today's record feeds
+two of its sections. Its verification record takes the test command from entry 1, the
+mutant table from entry 2 as your mutation configuration, and the survivors and the new
+test from entries 2 and 3. Each item from entry 6 becomes a row of its task backlog once
+you add an ID, a priority and an owner. The template's sections on the end-to-end path,
+the instruction file and the hook gate are not part of today's session.</p>
 <h2 id="before-you-start">Before you start</h2>
 <p><strong>Format:</strong> individual work, or the two members of a project pair alternating who types.
 <strong>Materials:</strong> your project repository with the tests it has today, the one command that
@@ -6594,6 +6601,9 @@ your real code.</p>
 <p>If your project has no test yet, write one test with an expected value for the behaviour
 you pick in step 1, see it pass, and continue. That test is your suite for today.</p>
 <h2 id="studio-sequence">Studio sequence</h2>
+<p>The step times add up to 100 minutes and the session is 90. Steps 1 to 5 need the
+session; step 6 is writing, and you can finish it afterwards, before you hand in the
+alpha.</p>
 <h3 id="1-pick-one-behaviour-and-write-its-contract-10-minutes">1. Pick one behaviour and write its contract (10 minutes)</h3>
 <p>Choose one function or module on your alpha path: something your end-to-end path
 actually calls, with inputs you can construct in a test. Write its contract in the form
@@ -6678,8 +6688,11 @@ agent's summary:</p>
 <p>Whatever happened is the result. If the agent repaired the code and left the tests alone,
 record that and the evidence; if it edited a test, record the lines and your decision.
 Either way this is one run on one planted fault in your repository: a process exercise
-about how you review, not a finding about what a model does in general. Then delete the
-scratch branch and return to your working branch with a clean tree.</p>
+about how you review, not a finding about what a model does in general. When entry 5 is
+written, discard the agent's uncommitted edits but keep your record file: restore the
+files the agent changed by name, not the whole tree. Then switch back to your working
+branch, commit the record there and delete the scratch branch. <code>git status --short</code>
+should then print nothing: an edited test must not travel back with you.</p>
 <p>Record entry 5: the request you gave, the files changed, each changed test line with its
 disposition, and one sentence comparing the summary with the diff. Reuse your existing
 AI-use note; no chat export is needed.</p>

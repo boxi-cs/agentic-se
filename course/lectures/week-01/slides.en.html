@@ -6661,13 +6661,21 @@ section table { font-size: 26px; width: 100%; }
 <p><small>LO1: explain the loop · LO9: keep evidence bounded</small></p>
 <hr />
 <h2 id="a-coding-agent-is-a-loop">A coding agent is a loop</h2>
-<pre><code class="language-mermaid">flowchart LR
-  M[Model proposes] --&gt; C[Controller checks]
-  C --&gt; T[Tool acts]
-  T --&gt; O[Observation]
-  O --&gt; M
-  C --&gt; S[Stop or continue]
-</code></pre>
+<p><svg viewBox="0 0 980 260" role="img" aria-labelledby="loop-title-01 loop-desc-01" style="width: 100%; height: 320px;">
+<title id="loop-title-01">The agent loop</title>
+<desc id="loop-desc-01">Model proposes leads to Controller checks. From Controller checks one arrow goes to Tool acts and one goes to Stop or continue. Tool acts leads to Observation, and Observation leads back to Model proposes.</desc>
+<defs><marker id="arrow-01" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M 0 0 L 12 6 L 0 12 Z" fill="#18332f"/></marker></defs>
+<rect x="260" y="8" width="215" height="60" rx="10" fill="#f7eee2" stroke="#934126" stroke-width="2"/><text x="367" y="46" text-anchor="middle" font-size="22" fill="#934126">Stop or continue</text>
+<rect x="15" y="110" width="215" height="60" rx="10" fill="#e6f0ed" stroke="#18332f" stroke-width="2"/><text x="122" y="148" text-anchor="middle" font-size="22" fill="#18332f">Model proposes</text>
+<rect x="260" y="110" width="215" height="60" rx="10" fill="#e6f0ed" stroke="#18332f" stroke-width="2"/><text x="367" y="148" text-anchor="middle" font-size="22" fill="#18332f">Controller checks</text>
+<rect x="505" y="110" width="215" height="60" rx="10" fill="#e6f0ed" stroke="#18332f" stroke-width="2"/><text x="612" y="148" text-anchor="middle" font-size="22" fill="#18332f">Tool acts</text>
+<rect x="750" y="110" width="215" height="60" rx="10" fill="#e6f0ed" stroke="#18332f" stroke-width="2"/><text x="857" y="148" text-anchor="middle" font-size="22" fill="#18332f">Observation</text>
+<path d="M230 140 H256" stroke="#18332f" stroke-width="3" marker-end="url(#arrow-01)"/>
+<path d="M475 140 H501" stroke="#18332f" stroke-width="3" marker-end="url(#arrow-01)"/>
+<path d="M720 140 H746" stroke="#18332f" stroke-width="3" marker-end="url(#arrow-01)"/>
+<path d="M367 110 V72" stroke="#18332f" stroke-width="3" marker-end="url(#arrow-01)"/>
+<path d="M857 170 V230 H122 V174" fill="none" stroke="#18332f" stroke-width="3" marker-end="url(#arrow-01)"/>
+</svg></p>
 <p>Each arrow carries a different claim.</p>
 <hr />
 <h2 id="start-with-a-contract">Start with a contract</h2>
@@ -6727,7 +6735,7 @@ Anything else → <code>unknown</code></p>
 <li>Answer every call with its own tool message.</li>
 <li>Exhausted budget means <code>step_limit</code>.</li>
 </ol>
-<p>The public starter leaves <code>run()</code> for you to complete.</p>
+<p>Steps 1-3 are built in class; steps 4-5 are yours.</p>
 <hr />
 <h2 id="generate-a-successful-path">Generate a successful path</h2>
 <pre><code class="language-text">c1 read result.txt       → 5\n
@@ -6738,9 +6746,12 @@ final                    → no more calls
 <p>Left: generated actions.<br>Right: observed results.</p>
 <hr />
 <h2 id="verify-the-controller">Verify the controller</h2>
+<p>Once, to make your copy:</p>
 <pre><code class="language-sh">mkdir week01-loop
 cp lectures/week-02/fixture/*.py week01-loop/
-python3 week01-loop/verify_loop.py
+</code></pre>
+<p>Every time, the check:</p>
+<pre><code class="language-sh">python3 week01-loop/verify_loop.py
 </code></pre>
 <p>Before <code>run()</code> is complete, the check explains what is missing.
 Afterwards, read the named checks and retain the output.</p>
@@ -6814,7 +6825,7 @@ Afterwards, read the named checks and retain the output.</p>
 <hr />
 <h2 id="evidence-bounded-decisions">Evidence-bounded decisions</h2>
 <p>Accept only the revision and cases the check covered.</p>
-<p>Otherwise narrow the claim, re-check the current revision or stop.</p>
+<p>Otherwise narrow the claim, recheck the current revision or stop.</p>
 <p><a href="../../practice/a1/README.en.html">A1</a> is due this week.</p>
 
 

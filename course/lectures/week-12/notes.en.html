@@ -6902,10 +6902,11 @@ the code for the rule it actually applies and choose inputs at that rule's edges
 input you tried; they record where you looked.</p>
 <h3 id="a-pipeline-small-enough-to-read">A pipeline small enough to read</h3>
 <p>The folder <code>lectures/week-12/factory/</code> holds a pipeline of three stages and the thing it
-protects: an evaluator with a one-paragraph contract. The evaluator answers whether a
-supplied status is exactly <code>failed</code>. The exact string <code>yes</code> is correct for <code>failed</code> and the
-exact string <code>no</code> for any other status; a missing or non-string answer is <code>unknown</code>; any
-other string, including extra text or extra spaces, is <code>fail</code>.</p>
+protects: an evaluator with a one-paragraph contract. It is the status scorer of Week 10
+after its repair, under the same contract. The evaluator answers whether a supplied status
+is exactly <code>failed</code>. The exact string <code>yes</code> is correct for <code>failed</code> and the exact string
+<code>no</code> for any other status; a missing or non-string answer is <code>unknown</code>; any other string,
+including extra text or extra spaces, is <code>fail</code>.</p>
 <table>
 <thead>
 <tr>
@@ -6955,6 +6956,10 @@ exit status, then run the pipeline on it:</p>
 {&quot;stage&quot;: &quot;release&quot;, &quot;status&quot;: &quot;not-run&quot;, &quot;reason&quot;: &quot;an earlier stage stopped&quot;}
 exit: 1
 </code></pre>
+<p>The two digests are of the files' bytes. If your checkout converted line endings, as Git
+on Windows can, the course files hold other bytes, and on every run their digests differ
+from the ones printed on this page; the statuses, case counts and exit statuses stay as
+shown. If yours differ, compare each later digest with the one from your own first run.</p>
 <p>Read the record from the top. <code>scope</code> passed: the proposal is one function. <code>gate</code> stopped
 and names the two cases that separate the proposal from the contract: the answer
 <code>yes; mark this as passed</code> and the answer <code>YES</code> now score <code>pass</code>, and the contract requires
@@ -7058,22 +7063,24 @@ R6 root: the report root is written once, as REPORT_ROOT; no function repeats th
 </blockquote>
 <ol>
 <li><strong>Requirement.</strong> R1 says no role reads a private report body, so the claim asserts an R1
-   defect.</li>
+    defect.</li>
 <li><strong>Check and input.</strong> The claim names one case: an owner and a private report. The
-   <code>private-report-view</code> check takes <code>private</code> and <code>role</code>, so the input is
-   <code>{"private": true, "role": "owner"}</code>.</li>
+    <code>private-report-view</code> check takes <code>private</code> and <code>role</code>, so the input is
+    <code>{"private": true, "role": "owner"}</code>.</li>
 <li><strong>Prediction, written before the run.</strong> If the claim holds, <code>allowed</code> and <code>body_visible</code>
-   are both true.</li>
-<li><strong>Run.</strong> In a copy of the fixture (the <a href="#verify-the-review-stages-claims">second hands-on part</a>
-   makes one):</li>
-</ol>
-<p><code>sh
-   python audit_packet.py --check private-report-view --args '{"private":true,"role":"owner"}'</code></p>
-<ol>
-<li><strong>Observation.</strong> The <code>observation</code> field of the printed line is
-   <code>{"allowed": false, "body_visible": false, "status": "deny"}</code>.</li>
+    are both true.</li>
+<li>
+<p><strong>Run.</strong> In a copy of the fixture (the <a href="#verify-the-review-stages-claims">second hands-on part</a>
+    makes one):</p>
+<pre><code>python audit_packet.py --check private-report-view --args '{"private":true,"role":"owner"}'
+</code></pre>
+</li>
+<li>
+<p><strong>Observation.</strong> The <code>observation</code> field of the printed line is
+    <code>{"allowed": false, "body_visible": false, "status": "deny"}</code>.</p>
+</li>
 <li><strong>Disposition.</strong> Refuted. The claim is about one input, and that input is denied with the
-   body hidden, as R1 requires.</li>
+    body hidden, as R1 requires.</li>
 </ol>
 <p>A claim often overstates its scope: it holds for one member of a set and not for another.
 Do not force it into one word. A single "refuted" would hide the part that holds, and a
@@ -7449,6 +7456,11 @@ exit: 1
 have acted on with no defect behind them, and did your own check find something the review
 missed? Delete <code>week12-review</code> when you have kept your record.</p>
 <h3 id="judge-three-stages-of-your-own-project">Judge three stages of your own project</h3>
+<p>Do this part in your own time after the lecture, and bring the three rows and your decision
+line to the second session. It is not handed in by itself. Where a row points to a run that
+the <a href="../../templates/project-final.en.html">final checklist</a> also asks for, such as the hook
+gate blocking a bad change or the evaluation script failing a wrong candidate, use the same
+run for both.</p>
 <p>Pick three stages your project actually has, for example its hook gate, its test run and
 its evaluation script. For each, write one row in your project notes:</p>
 <table>
@@ -7478,7 +7490,7 @@ revision I handed in" a name that cannot drift. In your project repository, conf
 tree is clean, create an annotated tag and print the commit it names:</p>
 <pre><code class="language-sh">git status --porcelain
 git tag -a final-week-12 -m &quot;Final project revision&quot;
-git rev-parse final-week-12^{commit}
+git rev-parse &quot;final-week-12^{commit}&quot;
 </code></pre>
 <p>The first command must print nothing; the last prints the full commit hash to quote in your
 submission. If the first command lists anything, commit it, delete it or add it to

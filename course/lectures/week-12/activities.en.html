@@ -6430,9 +6430,15 @@
 <h1 id="week-12-second-session-defense-walkthrough-and-studio">Week 12 second session: defense walkthrough and studio</h1>
 <p>The second session has two parts: a walkthrough of the defense format you meet in week 13,
 then a studio on your own final project. Bring your project repository at the revision you
-intend to hand in. Keep the work in a dedicated directory, as
+intend to hand in, and the three rows from
+<a href="notes.en.html#judge-three-stages-of-your-own-project">Judge three stages of your own project</a>.
+Keep the work in a dedicated directory, as
 <a href="../../SYLLABUS.en.html#tools-and-model-access">Tools and model access</a> describes.</p>
-<p>Contribution 4 is due this week. The final project is due this week.</p>
+<p>Contribution 4 is due this week. The final project is due this week. The
+<a href="../../capstone/kit/open-source-contributions.en.html">contributions guide</a> and the
+<a href="../../site/docs/project.en.html#four-milestones">project page</a> give the deadline and what
+each must contain; the final project uses the
+<a href="../../templates/project-final.en.html">final checklist</a>.</p>
 <h2 id="session-sequence">Session sequence</h2>
 <table>
 <thead>
@@ -6584,30 +6590,30 @@ yourself are the only evidence, and the honest decision is usually narrow or rec
 <p>Delete <code>week12-defense-practice</code> when you finish.</p>
 <h2 id="rehearse-on-your-own-project">Rehearse on your own project</h2>
 <p>Work in pairs; swap roles after one round. In your project repository:</p>
-<ol>
-<li>Freeze the revision you intend to hand in, with the commands of
-   <a href="notes.en.html#freeze-the-revision-you-hand-in">Freeze the revision you hand in</a>. Run
-   your own gate once, the command your README names, and keep its output.</li>
-<li>Your partner changes one thing in your working tree: one line of code, one
-   configuration value or one test expectation. They do not say what, and they do not
-   commit it.</li>
-<li>Screen closed, read the code your partner points you to. Say or write the three
-   statements: where, which input separates the two behaviours, and your decision with the
-   evidence you would want.</li>
-<li>Screen open, check each statement. Replace <code>final-week-12</code> with your tag if you named
-   it differently:</li>
-</ol>
-<p><code>sh
-   git diff --stat final-week-12
-   git diff final-week-12</code></p>
+<p><strong>1. Freeze.</strong> Tag the revision you intend to hand in, with the commands of
+<a href="notes.en.html#freeze-the-revision-you-hand-in">Freeze the revision you hand in</a>. Run
+your own gate once, the command your README names, and keep its output.</p>
+<p><strong>2. Plant.</strong> Your partner changes one thing in your working tree: one line of code, one
+configuration value or one test expectation. They do not say what, and they do not
+commit it.</p>
+<p><strong>3. Predict, screen closed.</strong> Read the code your partner points you to. Say or write the
+three statements: where, which input separates the two behaviours, and your decision with
+the evidence you would want.</p>
+<p><strong>4. Check, screen open.</strong> Check each statement. Replace <code>final-week-12</code> with your tag if
+you named it differently:</p>
+<pre><code class="language-sh">git diff --stat final-week-12
+git diff final-week-12
+</code></pre>
 <p>Then run your gate again. If it stays green, write the separating input as a new test
-   or case before you decide anything.
-5. Restore the frozen files and confirm that nothing else changed:</p>
-<p><code>sh
-   git checkout final-week-12 -- .
-   git status --porcelain</code></p>
+or case before you decide anything.</p>
+<p><strong>5. Restore.</strong> The first command below also discards a test you added to an existing file
+in step 4; to keep it, copy it out of the repository first and add it later in a new commit
+under a new tag name. Then restore the frozen files and confirm that nothing else changed:</p>
+<pre><code class="language-sh">git checkout final-week-12 -- .
+git status --porcelain
+</code></pre>
 <p>If your partner added a new file, <code>git status --porcelain</code> lists it with <code>??</code>; delete
-   that file by name.</p>
+that file by name.</p>
 <p>Your partner's change is practice between two students. It is not an examiner's question
 and does not show what the defense will ask.</p>
 <h2 id="final-project-run-it-from-the-tagged-files-only">Final project: run it from the tagged files only</h2>

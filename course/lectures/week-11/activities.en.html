@@ -6568,7 +6568,10 @@
 <p>After CP2 the session is offered to a practitioner guest for at most 45 minutes, on how
 their team runs agents. Write one question for the guest beforehand. In a week without a
 guest, or in the time that remains, the session is the studio below. You work on your own
-project while staff circulate; what you do not finish in the room, finish before next week.</p>
+project while staff circulate; what you do not finish in the room, finish before next week.
+Without a guest, steps 1 to 3 fit in the room and step 4 is finished in writing afterwards.
+With a guest, about ten minutes remain: start step 1 in the room and do the rest before next
+week.</p>
 <h2 id="studio-sequence">Studio sequence</h2>
 <p><strong>Format:</strong> individual work in your project repository, then a short written exchange with
 a partner. <strong>Materials:</strong> your project repository, your agent's session records for one
@@ -6584,13 +6587,14 @@ the agent can actually reach in the environment where you run it. Start in your 
 repository with:</p>
 <pre><code class="language-sh">git status --short
 git remote -v
-env | grep -i -E 'key|token|secret|password|credential' | cut -d= -f1
+awk 'BEGIN { for (name in ENVIRON) print name }' | grep -i -E 'key|token|secret|password|credential'
 </code></pre>
 <p>The last command prints only the names of environment variables whose name suggests a
-credential, never their values. Any name it prints is something every command your agent
-runs can read. Add what the first two do not show: other repositories and directories the
-agent's working directory or container can see, the tools and MCP servers it has enabled,
-and whether its permission mode asks before a command runs.</p>
+credential, never their values. It prints nothing when no name matches. Any name it prints
+is something every command your agent runs can read. Add what the first two do not show:
+other repositories and directories the agent's working directory or container can see, the
+tools and MCP servers it has enabled, and whether its permission mode asks before a command
+runs.</p>
 <p>Write two columns, need and reach, and mark every entry of reach that the task does not
 need. For each marked entry decide: narrow it now, or keep it with an owner and a reason.
 This is the portal check from the lecture, applied to a team of one.</p>

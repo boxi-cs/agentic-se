@@ -1081,32 +1081,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-minimal-loop" class="md-nav__link">
+  <a href="#questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The minimal loop
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#reading-a-request" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reading a request
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#your-studio-record" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Your studio record
+        Questions
       
     </span>
   </a>
@@ -6323,32 +6301,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-minimal-loop" class="md-nav__link">
+  <a href="#questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The minimal loop
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#reading-a-request" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reading a request
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#your-studio-record" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Your studio record
+        Questions
       
     </span>
   </a>
@@ -6388,10 +6344,10 @@
 message index, or state that you are inferring. These formative checks are not a
 graded submission. Compare your work with the
 <a href="selfcheck-answers.en.html">answer guidance</a>.</p>
-<h2 id="the-minimal-loop">The minimal loop</h2>
+<h2 id="questions">Questions</h2>
 <ol>
-<li>In the fixture protocol, what does the model generate, what does the controller
-   decide, and what does the tool return for <code>read("result.txt")</code>?</li>
+<li><strong>The minimal loop.</strong> In the fixture protocol, what does the model generate, what
+   does the controller decide, and what does the tool return for <code>read("result.txt")</code>?</li>
 <li>Why is <code>written</code> evidence of a file effect but not evidence that the required
    content is present?</li>
 <li>A reply contains two calls, one refused and one allowed. In what order should
@@ -6399,29 +6355,25 @@ graded submission. Compare your work with the
 <li>What is the difference between the stop reasons <code>final</code> and <code>step_limit</code>?</li>
 <li>The proposer says “done” after a write and sends no verification call. What claim
    is unsupported, and which command would supply the missing observation?</li>
-</ol>
-<h2 id="reading-a-request">Reading a request</h2>
-<ol>
-<li>In request 4 of the sample record, list one system instruction, one tool-schema
-   constraint and one message carried from an earlier turn. Label each observed or
-   inferred.</li>
+<li><strong>Reading a request.</strong> In request 4 of the sample record, list one system
+   instruction, one tool-schema constraint and one message carried from an earlier
+   turn. Label each observed or inferred.</li>
 <li>How can you tell whether a rule is enforced by a schema/tool check or merely
-   requested in prose? Give one example of each from the prompt dissection.</li>
+   requested in prose? Give one example of each from the loop fixture, the sample
+   record or the two published sources in the readings.</li>
 <li>Why must you count model requests rather than tool calls when reading a session?</li>
 <li>What does a <code>course-made-sample</code> provenance value establish, and what does it not
    establish about a real agent?</li>
-</ol>
-<h2 id="your-studio-record">Your studio record</h2>
-<ol>
-<li>Cite one observed event from your own record and one inference you made from it.
-    What follow-up check would turn the inference into an observation?</li>
+<li><strong>Your studio record.</strong> Cite one observed event from your own record and one
+    inference you made from it. What follow-up check would turn the inference into an
+    observation?</li>
 <li>If your record has no verification result, what decision is justified: accept,
-    narrow, re-check or stop? Explain the evidence boundary.</li>
+    narrow, recheck or stop? Explain the evidence boundary.</li>
 <li>Write one sentence that preserves the original prediction and one sentence that
-    records what changed after the fixture check.</li>
+    records what changed after the check ran.</li>
 </ol>
 <h2 id="decision-line">Decision line</h2>
-<p>Finish with one of: <strong>accept</strong>, <strong>narrow</strong>, <strong>re-check</strong> or <strong>stop</strong>, followed by the
+<p>Finish with one of: <strong>accept</strong>, <strong>narrow</strong>, <strong>recheck</strong> or <strong>stop</strong>, followed by the
 specific observation that supports it and the next check that could change it.</p>
 <p>R1. What observation distinguishes a generated call from a tool effect under its call ID?</p>
 <p>R2. What verification result is needed before accepting a final completion message?</p>

@@ -6698,14 +6698,14 @@ for what a team's agents and services produced, and its <code>agent_summary</cod
 an agent had reported on its own work. <strong>Verify:</strong> you check the records by hand, write the
 result you expect, then run a check and compare.</p>
 <p>Run every command on this page from the course checkout. The scripts use only the Python
-standard library, call no model, open no network connection and write no file; if your
-system has no <code>python</code> command, type <code>python3</code>. Read
+standard library, call no model, open no network connection and write no file. Read
 <a href="fixture/org_check.py"><code>org_check.py</code></a> before you run it: each of its four commands applies
 one stated rule to one JSON file and ends with a <code>result:</code> line.</p>
 <h3 id="tool-portal-compare-the-grant-with-the-task">Tool portal: compare the grant with the task</h3>
 <p>A portal is one service that lists which tools exist, who may call each one and on what, and
-records every grant. A hook in your own repository checks one call before its effect; a
-portal applies that idea to everyone at once.</p>
+records every grant. A hook in your own repository checks one commit before it lands, and
+the Week 8 allowlist checks one call before its effect; a portal applies that idea to
+everyone at once.</p>
 <p><a href="fixture/org-portal.json"><code>org-portal.json</code></a> holds one task, three grants and one agent
 session of five calls. The task is to read the log of failed build #121 in the
 <code>ci-dashboard</code> example repository and open a draft pull request there. The session's third
@@ -6927,9 +6927,11 @@ minutes beside the units in the same way and do not convert them into a price. E
 figure is defined; the check exits 1 when no change was accepted.</p>
 <h3 id="route-to-a-cheaper-option-only-when-your-evaluator-says-it-is-good-enough">Route to a cheaper option only when your evaluator says it is good enough</h3>
 <p>A routing policy sends each task to the cheapest route that passes the evaluator and
-escalates when a check fails. A cheaper route may be a smaller model, fewer requests, a
-smaller output limit or no model call at all. Whether it is good enough is a measurement:
-run the same frozen cases on both routes and compare them case by case.</p>
+escalates when a check fails. Here the evaluator is a fixed set of cases and the scorer that
+decides each one, the kind of check you audited in Week 10; frozen means the cases do not
+change between the routes you compare. A cheaper route may be a smaller model, fewer
+requests, a smaller output limit or no model call at all. Whether it is good enough is a
+measurement: run the same frozen cases on both routes and compare them case by case.</p>
 <p><a href="fixture/org-routes.json"><code>org-routes.json</code></a> holds a policy, "Send each task to the cheapest
 route that passes at least 90% of its frozen evaluator cases", three route choices and the
 evaluator results behind them. The route names are placeholders. The agent's summary reads:
@@ -7002,8 +7004,9 @@ For each risk, name the check that would detect it:</p>
 through every route, and permitted work still succeeds.</p>
 <h3 id="an-incident-observe-before-you-repair">An incident: observe before you repair</h3>
 <p>Operating agents includes the day something breaks. On the <code>ci-dashboard</code> example, revision
-R2 went live at 10:05:00, and a user then reported that the project page was slow. Before
-anyone changes code, an agent drafts a root-cause analysis. The draft in
+R2 of the dashboard went live at 10:05:00 (a revision of the application, not gateway run R2
+above), and a user then reported that the project page was slow. Before anyone changes code,
+an agent drafts a root-cause analysis. The draft in
 <a href="fixture/agent_rca.json"><code>agent_rca.json</code></a> was written for this lesson; no model produced it.
 It cites lines of <a href="fixture/request_log.jsonl"><code>request_log.jsonl</code></a>, ten minutes of request
 records. Each line is one request with its time, request ID, method, path, status and
@@ -7146,10 +7149,11 @@ attempts for that same operation.</p>
 was lost? The client's timeout cannot: a timeout describes an observation boundary; it does
 not prove nothing happened. The persisted job and its operation key can.</p>
 <p><strong>Write the requirement before any repair.</strong> A repeated request with the same key and the
-same build returns the existing job and creates none. The same key with a different build is
-a conflict and creates nothing. A new intended retry uses a new key and gets a new job. Two
-deliveries of the same request that arrive together still create one job. These are the four
-rows below, and the last column is what a repair must show:</p>
+same build returns the existing job and creates none. This property is called idempotency:
+repeating the same operation has the effect of doing it once. The same key with a different
+build is a conflict and creates nothing. A new intended retry uses a new key and gets a new
+job. Two deliveries of the same request that arrive together still create one job. These are
+the four rows below, and the last column is what a repair must show:</p>
 <table>
 <thead>
 <tr>

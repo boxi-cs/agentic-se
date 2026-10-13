@@ -6512,9 +6512,10 @@ both the result and the directory contents.</p>
 <p>The model can attempt any string. The handler must reject a path outside <code>out/</code> before
 writing. The error should name <code>path</code> and say to use an <code>out/&lt;name&gt;.csv</code> path.</p>
 <h2 id="q5">Q5</h2>
-<p>The unknown-field rule is schema-level. The description-level request is not evidence of
-runtime enforcement unless a visible handler or runtime check supports it; mark that
-enforcement as unknown.</p>
+<p>The unknown-field rule is schema-level. The three lines of context are a description-level
+request. Neither is a handler rule: the question offers three labels for two rules. The
+request is not evidence of runtime enforcement unless a visible handler or runtime check
+supports it; mark that enforcement as unknown.</p>
 <h2 id="q6">Q6</h2>
 <p>Keep the task and acceptance check, the source of each constraint, current file state, the
 last failed check and tested revision, remaining unknowns, and the next action. After a

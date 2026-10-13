@@ -2412,10 +2412,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#retrieval-prompts" class="md-nav__link">
+  <a href="#spaced-retrieval-weeks-34" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Retrieval prompts
+        Spaced retrieval: Weeks 3–4
       
     </span>
   </a>
@@ -6488,10 +6488,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#retrieval-prompts" class="md-nav__link">
+  <a href="#spaced-retrieval-weeks-34" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Retrieval prompts
+        Spaced retrieval: Weeks 3–4
       
     </span>
   </a>
@@ -6526,15 +6526,17 @@ that a map exists, so it is disproved if no file at the scored revision maps thi
 its caller and change point; the score is then 1.</p>
 <h2 id="q2">Q2</h2>
 <p>Level 2 is supported: commands exist, but two of the three fail as written. Record the one
-command that succeeds at the scored revision and its output. Running the listed alternatives at the same revision, then
-updating the README to match the successful path, would raise the evidence.</p>
+command that succeeds at the scored revision and its output. To reach level 3, every listed
+command has to run at the scored revision, so repair or remove the two that fail, and at
+least three invariants have to name the checks that protect them.</p>
 <h2 id="q3">Q3</h2>
 <p>The distinguishing input is <code>" PASS "</code> (or another padded value): the rejected variant does
 not strip whitespace, while the refactored variant preserves input normalization. The fixed
 case list, including aliases and the unknown fallback, is the evidence.</p>
 <h2 id="q4">Q4</h2>
-<p>The Tests anchor is unsupported because the date is uncontrolled. Supply a fixed date or
-inject a clock and run both test cases again at the scored revision.</p>
+<p>The level-3 claim that the runs use no hidden input is unsupported: the current date is a
+hidden input, so two runs on the same day agree without showing much. Supply a fixed date
+or inject a clock, then run the tests twice more at the scored revision.</p>
 <h2 id="q5">Q5</h2>
 <p>Exit 2 establishes that the check rejected the unused import. It does not establish that
 other checks, a clean input or a complete check sequence succeeds; run those separately and
@@ -6554,10 +6556,15 @@ path plus the command and output that can be reproduced without credentials.</p>
 <p>Revisit the score downward or leave it unchanged until the six missing cases are explained.
 A smaller passing set does not prove improved readiness: compare the old and new test
 inventories and restore or justify every removed case.</p>
-<h2 id="retrieval-prompts">Retrieval prompts</h2>
-<p><strong>Retrieval 1.</strong> Record the case, the context paths and the scored revision, then rerun the same command.</p>
-<p><strong>Retrieval 2.</strong> A clean tree says nothing about a measurable limit or check; name both before
-increasing the score.</p>
+<h2 id="spaced-retrieval-weeks-34">Spaced retrieval: Weeks 3–4</h2>
+<p><strong>Retrieval 1.</strong> An instruction file is a request, and an agent in a hurry can skip it. A
+hook that Git runs before the commit is a gate and can refuse the commit. Keep one blocked
+commit and one passing commit as the record that the gate fires and still lets good work
+through.</p>
+<p><strong>Retrieval 2.</strong> The near miss was meant to stay quiet, so <code>observed</code> now differs from
+<code>should_trigger</code>. Keep that row in the trigger record as it is; do not rewrite it. Narrow
+the skill's description, describe the change under <code>revision</code>, and run only that request
+again.</p>
 
 
 

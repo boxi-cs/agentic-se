@@ -6581,10 +6581,13 @@ would alter files outside the dedicated change directory; retain the refusal as 
 candidate diff. Check: each path is the named target file; any other path is a failure.”
 The source, location or input, and expected result make the rule reproducible.</p>
 <h2 id="spaced-retrieval-and-transfer">Spaced retrieval and transfer</h2>
-<p><strong>Retrieval 1.</strong> Review the changed requirement, tests and implementation together; the
-model's comment is a hypothesis until those three sources and a check support it.</p>
-<p><strong>Retrieval 2.</strong> A product decision and acceptance cases are required before mapping an
-unknown result to a failure.</p>
+<p><strong>Retrieval 1.</strong> The instruction is a request: it depends on the agent, which may omit it.
+Git invokes the hook at the commit even when the agent forgets the request, so the hook is
+a gate, but only for the one invariant it checks. A blocked commit shows that the gate
+fired; it does not show that the final change is correct. Week 4 covers both.</p>
+<p><strong>Retrieval 2.</strong> An observed anchor of the higher level must have changed at a named
+revision: a command with its result, or a path a reader can open. A tidy directory without
+a changed observation does not raise a score. Week 5 covers this, and A5 asks for it.</p>
 <p><strong>Transfer.</strong> “No finding” means only that the reviewer reported none for the context it
 received. Add an omitted requirement as your own finding, identify its input or source,
 and run the smallest check that decides whether the change is acceptable.</p>
