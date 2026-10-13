@@ -33,6 +33,10 @@
       "week": 8,
       "published": true
     },
+    "09-nobody-was-watching": {
+      "week": 9,
+      "published": true
+    },
     "10-three-questions": {
       "week": 10,
       "published": true
@@ -41,15 +45,9 @@
       "week": 11,
       "published": true
     },
-    "12-the-observation-decides": {
-      "week": null,
-      "published": false,
-      "withheld_reason": "Made for the earlier edition of the course and retired. The new Week 12 film that replaces it is awaiting merge."
-    },
-    "14-has-it-ever-failed": {
-      "week": null,
-      "published": false,
-      "withheld_reason": "Made for the earlier edition of the course. Its reworked version is the new Week 12 film, which is awaiting merge."
+    "12-has-it-ever-failed": {
+      "week": 12,
+      "published": true
     }
   }
 }
