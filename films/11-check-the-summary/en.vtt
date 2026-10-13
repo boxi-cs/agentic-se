@@ -1,0 +1,625 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.663
+An agent finishes a task and reports on its own work:
+
+2
+00:00:03.663 --> 00:00:06.566
+every call I made stayed within my grants,
+
+3
+00:00:06.566 --> 00:00:10.228
+and the portal refused the one call it did not cover.
+
+4
+00:00:10.567 --> 00:00:12.022
+That summary is a claim.
+
+5
+00:00:12.022 --> 00:00:15.965
+Before you act on it, check it against the record the team keeps.
+
+6
+00:00:17.000 --> 00:00:18.769
+When a whole team runs agents,
+
+7
+00:00:18.769 --> 00:00:22.898
+the controls you kept around your own agent move into shared services.
+
+8
+00:00:23.233 --> 00:00:28.630
+Four pieces recur: a tool portal, a model gateway, cost per accepted change,
+
+9
+00:00:28.630 --> 00:00:30.122
+and a routing policy.
+
+10
+00:00:30.122 --> 00:00:34.880
+Each one concentrates authority, so one review reaches every agent,
+
+11
+00:00:34.880 --> 00:00:36.584
+and so does one mistake.
+
+12
+00:00:36.933 --> 00:00:41.336
+For each piece, the same two steps: the record's agent summary is the claim,
+
+13
+00:00:41.336 --> 00:00:43.075
+and then you check the record.
+
+14
+00:00:44.116 --> 00:00:49.480
+A tool portal is one service that lists which tools exist and who may call each one,
+
+15
+00:00:49.480 --> 00:00:51.012
+and records every grant.
+
+16
+00:00:51.349 --> 00:00:55.928
+The record holds one task, three grants, and a session of five calls.
+
+17
+00:00:55.928 --> 00:01:00.373
+The task: read the log of a failed build in one example repository,
+
+18
+00:01:00.373 --> 00:01:02.762
+and open a draft pull request there.
+
+19
+00:01:03.099 --> 00:01:04.932
+Match each call to a grant.
+
+20
+00:01:04.932 --> 00:01:06.493
+Four calls are allowed.
+
+21
+00:01:06.493 --> 00:01:10.565
+One has no grant, so it is denied, and the tool did not run.
+
+22
+00:01:10.565 --> 00:01:11.923
+The summary is true.
+
+23
+00:01:12.965 --> 00:01:15.623
+Now list what each grant can reach.
+
+24
+00:01:15.623 --> 00:01:20.254
+Grant G2 reads code in every repository, two of them private.
+
+25
+00:01:20.254 --> 00:01:21.696
+The task needs one.
+
+26
+00:01:22.032 --> 00:01:25.948
+The build log told the agent to compare a settings file,
+
+27
+00:01:25.948 --> 00:01:31.613
+so call three read a private repository the task never needed, and G2 allowed it.
+
+28
+00:01:31.613 --> 00:01:33.851
+The check exits one: over-broad.
+
+29
+00:01:34.199 --> 00:01:38.878
+When the grant itself reaches further than the task, every call passes.
+
+30
+00:01:39.215 --> 00:01:42.850
+So treat a grant like code: an owner, a reason,
+
+31
+00:01:42.850 --> 00:01:46.254
+and a test that a call outside it is denied.
+
+32
+00:01:46.254 --> 00:01:50.739
+Narrow G2 to the one repository, and the check exits zero:
+
+33
+00:01:50.739 --> 00:01:54.993
+call three is now the denied call that tests the grant.
+
+34
+00:01:56.030 --> 00:02:02.951
+A model gateway is one controlled place between code that wants a model and the service that answers.
+
+35
+00:02:02.951 --> 00:02:05.075
+Describe it by what it refuses.
+
+36
+00:02:05.414 --> 00:02:08.183
+Only the gateway holds the provider key.
+
+37
+00:02:08.183 --> 00:02:10.676
+It sends only to routes on its list.
+
+38
+00:02:10.676 --> 00:02:14.899
+And it refuses, before sending, a request past the run's cap.
+
+39
+00:02:15.247 --> 00:02:20.429
+The record's policy allows four requests and three thousand tokens per run,
+
+40
+00:02:20.429 --> 00:02:21.879
+on two listed routes.
+
+41
+00:02:21.879 --> 00:02:25.058
+The summary: all six runs followed the policy.
+
+42
+00:02:26.097 --> 00:02:28.436
+Replay the policy over each run,
+
+43
+00:02:28.436 --> 00:02:32.237
+adding each request's reservation before it is sent.
+
+44
+00:02:32.237 --> 00:02:36.476
+Then search the lines the agent's side logged for the key.
+
+45
+00:02:36.813 --> 00:02:38.291
+The check exits one.
+
+46
+00:02:38.291 --> 00:02:41.026
+In run two, a fifth request was sent.
+
+47
+00:02:41.026 --> 00:02:43.687
+Run four used a route nobody listed.
+
+48
+00:02:44.030 --> 00:02:47.906
+Run three is the gateway working: a thousand tokens remained,
+
+49
+00:02:47.906 --> 00:02:53.179
+and the third request was still refused, because it could have used twelve hundred.
+
+50
+00:02:53.513 --> 00:02:56.922
+And run six matches the policy on every request,
+
+51
+00:02:56.922 --> 00:03:00.401
+yet leaks the key into a log on the agent's side.
+
+52
+00:03:00.401 --> 00:03:04.520
+A policy replay and a key search are two different checks.
+
+53
+00:03:05.562 --> 00:03:09.605
+Run three shows the rule that makes a cap protect anything:
+
+54
+00:03:09.605 --> 00:03:12.757
+reserve a request's worst case before sending,
+
+55
+00:03:12.757 --> 00:03:16.046
+and settle to the actual amount after the reply.
+
+56
+00:03:16.396 --> 00:03:21.490
+In course-made units: the cap is ten, each request reserves four,
+
+57
+00:03:21.490 --> 00:03:23.449
+and each reply costs one.
+
+58
+00:03:23.449 --> 00:03:25.330
+Seven requests are sent.
+
+59
+00:03:25.330 --> 00:03:30.502
+The eighth is refused: three units remain, and it could cost four.
+
+60
+00:03:30.846 --> 00:03:33.034
+Now request two loses its reply.
+
+61
+00:03:33.034 --> 00:03:38.574
+The gateway cannot tell whether it was charged, so the whole reservation is kept,
+
+62
+00:03:38.574 --> 00:03:40.830
+and the fifth request is refused.
+
+63
+00:03:41.179 --> 00:03:46.275
+A timeout marks where observation stopped; it does not show that nothing happened.
+
+64
+00:03:46.275 --> 00:03:48.760
+And a cap is a hard stop, not a warning.
+
+65
+00:03:49.796 --> 00:03:51.931
+A run's total measures one run.
+
+66
+00:03:51.931 --> 00:03:56.822
+A team needs to know what an accepted change cost: every run behind it,
+
+67
+00:03:56.822 --> 00:04:00.542
+failed and retried attempts included, the review time,
+
+68
+00:04:00.542 --> 00:04:03.229
+and the runs spent on rejected changes.
+
+69
+00:04:03.562 --> 00:04:08.543
+The summary says a change costs about three units: the total of a single run.
+
+70
+00:04:08.879 --> 00:04:14.451
+The record shows twenty-four units across seven runs, and three accepted changes.
+
+71
+00:04:14.451 --> 00:04:19.885
+That is eight units per accepted change, not three, with twenty review minutes.
+
+72
+00:04:20.929 --> 00:04:26.438
+A routing policy sends each task to the cheapest route that passes the evaluator.
+
+73
+00:04:26.438 --> 00:04:30.996
+Good enough is a measurement: the same frozen cases on both routes,
+
+74
+00:04:30.996 --> 00:04:32.492
+compared case by case.
+
+75
+00:04:32.829 --> 00:04:38.186
+The summary: all three tasks moved to a cheaper route without losing quality.
+
+76
+00:04:38.186 --> 00:04:42.570
+And all three choices satisfy the policy's ninety percent rule.
+
+77
+00:04:42.912 --> 00:04:44.289
+Only one is supported.
+
+78
+00:04:44.289 --> 00:04:48.109
+In the first task, the cheaper route passes eleven of twelve,
+
+79
+00:04:48.109 --> 00:04:51.364
+and loses the one case the current route gets right.
+
+80
+00:04:51.712 --> 00:04:56.020
+In the third, the cheaper route's results are for an older revision.
+
+81
+00:04:56.020 --> 00:04:59.758
+Rerun the frozen cases whenever a route or a model changes.
+
+82
+00:05:00.793 --> 00:05:04.422
+Operating agents includes the day something breaks.
+
+83
+00:05:04.422 --> 00:05:08.833
+On the example dashboard, a revision goes live at ten-oh-five,
+
+84
+00:05:08.833 --> 00:05:11.608
+and a user reports a slow project page.
+
+85
+00:05:11.608 --> 00:05:16.304
+Before anyone changes code, an agent drafts a root-cause analysis.
+
+86
+00:05:16.643 --> 00:05:20.818
+It makes three claims, each citing lines of a request log:
+
+87
+00:05:20.818 --> 00:05:25.784
+the revision broke imports; the project page slowed from ten-oh-five;
+
+88
+00:05:25.784 --> 00:05:29.094
+and the cause is one database query per build.
+
+89
+00:05:29.094 --> 00:05:33.269
+It proposes a rollback, and automatic retries for imports.
+
+90
+00:05:34.310 --> 00:05:38.822
+For each claim, predict first: confirmed, refuted or cannot tell,
+
+91
+00:05:38.822 --> 00:05:40.835
+and the line that decides it.
+
+92
+00:05:42.676 --> 00:05:43.880
+Then run the check.
+
+93
+00:05:43.880 --> 00:05:47.110
+For each five-minute window it prints the requests,
+
+94
+00:05:47.110 --> 00:05:50.847
+the server errors and the ninety-fifth percentile duration.
+
+95
+00:05:50.847 --> 00:05:53.381
+It counts and prints; it does not judge.
+
+96
+00:05:53.726 --> 00:05:55.592
+Give each claim one outcome.
+
+97
+00:05:55.592 --> 00:05:58.591
+Confirmed: the log shows the claim as stated.
+
+98
+00:05:58.591 --> 00:06:02.122
+Refuted: the log shows something the claim rules out.
+
+99
+00:06:02.122 --> 00:06:07.519
+Cannot tell: no field in this log could show it, so name the missing observation.
+
+100
+00:06:08.559 --> 00:06:12.031
+A cited line supports a claim only if its time,
+
+101
+00:06:12.031 --> 00:06:14.986
+path and status say what the claim says.
+
+102
+00:06:14.986 --> 00:06:16.094
+Open every one.
+
+103
+00:06:16.443 --> 00:06:21.059
+And a change that starts when a revision goes live confirms the timing,
+
+104
+00:06:21.059 --> 00:06:21.969
+not the cause.
+
+105
+00:06:22.309 --> 00:06:24.482
+So act only on what you confirmed.
+
+106
+00:06:24.482 --> 00:06:28.253
+A mitigation that rests on timing alone must be reversible,
+
+107
+00:06:28.253 --> 00:06:30.682
+and end with a check of the user path.
+
+108
+00:06:30.682 --> 00:06:34.198
+A code repair waits for a check that can see its cause.
+
+109
+00:06:35.243 --> 00:06:36.612
+A second incident.
+
+110
+00:06:36.612 --> 00:06:42.392
+The dashboard receives a retry for build forty-two: the transaction commits,
+
+111
+00:06:42.392 --> 00:06:44.066
+and job J81 is queued.
+
+112
+00:06:44.066 --> 00:06:47.793
+Then the reply is lost, and the client times out.
+
+113
+00:06:48.143 --> 00:06:53.424
+So the operator retries: the same operation, with the same operation key,
+
+114
+00:06:53.424 --> 00:06:54.581
+delivered again.
+
+115
+00:06:54.581 --> 00:06:57.837
+The unprotected handler creates a second job.
+
+116
+00:06:58.176 --> 00:07:03.148
+The client's timeout cannot separate a failed request from a lost reply.
+
+117
+00:07:03.148 --> 00:07:06.187
+The persisted job and its operation key can.
+
+118
+00:07:07.226 --> 00:07:09.833
+Write the requirement before any repair.
+
+119
+00:07:09.833 --> 00:07:13.353
+The same key and build again returns the existing job,
+
+120
+00:07:13.353 --> 00:07:16.026
+even when two deliveries arrive together.
+
+121
+00:07:16.026 --> 00:07:18.959
+The same key for another build is a conflict.
+
+122
+00:07:18.959 --> 00:07:20.589
+A new key gets a new job.
+
+123
+00:07:20.926 --> 00:07:25.357
+Suppose the agent proposes the obvious repair: look the key up,
+
+124
+00:07:25.357 --> 00:07:28.101
+and insert a job only if none is found.
+
+125
+00:07:28.101 --> 00:07:30.915
+Its summary says the duplicate is fixed.
+
+126
+00:07:30.915 --> 00:07:34.080
+On the incident as it happened, that is true.
+
+127
+00:07:35.126 --> 00:07:38.857
+Verify with a regression that replays all four rows.
+
+128
+00:07:38.857 --> 00:07:44.525
+On the incident build, one row of four meets the requirement, and it exits one:
+
+129
+00:07:44.525 --> 00:07:45.888
+the check can fail.
+
+130
+00:07:46.226 --> 00:07:49.458
+On the agent's proposal: three of four, exit one.
+
+131
+00:07:49.458 --> 00:07:51.634
+The reported sequence now passes.
+
+132
+00:07:51.634 --> 00:07:57.042
+But when two requests arrive together, both look the key up before either inserts,
+
+133
+00:07:57.042 --> 00:07:58.625
+and two jobs are stored.
+
+134
+00:07:58.959 --> 00:08:04.242
+A regression that replayed only the reported sequence would have accepted this repair.
+
+135
+00:08:04.576 --> 00:08:08.587
+The real repair lets the database enforce a unique key,
+
+136
+00:08:08.587 --> 00:08:13.109
+stored with the job in one statement: four of four, exit zero.
+
+137
+00:08:13.459 --> 00:08:15.506
+Keep the three results together.
+
+138
+00:08:15.506 --> 00:08:20.367
+A test that has only ever passed cannot show that it would catch the defect.
+
+139
+00:08:21.407 --> 00:08:26.674
+An agent that keeps acting in a deployed system is one more service to operate.
+
+140
+00:08:26.674 --> 00:08:32.141
+Give it scoped credentials, a budget, and a switch that stops it without a deploy.
+
+141
+00:08:32.141 --> 00:08:34.741
+Log what it read, proposed and changed,
+
+142
+00:08:34.741 --> 00:08:38.741
+and keep irreversible operations behind a person's approval.
+
+143
+00:08:39.091 --> 00:08:40.491
+Put it in the runbook.
+
+144
+00:08:40.491 --> 00:08:42.911
+Its retries need the same idempotency,
+
+145
+00:08:42.911 --> 00:08:47.496
+and its grants and caps are the portal and the gateway you just checked.
+
+146
+00:08:48.539 --> 00:08:52.936
+So a summary is a claim until you check it against the record.
+
+147
+00:08:52.936 --> 00:08:55.914
+A cited line is a claim until you open it.
+
+148
+00:08:55.914 --> 00:08:59.673
+And a recovery is proved by a test that failed first.
+
+149
+00:09:00.022 --> 00:09:00.710
+A citation,
+
+150
+00:09:00.710 --> 00:09:06.277
+a fluent explanation or a successful demonstration does not supply a missing observation.
+
+151
+00:09:06.277 --> 00:09:10.030
+State the next check, and why it would change your decision.
+
+152
+00:09:10.372 --> 00:09:11.659
+One question to try.
+
+153
+00:09:11.659 --> 00:09:16.035
+An on-call agent asks the deployment tool to roll back one revision.
+
+154
+00:09:16.035 --> 00:09:19.575
+The call times out, so it sends the same request again,
+
+155
+00:09:19.575 --> 00:09:21.698
+but the first call had completed.
+
+156
+00:09:21.698 --> 00:09:26.139
+What must the second call return, and which effect must it not cause?

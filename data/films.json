@@ -1,27 +1,25 @@
 {
   "about": "Hand-maintained: which calendar week each film supports and whether the site publishes it. Keys are the film slugs of data/episodes.json; build.py fails if the two files disagree. See README.md.",
-  "edition_note": "Made for the earlier edition of this course, which ran model-written code through a course launcher. The current course does not require one.",
   "films": {
-    "01-plausible-patch": {
+    "01-agent-loop": {
       "week": 1,
       "published": true
     },
-    "02-agent-loop": {
-      "week": 1,
-      "published": true
-    },
-    "03-change-only-the-context": {
+    "02-keep-the-constraint": {
       "week": 2,
       "published": true
     },
-    "04-not-passed-is-not-failed": {
-      "week": 2,
+    "03-the-near-miss": {
+      "week": 3,
+      "published": true
+    },
+    "04-request-or-gate": {
+      "week": 4,
       "published": true
     },
     "05-same-contract": {
-      "week": null,
-      "published": false,
-      "withheld_reason": "Made for the earlier edition; its narration relies on the course launcher, earlier week numbers or milestones that the current course no longer uses. To be remade."
+      "week": 5,
+      "published": true
     },
     "06-review-before-you-ask": {
       "week": 6,
@@ -32,38 +30,26 @@
       "published": true
     },
     "08-refuse-before-effects": {
-      "week": null,
-      "published": false,
-      "withheld_reason": "Made for the earlier edition; its narration relies on the course launcher, earlier week numbers or milestones that the current course no longer uses. To be remade."
+      "week": 8,
+      "published": true
     },
-    "09-three-questions": {
+    "10-three-questions": {
       "week": 10,
       "published": true
     },
-    "10-challenge-the-instrument": {
-      "week": null,
-      "published": false,
-      "withheld_reason": "Made for the earlier edition; its narration relies on the course launcher, earlier week numbers or milestones that the current course no longer uses. To be remade."
-    },
-    "11-timeout-is-not-nothing": {
-      "week": null,
-      "published": false,
-      "withheld_reason": "Made for the earlier edition; its narration relies on the course launcher, earlier week numbers or milestones that the current course no longer uses. To be remade."
+    "11-check-the-summary": {
+      "week": 11,
+      "published": true
     },
     "12-the-observation-decides": {
       "week": null,
       "published": false,
-      "withheld_reason": "Made for the earlier edition; its narration relies on the course launcher, earlier week numbers or milestones that the current course no longer uses. To be remade."
-    },
-    "13-keep-the-layers-apart": {
-      "week": null,
-      "published": false,
-      "withheld_reason": "Made for the earlier edition; its narration relies on the course launcher, earlier week numbers or milestones that the current course no longer uses. To be remade."
+      "withheld_reason": "Made for the earlier edition of the course and retired. The new Week 12 film that replaces it is awaiting merge."
     },
     "14-has-it-ever-failed": {
       "week": null,
       "published": false,
-      "withheld_reason": "Made for the earlier edition; its narration relies on the course launcher, earlier week numbers or milestones that the current course no longer uses. To be remade."
+      "withheld_reason": "Made for the earlier edition of the course. Its reworked version is the new Week 12 film, which is awaiting merge."
     }
   }
 }

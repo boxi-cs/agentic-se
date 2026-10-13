@@ -18,7 +18,7 @@ import shutil
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-RELEASE = "https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-10"
+RELEASE = "https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-13"
 # Site text: the instructor, as given by the maintainer and on https://boxiyu.github.io/.
 INSTRUCTOR = {
     "name": "Boxi Yu",
@@ -309,10 +309,9 @@ def home(course: dict, films: list[dict]) -> str:
 </section>
 <section id="videos">
   <h2>Videos</h2>
-  <!-- Site text: what the films are, which edition they were made for, and their count and total length. -->
+  <!-- Site text: what the films are, how they attach to weeks, and their count and total length. -->
   <p class="note">Short films, each showing one decision through worked examples: generate, then verify.
-  They were made for the earlier edition of this course; the ones here still fit the current calendar,
-  and each is listed under the week it supports. {len(films)} films, {hours_minutes(total)} in all.</p>
+  Each is made for one teaching week and is listed under it. {len(films)} films, {hours_minutes(total)} in all.</p>
   <div class="cards">
 {cards}
   </div>
@@ -386,10 +385,10 @@ def course_materials(week: int) -> tuple[str, list[tuple[str, str]]]:
 
 def film_block(film: dict, note: str) -> str:
     asset = f"../../films/{film['slug']}"
-    video = f"{RELEASE}/week-{film['number']:02d}.mp4"  # release assets keep the number each film was made under
+    video = f"{RELEASE}/week-{film['number']:02d}.mp4"  # release assets are named by the first two digits of the slug
+    aside = f'\n      <p class="note edition">{esc(note)}</p>' if note else ""  # data/films.json may carry an edition_note
     return f"""    <article class="film" id="film-{film['slug']}">
-      <h3>{esc(film['title'])}</h3>
-      <p class="note edition">{esc(note)}</p>
+      <h3>{esc(film['title'])}</h3>{aside}
       <video controls preload="metadata" poster="{asset}/poster.jpg" src="{video}">
         <track kind="subtitles" srclang="en" label="English" src="{asset}/en.vtt" default>
         <track kind="subtitles" srclang="zh" label="中文" src="{asset}/zh.vtt">
@@ -500,7 +499,7 @@ def main() -> None:
         for stale in folder.iterdir():
             if stale.name != "index.html":
                 stale.unlink()
-        (folder / "index.html").write_text(week_page(course, films, mapping["edition_note"], w))
+        (folder / "index.html").write_text(week_page(course, films, mapping.get("edition_note", ""), w))
     (ROOT / "index.html").write_text(home(course, films))
     (ROOT / "syllabus").mkdir(exist_ok=True)
     (ROOT / "syllabus/index.html").write_text(syllabus_page(course))
