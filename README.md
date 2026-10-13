@@ -36,11 +36,8 @@ Each film slug has:
 - `published`: `true` or `false`;
 - `withheld_reason`: one sentence, required when `published` is `false`.
 
-Weeks 1–8, 10 and 11 have a film today. The films for weeks 9 and 12 are not merged in the video
-repository yet, so those two week pages show none; week 13 is assessment and has no film. The video
-repository still holds two folders made for the earlier, fourteen-week course
-(`12-the-observation-decides` and `14-has-it-ever-failed`); they are listed with `published: false` until
-the Week 12 film replaces them.
+There are twelve films today, one for each of weeks 1–12, and all are published. Week 13 is assessment
+and has no film.
 
 A published film appears on its week's page and on the home page. Its poster and subtitle tracks live in
 `films/<slug>/`. A film that is not published is not linked, embedded or listed anywhere, and `build.py`
@@ -51,16 +48,17 @@ The video files are assets of the
 [`videos-2026-10-13` release](https://github.com/boxi-cs/agentic-se/releases/tag/videos-2026-10-13),
 named `week-NN.mp4` after the first two digits of the film's slug, so the repository stays small.
 
-To publish the films for weeks 9 and 12 once they are merged in the video repository and their renders
-are in its `media/episodes/<slug>/`:
+To republish a film after it is re-rendered (its change is merged in the video repository and the new
+render is in that repository's `media/episodes/<slug>/`):
 
-1. upload them to the same release as `week-09.mp4` and `week-12.mp4`
-   (`gh release upload videos-2026-10-13 week-09.mp4 week-12.mp4 --repo boxi-cs/agentic-se`);
-2. re-run `tools/export_data.py`, which adds the new slugs to `data/episodes.json` and drops the folders
-   the video repository retired;
-3. in `data/films.json`, give each new slug its week and `published: true`, and remove the entries whose
-   slugs are gone (`build.py` stops if the two files name different films);
-4. run `tools/posters.py` and `build.py`, and commit.
+1. copy its `Episode.mp4` to `week-NN.mp4` and upload it to the release in place of the old asset
+   (`gh release upload videos-2026-10-13 week-NN.mp4 --clobber --repo boxi-cs/agentic-se`);
+2. run `git fetch` in the video repository's clone: `tools/export_data.py` reads its `origin/main` and
+   does not fetch it;
+3. re-run `tools/export_data.py`, `tools/posters.py` and `build.py` (the commands below), and commit.
+
+If a film's slug changes, give the new slug its week in `data/films.json` and remove the old one:
+`build.py` stops if `data/films.json` and `data/episodes.json` name different films.
 
 ```sh
 python3 tools/course_site.py --course ../agentic-se-course    # course/: the course's own English student site
