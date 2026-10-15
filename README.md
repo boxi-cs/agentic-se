@@ -42,7 +42,8 @@ and has no film.
 A published film appears on its week's page and on the home page. Its poster and subtitle tracks live in
 `films/<slug>/`. A film that is not published is not linked, embedded or listed anywhere, and `build.py`
 removes its folder from `films/`. `data/films.json` may also carry an `edition_note`, one sentence that
-`build.py` then shows under every film's title; there is none at present.
+`build.py` then shows under every film's title; there is none at present. A film may also carry a
+`summary`, a plain-language version of its script's decision line that the week page shows instead of it.
 
 The video files are assets of the
 [`videos-2026-10-13` release](https://github.com/boxi-cs/agentic-se/releases/tag/videos-2026-10-13),

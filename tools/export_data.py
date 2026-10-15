@@ -93,6 +93,17 @@ def tagline(text: str) -> str:
     return match.group(1)
 
 
+def principles(text: str) -> list[dict]:
+    """The course home's principle cards: a bold title, a rule, then the card's text."""
+    cards = [
+        {"title": title, "text": " ".join(body.split())}
+        for title, body in re.findall(r"^-   \*\*(.+?)\*\*\n\n    ---\n\n((?:    .+\n?)+)", text, re.M)
+    ]
+    if not cards:
+        raise SystemExit("course home principle cards not found in site/docs/index.en.md")
+    return cards
+
+
 def decision(script: str) -> str:
     match = re.search(r"^- \*\*Decision\*\*: (.+)$", script, re.M)
     return match.group(1).strip() if match else ""
@@ -112,6 +123,7 @@ def main() -> None:
         "source": {"repository": "boxi-cs/agentic-se-course", "commit": course_sha},
         "title": "Agentic Software Engineering: Build, Verify, Evaluate",
         "tagline": tagline(git(args.course, "show", f"{course_sha}:site/docs/index.en.md")),
+        "principles": principles(git(args.course, "show", f"{course_sha}:site/docs/index.en.md")),
         "approach": prose(git(args.course, "show", f"{course_sha}:site/docs/approach.en.md")),
         "weeks": parse_schedule(git(args.course, "show", f"{course_sha}:site/schedule.en.yaml")),
     }

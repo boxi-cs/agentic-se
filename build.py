@@ -220,18 +220,18 @@ def published_films(episodes: list[dict], films: dict) -> list[dict]:
             continue
         if not isinstance(entry.get("week"), int):
             raise SystemExit(f"data/films.json: published film {e['slug']} needs a calendar week")
-        out.append({**e, "week": entry["week"]})
+        # An optional plain-language summary replaces the script's decision line on the site.
+        out.append({**e, "week": entry["week"], "summary": entry.get("summary", "")})
     return sorted(out, key=lambda film: (film["week"], film["number"]))
 
 
 def home(course: dict, films: list[dict]) -> str:
-    intro, parts = sections(local_links(course["approach"], ""))
-    # Principles: the opening two sentences of each short approach section; the list of the three lines of
-    # work, the closing links and the rest of each section stay on the approach page.
+    intro, _ = sections(local_links(course["approach"], ""))
+    # Principles: the course home's four cards. The calendar, the lines of work and the checkpoints are in
+    # the list above them and on the approach page.
     principles = "\n".join(
-        f"""    <div class="principle"><h3>{md_inline(title)}</h3><p>{md_inline(lead(body))}</p></div>"""
-        for title, body in parts
-        if "|" not in body and not body.startswith("- ")
+        f"""    <div class="principle"><h3>{md_inline(card['title'])}</h3><p>{md_inline(card['text'])}</p></div>"""
+        for card in course["principles"]
     )
     syllabus = course["syllabus"]["markdown"]
     overview = section(syllabus, "Overview")
@@ -239,16 +239,12 @@ def home(course: dict, films: list[dict]) -> str:
         f"<li><strong>{esc(label)}:</strong> {md_inline(labelled(overview, label))}</li>"
         for label in ("Length", "Two sessions a week", "Three lines of work")
     )
-    outcomes = "".join(
-        f"<li>{md_inline(line[2:])}</li>" for line in section(syllabus, "Learning outcomes").splitlines() if line.startswith("- ")
-    )
     assessment = section(syllabus, "Assessment").split("\n\n")
     table_html = markdown(next(block for block in assessment if block.startswith("|")))[0]
     passing = next(block for block in assessment if block.startswith("Passing requires"))
     deadline = next(
         (sentence for sentence in re.split(r"(?<=\.)\s+", section(syllabus, "Calendar")) if sentence.startswith("The deadline")), ""
     )
-    # The syllabus's own caution about pages that still follow the earlier layout, while it carries one.
     weeks = {w["week"]: w for w in course["weeks"]}
     total = sum(film["seconds"] for film in films)
     cards = "\n".join(
@@ -287,20 +283,13 @@ def home(course: dict, films: list[dict]) -> str:
   <p><a href="approach/">The full approach: the three lines of work, the checkpoints and the defense →</a></p>
 </section>
 <section id="syllabus">
-  <h2>Syllabus at a glance</h2>
-  <div class="glance">
-    <div>
-      <h3>What you will be able to do</h3>
-      <ul class="outcomes">{outcomes}</ul>
-    </div>
-    <div class="prose">
-      <h3>How the work is assessed</h3>
-      {table_html}
-      <p class="note">{md_inline(passing.split(". ")[0])}.</p>
-    </div>
+  <h2>How the work is assessed</h2>
+  <div class="prose">
+    {table_html}
+    <p class="note">{md_inline(passing.split(". ")[0])}.</p>
   </div>
   <!-- Site text: what the syllabus page holds (its section headings). -->
-  <p><a href="syllabus/">The full syllabus: the calendar, assessment and resits, the assignments, the term project, open-source contributions, tools and AI use →</a></p>
+  <p><a href="syllabus/">The full syllabus: learning outcomes, the calendar, assessment and resits, the assignments, the term project, open-source contributions, tools and AI use →</a></p>
 </section>
 <section id="schedule">
   <h2>Schedule</h2>
@@ -371,6 +360,10 @@ def without_citations(text: str) -> str:
     return CITATION.sub("", text)
 
 
+# The course's link labels that read as build terms on a student page.
+MATERIAL_LABELS = {"Slide source": "Slides (text)", "Answer guidance": "Self-check answers"}
+
+
 def course_materials(week: int) -> tuple[str, list[tuple[str, str]]]:
     """The course's own overview page for a week and the lecture pages it links to, as site-root paths.
 
@@ -400,15 +393,18 @@ def film_block(film: dict, note: str) -> str:
       </video>
       <p class="meta">{minutes(film['seconds'])} · subtitles: <a href="{asset}/en.vtt">English</a>, <a href="{asset}/zh.vtt" lang="zh" hreflang="zh">中文</a> ·
       <a href="{video}">download</a></p>
-      <p>{inline(without_citations(film['decision'][0].upper() + film['decision'][1:]))}</p>
+      <p>{inline(film['summary'] or without_citations(film['decision'][0].upper() + film['decision'][1:]))}</p>
     </article>"""
 
 
 def week_page(course: dict, films: list[dict], note: str, w: dict) -> str:
     last = course["weeks"][-1]["week"]
-    overview, lecture_pages = course_materials(w["week"])
+    # This page is the week's overview, so the course's own overview page is not linked again. Notes lead.
+    _, lecture_pages = course_materials(w["week"])
+    lecture_pages.sort(key=lambda page: page[1] != "Notes")
     materials = "".join(
-        f'\n      <li><a href="../../{path}">{label}</a></li>' for path, label in [(overview, "Week overview"), *lecture_pages]
+        f'\n      <li{' class="lead"' if label == "Notes" else ""}><a href="../../{path}">{MATERIAL_LABELS.get(label, label)}</a></li>'
+        for path, label in lecture_pages
     )
     here = [film for film in films if film["week"] == w["week"]]
     film_section = (
@@ -437,8 +433,7 @@ def week_page(course: dict, films: list[dict], note: str, w: dict) -> str:
   </section>
   <section>
     <h2>Materials</h2>
-    <ul class="facts">{materials}
-    </ul>
+    {'<ul class="facts">' + materials + chr(10) + '    </ul>' if materials else '<p>The assessment week has no lecture materials.</p>'}
   </section>{film_section}
   <nav class="pager">{prev_link}<a href="../../#schedule">All weeks</a>{next_link}</nav>
 </main>"""
