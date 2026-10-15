@@ -5372,7 +5372,7 @@
   <span class="md-ellipsis">
     
   
-    Contributions
+    Checkpoint practice
   
 
     
@@ -5385,6 +5385,206 @@
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_9_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Checkpoint practice
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoint practice papers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/cp1-practice-paper.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP1 practice paper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/cp1-practice-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP1 practice paper: marking points and worked answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/cp2-practice-paper.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP2 practice paper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/cp2-practice-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP2 practice paper: marking points and worked answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_10" id="__nav_6_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_10">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -6415,12 +6615,18 @@ an agent “must have” done.</p>
    changes in a parser task. Which path should the hook report, and why?</li>
 <li>A passing hook run is recorded. What application behavior does that record leave
    unverified?</li>
+<li>A hook before each of the agent's tool calls refuses writes under <code>tests/</code>. Why keep the
+   Git pre-commit hook in the same repository? Name one change the first hook does not see
+   and the second does.</li>
+<li>In the studio replay with the write rule removed, the end-of-turn hook let the turn end
+   and the bug stayed. Which lines of the output show that, and what did the end-of-turn
+   hook actually check?</li>
 <li>Give a researcher subagent two allowed tools, one forbidden action and a hand-back field.
    Why does the parent still inspect the cited file?</li>
 <li>The implementer returns a diff but no test output. Which contract item is missing, and
    should the parent continue?</li>
 <li>A reviewer says “looks safe” without a file, input or command. Mark the hand-back
-   confirmed, refuted or cannot tell, and state the missing evidence.</li>
+    confirmed, refuted or cannot tell, and state the missing evidence.</li>
 <li>When should a role stop and ask for a narrower task? Give one concrete boundary.</li>
 <li>End with a decision line for your studio: accept, narrow, recheck or stop. Name the
     record that supports it.</li>

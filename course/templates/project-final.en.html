@@ -5266,7 +5266,7 @@
   <span class="md-ellipsis">
     
   
-    Contributions
+    Checkpoint practice
   
 
     
@@ -5279,6 +5279,206 @@
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_9_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Checkpoint practice
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practice/checkpoints/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoint practice papers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practice/checkpoints/cp1-practice-paper.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP1 practice paper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practice/checkpoints/cp1-practice-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP1 practice paper: marking points and worked answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practice/checkpoints/cp2-practice-paper.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP2 practice paper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practice/checkpoints/cp2-practice-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP2 practice paper: marking points and worked answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_10" id="__nav_6_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_10">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -6183,6 +6383,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#evaluation-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation script
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#readme-check" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6467,6 +6678,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#evaluation-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation script
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#readme-check" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6571,7 +6793,7 @@ command and revision. A polished interface without engineering evidence is incom
 <td></td>
 </tr>
 <tr>
-<td>Evaluation script, including a wrong candidate</td>
+<td>Evaluation script: the agent's attempts at project tasks, the wrong candidate, the unattended attempt</td>
 <td></td>
 <td></td>
 <td></td>
@@ -6594,7 +6816,24 @@ command and revision. A polished interface without engineering evidence is incom
 </tbody>
 </table>
 <p>Explain any difference between expected and observed results. Include the mutation
-configuration and result, the evaluation denominator and inputs, and the scan scope.</p>
+configuration and result and the scan scope. Record the evaluation script's details in
+the next section.</p>
+<h3 id="evaluation-script">Evaluation script</h3>
+<p>The <a href="../site/docs/project.en.html#what-the-evaluation-script-evaluates">project page</a> says
+what the script evaluates: your coding agent's attempts at your project's own tasks, not
+your finished code alone. Link existing records, such as your week 9 handoff record and
+week 10 attempt table, rather than copying them.</p>
+<ul>
+<li>Script path and the command that runs it:</li>
+<li>Tasks evaluated, each with its acceptance check:</li>
+<li>Attempts declared for each task, and where that number was written before the runs:</li>
+<li>Counts of pass, fail, timeout, unknown and missing, per task and in total; they add up
+  to the declared number:</li>
+<li>Deliberately wrong candidate: its task, what is wrong with it, and the scorer's verdict:</li>
+<li>Unattended attempt: its task and outcome, where its acceptance check sat outside what
+  the agent could edit, and the handoff record (request, base revision, returned diff,
+  the agent's report or stop reason, your acceptance result):</li>
+</ul>
 <h3 id="readme-check">README check</h3>
 <p>Link the README. Run its setup, usage and verification commands against the final
 revision, or mark a command as unavailable with the reason and next check.</p>
@@ -6606,7 +6845,8 @@ recheck or stop, with the evidence supporting it.</p>
 <h2 id="review">Review</h2>
 <p>Read the final diff against the specification. Confirm that tests, mutation results,
 evaluation, security disposition and README commands identify their revision and can be
-reproduced. Note unresolved risks and the check that would address each one.</p>
+reproduced, and that the evaluation's five counts add up to the declared attempts. Note
+unresolved risks and the check that would address each one.</p>
 
 
 

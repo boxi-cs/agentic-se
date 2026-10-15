@@ -5266,7 +5266,7 @@
   <span class="md-ellipsis">
     
   
-    Contributions
+    Checkpoint practice
   
 
     
@@ -5279,6 +5279,206 @@
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_9_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Checkpoint practice
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoint practice papers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/cp1-practice-paper.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP1 practice paper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/cp1-practice-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP1 practice paper: marking points and worked answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/cp2-practice-paper.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP2 practice paper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/cp2-practice-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP2 practice paper: marking points and worked answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_10" id="__nav_6_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_10">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -6480,7 +6680,17 @@ maximum. You may use a pseudonym where the project permits it.</p>
 <p>Each contribution is marked against three requirements:</p>
 <ol>
 <li><strong>Before and after.</strong> A check that fails before your change and passes after it, with
-   the revisions and commands.</li>
+   the revisions and commands. For contributions 2 and 4 this evidence also includes a
+   security-scan disposition: run the course's scanners that fit the change (Semgrep,
+   gitleaks, pip-audit) over the files you changed, and give each finding one of three
+   dispositions (fixed, false positive, out of scope) with its rerun or reason; if no
+   scanner applies, say why. A scan that did not run is recorded as not run, never as
+   clean. Record each finding only as a redacted summary (the scanner, the rule, the file
+   path, the line and the disposition), never with the matched text or the raw scanner
+   output. If a scan shows a real credential, it must be revoked with its provider at once
+   and the teaching team told. A vulnerability you reported through the project's private
+   security channel is recorded only as "out of scope: reported privately", with the date.
+   <a href="weeks/week-08.en.html">Week 8</a> teaches the scan-and-triage method.</li>
 <li><strong>Your four answers.</strong> In your own words: what changed, why, which inputs could break
    it, and what you verified yourself.</li>
 <li><strong>The project's rules.</strong> The contribution follows the project's contribution

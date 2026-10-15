@@ -5483,7 +5483,7 @@
   <span class="md-ellipsis">
     
   
-    Contributions
+    Checkpoint practice
   
 
     
@@ -5496,6 +5496,206 @@
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_9_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Checkpoint practice
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoint practice papers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/cp1-practice-paper.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP1 practice paper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/cp1-practice-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP1 practice paper: marking points and worked answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/cp2-practice-paper.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP2 practice paper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/cp2-practice-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP2 practice paper: marking points and worked answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_10" id="__nav_6_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_10">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -6743,10 +6943,14 @@ names the operation, describes its intended use and declares argument shapes. A
 system prompt describes the agent's role and workflow; it does not execute tests.</p>
 <p><a href="readings.en.html#primary-source-reading">Source 1 and Source 2</a> are pinned published
 instruction and tool files from open-source agents. Read one stopping instruction
-and one schema constraint. Then inspect the corresponding information exposed by
-your agent during the studio. Source files describe components, while only a
-captured request can establish which components that run sent. A visible transcript
-may omit system messages or the wire request; record that limit.</p>
+and one schema constraint. Then read the same parts in the requests your own agent
+sends. In the studio a small course recorder sits between your agent and its model
+service on 127.0.0.1 and logs each request body, so you can count the requests,
+measure the system text and group the tools by kind. Source files describe
+components, while only a captured request can establish which components that run
+sent. A transcript alone may omit system messages or the request itself; if your
+agent cannot use the recorder, the <a href="../../practice/a1/README.en.html#if-the-agent-cannot-use-the-recorder">A1 fallback</a>
+applies and you record that limit.</p>
 <p>Practice the request-reading method with the supplied sample:</p>
 <pre><code class="language-sh">python3 lectures/week-02/session/show_session.py \
   lectures/week-02/session/sample-session.jsonl --request 4
@@ -6797,20 +7001,25 @@ in the copied <code>demo.py</code>, predict, and rerun. Expect a nonzero exit an
 <code>check: check_failed</code>. Preserve the result before restoring <code>"4\n"</code> and rerunning.
 Do not use the fixture's hosted mode for this demonstration.</p>
 <h3 id="studio-capture-and-read-your-own-session">Studio: capture and read your own session</h3>
-<p>Follow the <a href="activities.en.html">studio</a> to create a fresh status-label task, capture
-a real coding-agent session with a forced failing check, and verify the repair.
+<p>Follow the <a href="activities.en.html">studio</a> to create a fresh status-label task, record
+the requests of a real coding-agent session with a forced failing check, and verify
+the repair.
 Keep the original failure, the later check and a short explanation. At the revision
 checkpoint, check one observed claim against its citation and revise it if needed.</p>
 <p>Use the safety practices in <a href="../../SYLLABUS.en.html#tools-and-model-access">Tools and model access</a>.
 Run the agent in a dedicated draft directory or container without employer or cloud
-credentials. Seats or credit are provided by the course; students do not pay.</p>
+credentials. Seats or credit are provided by the course; students do not pay.
+Treat the recorder's log like a file that holds credentials until you have checked it
+(<a href="../../site/docs/week0/setup.en.html#request-logs">setup</a>).</p>
 <h2 id="verification">Verification</h2>
 <p>Keep the verification tied to the candidate it tested:</p>
 <ul>
 <li><strong>Loop:</strong> all public checks pass in your copied controller; wrong writes fail,
   denied calls have no effect, and every result matches its call ID.</li>
-<li><strong>Request:</strong> point to an instruction, a tool schema, a returned result and a stop
-  in the record. If the capture omits one, state that it was not visible.</li>
+<li><strong>Request:</strong> from the capture, give the number of model requests, the size of the
+  system text and the tools grouped by kind, and point to an instruction, a tool
+  schema, a returned result and a stop. If a fallback record omits one, state that it
+  was not visible.</li>
 <li><strong>Studio:</strong> retain the baseline failure, the repaired check and a bounded diff
   (the studio page shows the command). A test on the untouched original fixture
   cannot verify your studio candidate.</li>
@@ -6852,8 +7061,13 @@ Python. These are properties you must distinguish when interpreting a trace.</p>
 </tr>
 <tr>
 <td>Claiming invisible system prompts were observed</td>
-<td>Capture has only visible chat messages</td>
+<td>Fallback record has only visible chat messages</td>
 <td>Mark the request content unavailable</td>
+</tr>
+<tr>
+<td>Sharing the capture log</td>
+<td>Log file or a screenshot of it leaves your private directory</td>
+<td>Cite the summary and checked excerpts</td>
 </tr>
 <tr>
 <td>Counting calls as model requests</td>

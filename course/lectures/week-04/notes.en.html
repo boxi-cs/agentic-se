@@ -1942,6 +1942,28 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#hooks-on-the-agents-own-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hooks on the agent's own events
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-gates-two-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two gates, two events
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#subagent-roles-are-separate-contracts" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5483,7 +5505,7 @@
   <span class="md-ellipsis">
     
   
-    Contributions
+    Checkpoint practice
   
 
     
@@ -5496,6 +5518,206 @@
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_9_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Checkpoint practice
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoint practice papers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/cp1-practice-paper.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP1 practice paper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/cp1-practice-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP1 practice paper: marking points and worked answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/cp2-practice-paper.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP2 practice paper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/cp2-practice-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP2 practice paper: marking points and worked answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_10" id="__nav_6_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_10">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -6541,6 +6763,28 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#hooks-on-the-agents-own-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hooks on the agent's own events
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-gates-two-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two gates, two events
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#subagent-roles-are-separate-contracts" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6630,6 +6874,9 @@
 <li><strong>LO2:</strong> write an instruction file whose rules name the failure each rule prevents;</li>
 <li><strong>LO2, LO9:</strong> distinguish a request an agent may skip from a hook gate that blocks the
   commit event, and verify both a blocked and an accepted commit;</li>
+<li><strong>LO2, LO9:</strong> attach a hook to the agent's own events, before a tool call and at the end
+  of a turn, verify one blocked and one allowed run of each, and explain why the Git hook
+  stays as a second gate;</li>
 <li><strong>LO2, LO3:</strong> give a subagent a role with a separate instruction, a small tool allowlist,
   and a hand-back contract, then check the hand-back against the contract;</li>
 <li><strong>LO3:</strong> carry the same boundaries into the technical specification due this week.</li>
@@ -6700,6 +6947,115 @@ should stop the commit because <code>json</code> is unused. <strong>Verification
 fix the import, stage again and commit; the second run should print <code>PASS</code> and exit 0.
 Keep both records. A blocked run is evidence that the gate fired; it is not evidence that
 the final change is correct.</p>
+<h3 id="hooks-on-the-agents-own-events">Hooks on the agent's own events</h3>
+<p>A Git hook waits for the commit. When your agent lets you attach a command to events in
+its own loop, a gate can act earlier. Two events matter here:</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>When it fires</th>
+<th>What a hook on it can do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Before a tool call</td>
+<td>The agent has chosen a tool and its arguments; nothing has run yet</td>
+<td>Refuse the call, so the write never happens</td>
+</tr>
+<tr>
+<td>End of turn</td>
+<td>The agent is about to stop and report that it is done</td>
+<td>Run a check itself and refuse to let the turn end while the check fails</td>
+</tr>
+</tbody>
+</table>
+<p>Your agent's documentation names the events it offers and says how a hook receives an
+event and how it refuses one. The course example uses its own neutral names,
+<code>before_tool_call</code> and <code>end_of_turn</code>, and its own exit codes: 0 allows and 2 blocks.</p>
+<p><a href="fixture/agent_hook.py"><code>fixture/agent_hook.py</code></a> reads one JSON event on standard input.
+Before a tool call it blocks a write under <code>tests/</code> or to a file the Stop rule protects,
+allows a read, allows the shell only for the focused test, and blocks any tool it has no
+rule for. At the end of a turn it runs the focused test <code>tests/check_pairs.py</code> itself and
+blocks while the test fails. <a href="fixture/replay_hooks.py"><code>fixture/replay_hooks.py</code></a> replays
+a recorded session through the hook on a scratch copy of
+<a href="fixture/workspace/"><code>fixture/workspace/</code></a>, a two-file project whose parser keeps the space
+in front of a value.</p>
+<p><strong>Generated proposal:</strong> the recorded session in <a href="fixture/session/"><code>fixture/session/</code></a>,
+whose <code>steps.json</code> lists four steps. It is course-written: a person wrote the steps, and no
+model produced them. Step 1 rewrites the test so that it expects the space: compare
+<code>session/step-1-check_pairs.py</code> with <code>workspace/tests/check_pairs.py</code>. Step 2 says the work
+is done. Step 3 strips the value in <code>src/pairs.py</code>, and step 4 says the work is done again.</p>
+<p><strong>Verification:</strong> from the root of the course checkout, run the replay and read each
+decision:</p>
+<pre><code class="language-sh">python lectures/week-04/fixture/replay_hooks.py; echo &quot;exit $?&quot;
+</code></pre>
+<pre><code class="language-text">step 1 tool call: write_file tests/check_pairs.py
+  hook: BLOCK write_file tests/check_pairs.py: tests/ is protected; fix the code, not its test
+  exit 2: the call is refused and no file changes
+step 2 end of turn: &quot;Done: the parser test passes now.&quot;
+  hook: BLOCK end_of_turn: the focused test fails; keep working
+  hook:   FAIL parse_pair('port: 8080') returned ('port', ' 8080'); expected ('port', '8080')
+  hook:   1 passed, 1 failed
+  exit 2: the turn goes on, and the agent receives the hook's message
+step 3 tool call: write_file src/pairs.py
+  hook: ALLOW write_file src/pairs.py
+  exit 0: the call runs and writes src/pairs.py
+step 4 end of turn: &quot;Done: parse_pair strips the name and the value.&quot;
+  hook: ALLOW end_of_turn: the focused test passes (2 passed, 0 failed)
+  exit 0: the turn ends
+replay check: tests/ unchanged
+replay check: original tests/check_pairs.py on the final code: exit 0, 2 passed, 0 failed
+PASS: 2 events blocked, 2 allowed; the turn ended with tests/ unchanged and the test passing
+exit 0
+</code></pre>
+<p>Step 1 is refused before the test file changes. At step 2 the claim “Done” is checked by
+the hook running the test, not taken from the agent's message. Step 3 is allowed, and step 4
+ends the turn because the unchanged test now passes. The two <code>replay check</code> lines are the
+replay's own checks after the turn: it does not take the hook's word either, and it runs
+the original test from <code>workspace/</code> on the final code.</p>
+<p>The two rules depend on each other. With the write rule removed, step 1 goes through, the
+rewritten test passes at step 2 and the turn ends with the bug still in <code>src/pairs.py</code>. The
+end-of-turn hook checks the test it finds, not whether that test still means what it meant.
+The studio has you remove the rule and read the result.</p>
+<h3 id="two-gates-two-events">Two gates, two events</h3>
+<p>The agent-side hook does not replace the Git hook. They fire at different events and see
+different things:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Agent-side hook before a tool call</th>
+<th>Git pre-commit hook</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>When it acts</td>
+<td>Before the change: a refused write never happens</td>
+<td>At the commit: the change already sits in the working tree</td>
+</tr>
+<tr>
+<td>Whose changes</td>
+<td>The calls of an agent session that has the hook attached</td>
+<td>Every commit in a clone with the hook installed: yours, any agent's, any tool's</td>
+</tr>
+<tr>
+<td>What it sees</td>
+<td>The tool name and its arguments</td>
+<td>The commit about to be made: its staged paths and their content</td>
+</tr>
+<tr>
+<td>What it misses</td>
+<td>What the arguments do not show, such as the files a shell command writes; edits by a person or another tool</td>
+<td>A change that is never committed; a commit made with <code>--no-verify</code>; a clone without the hook</td>
+</tr>
+</tbody>
+</table>
+<p>Keep a rule that matters in both places. The agent-side hook stops the agent early, with a
+message it can act on; the Git hook stops the same change at the commit, whoever made it.
+Neither replaces the focused test or review.</p>
 <h3 id="subagent-roles-are-separate-contracts">Subagent roles are separate contracts</h3>
 <p>A role is more than a label such as “reviewer.” Give the subagent its own instruction,
 tools and output contract. For a bounded parser change, use three roles:</p>
@@ -6745,8 +7101,10 @@ the implementer's summary.</p>
 <h2 id="hands-on-exercise">Hands-on exercise</h2>
 <p>Follow the <a href="activities.en.html">studio</a>. You will write an instruction file for your own
 repository, install a hook in a small practice repository so that it blocks one
-intentionally bad staged change, and retain one blocked and one passing commit record. Use
-ordinary <code>git</code> and <code>python</code>; do not put keys or employer data in the practice repository.</p>
+intentionally bad staged change, and retain one blocked and one passing commit record. You
+then replay the agent-side hooks, remove the write rule in a scratch copy and record what
+changes. Use ordinary <code>git</code> and <code>python</code>; do not put keys or employer data in the practice
+repository.</p>
 <p>The second session is a guest session or this studio; the studio page says which sections
 to do beforehand in a guest week. Contribution 1 and the project technical specification
 are due this week, on Sunday at 23:59: see the
@@ -6755,13 +7113,16 @@ are due this week, on Sunday at 23:59: see the
 the <a href="../../templates/project-specification.en.html">specification template</a>, name your
 instruction file and the gate you will keep, and link the evidence you actually have.</p>
 <h2 id="verification">Verification</h2>
-<p>The studio has two independent checks:</p>
+<p>The studio has three independent checks:</p>
 <ol>
 <li>The bad staged change is stopped: <code>git commit</code> exits nonzero and prints the hook's
    finding, and the saved <code>blocked.txt</code> records that output and the exit status. Git
    reports 1 for a commit that a hook stopped; the hook's own exit code is 2.</li>
 <li>The corrected staged change commits with exit 0 and the saved <code>passed.txt</code> contains the
    <code>PASS</code> line. <code>git show --stat --oneline HEAD</code> confirms which files entered the commit.</li>
+<li>The saved <code>agent-hooks.txt</code> shows the write to <code>tests/</code> blocked with exit 2, the write to
+   <code>src/pairs.py</code> allowed with exit 0, the end of turn blocked while the test fails and
+   allowed once it passes, the two replay checks, the <code>PASS</code> line and <code>exit status: 0</code>.</li>
 </ol>
 <p>For the role exercise, compare each hand-back with its contract. A complete report names
 locations, allowed tools, the exact command and its result. It does not claim that a model
@@ -6776,6 +7137,14 @@ run happened when you used a course-written example.</p>
 <li>This hook reads the file in your working directory at each staged path, not the staged
   content, and <code>git commit --no-verify</code> skips it. A local hook stops a commit made by
   mistake; it does not stop someone who chooses to skip it.</li>
+<li>The replay proves what this hook decides for four recorded events. It does not prove that
+  your agent sends these events, with these fields, or acts on the exit code as the replay
+  does. Attach a hook in your own agent and keep one blocked and one allowed run from it.</li>
+<li>A hook before a tool call judges the call by its arguments. A shell command can write a
+  protected file without naming it, which is why this hook allows the shell only for the
+  focused test, and why the Git hook stays.</li>
+<li>An allowed end of turn proves only that the focused test passed when the agent tried to
+  stop. A rewritten test passes too; the write rule and review keep the test meaningful.</li>
 <li>A role hand-back is evidence only for the fields it names. Open every cited location and
   rerun the named check; mark an unsupported claim <strong>cannot tell</strong>.</li>
 </ul>
@@ -6789,6 +7158,12 @@ run happened when you used a course-written example.</p>
   then inspect the hand-back in a fresh context.</li>
 <li>Recording only the passing commit. Preserve the blocked output too, and label what each
   record proves and what it leaves open.</li>
+<li>Checking at the end of a turn without protecting the check. An agent can make a test pass
+  by changing the test; block that write before the call, and keep the Git hook for the
+  edits the agent-side hook never sees.</li>
+<li>Writing an end-of-turn hook with no way out. Decide what happens when the agent cannot
+  make the test pass, for example let the turn end after a fixed number of refusals with a
+  message that a person must look at the failure.</li>
 <li>Copying a generated snippet without reading it. Compare the diff, run the check and make
   the decision yourself.</li>
 </ul>

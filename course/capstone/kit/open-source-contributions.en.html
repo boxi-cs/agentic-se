@@ -11,7 +11,7 @@
       
       
       
-        <link rel="prev" href="../../practice/a6/README.en.html">
+        <link rel="prev" href="../../practice/checkpoints/cp2-practice-answers.en.html">
       
       
         <link rel="next" href="../../site/docs/policies/ai-use.en.html">
@@ -5263,6 +5263,209 @@
                 
   
   
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_9" id="__nav_6_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoint practice
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Checkpoint practice
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoint practice papers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/cp1-practice-paper.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP1 practice paper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/cp1-practice-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP1 practice paper: marking points and worked answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/cp2-practice-paper.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP2 practice paper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/cp2-practice-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP2 practice paper: marking points and worked answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -5284,10 +5487,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_9" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_10" checked>
         
           
-          <label class="md-nav__link" for="__nav_6_9" id="__nav_6_9_label" tabindex="">
+          <label class="md-nav__link" for="__nav_6_10" id="__nav_6_10_label" tabindex="">
             
   
   
@@ -5305,8 +5508,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_9_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_6_9">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_10">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -6556,12 +6759,46 @@ assign a different repository.</p>
    the diff and affected callers yourself; do not submit unexamined generated output.</li>
 <li><strong>Verify.</strong> Run the check again and the relevant existing tests. Preserve the result
    that fails before the change and passes after it, with revisions and commands.</li>
+<li><strong>Scan (contributions 2 and 4).</strong> Run the course's scanners that fit your change over
+   the files you changed: Semgrep on changed source code (tools/semgrep; as_of: 2026-09-05; <a href="https://docs.semgrep.dev/running-rules">Source 1</a>; <a href="https://docs.semgrep.dev/metrics">Source 2</a>; <a href="https://docs.semgrep.dev/contributing/semgrep-philosophy">Source 3</a>), gitleaks on
+   the changed files and your branch's commits (tools/gitleaks; as_of: 2026-09-05; <a href="https://github.com/gitleaks/gitleaks">Source 1</a>), and pip-audit when the
+   change adds or updates Python dependencies (tools/pip-audit; as_of: 2026-09-05; <a href="https://github.com/pypa/pip-audit">Source 1</a>). Run them in the
+   environment the <a href="../../site/docs/week0/setup.en.html">setup page</a> describes, and record
+   the revision, the command and the scanner version. Give every finding one of three
+   dispositions (fixed, false positive, out of scope) with its evidence: the rerun that no
+   longer reports a fixed finding, the reason a false positive cannot happen, or the
+   reason a finding is out of scope, such as a problem already present at your starting
+   revision in lines you did not change. If no scanner fits the change, name the ones you
+   considered and say why none applies. A scan that did not run is recorded as not run,
+   never as clean. The
+   <a href="../../lectures/week-08/activities.en.html#3-your-own-repository-scan-triage-reproduce">Week 8 activities</a>
+   teach this scan-and-triage method.</li>
 <li><strong>Submit and respond.</strong> Follow the upstream PR, sign-off and disclosure process.
    Respond to review, verify revisions, and record what you changed or why the evidence
    supports retaining a decision.</li>
 </ol>
+<p><strong>Record a redacted summary, never the scanner's output.</strong> A secret-scan finding can
+contain a real credential. Record each finding only as a redacted summary: the scanner,
+the rule, the file path, the line and the disposition. Never copy the matched text or the
+raw scanner output into your record. Read the raw scanner output in your terminal; do not
+save it to a file or submit it. If a scan shows a real credential, it must be revoked with
+its provider at once and the teaching team told. Revoke your own credential yourself:
+deleting the line does not make it safe, because the value stays in history and may
+already have been copied. A credential that belongs to the project is a vulnerability in
+the project; report it privately as the next paragraph describes, so its owners can
+revoke it.</p>
+<p><strong>A real vulnerability in the project is reported privately.</strong> If a scan or your own
+reading shows a real security problem in the upstream project, follow the project's
+security policy and report it only through the private security channel that the policy
+names. Do not describe, reproduce or patch it in public: not in an issue, pull request,
+commit message or discussion. Keep its details out of your course record as well,
+including your scan summary: its entry names no rule, file or line and says only "out of
+scope: reported privately" and the date. Tell the teaching team privately that you made a
+report. If the project names no private channel, ask the teaching team privately before
+you do anything else. The project's security rules come before this guide.</p>
 <p>For each contribution submit the issue and PR links, the submitted revision, the before
-and after verification results, and a brief explanation answering these four questions:</p>
+and after verification results (for contributions 2 and 4, with the scan disposition),
+and a brief explanation answering these four questions:</p>
 <ul>
 <li>What changed?</li>
 <li>Why was that change needed?</li>
@@ -6582,9 +6819,10 @@ or the maintainer's decision. Respond to the TA's findings as you would to
 upstream review. Your mark does not depend on the maintainer replying.</p>
 <p>Completion does not remove the quality requirement. Low-quality AI-generated output
 earns zero marks, as judged by the maintainer or TA. Each contribution needs the failing
-and passing verification pair and your own answers above. Neither a merge alone nor a
-polished explanation replaces that evidence. If the issue becomes infeasible or its
-rules change, tell the teaching team before continuing and agree a new scope.</p>
+and passing verification pair, with the scan disposition for contributions 2 and 4, and
+your own answers above. Neither a merge alone nor a polished explanation replaces that
+evidence. If the issue becomes infeasible or its rules change, tell the teaching team
+before continuing and agree a new scope.</p>
 <h2 id="boundaries-and-rights">Boundaries and rights</h2>
 <ul>
 <li><strong>Public upstream only:</strong> external contributions go only to public repositories.
@@ -6602,9 +6840,10 @@ rules change, tell the teaching team before continuing and agree a new scope.</p
   the same four contributions, small then substantial in each of two repositories,
   with a TA acceptance review, the same rubric and the same maximum marks.</li>
 <li><strong>Keep private material private:</strong> do not send participant material, credentials,
-  teacher files or another student's unpublished work to a model or upstream. Follow
-  the project's private reporting process for a security problem and tell the teaching
-  team; course attack payloads and seeded defects never go upstream.</li>
+  teacher files or another student's unpublished work to a model or upstream. Report a
+  security problem in the project only through its private channel, as
+  <a href="#make-and-verify-each-change">described above</a>; course attack payloads and seeded
+  defects never go upstream.</li>
 </ul>
 <p>These contributions are separate from the <a href="../../site/docs/project.en.html">term project</a>.
 The <a href="../../SYLLABUS.en.html#open-source-contributions">syllabus</a> defines their marks and rules.</p>
@@ -6643,7 +6882,7 @@ The <a href="../../SYLLABUS.en.html#open-source-contributions">syllabus</a> defi
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../../practice/a6/README.en.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: A6: Audit an evaluation instance and scorer">
+          <a href="../../practice/checkpoints/cp2-practice-answers.en.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: CP2 practice paper: marking points and worked answers">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -6653,7 +6892,7 @@ The <a href="../../SYLLABUS.en.html#open-source-contributions">syllabus</a> defi
                 Previous
               </span>
               <div class="md-ellipsis">
-                A6: Audit an evaluation instance and scorer
+                CP2 practice paper: marking points and worked answers
               </div>
             </div>
           </a>

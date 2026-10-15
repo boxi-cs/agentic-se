@@ -5466,7 +5466,7 @@
   <span class="md-ellipsis">
     
   
-    Contributions
+    Checkpoint practice
   
 
     
@@ -5479,6 +5479,206 @@
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_9_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Checkpoint practice
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoint practice papers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/cp1-practice-paper.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP1 practice paper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/cp1-practice-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP1 practice paper: marking points and worked answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/cp2-practice-paper.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP2 practice paper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/cp2-practice-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP2 practice paper: marking points and worked answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_10" id="__nav_6_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_10">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -6594,7 +6794,12 @@
 <p>Demonstrate LO2 by designing a bounded background workflow and LO9 by accepting only
 what your own verification supports. Use a small subtask from your project or current
 contribution, such as a fix with a local reproducer. This is studio practice in your
-existing work record; it does not add a submission or change contribution requirements.</p>
+existing work record; it does not add a separate submission or change contribution
+requirements. When the task comes from your project, the unattended run's record feeds
+the final project's evaluation item: the
+<a href="../../site/docs/project.en.html#what-the-evaluation-script-evaluates">evaluation script</a>
+scores at least one unattended attempt like this one, with its acceptance check outside
+what the agent may edit.</p>
 <h2 id="minimal-example">Minimal example</h2>
 <p><strong>Generate.</strong> The <a href="notes.en.html#minimal-example">notes</a> give one summary fix as it might come
 back from the two modes. Both candidates are course-written files under
@@ -6744,6 +6949,14 @@ next check. For a contribution, prepare a proposed PR description locally only a
 verification; upstream submission follows that repository's rules. The studio itself
 grants no authority to publish or merge. For a project, integrate only the chosen candidate
 and rerun the checks on the combined revision. Do not combine the two competing fixes.</p>
+<p>For a project task, keep the unattended run's handoff record: the final project's
+evaluation script needs at least one unattended attempt, and this one can be it. The
+record is the request, the recorded base revision, the returned diff, the agent's report
+or stop reason, and the acceptance result you ran on the unchanged checks. Keep these
+five together so that the script can count the attempt in week 12 whatever its outcome,
+including a run stopped at its limit. A record from the route without a seat is not an
+agent run and cannot be that attempt. If your task came from a contribution, run one
+project task unattended in the same way before the final.</p>
 <p>After the agent processes have stopped and you have saved the evidence, inspect each
 worktree's status. Remove a worktree only after its intended changes are committed or
 saved elsewhere; do not force removal to hide untracked or unfinished work. From your

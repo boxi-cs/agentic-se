@@ -4774,6 +4774,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#what-the-evaluation-script-evaluates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the evaluation script evaluates
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#expo-and-individual-defense" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5372,7 +5383,7 @@
   <span class="md-ellipsis">
     
   
-    Contributions
+    Checkpoint practice
   
 
     
@@ -5385,6 +5396,209 @@
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_9_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Checkpoint practice
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/README.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoint practice papers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/cp1-practice-paper.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP1 practice paper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/cp1-practice-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP1 practice paper: marking points and worked answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/cp2-practice-paper.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP2 practice paper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practice/checkpoints/cp2-practice-answers.en.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CP2 practice paper: marking points and worked answers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_10" id="__nav_6_10_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_10">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -6396,6 +6610,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#what-the-evaluation-script-evaluates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the evaluation script evaluates
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#expo-and-individual-defense" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6467,7 +6692,7 @@ your submission; link existing evidence rather than copying it into a second rep
 <td><a href="../../templates/project-final.en.html">Final</a></td>
 <td>Week 12</td>
 <td style="text-align: right;">8</td>
-<td>Working software, tests and their mutation result, one evaluation script, security-scan dispositions, and a README.</td>
+<td>Working software, tests and their mutation result, <a href="#what-the-evaluation-script-evaluates">one evaluation script</a>, security-scan dispositions, and a README.</td>
 </tr>
 </tbody>
 </table>
@@ -6489,9 +6714,10 @@ whether the result was earned. Build this evidence as the project develops:</p>
 <li><strong>Tests and mutation result:</strong> preserve a regression that fails before a repair and
   passes after it. Record the mutation configuration, what was tested, and surviving
   faults; inspect a survivor and strengthen the test or explain the result's limit.</li>
-<li><strong>Evaluation script:</strong> fix its inputs, expected outcomes and denominator. Show a
-  correct candidate and a deliberately wrong candidate so you can demonstrate that the
-  check detects failure, rather than merely producing a favourable result.</li>
+<li><strong>Evaluation script:</strong> score your coding agent's attempts at your project's own tasks
+  against a number of attempts declared in advance, and show that the scorer fails a
+  deliberately wrong candidate rather than merely producing a favourable result. The
+  next section says what the script must contain.</li>
 <li><strong>Security-scan disposition:</strong> identify the scanned revision and scope. For each
   finding, record your reproduction or other evidence, the repair or reason it does not
   apply, and the rerun result. An unexplained clean summary is insufficient evidence.</li>
@@ -6502,6 +6728,45 @@ whether the result was earned. Build this evidence as the project develops:</p>
 the specification, run the relevant checks, and explain what could still go wrong.
 Results must identify the revision and command that produced them; a predicted result
 or an unexecuted command is not a passing check.</p>
+<h2 id="what-the-evaluation-script-evaluates">What the evaluation script evaluates</h2>
+<p>Your tests check your software. The evaluation script checks the agent you built it
+with: it scores the coding agent's attempts at your project's own tasks. A test suite
+that runs only against your finished code is not an evaluation script, however thorough
+it is. It applies what week 10 teaches about any pass rate to your own project: the
+check must be able to fail, and the denominator must be complete. The script and its
+report contain four things:</p>
+<ol>
+<li><strong>Your project's tasks and their checks.</strong> Take the tasks from your own project, for
+   example items of your alpha's task backlog, each with the acceptance check that
+   decides it. An attempt is one candidate revision the agent returned for one task; the
+   script runs that task's acceptance check on it.</li>
+<li><strong>A declared number of attempts and every outcome.</strong> Write down how many attempts
+   each task gets before any of them runs. The report places each declared attempt in
+   exactly one of five classes: pass, fail, timeout (the attempt reached its time limit),
+   unknown (the attempt finished but no verdict was recorded) and missing (the attempt
+   left no record). The five counts add up to the declared number, so the denominator is
+   complete. Quote a rate only with that number beside it.</li>
+<li><strong>One deliberately wrong candidate.</strong> For one task, make a candidate that is wrong on
+   purpose, for example by returning a constant, dropping a condition or swapping a
+   comparison, and show that the scorer fails it. This candidate tests the scorer, not the
+   agent: report its verdict beside the attempts and leave it out of their counts.</li>
+<li><strong>At least one unattended attempt.</strong> At least one of the evaluated attempts comes from
+   an unattended run of the kind week 9 teaches: the agent receives the complete request
+   and works without answers until it returns or reaches its stop condition. Its
+   acceptance check sits outside what the agent may edit, for example in your original
+   checkout at the recorded base while the agent may edit only its own worktree. Keep the
+   handoff record: the request, the recorded base revision, the returned diff, the
+   agent's report or stop reason, and the acceptance result you ran yourself. A local
+   terminal and your supplied agent seat are enough; no hosted service is needed.</li>
+</ol>
+<p>Two studios already produce these records; build on them rather than starting again.
+The <a href="../../lectures/week-09-background-agents/activities.en.html">week 9 studio</a> runs one
+task unattended, with the acceptance copy outside what the agent may edit, and keeps the
+handoff record. The <a href="../../lectures/week-10/activities.en.html">week 10 studio</a> builds an
+attempt table with a declared count and the five outcome classes, and makes wrong changes
+that the check must fail. If a studio task came from an open-source contribution, repeat
+that step on a project task before the final. Run the agent as the
+<a href="week0/setup.en.html">setup page</a> describes.</p>
 <h2 id="expo-and-individual-defense">Expo and individual defense</h2>
 <p>The expo takes place in week 13 before the defenses and counts towards participation.
 Demonstrate the submitted software and the evidence supporting your main claims.</p>
