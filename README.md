@@ -69,6 +69,11 @@ python3 -m http.server   # preview at http://127.0.0.1:8000/
 ```
 
 Run `tools/course_site.py` before `build.py`: the week pages read `course/`.
+`build.py` also writes the root `404.html` (GitHub Pages shows it for every missing path, so its links
+start at `/agentic-se/`) and checks the local links of every page, `course/` included.
+
+To preview a course branch before it is merged, pass `--ref <branch>` to `tools/course_site.py` and
+`tools/export_data.py`; publish only what was built from `origin/main`.
 
 The films are narrated in English with a draft synthetic voice (`en_US-ljspeech-high`, trained on the
 public-domain LJ Speech data). Every example in them is course-authored and synthetic.

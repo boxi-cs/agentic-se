@@ -1,3 +1,32 @@
+/* The course website's colours: ink-blue links and header, a warm accent, light and dark. */
+:root,
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: #2c3a8c;
+  --md-primary-fg-color--light: #4a58aa;
+  --md-primary-fg-color--dark: #1e2866;
+  --md-primary-bg-color: #ffffff;
+  --md-accent-fg-color: #b8441a;
+  --md-accent-fg-color--transparent: rgba(184, 68, 26, 0.1);
+  --md-typeset-a-color: #2c3a8c;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #1e2866;
+  --md-primary-fg-color--light: #2c3a8c;
+  --md-primary-fg-color--dark: #141b47;
+  --md-accent-fg-color: #ff8a55;
+  --md-accent-fg-color--transparent: rgba(255, 138, 85, 0.1);
+  --md-typeset-a-color: #a9b6ff;
+  --md-default-bg-color: #14151f;
+}
+
+/* Headings in a serif, as on the course website, without loading a web font. */
+.md-typeset h1,
+.md-typeset h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+}
+
 /* Course home: a short tagline, a call-to-action row and principle cards. */
 .md-typeset .course-tagline {
   font-size: 1.25em;

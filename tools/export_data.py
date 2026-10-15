@@ -102,10 +102,12 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--course", type=Path, required=True)
     parser.add_argument("--videos", type=Path, required=True)
+    parser.add_argument("--ref", default="origin/main",
+                        help="course commit to read; anything but origin/main is for a local preview only")
     args = parser.parse_args()
 
     git(args.course, "fetch", "-q", "origin")
-    course_sha = git(args.course, "rev-parse", "origin/main").strip()
+    course_sha = git(args.course, "rev-parse", args.ref).strip()
     course = {
         "source": {"repository": "boxi-cs/agentic-se-course", "commit": course_sha},
         "title": "Agentic Software Engineering: Build, Verify, Evaluate",

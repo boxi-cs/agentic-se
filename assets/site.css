@@ -2,9 +2,9 @@
    quiet sans text and mono for code. */
 :root {
   --ink: #171A2B;
-  --muted: #5E6378;
+  --muted: #555A6E;
   --thread: #2C3A8C;
-  --warm: #E8632B;
+  --warm: #C94A16;
   --card: rgba(255, 255, 255, 0.78);
   --line: rgba(23, 26, 43, 0.12);
   --field: radial-gradient(1200px 700px at 85% 10%, #fbd3bd 0%, rgba(251, 211, 189, 0) 60%),
@@ -25,7 +25,13 @@
              #14151f;
   }
 }
+:root { color-scheme: light dark; }
 * { box-sizing: border-box; }
+:focus-visible { outline: 2px solid var(--thread); outline-offset: 3px; border-radius: 4px; }
+.skip { position: absolute; left: 16px; top: -48px; padding: 8px 14px; border-radius: 8px;
+  background: var(--thread); color: #fff; z-index: 10; }
+.skip:focus { top: 12px; }
+@media (prefers-color-scheme: dark) { .skip { color: #14151f; } }
 html { background: var(--field); background-attachment: fixed; }
 body {
   overflow-x: hidden; margin: 0 auto; max-width: 1080px; padding: 0 24px 48px;

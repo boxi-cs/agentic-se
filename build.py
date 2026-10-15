@@ -119,8 +119,10 @@ def vtt(srt: str) -> str:
     return "WEBVTT\n\n" + re.sub(r"(\d\d:\d\d:\d\d),(\d\d\d)", r"\1.\2", srt.strip()) + "\n"
 
 
-def page(title: str, description: str, depth: int, body: str) -> str:
-    up = "../" * depth or "./"
+def page(title: str, description: str, depth: int, body: str, up: str = "") -> str:
+    """A page `depth` folders below the site root; `up` replaces the relative way back (the 404 page)."""
+    up = up or "../" * depth or "./"
+    body = body.replace("<main>", '<main id="main">', 1)
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -128,11 +130,17 @@ def page(title: str, description: str, depth: int, body: str) -> str:
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(description)}">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Agentic Software Engineering">
+<meta property="og:title" content="{esc(title)}">
+<meta property="og:description" content="{esc(description)}">
 {FONTS}
 <link rel="stylesheet" href="{up}assets/site.css">
 <link rel="icon" href="{up}assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <nav class="top">
   <a class="brand" href="{up}">Agentic Software Engineering</a>
   <span><a href="{up}approach/">Approach</a><a href="{up}syllabus/">Syllabus</a><a href="{up}#schedule">Schedule</a><a href="{up}#videos">Videos</a><a href="{up}course/">Course materials</a><a href="{INSTRUCTOR['homepage']}">Instructor</a></span>
@@ -241,8 +249,6 @@ def home(course: dict, films: list[dict]) -> str:
         (sentence for sentence in re.split(r"(?<=\.)\s+", section(syllabus, "Calendar")) if sentence.startswith("The deadline")), ""
     )
     # The syllabus's own caution about pages that still follow the earlier layout, while it carries one.
-    rearranging = next((block for block in syllabus.split("\n\n") if block.startswith("Course pages, lecture materials")), "")
-    rearranging = rearranging.replace("this syllabus", "[the syllabus](site:syllabus/)")
     weeks = {w["week"]: w for w in course["weeks"]}
     total = sum(film["seconds"] for film in films)
     cards = "\n".join(
@@ -321,7 +327,6 @@ def home(course: dict, films: list[dict]) -> str:
   <!-- Site text: what course/ holds (the course repository's own English student site). -->
   <p>Everything students work from is public: each week's notes, slides, activities, readings and self-check,
   the assignments, the term project, the rubrics and the assessment policy.</p>
-  {f'<p class="note">{md_inline(rearranging)}</p>' if rearranging else ''}
   <ul class="facts">
     <li><a href="course/">Start here</a></li>
     <li><a href="course/lectures/week-01/notes.en.html">Week 1 notes</a></li>
@@ -456,14 +461,37 @@ def syllabus_page(course: dict) -> str:
     return page(f"Syllabus · {course['title']}", "Learning outcomes, schedule, assessment and policies.", 1, body)
 
 
+# Where GitHub Pages serves the site. The 404 pages are shown at any depth, so they link from here.
+BASE = "/agentic-se/"
+
+
+def not_found() -> str:
+    body = f"""<header class="hero hero-week">
+  <p class="kicker">404</p>
+  <h1>Page not found</h1>
+</header>
+<main>
+  <p class="lede">There is no page at this address.</p>
+  <p class="actions">
+    <a class="button primary" href="{BASE}">Course home</a>
+    <a class="button" href="{BASE}#schedule">Schedule</a>
+    <a class="button" href="{BASE}course/">Course materials</a>
+  </p>
+</main>"""
+    return page("Page not found · Agentic Software Engineering", "This page does not exist.", 0, body, up=BASE)
+
+
 def check_local_links(pages: list[Path]) -> None:
     """Every local href, src and poster on a built page must resolve to a file, or a folder with an index."""
     for built in pages:
         for url in re.findall(r'(?:href|src|poster)="([^"]+)"', built.read_text()):
-            path = html.unescape(url).split("#")[0]
+            path = re.split(r"[#?]", html.unescape(url))[0]
             if re.match(r"[a-z]+:", path) or not path:
                 continue
-            target = (built.parent / path).resolve()
+            if path.startswith(BASE):
+                target = ROOT / path.removeprefix(BASE)
+            else:
+                target = (built.parent / path).resolve()
             if not (target.is_file() or (target / "index.html").is_file()):
                 raise SystemExit(f"{built.relative_to(ROOT)}: broken link {url!r}")
 
@@ -505,6 +533,8 @@ def main() -> None:
     (ROOT / "syllabus/index.html").write_text(syllabus_page(course))
     (ROOT / "approach").mkdir(exist_ok=True)
     (ROOT / "approach/index.html").write_text(approach_page(course))
+    # GitHub Pages shows the root 404.html for every missing path, course/ included.
+    (ROOT / "404.html").write_text(not_found())
 
     internal = re.compile(r"PR #\d|\bT-\d{3}\b|\bD\d{2}\b|ASE-\d+|reviewed_by|instructor/|\bnotes:\d")
     withheld = [e["slug"] for e in episodes if e["slug"] not in {film["slug"] for film in films}]
@@ -515,9 +545,10 @@ def main() -> None:
             raise SystemExit(f"{built.relative_to(ROOT)}: internal reference {match.group(0)!r}")
         if named := [slug for slug in withheld if slug in text]:
             raise SystemExit(f"{built.relative_to(ROOT)}: names a film that is not published: {named}")
-    check_local_links(pages)
+    # The pages written here, and the course's own pages under course/ as they were copied in.
+    check_local_links([*pages, ROOT / "404.html", *sorted((ROOT / "course").rglob("*.html"))])
     print(
-        f"built index.html, approach/index.html, syllabus/index.html, {len(numbers)} week pages (weeks/{numbers[0]:02d}–{numbers[-1]:02d}) "
+        f"built index.html, 404.html, approach/index.html, syllabus/index.html, {len(numbers)} week pages (weeks/{numbers[0]:02d}–{numbers[-1]:02d}) "
         f"and subtitle tracks for {len(films)} published films ({len(withheld)} withheld)"
     )
 

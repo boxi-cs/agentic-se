@@ -26,10 +26,12 @@ def run(*args: str, cwd: Path | None = None) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--course", type=Path, required=True)
+    parser.add_argument("--ref", default="origin/main",
+                        help="course commit to read; anything but origin/main is for a local preview only")
     args = parser.parse_args()
     course = args.course.resolve()
     run("git", "-C", str(course), "fetch", "-q", "origin")
-    commit = run("git", "-C", str(course), "rev-parse", "origin/main").strip()
+    commit = run("git", "-C", str(course), "rev-parse", args.ref).strip()
     with tempfile.TemporaryDirectory(prefix="course-site-") as temporary:
         tree = Path(temporary) / "course"
         run("git", "-C", str(course), "worktree", "add", "-q", "--detach", str(tree), commit)
