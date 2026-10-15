@@ -6682,52 +6682,55 @@ and with runs you can repeat, not with the wording here.</p>
 object exists. <code>result or True</code> is always true. None compares the result with the
 contract, so a parser that returns <code>0</code> for <code>"3"</code> passes all three. Replacements that can
 fail: <code>assert parser("3") == 3</code>, <code>assert parser("9") == 9</code>, and a check that <code>parser("12")</code>
-raises <code>ValueError</code>. A better assertion still needs a run; the call itself can raise.</p>
+raises <code>ValueError</code>. A better assertion still needs a run, because the call itself can
+raise an exception.</p>
 <h2 id="q2">Q2</h2>
 <p><code>all_zero</code> is killed, because <code>parser("3")</code> returns <code>0</code>. <code>nine_to_zero</code> survives: no test
 looks at <code>"9"</code>. <code>accept_trailing</code> survives: the only rejected input, <code>"x"</code>, does not start
-with a digit, so nothing checks a string that begins like a valid level and continues.
+with a digit. So nothing checks a string that begins like a valid level and continues.
 This is the first line of <code>python lectures/week-07/fixture/demo.py survivors</code>: 1 of 3.</p>
 <h2 id="q3">Q3</h2>
 <p>For <code>nine_to_zero</code>: <code>assert parser("9") == 9</code>. For <code>accept_trailing</code>: <code>parser("12")</code> must
-raise <code>ValueError</code>. Each test has closed its gap when it fails because of the fault with
-the fault in place and passes on the original. A test that passes in both states has not
-changed what the suite can notice.</p>
+raise <code>ValueError</code>. Each test closes its gap when two things hold. With the fault in
+place, the test fails because of the fault. On the original, the test passes. A test that
+passes in both states has not changed what the suite can notice.</p>
 <h2 id="q4">Q4</h2>
-<p>Which mutants and how they were chosen (three hand-written ones, or a tool with its
-configuration and operators); that the suite passed on the unmutated revision first; and
-how each kill happened: a test failing because of the mutant's change (a failed
-assertion or an exception the change causes), not an import error, a broken run or an
-unexplained timeout. Also useful: which mutants were excluded as equivalent and why, and
-the revision the run used.</p>
+<p>State which mutants were used and how they were chosen: three hand-written ones, or a
+tool with its configuration and operators. State that the suite passed on the unmutated
+revision first. State how each kill happened. A kill must be a test failing because of
+the mutant's change (a failed assertion or an exception the change causes). An import
+error, a broken run or an unexplained timeout is not a kill. Also useful: which mutants
+were excluded as equivalent and why, and the revision the run used.</p>
 <h2 id="q5">Q5</h2>
 <p>No. The contract leaves the message unspecified, so no test of this contract can tell the
-mutant from the original: it is equivalent. Report it outside the denominator with that
-reason. If the message later becomes part of the contract, the mutant returns to the
-denominator and needs a test.</p>
+mutant from the original. That makes it equivalent. Leave it out of the denominator and
+report it with that reason. If the message later becomes part of the contract, the mutant
+returns to the denominator and needs a test.</p>
 <h2 id="q6">Q6</h2>
 <p>It only generates the ten accepted strings, and the faulty parser is correct on all of
-them. The property that matches the contract quantifies over every string: a digit string
-returns its integer, and anything else raises <code>ValueError</code>, with the expected side taken
-from a table of the ten accepted strings. On generated strings it fails for <code>""</code> and for
-any string of two or more characters that starts with a digit.</p>
+them. The property that matches the contract covers every string. A digit string returns
+its integer, and anything else raises <code>ValueError</code>. The expected side comes from a table
+of the ten accepted strings. On generated strings it fails for <code>""</code> and for any string of
+two or more characters that starts with a digit.</p>
 <h2 id="q7">Q7</h2>
-<p>Either deletion from <code>"00"</code> gives <code>"0"</code>, which is valid and correctly parsed, and no
-character is left to replace with <code>0</code>, so no simpler input keeps the same failure. <code>"1836"</code> leaves open
-whether the length, a particular digit or the value matters. <code>"00"</code> rules out the digits
-and the value: two ordinary characters are accepted, so the length is never checked.</p>
+<p>Deleting either character of <code>"00"</code> gives <code>"0"</code>, which is valid and correctly parsed. No
+character is left to replace with <code>0</code>. So no simpler input keeps the same failure.
+<code>"1836"</code> does not tell you whether the length, a particular digit or the value matters.
+<code>"00"</code> rules out the digits and the value: two ordinary characters are accepted, so the
+length is never checked.</p>
 <h2 id="q8">Q8</h2>
-<p>A library generates from typed, composable strategies instead of one fixed alphabet;
-shrinks far more thoroughly; and usually remembers earlier failing inputs between runs.
+<p>A library generates inputs from typed, composable strategies instead of one fixed
+alphabet. It shrinks far more thoroughly. It usually remembers earlier failing inputs
+between runs.
 The helper is a seeded generator plus a greedy shrinker that reports the first failure of
 each category. Both follow the same rule: a smaller input is kept only when it still
 fails in the same way, and the shrunk input is saved as a regression.</p>
 <h2 id="q9">Q9</h2>
-<p>First <code>git diff --stat</code>: only the test file changed, and the code under test did not,
+<p>First, run <code>git diff --stat</code>. Only the test file changed, not the code under test,
 although a failing test was reported as fixed. Second, read the changed line against the
-contract: <code>""</code> and <code>"12"</code> are both covered by "rejects every other string by raising
-ValueError", so two obligations were removed and "outside the supported range" is not
-what the contract says. Third, run something the patch could not have adjusted: replaying
+contract. <code>""</code> and <code>"12"</code> are both covered by "rejects every other string by raising
+ValueError". So two obligations were removed, and "outside the supported range" is not
+what the contract says. Third, run something the patch could not have adjusted. Replaying
 <code>"12"</code> still reports <code>accepted_invalid_input</code>, and the mutation run drops from 3 of 3 to
 2 of 3 with <code>accept_trailing</code> surviving again. Decision: reject the patch and ask for a
 repair of the parser with the original test restored.</p>
@@ -6736,10 +6739,10 @@ repair of the parser with the original test restored.</p>
 handler widened from <code>ValueError</code> to <code>Exception</code>; an expected value copied from the
 current output; a skip or expected-failure marker on the red test; a stub replacing the
 function under test; a property narrowed to fewer cases or filtered inputs; a lowered
-threshold in the gate. Changing an expected result is right when the requirement changed
-or the test was wrong, the reason points at the contract or specification, and the person
-who owns that decision made it. The change to the requirement and the change to the test
-are then reviewed together.</p>
+threshold in the gate. Changing an expected result is right when three things hold. The
+requirement changed or the test was wrong. The reason points at the contract or
+specification. The person who owns that decision made it. The change to the requirement
+and the change to the test are then reviewed together.</p>
 <h2 id="spaced-retrieval-and-transfer">Spaced retrieval and transfer</h2>
 <p><strong>Retrieval 1.</strong> A hook is a gate when one run shows it blocking the bad commit with a
 non-zero exit and a second run shows it passing a good commit. A passing commit alone
@@ -6749,7 +6752,7 @@ for the context the model saw. Before accepting, plant a small fault in the chan
 and confirm a test fails, or check that no test line in the change was weakened.</p>
 <p><strong>Transfer.</strong> A complete answer names the fault as a one-line change, the test, a failing
 run with the fault and a passing run without it. For the fault you did not plant, the
-only way to know is to plant it and run the suite; a guess from reading the tests is a
+only way to know is to plant it and run the suite. A guess from reading the tests is a
 prediction to check, not a result.</p>
 
 
@@ -6849,7 +6852,7 @@ prediction to check, not a result.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

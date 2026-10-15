@@ -6583,16 +6583,16 @@
 
 <h1 id="cp2-practice-paper">CP2 practice paper</h1>
 <p>This paper practises CP2, the week 11 checkpoint. It has the real paper's format, length,
-question types and marks. The code and the observation record were written by the course
-for this practice paper; they come from no real project and appear on no real paper. How to
-sit and mark it is on the <a href="README.en.html">practice papers page</a>. The marking points and
-worked answers are on a <a href="cp2-practice-answers.en.html">separate page</a>: open it only when you
-have finished.</p>
+question types and marks. The course wrote the code and the observation record for this
+practice paper. They come from no real project, and no real paper uses them. The
+<a href="README.en.html">practice papers page</a> explains how to sit and mark the paper. The marking
+points and worked answers are on a <a href="cp2-practice-answers.en.html">separate page</a>. Open it
+only when you have finished.</p>
 <p><strong>Conditions.</strong> Work alone for 30 minutes with no device, model, agent or reference
-material; the glossary below the code is the only help allowed. Keep reasons short, and
-cite line numbers and record lines so that a marker can find what you mean.</p>
-<p><strong>Marks.</strong> Ten points: six for Q1, two for Q2 and two for Q3. The real paper records raw
-marks × 0.75, so 7.5 at most.</p>
+material. The only help allowed is the glossary below the code. Keep your reasons short.
+Cite line numbers and record lines, so that a marker can find what you mean.</p>
+<p><strong>Marks.</strong> Ten points: six for Q1, two for Q2 and two for Q3. On the real paper, the
+recorded mark is the raw mark × 0.75, so 7.5 at most.</p>
 <p><strong>Suggested pace.</strong> The first half ends after Q1. If you sit the paper in two halves, stop
 there at minute 15 and take Q2 and Q3 in one more 15-minute sitting.</p>
 <table>
@@ -6636,22 +6636,22 @@ a secret and must never be written to the journal, which every member of the tea
 <code>store.set(name, value)</code> sets a setting, creating it if it does not exist, and raises
 <code>OSError</code> if the setting is locked; a locked setting keeps its value.</p>
 <p>Before the run, the store held <code>region=north-1</code>, <code>retries=3</code>, <code>timeout=30</code> and an
-<code>api_token</code>, and <code>region</code> was locked for maintenance. The on-call engineer ran
-<code>update_settings(store, [("retries", 5), ("timeout", 90), ("region", "north-2")], journal)</code>,
-got back <code>reverted</code>, and then read <code>timeout</code> from the store: it was <code>30</code>. Nothing else was
-read after the run. The journal after the run:</p>
-<pre><code class="language-text">set retries to 5
+<code>api_token</code>. The setting <code>region</code> was locked for maintenance. The on-call engineer ran
+<code>update_settings(store, [("retries", 5), ("timeout", 90), ("region", "north-2")], journal)</code>
+and got back <code>reverted</code>. The engineer then read <code>timeout</code> from the store, and it was <code>30</code>.
+Nobody read anything else after the run. This is the journal after the run:</p>
+<div class="highlight"><pre><span></span><code>set retries to 5
 set timeout to 90
 failed on region: locked for maintenance; now api_token=sk-EXAMPLE, region=north-1, retries=5, timeout=90
-</code></pre>
+</code></pre></div>
 <h2 id="code-under-review">Code under review</h2>
-<pre><code class="language-text">01 HIDDEN = &quot;api_token&quot;
+<div class="highlight"><pre><span></span><code>01 HIDDEN = "api_token"
 02
 03 def masked(name, value):
-04     return &quot;&lt;hidden&gt;&quot; if name == HIDDEN else value
+04     return "&lt;hidden&gt;" if name == HIDDEN else value
 05
 06 def describe(store):
-07     return &quot;, &quot;.join(f&quot;{n}={store.get(n)}&quot; for n in sorted(store.names()))
+07     return ", ".join(f"{n}={store.get(n)}" for n in sorted(store.names()))
 08
 09 def all_known(store, changes):
 10     for name, value in changes:
@@ -6662,27 +6662,27 @@ failed on region: locked for maintenance; now api_token=sk-EXAMPLE, region=north
 15
 16 def update_settings(store, changes, journal):
 17     if not all_known(store, changes):
-18         return &quot;blocked&quot;
+18         return "blocked"
 19     undo = None
 20     for name, value in changes:
 21         old = store.get(name)
 22         try:
 23             store.set(name, value)
 24         except OSError as err:
-25             journal.append(f&quot;failed on {name}: {err}; now {describe(store)}&quot;)
+25             journal.append(f"failed on {name}: {err}; now {describe(store)}")
 26             if undo:
 27                 store.set(*undo)
-28             return &quot;reverted&quot;
+28             return "reverted"
 29         undo = (name, old)
-30         journal.append(f&quot;set {name} to {masked(name, value)}&quot;)
-31     return &quot;changed&quot;
-</code></pre>
+30         journal.append(f"set {name} to {masked(name, value)}")
+31     return "changed"
+</code></pre></div>
 <h2 id="glossary">Glossary</h2>
 <ul>
 <li><strong>Store:</strong> the shared place that holds the settings. <code>store.names()</code> lists the names of
   the settings that exist, <code>store.get(name)</code> returns a setting's current value, and
   <code>store.set(name, value)</code> is described in the contract.</li>
-<li><strong>Journal:</strong> the list of lines that <code>update_settings</code> appends to; every member of the
+<li><strong>Journal:</strong> the list of lines that <code>update_settings</code> appends to. Every member of the
   team can read it.</li>
 <li><strong>Secret:</strong> a value that gives access to something, such as a token, and must stay out
   of anything others can read.</li>
@@ -6693,8 +6693,8 @@ failed on region: locked for maintenance; now api_token=sk-EXAMPLE, region=north
   <strong><code>sorted(...)</code></strong> puts names in alphabetical order.</li>
 <li><strong><code>store.set(*undo)</code>:</strong> calls <code>store.set</code> with the two values saved in <code>undo</code>, a name and a
   value.</li>
-<li><strong><code>except OSError as err</code>:</strong> runs when <code>store.set</code> raises <code>OSError</code>; <code>err</code> is the error,
-  and <code>{err}</code> in a journal line gives its message, such as <code>locked for maintenance</code>.</li>
+<li><strong><code>except OSError as err</code>:</strong> runs when <code>store.set</code> raises <code>OSError</code>. <code>err</code> is the error.
+  <code>{err}</code> in a journal line gives its message, such as <code>locked for maintenance</code>.</li>
 </ul>
 <h2 id="questions">Questions</h2>
 <h3 id="q1-review-findings-6-marks">Q1: review findings (6 marks)</h3>
@@ -6837,7 +6837,7 @@ sentence or invariant that the expectation comes from.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

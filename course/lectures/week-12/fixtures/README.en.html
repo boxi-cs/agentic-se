@@ -6477,19 +6477,20 @@
 
 
 <h1 id="public-audit-verification-fixture">Public audit-verification fixture</h1>
-<p>This is a course-authored synthetic snapshot. <code>audit_packet.py</code> is the frozen public surface; it
-has no network, package installation, credential, or personal-data path. Run it and
+<p>This is a course-authored synthetic snapshot. <code>audit_packet.py</code> is the frozen public part of
+it that you run. It has no network access, package installation, credential or personal-data
+path. Run it and
 <code>verify_audit.py</code> with <code>python</code> in a copy of this directory, as the
 <a href="../notes.en.html#verify-the-review-stages-claims">notes</a> show.</p>
 <h2 id="frozen-requirements">Frozen requirements</h2>
-<p>Every disposition is judged against these requirements, not against the wording of the review:</p>
-<pre><code class="language-text">R1 access: a viewer or an owner can read a public report; no role reads a private report body.
+<p>You judge every disposition against these requirements, not against the wording of the review:</p>
+<div class="highlight"><pre><span></span><code>R1 access: a viewer or an owner can read a public report; no role reads a private report body.
 R2 status: the status endpoint accepts only the labels ready and queued.
 R3 paths: every exported or archived report path stays under /srv/reports.
 R4 secrets: no export configuration exposes a secret directory.
 R5 scoring: the private-count scorer gives 1 only when the answer's first word is the number of private sample reports; every other answer scores 0.
 R6 root: the report root is written once, as REPORT_ROOT; no function repeats the literal path.
-</code></pre>
+</code></pre></div>
 <p>Production configuration is not part of this snapshot, so no check here can read it.</p>
 <h2 id="files">Files</h2>
 <ul>
@@ -6499,22 +6500,25 @@ R6 root: the report root is written once, as REPORT_ROOT; no function repeats th
   missing, extra or wrongly typed argument: <code>private</code> is a JSON <code>true</code> or <code>false</code>, and <code>role</code>
   is <code>viewer</code> or <code>owner</code>.</li>
 <li><code>model-audit.json</code> is a recorded review with five claims about security, evaluation and
-  maintenance. Each has an <code>id</code>, an <code>area</code> and, for most, the function it <code>cites</code>. It names no
-  check, input or answer; you choose the check and input for each claim. It is course-authored
+  maintenance. Each has an <code>id</code> and an <code>area</code>, and most also name the function they <code>cite</code>.
+  The review names no check, input or answer. You choose the check and input for each claim. It is course-authored
   practice material; no model wrote it.</li>
 <li><code>student-audit.json</code> is an empty starter record. You add one verification for each
-  recorded claim and either a new defect check or a bounded clean-scope check. The
+  recorded claim. You also add one own check: either a new defect, or a scope check that
+  found no defect and states its boundary. The
   <a href="../notes.en.html#the-record-the-verifier-reads">notes</a> show a filled row, the <code>parts</code> shape for
   a claim about each member of a listed set, and both own-check shapes.</li>
-<li><code>verify_audit.py</code> recomputes every named check, checks the exact reproducible command, checks
-  that the input tests the claim and derives the supported disposition from the observation. It
-  accepts only <code>confirmed</code>, <code>refuted</code> or <code>undetermined</code>; an <code>undetermined</code> row must name the
-  missing input or why it cannot be decided.</li>
+<li><code>verify_audit.py</code> runs every named check again and checks the exact reproducible command.
+  It checks that the input tests the claim. From the observation, it works out which
+  disposition the evidence supports. It accepts only <code>confirmed</code>, <code>refuted</code> or
+  <code>undetermined</code>. An <code>undetermined</code> row must name the missing input or say why the claim
+  cannot be decided.</li>
 </ul>
 <p>The verifier tests the evidence you supply. The recorded review is not a model score
-and its text is never sent to a grader. A hand trace is not an observation; retain the command
-output with the frozen snapshot identifier. An own check must probe a new input or state a checked
-range and its remaining boundary.</p>
+and its text is never sent to a grader. A hand trace, worked out without running the check,
+is not an observation. Keep the command output together with the frozen snapshot identifier.
+An own check must either probe a new input or state the range you checked and the boundary
+that remains unchecked.</p>
 
 
 
@@ -6613,7 +6617,7 @@ range and its remaining boundary.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>

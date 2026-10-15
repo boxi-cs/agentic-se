@@ -6547,164 +6547,164 @@
 short introduction to the
 <a href="../../capstone/kit/open-source-contributions.en.html">contribution projects</a>; the studio
 takes the rest.</p>
-<p><strong>Purpose:</strong> turn your project proposal into failure-capable acceptance cases and make one
+<p><strong>Purpose:</strong> turn your project proposal into acceptance cases that can fail, and make one
 small tool harder for a model to misuse. Work individually in an empty working directory
-inside your dedicated course directory; if you already have a project repository, use a
+inside your dedicated course directory. If you already have a project repository, use a
 disposable copy of it instead. Run every block on this page from that one directory. This
-is formative studio work; the <a href="../../practice/a2/README.en.html">A2 page</a> and the
-<a href="../../templates/project-proposal.en.html">proposal form</a> define the submissions.</p>
+studio work is practice and is not marked. The <a href="../../practice/a2/README.en.html">A2 page</a>
+and the <a href="../../templates/project-proposal.en.html">proposal form</a> define what you submit.</p>
 <p><strong>Materials:</strong> a draft of your project proposal, the <a href="notes.en.html">notes</a>, a text editor,
-Python 3.12, and a terminal. The retained <a href="fixture/">fixture</a> and <a href="session/">session</a> are
-optional reading.</p>
+Python 3.12, and a terminal. The <a href="fixture/">fixture</a> and <a href="session/">session</a> kept in this
+folder are optional reading.</p>
 <h2 id="1-write-cases-before-code-25-minutes">1. Write cases before code (25 minutes)</h2>
 <p>Create a scratch directory and a proposal record:</p>
-<pre><code class="language-sh">mkdir -p week02-studio
-cat &gt; week02-studio/acceptance.md &lt;&lt;'EOF'
-# Acceptance cases
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>week02-studio
+cat<span class="w"> </span>&gt;<span class="w"> </span>week02-studio/acceptance.md<span class="w"> </span><span class="s">&lt;&lt;'EOF'</span>
+<span class="s"># Acceptance cases</span>
 
-## Case 1 — happy path
-Given &lt;precondition&gt;
-When &lt;request&gt;
-Then &lt;observable result&gt;
+<span class="s">## Case 1 — happy path</span>
+<span class="s">Given &lt;precondition&gt;</span>
+<span class="s">When &lt;request&gt;</span>
+<span class="s">Then &lt;observable result&gt;</span>
 
-## Case 2 — forbidden or malformed input
-Given &lt;precondition&gt;
-When &lt;request&gt;
-Then &lt;observable refusal and unchanged state&gt;
+<span class="s">## Case 2 — forbidden or malformed input</span>
+<span class="s">Given &lt;precondition&gt;</span>
+<span class="s">When &lt;request&gt;</span>
+<span class="s">Then &lt;observable refusal and unchanged state&gt;</span>
 
-## Case 3 — boundary value
-Given &lt;precondition&gt;
-When &lt;request&gt;
-Then &lt;observable result&gt;
-EOF
-</code></pre>
+<span class="s">## Case 3 — boundary value</span>
+<span class="s">Given &lt;precondition&gt;</span>
+<span class="s">When &lt;request&gt;</span>
+<span class="s">Then &lt;observable result&gt;</span>
+<span class="s">EOF</span>
+</code></pre></div>
 <p>Replace every placeholder with your proposal's core scenario. Add a fourth or fifth case
-only when it exposes a distinct risk. For each case name the input, the observable result,
+only when it exposes a different risk. For each case, name the input, the observable result,
 and the state that must not change on failure. Predict one case that should fail before you
 run anything.</p>
 <h2 id="2-make-the-cases-executable-20-minutes">2. Make the cases executable (20 minutes)</h2>
 <p>Add a tiny checker beside the record. It must exit nonzero when a case is wrong:</p>
-<pre><code class="language-sh">cat &gt; week02-studio/check_cases.py &lt;&lt;'PY'
-def export_result(path: str) -&gt; str:
-    if not path.startswith(&quot;out/&quot;):
-        return &quot;refused: read-only root&quot;
-    return &quot;exported&quot;
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>week02-studio/check_cases.py<span class="w"> </span><span class="s">&lt;&lt;'PY'</span>
+<span class="s">def export_result(path: str) -&gt; str:</span>
+<span class="s">    if not path.startswith("out/"):</span>
+<span class="s">        return "refused: read-only root"</span>
+<span class="s">    return "exported"</span>
 
 
-expected = {&quot;happy&quot;: &quot;exported&quot;, &quot;forbidden&quot;: &quot;refused: read-only root&quot;}
-actual = {
-    &quot;happy&quot;: export_result(&quot;out/summary.csv&quot;),
-    &quot;forbidden&quot;: export_result(&quot;reports/summary.csv&quot;),
-}
-missing = [name for name, value in actual.items() if value != expected[name]]
-if missing:
-    print(&quot;failed:&quot;, &quot;, &quot;.join(missing))
-    raise SystemExit(1)
-print(&quot;passed:&quot;, &quot;, &quot;.join(actual))
-PY
-python week02-studio/check_cases.py
-</code></pre>
+<span class="s">expected = {"happy": "exported", "forbidden": "refused: read-only root"}</span>
+<span class="s">actual = {</span>
+<span class="s">    "happy": export_result("out/summary.csv"),</span>
+<span class="s">    "forbidden": export_result("reports/summary.csv"),</span>
+<span class="s">}</span>
+<span class="s">missing = [name for name, value in actual.items() if value != expected[name]]</span>
+<span class="s">if missing:</span>
+<span class="s">    print("failed:", ", ".join(missing))</span>
+<span class="s">    raise SystemExit(1)</span>
+<span class="s">print("passed:", ", ".join(actual))</span>
+<span class="s">PY</span>
+python<span class="w"> </span>week02-studio/check_cases.py
+</code></pre></div>
 <p>Replace <code>export_result</code> with the smallest behavior from your project or a synthetic
-function. Keep the first failing output by changing the forbidden path temporarily, then
-restore it and make the smallest change that makes the checker pass. If your project cannot
-run locally, use a pure Python function in the scratch directory and state that boundary in
-the record.</p>
-<p>The example compares returned text only. It never looks at a directory, so it does not yet
-observe “no file is written”, and it cannot express the notes' third case, a row without
-<code>id</code>, because <code>export_result</code> takes only a path. In your own checker, also read or list the
-state that case 2 says must not change.</p>
+function. First, change the forbidden path temporarily so the checker fails, and keep that
+failing output. Then restore the path and make the smallest change that makes the checker
+pass. If your project cannot run locally, use a pure Python function in the scratch
+directory, and write that limit down in the record.</p>
+<p>The example compares only the returned text. It never looks at a directory, so it does not
+yet observe “no file is written”. It also cannot express the notes' third case, a row
+without <code>id</code>, because <code>export_result</code> takes only a path. In your own checker, also read or
+list the state that case 2 says must not change.</p>
 <h2 id="3-tighten-one-model-facing-schema-20-minutes">3. Tighten one model-facing schema (20 minutes)</h2>
 <p>Choose one small tool your project uses. Copy its current name, description, schema and
 error text into <code>week02-studio/tool-before.json</code>. Add a closed schema, a required field, or
 an allowed path/enum. Make the error name the bad field and a repair. Save the revised form
 as <code>tool-after.json</code>.</p>
 <p>If you do not have a tool ready, start with this deliberately loose example:</p>
-<pre><code class="language-sh">cat &gt; week02-studio/tool-before.json &lt;&lt;'EOF'
-{
-  &quot;name&quot;: &quot;export_report&quot;,
-  &quot;description&quot;: &quot;Write a CSV report.&quot;,
-  &quot;inputSchema&quot;: {
-    &quot;type&quot;: &quot;object&quot;,
-    &quot;properties&quot;: {
-      &quot;path&quot;: {&quot;type&quot;: &quot;string&quot;},
-      &quot;rows&quot;: {&quot;type&quot;: &quot;array&quot;, &quot;items&quot;: {&quot;type&quot;: &quot;object&quot;}}
-    }
-  }
-}
-EOF
-cat &gt; week02-studio/tool-after.json &lt;&lt;'EOF'
-{
-  &quot;name&quot;: &quot;export_report&quot;,
-  &quot;description&quot;: &quot;Write a CSV below out/; never writes reports/.&quot;,
-  &quot;inputSchema&quot;: {
-    &quot;type&quot;: &quot;object&quot;,
-    &quot;additionalProperties&quot;: false,
-    &quot;required&quot;: [&quot;path&quot;, &quot;rows&quot;],
-    &quot;properties&quot;: {
-      &quot;path&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;pattern&quot;: &quot;^out/[A-Za-z0-9_.-]+\\.csv$&quot;},
-      &quot;rows&quot;: {&quot;type&quot;: &quot;array&quot;, &quot;items&quot;: {&quot;type&quot;: &quot;object&quot;}}
-    }
-  }
-}
-EOF
-</code></pre>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>week02-studio/tool-before.json<span class="w"> </span><span class="s">&lt;&lt;'EOF'</span>
+<span class="s">{</span>
+<span class="s">  "name": "export_report",</span>
+<span class="s">  "description": "Write a CSV report.",</span>
+<span class="s">  "inputSchema": {</span>
+<span class="s">    "type": "object",</span>
+<span class="s">    "properties": {</span>
+<span class="s">      "path": {"type": "string"},</span>
+<span class="s">      "rows": {"type": "array", "items": {"type": "object"}}</span>
+<span class="s">    }</span>
+<span class="s">  }</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
+cat<span class="w"> </span>&gt;<span class="w"> </span>week02-studio/tool-after.json<span class="w"> </span><span class="s">&lt;&lt;'EOF'</span>
+<span class="s">{</span>
+<span class="s">  "name": "export_report",</span>
+<span class="s">  "description": "Write a CSV below out/; never writes reports/.",</span>
+<span class="s">  "inputSchema": {</span>
+<span class="s">    "type": "object",</span>
+<span class="s">    "additionalProperties": false,</span>
+<span class="s">    "required": ["path", "rows"],</span>
+<span class="s">    "properties": {</span>
+<span class="s">      "path": {"type": "string", "pattern": "^out/[A-Za-z0-9_.-]+\\.csv$"},</span>
+<span class="s">      "rows": {"type": "array", "items": {"type": "object"}}</span>
+<span class="s">    }</span>
+<span class="s">  }</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
+</code></pre></div>
 <p>Run this direct schema smoke test (it uses only the standard library):</p>
-<pre><code class="language-sh">python - &lt;&lt;'PY'
-import json
-from pathlib import Path
-before = json.loads(Path(&quot;week02-studio/tool-before.json&quot;).read_text())
-after = json.loads(Path(&quot;week02-studio/tool-after.json&quot;).read_text())
-assert after != before, &quot;revise at least one model-facing field&quot;
-schema = after.get(&quot;inputSchema&quot;, after)
-assert schema.get(&quot;type&quot;) == &quot;object&quot;
-assert schema.get(&quot;additionalProperties&quot;) is False
-assert schema.get(&quot;required&quot;), &quot;name a required input&quot;
-print(&quot;schema smoke test passed&quot;)
-PY
-</code></pre>
-<p>Run three calls through a tiny stub. It is not a schema validator: it takes the required
-fields and the allowed field names from <code>tool-after.json</code>, checks the path with a rule
-written again in its own code, and never looks inside <code>rows</code>:</p>
-<pre><code class="language-sh">cat &gt; week02-studio/check_tool.py &lt;&lt;'PY'
-import json
-import re
-from pathlib import Path
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;'PY'</span>
+<span class="s">import json</span>
+<span class="s">from pathlib import Path</span>
+<span class="s">before = json.loads(Path("week02-studio/tool-before.json").read_text())</span>
+<span class="s">after = json.loads(Path("week02-studio/tool-after.json").read_text())</span>
+<span class="s">assert after != before, "revise at least one model-facing field"</span>
+<span class="s">schema = after.get("inputSchema", after)</span>
+<span class="s">assert schema.get("type") == "object"</span>
+<span class="s">assert schema.get("additionalProperties") is False</span>
+<span class="s">assert schema.get("required"), "name a required input"</span>
+<span class="s">print("schema smoke test passed")</span>
+<span class="s">PY</span>
+</code></pre></div>
+<p>Run three calls through a tiny stub. The stub is not a schema validator. It takes the
+required fields and the allowed field names from <code>tool-after.json</code>. It checks the path with
+its own copy of the rule, written in its code. It never looks inside <code>rows</code>:</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>week02-studio/check_tool.py<span class="w"> </span><span class="s">&lt;&lt;'PY'</span>
+<span class="s">import json</span>
+<span class="s">import re</span>
+<span class="s">from pathlib import Path</span>
 
-schema = json.loads(Path(&quot;week02-studio/tool-after.json&quot;).read_text())[&quot;inputSchema&quot;]
-assert schema[&quot;type&quot;] == &quot;object&quot; and schema[&quot;additionalProperties&quot;] is False
-assert set(schema[&quot;required&quot;]) == {&quot;path&quot;, &quot;rows&quot;}
+<span class="s">schema = json.loads(Path("week02-studio/tool-after.json").read_text())["inputSchema"]</span>
+<span class="s">assert schema["type"] == "object" and schema["additionalProperties"] is False</span>
+<span class="s">assert set(schema["required"]) == {"path", "rows"}</span>
 
-def call_tool(args):
-    unknown = set(args) - set(schema[&quot;properties&quot;])
-    if unknown:
-        return &quot;refused: unknown field &quot; + sorted(unknown)[0], False
-    if any(field not in args for field in schema[&quot;required&quot;]):
-        return &quot;refused: missing required field&quot;, False
-    if not re.fullmatch(r&quot;out/[A-Za-z0-9_.-]+\.csv&quot;, args[&quot;path&quot;]):
-        return &quot;refused: path; use out/&lt;name&gt;.csv&quot;, False
-    return &quot;exported&quot;, True
+<span class="s">def call_tool(args):</span>
+<span class="s">    unknown = set(args) - set(schema["properties"])</span>
+<span class="s">    if unknown:</span>
+<span class="s">        return "refused: unknown field " + sorted(unknown)[0], False</span>
+<span class="s">    if any(field not in args for field in schema["required"]):</span>
+<span class="s">        return "refused: missing required field", False</span>
+<span class="s">    if not re.fullmatch(r"out/[A-Za-z0-9_.-]+\.csv", args["path"]):</span>
+<span class="s">        return "refused: path; use out/&lt;name&gt;.csv", False</span>
+<span class="s">    return "exported", True</span>
 
-for args, expected, reached in [
-    ({&quot;path&quot;: &quot;out/summary.csv&quot;, &quot;rows&quot;: [{&quot;id&quot;: &quot;1&quot;}]}, &quot;exported&quot;, True),
-    ({&quot;path&quot;: &quot;reports/summary.csv&quot;, &quot;rows&quot;: []}, &quot;refused: path; use out/&lt;name&gt;.csv&quot;, False),
-    ({&quot;path&quot;: &quot;out/summary.csv&quot;, &quot;rows&quot;: [], &quot;extra&quot;: 1}, &quot;refused: unknown field extra&quot;, False),
-]:
-    result, handler_called = call_tool(args)
-    assert result == expected and handler_called is reached
-    print(result)
-assert not Path(&quot;out/summary.csv&quot;).exists(), &quot;stub must not write files&quot;
-PY
-python week02-studio/check_tool.py
-</code></pre>
-<p>The valid call reaches the stub handler; the two invalid calls are rejected first, with a
-field-specific repair and no file effect. The stub's own message for a missing field names
-no field: add a fourth call that omits <code>rows</code>, make the message name it, and rerun. Then
-replace the example with your tool and keep the same three observations. The invalid calls
-must be rejected before the handler changes state, and their messages must tell the model
-what to fix.</p>
-<p>A2 asks for more than this schema. There the same four things, a name, a description, a
-schema and error text, go into a running local server, and your agent calls it in three
-real trials; the <a href="../../practice/a2/README.en.html">A2 page</a> has the starter and the checks.
+<span class="s">for args, expected, reached in [</span>
+<span class="s">    ({"path": "out/summary.csv", "rows": [{"id": "1"}]}, "exported", True),</span>
+<span class="s">    ({"path": "reports/summary.csv", "rows": []}, "refused: path; use out/&lt;name&gt;.csv", False),</span>
+<span class="s">    ({"path": "out/summary.csv", "rows": [], "extra": 1}, "refused: unknown field extra", False),</span>
+<span class="s">]:</span>
+<span class="s">    result, handler_called = call_tool(args)</span>
+<span class="s">    assert result == expected and handler_called is reached</span>
+<span class="s">    print(result)</span>
+<span class="s">assert not Path("out/summary.csv").exists(), "stub must not write files"</span>
+<span class="s">PY</span>
+python<span class="w"> </span>week02-studio/check_tool.py
+</code></pre></div>
+<p>The valid call reaches the stub handler. The two invalid calls are rejected before that.
+Each rejection says which field to fix, and no file is touched. The stub's own message for
+a missing field does not name the field. Add a fourth call that omits <code>rows</code>, change the
+message so it names <code>rows</code>, and rerun. Then replace the example with your tool and keep the
+same three observations. The invalid calls must be rejected before the handler changes
+state. Their messages must tell the model what to fix.</p>
+<p>A2 asks for more than this schema. In A2, the same four things (a name, a description, a
+schema and error text) go into a running local server. Your agent then calls it in three
+real trials. The <a href="../../practice/a2/README.en.html">A2 page</a> has the starter and the checks.
 The <code>export_report</code> files here are practice and are not handed in.</p>
 <p><span id="execution-route"></span></p>
 <h2 id="4-handoff-and-verify-10-minutes">4. Handoff and verify (10 minutes)</h2>
@@ -6712,15 +6712,15 @@ The <code>export_report</code> files here are practice and are not handed in.</p
 check, remaining unknown and next action. Compare each line with the evidence you collected.
 Then rerun the happy and failure cases after the schema edit. Finish with one decision line:
 <code>Decision: accept | narrow | recheck | stop — evidence: &lt;commands or paths&gt;</code>.</p>
-<p>A partner is not required. At minute 45, pause for a staff check-in if your case
-cannot fail or your tool has no observable refusal. More time or an approved access
-accommodation should preserve the same cases and evidence.</p>
+<p>A partner is not required. At minute 45, ask staff for a check-in if your case cannot
+fail or your tool has no observable refusal. If you have more time or an approved
+accessibility accommodation, keep the same cases and evidence.</p>
 <h2 id="studio-record">Studio record</h2>
-<p>Keep <code>acceptance.md</code>, the before/after schema, the smoke-test output, the first failing run,
-the corrected run and the decision line in the scratch directory until feedback. Do not put
-credentials in the proposal, prompt, screenshots or logs. Follow the
-<a href="../../SYLLABUS.en.html#tools-and-model-access">safety practices</a> for the coding agent you
-use; the studio commands themselves use no model or network.</p>
+<p>Keep these in the scratch directory until you get feedback: <code>acceptance.md</code>, the
+before/after schema, the smoke-test output, the first failing run, the corrected run and
+the decision line. Do not put credentials in the proposal, prompt, screenshots or logs.
+Follow the <a href="../../SYLLABUS.en.html#tools-and-model-access">safety practices</a> for the coding
+agent you use. The studio commands themselves use no model or network.</p>
 
 
 
@@ -6819,7 +6819,7 @@ use; the studio commands themselves use no model or network.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

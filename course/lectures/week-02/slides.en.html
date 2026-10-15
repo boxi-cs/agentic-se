@@ -6983,7 +6983,7 @@
 </tr>
 </tbody>
 </table>
-<p>Research records claims; it does not edit code.</p>
+<p>Research records claims. It does not edit code.</p>
 <hr />
 <h2 id="plan-artifact">Plan artifact</h2>
 <p>An ordered list of small steps:</p>
@@ -7000,11 +7000,11 @@
 <hr />
 <!-- _class: challenge -->
 <h2 id="a-specification-that-can-fail">A specification that can fail</h2>
-<pre><code class="language-text">Given out/
+<div class="highlight"><pre><span></span><code>Given out/
 When path is reports/summary.csv
 Then no file is written
 And the result says refused: read-only root
-</code></pre>
+</code></pre></div>
 <p>What would a passing test observe?</p>
 <hr />
 <h2 id="three-cases">Three cases</h2>
@@ -7035,16 +7035,16 @@ And the result says refused: read-only root
 <p>Verify the handoff against the transcript.</p>
 <hr />
 <h2 id="a-model-facing-tool">A model-facing tool</h2>
-<pre><code class="language-json">{&quot;name&quot;:&quot;export_report&quot;,
- &quot;description&quot;:&quot;Write below out/; never writes reports/.&quot;,
- &quot;inputSchema&quot;:{&quot;type&quot;:&quot;object&quot;,
-  &quot;additionalProperties&quot;:false,
-  &quot;required&quot;:[&quot;path&quot;,&quot;rows&quot;],
-  &quot;properties&quot;:{
-   &quot;path&quot;:{&quot;type&quot;:&quot;string&quot;,
-    &quot;pattern&quot;:&quot;^out/[A-Za-z0-9_.-]+\\.csv$&quot;},
-   &quot;rows&quot;:{&quot;type&quot;:&quot;array&quot;}}}}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"export_report"</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">"description"</span><span class="p">:</span><span class="s2">"Write below out/; never writes reports/."</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">"inputSchema"</span><span class="p">:{</span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"object"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"additionalProperties"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"required"</span><span class="p">:[</span><span class="s2">"path"</span><span class="p">,</span><span class="s2">"rows"</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">"properties"</span><span class="p">:{</span>
+<span class="w">   </span><span class="nt">"path"</span><span class="p">:{</span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"string"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"pattern"</span><span class="p">:</span><span class="s2">"^out/[A-Za-z0-9_.-]+\\.csv$"</span><span class="p">},</span>
+<span class="w">   </span><span class="nt">"rows"</span><span class="p">:{</span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"array"</span><span class="p">}}}}</span>
+</code></pre></div>
 <hr />
 <h2 id="five-contract-checks">Five contract checks</h2>
 <ol>
@@ -7057,9 +7057,9 @@ And the result says refused: read-only root
 <hr />
 <!-- _class: challenge -->
 <h2 id="which-call-is-allowed">Which call is allowed?</h2>
-<pre><code class="language-json">{&quot;path&quot;:&quot;out/summary.csv&quot;,&quot;rows&quot;:[]}
-{&quot;path&quot;:&quot;reports/summary.csv&quot;,&quot;rows&quot;:[]}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"path"</span><span class="p">:</span><span class="s2">"out/summary.csv"</span><span class="p">,</span><span class="nt">"rows"</span><span class="p">:[]}</span>
+<span class="p">{</span><span class="nt">"path"</span><span class="p">:</span><span class="s2">"reports/summary.csv"</span><span class="p">,</span><span class="nt">"rows"</span><span class="p">:[]}</span>
+</code></pre></div>
 <p>The first reaches the handler. The second is refused before an effect.</p>
 <hr />
 <h2 id="errors-are-context">Errors are context</h2>
@@ -7195,7 +7195,7 @@ And the result says refused: read-only root
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

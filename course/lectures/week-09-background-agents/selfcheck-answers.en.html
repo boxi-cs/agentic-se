@@ -6611,85 +6611,89 @@
 <h1 id="week-9-self-check-answer-guidance">Week 9 self-check answer guidance</h1>
 <p>Use these explanations after your first attempt. Another input or wording is fine when it
 carries the same evidence: a revision, a changed line or a check result you could show.
-The duration example is the course-written one from the <a href="notes.en.html">notes</a>; none of it is
+The duration example is the course-written one from the <a href="notes.en.html">notes</a>. None of it is
 a model run.</p>
 <h2 id="q1">Q1</h2>
-<p>Not as returned. Each report describes the branch's own tests, and the unattended branch
-rewrote the display test, so its green run compares <code>3:05</code> with <code>3:05</code>. The next check is
-the display test as it stood on the base, run by you against the returned revision. It
-expects <code>3m 05s</code>, the candidate returns <code>3:05</code>, and the check fails. The behavior to
-preserve is the unchanged duration display. Then read every changed hunk against the
-request as well as checking the summary cases: the display change and the rewritten
-expectation both fall outside "change only the summary implementation and add regression
-tests". Request a revision. Until you have run the preserved check yourself, the line to
+<p>Not as returned. Each report describes the branch's own tests. The unattended branch
+rewrote the display test, so its green run compares <code>3:05</code> with <code>3:05</code>. For the next check,
+you take the display test as it stood on the base and run it against the returned revision.
+It expects <code>3m 05s</code>, the candidate returns <code>3:05</code>, and the check fails. The behavior to
+preserve is the unchanged duration display. Check the summary cases, and also read every
+changed hunk (block of changed lines) against the request. The display change and the
+rewritten expectation both fall outside "change only the summary implementation and add
+regression tests". Request a revision. Until you have run the preserved check yourself, the line to
 write is recheck.</p>
 <h2 id="q2">Q2</h2>
-<p>You have directory and branch separation: each agent edits its own files on its own
+<p>You have directory and branch separation. Each agent edits its own files on its own
 branch, so their edits cannot collide. You do not have permission or execution isolation.
-Both worktrees belong to one repository on one host, so a process started in one can
-still reach the other worktree, the shared repository metadata and whatever else the host
-lets it reach. Inspect the agent's actual tool permissions and the environment it runs in,
+Both worktrees belong to one repository on one host. A process started in one can still
+reach the other worktree, the shared repository metadata and anything else the host lets
+it reach. Inspect the agent's actual tool permissions and the environment it runs in,
 separately from the directories. A worktree also says nothing about whether the two agents
-work to one contract; you check that on the combined candidate.</p>
+work to one contract. You check that on the combined candidate.</p>
 <h2 id="q3">Q3</h2>
-<p>The gate is a check the controller runs itself. The preserved tests, kept outside what the
-agent may edit, run against the exact revision the agent returned, and the pull-request
-stage opens only when a successful result is recorded. A missing result, a failing result
-and a timeout all block. The controller is whatever decides that the next stage may start:
-the pipeline's controlling script, or you in the studio. It is never the agent. "Run tests
-before opening a PR" is a request, and the PASS in the report is the candidate's own text,
-not the controller's result.</p>
+<p>The gate is a check the controller runs itself. The preserved tests sit outside what the
+agent may edit. They run against the exact revision the agent returned. The pull-request
+stage opens only when the controller has recorded a successful result. A missing result, a
+failing result and a timeout all block. The controller is whatever decides that the next
+stage may start: the pipeline's controlling script, or you in the studio. It is never the
+agent. "Run tests before opening a PR" is a request. The PASS in the report is the
+candidate's own text, not the controller's result.</p>
 <h2 id="q4">Q4</h2>
-<p>Three things, in this order. Resolve the disagreement from the request, not from whichever
-branch is easier to change: the request says <code>[None] -&gt; None</code>, so the expectation of <code>0</code>
-is the one to correct, and you make that call, not either agent. Review both changes. Then
-run the checks on the combined revision and keep that result. The two reports name two
+<p>Three things, in this order. First, resolve the disagreement from the request, not from
+whichever branch is easier to change. The request says <code>[None] -&gt; None</code>, so the
+expectation of <code>0</code> is the one to correct. You make that call, not either agent. Second,
+review both changes. Third, run the checks on the combined revision and keep that result. The two reports name two
 separate revisions, and neither is the revision you would integrate.</p>
 <h2 id="q5">Q5</h2>
 <p>One pair of runs supports a description of those two runs under the conditions you
 recorded. It does not support a claim that one mode is better, or any general claim about
-agents: there is one run in each mode, and the foreground run was given information the
+agents. There is one run in each mode, and the foreground run was given information the
 unattended run never had. Your record must show the clarification as an intervention, with
-what was asked and what you answered. It also keeps the shared base, both candidate
-revisions, the allowed scope, the preserved check with its actual result for each run, and
-the waiting and rework you observed. Anything you traced on paper, and anything you ran on
-the course-written candidates, is labelled as such and kept apart from the agent runs.</p>
+what was asked and what you answered. The record also keeps:</p>
+<ul>
+<li>the shared base, both candidate revisions and the allowed scope;</li>
+<li>the preserved check with its actual result for each run;</li>
+<li>the waiting and rework you observed.</li>
+</ul>
+<p>Label anything you traced on paper, and anything you ran on the course-written candidates,
+as such. Keep it apart from the agent runs.</p>
 <h2 id="q6">Q6</h2>
 <p>For a changed base, for example: <code>Recheck — evidence: result covers the earlier base only;
 run the preserved acceptance suite on the combined current revision.</code> The earlier pass was
-real, but it describes an earlier snapshot. A result with no command output is unknown,
-which is neither a pass nor a failure. Name the check that is missing, run it yourself on
-the revision you are deciding about, and keep the command, the revision and the exit
-status before you write the line.</p>
+real, but it describes an earlier snapshot. A result with no command output is unknown:
+neither a pass nor a failure. Name the check that is missing. Run it yourself on the
+revision you are deciding about. Keep the command, the revision and the exit status before
+you write the line.</p>
 <h2 id="q7">Q7</h2>
-<p>A file allowlist works on files, and the request works on hunks. Adding regression tests
-to the test file is allowed, editing an existing expectation in the same file is not, and
-the allowlist cannot tell the two apart. Once the agent can edit the assertion, a green
-run shows only that the code agrees with a test the agent wrote: the candidate has
-redefined success. Keep the acceptance checks outside what the agent can write, inspect
-the diff of the test file, and try a negative case that must fail, such as the base
-display test against the unattended implementation.</p>
+<p>A file allowlist works on whole files, but the request works on hunks. Adding regression
+tests to the test file is allowed. Editing an existing expectation in the same file is not.
+The allowlist cannot tell the two apart. Once the agent can edit the assertion, a green
+run shows only that the code agrees with a test the agent wrote. The candidate has
+redefined success. Keep the acceptance checks outside what the agent can write. Inspect
+the diff of the test file. Try a negative case that must fail, such as the base display
+test against the unattended implementation.</p>
 <h2 id="spaced-retrieval-and-changed-condition">Spaced retrieval and changed condition</h2>
-<p><strong>Retrieval 1.</strong> One run with the fault in place, on the base, where the test fails
-because of the fault, and one run on the returned change, where it passes. A test that
-passes in both states cannot notice the fault, so its pass on the returned change tells
-you nothing. Record both runs with their revisions; this is the reproducer that this
-week's verification asks you to keep before generation.</p>
+<p><strong>Retrieval 1.</strong> You need two runs. The first runs on the base, with the fault in place,
+and the test fails because of the fault. The second runs on the returned change, and the
+test passes. A test that passes in both states cannot notice the fault, so its pass on the
+returned change tells you nothing. Record both runs with their revisions. This is the
+reproducer that this week's verification asks you to keep before generation.</p>
 <p><strong>Retrieval 2.</strong> The approval setting answers when a person is asked before an action.
 The environment answers what a command can reach, whether or not anyone is asked.
-Switching the prompts off removes the first control and leaves only the second, so inspect
+Switching the prompts off removes the first control and leaves only the second. So inspect
 what the dedicated directory or container holds and can reach (files, network,
-credentials) and whether the agent can edit its own settings. In this week's studio the
-suggestion is already answered: a permission request is a stop condition, so you record
+credentials). Also check whether the agent can edit its own settings. This week's studio
+already answers the suggestion. A permission request is a stop condition, so you record
 the missing permission and narrow the task instead of widening the access.</p>
 <p><strong>Changed condition.</strong> Do not begin by creating the pull request again. Look first for
 what the lost step may already have produced: a task branch or an open pull request for
-this issue. An existing pull request belongs to this task and candidate when its issue and
-base are the ones the controller recorded at the start, and its head revision is the
-candidate revision the controller checked. If it matches, record it and continue, and
-nothing is created twice. If it exists but points at another revision, stop and keep the
-reason. Only when nothing exists do you retry, and then only the pull-request step, not
-the whole run.</p>
+this issue. An existing pull request belongs to this task and candidate when two things
+hold. Its issue and base are the ones the controller recorded at the start. Its head
+revision is the candidate revision the controller checked. If it matches, record it and
+continue; nothing is created twice. If it exists but points at another revision, stop and
+keep the reason. Retry only when nothing exists, and then retry only the pull-request
+step, not the whole run.</p>
 
 
 
@@ -6788,7 +6792,7 @@ the whole run.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

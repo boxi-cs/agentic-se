@@ -6678,73 +6678,83 @@
 
 <h1 id="studio-capture-and-read-your-own-session">Studio: capture and read your own session</h1>
 <h2 id="learning-objectives">Learning objectives</h2>
-<p>Explain the loop behind one real coding-agent session (LO1), separating observed
-behavior from inference and changing your decision when verification supplies new
-evidence (LO9). This studio supplies material for <strong><a href="../../practice/a1/README.en.html">A1</a>,
+<p>Explain the loop behind one real coding-agent session (LO1). Keep what you observed
+separate from what you infer, and change your decision when verification gives you
+new evidence (LO9). This studio gives you material for <strong><a href="../../practice/a1/README.en.html">A1</a>,
 due this week</strong>.</p>
-<p>Work individually. A peer or the instructor may challenge a citation; the task,
-capture and explanation remain your own. Bring your course-provided coding agent,
-two terminals and a keyboard-accessible editor. All records and checks are plain text.
+<p>Work individually. A peer or the instructor may question one of your citations, but
+the task, the capture and the explanation stay your own. Bring the coding agent the
+course provides, two terminals and an editor you can use with the keyboard. All
+records and checks are plain text.
 Use the safety practices in <a href="../../SYLLABUS.en.html#tools-and-model-access">Tools and model access</a>.</p>
 <h2 id="minimal-example">Minimal example</h2>
-<p>This task is course-constructed. The candidate below looks plausible and handles
-unpadded status strings. <strong>Generate:</strong> propose a whitespace repair from the written
-contract. <strong>Verify:</strong> run the untouched check first to expose the missing behavior,
-then rerun it after the candidate changes. Keep both observations.</p>
+<p>The course team wrote this task. The candidate below looks right and handles status
+strings without extra spaces. <strong>Generate:</strong> propose a whitespace repair based on the
+written requirement. <strong>Verify:</strong> first run the unchanged check, which shows the
+missing behavior. Then run it again after the candidate changes. Keep both results.</p>
 <h2 id="hands-on-exercise">Hands-on exercise</h2>
 <h3 id="prepare-a-fresh-draft-directory">Prepare a fresh draft directory</h3>
 <p>Run these ordinary commands from the root of your course checkout. They create only
-public synthetic files; no installation or third-party sign-in is required by the task.</p>
-<pre><code class="language-sh">mkdir week01-studio
-cat &gt; week01-studio/status_label.py &lt;&lt;'PY'
-def status_label(raw):
-    return {&quot;ok&quot;: &quot;passed&quot;, &quot;fail&quot;: &quot;failed&quot;}.get(raw.lower(), &quot;unknown&quot;)
-PY
-cat &gt; week01-studio/check_status.py &lt;&lt;'PY'
-from status_label import status_label
+public files made up for this task. The task needs no installation and no
+third-party sign-in.</p>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>week01-studio
+cat<span class="w"> </span>&gt;<span class="w"> </span>week01-studio/status_label.py<span class="w"> </span><span class="s">&lt;&lt;'PY'</span>
+<span class="s">def status_label(raw):</span>
+<span class="s">    return {"ok": "passed", "fail": "failed"}.get(raw.lower(), "unknown")</span>
+<span class="s">PY</span>
+cat<span class="w"> </span>&gt;<span class="w"> </span>week01-studio/check_status.py<span class="w"> </span><span class="s">&lt;&lt;'PY'</span>
+<span class="s">from status_label import status_label</span>
 
-cases = [(&quot;ok&quot;, &quot;passed&quot;), (&quot; OK &quot;, &quot;passed&quot;),
-         (&quot;\tfAiL\n&quot;, &quot;failed&quot;), (&quot;cancelled&quot;, &quot;unknown&quot;)]
-for raw, expected in cases:
-    assert status_label(raw) == expected, (raw, expected, status_label(raw))
-print(&quot;PASS: four status cases&quot;)
-PY
-python3 week01-studio/check_status.py
-</code></pre>
-<p>Expected baseline: a nonzero exit and an assertion identifying <code>" OK "</code> with
-expected <code>passed</code> and actual <code>unknown</code>. This is the forced failure to preserve in
-your agent session, rather than a requirement to cause unpredictable model failure.</p>
+<span class="s">cases = [("ok", "passed"), (" OK ", "passed"),</span>
+<span class="s">         ("\tfAiL\n", "failed"), ("cancelled", "unknown")]</span>
+<span class="s">for raw, expected in cases:</span>
+<span class="s">    assert status_label(raw) == expected, (raw, expected, status_label(raw))</span>
+<span class="s">print("PASS: four status cases")</span>
+<span class="s">PY</span>
+python3<span class="w"> </span>week01-studio/check_status.py
+</code></pre></div>
+<p>Expected baseline: a nonzero exit and an assertion that names <code>" OK "</code>, with
+expected <code>passed</code> and actual <code>unknown</code>. This is the forced failure that your agent
+session must keep. You do not need to make the model fail in some unpredictable way.</p>
 <p>Keep a copy of the two files as they are now, outside the directory the agent will
 work in:</p>
-<pre><code class="language-sh">mkdir week01-studio-before
-cp week01-studio/*.py week01-studio-before/
-</code></pre>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>week01-studio-before
+cp<span class="w"> </span>week01-studio/*.py<span class="w"> </span>week01-studio-before/
+</code></pre></div>
 <h3 id="capture-one-real-session">Capture one real session</h3>
-<p>Before launching the agent in <code>week01-studio</code>, write your prediction: first tool,
-what the failed check will return, what recovery you expect, what ends the loop, how
-many model requests the agent will send, and which request, tool call or stop condition
-you expect to be easy to misread (A1 asks for the last two). Start the agent in
-<code>week01-studio</code>, not in the root of the checkout. The checkout must already sit inside
-your dedicated course directory or container, which holds no employer or cloud
-credentials. Never put a key in a prompt, repository, screenshot or recording.</p>
-<p>Record the requests the agent sends, not only what it displays. In a second terminal,
-from the root of your course checkout, check the course recorder and start it. Replace
-<code>https://api.example.com</code> with your agent's usual API base URL from its documentation:</p>
-<pre><code class="language-sh">python3 practice/a1/recorder.py selfcheck
-python3 practice/a1/recorder.py record --upstream https://api.example.com --log-dir ../a1-capture
-</code></pre>
-<p>The self-check prints six <code>PASS</code> lines; stop and ask for help if any line says <code>FAIL</code>.
-The recorder listens on 127.0.0.1 only, passes requests and replies through, writes no
-headers and replaces key-like strings in the bodies with <code>[REDACTED]</code>. Treat its log
-like a file that holds credentials until you have checked it
-(<a href="../../site/docs/week0/setup.en.html#request-logs">setup</a>). Set the agent's base-URL
-setting to <code>http://127.0.0.1:8765</code>, the address the recorder prints, and start the
-agent with its supplied seat or credit. The <a href="../../practice/a1/README.en.html#record-the-requests">A1 page</a>
-explains each step. If the agent cannot be pointed at the recorder, use the
+<p>Before you launch the agent in <code>week01-studio</code>, write down your predictions:</p>
+<ul>
+<li>the first tool it will use;</li>
+<li>what the failed check will return;</li>
+<li>what recovery you expect;</li>
+<li>what ends the loop;</li>
+<li>how many model requests the agent will send; and</li>
+<li>which request, tool call or stop condition you expect to be easy to misread.</li>
+</ul>
+<p>A1 asks for the last two. Start the agent in <code>week01-studio</code>, not in the root of the
+checkout. The checkout must already be inside your dedicated course directory or
+container. That place holds no employer or cloud credentials. Never put a key in a
+prompt, repository, screenshot or recording.</p>
+<p>Record the requests the agent sends, not only what it shows on screen. Open a second
+terminal at the root of your course checkout. Check the course recorder, then start
+it. Replace <code>https://api.example.com</code> with your agent's usual API base URL, which you
+find in its documentation:</p>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>practice/a1/recorder.py<span class="w"> </span>selfcheck
+python3<span class="w"> </span>practice/a1/recorder.py<span class="w"> </span>record<span class="w"> </span>--upstream<span class="w"> </span>https://api.example.com<span class="w"> </span>--log-dir<span class="w"> </span>../a1-capture
+</code></pre></div>
+<p>The self-check prints six <code>PASS</code> lines. If any line says <code>FAIL</code>, stop and ask for help.
+The recorder listens on 127.0.0.1 only. It passes requests and replies through
+unchanged and writes no headers. In the bodies, it replaces strings that look like
+keys with <code>[REDACTED]</code>. Until you have checked its log, treat it like a file that
+holds credentials (<a href="../../site/docs/week0/setup.en.html#request-logs">setup</a>). Change
+the agent's base-URL setting to <code>http://127.0.0.1:8765</code>, the address the recorder
+prints. Then start the agent with the seat or credit you were given. The <a href="../../practice/a1/README.en.html#record-the-requests">A1 page</a>
+explains each step. If you cannot point the agent at the recorder, use the
 <a href="../../practice/a1/README.en.html#if-the-agent-cannot-use-the-recorder">A1 fallback</a> and
 write down why.</p>
-<p>Keep the visible session as well: use the agent's session export or visible transcript
-feature, and check that you can save the record before beginning. Give the agent:</p>
+<p>Keep the visible session as well. Use the agent's session export or its visible
+transcript feature. Before you begin, check that you can save the record. Give the
+agent this task:</p>
 <blockquote>
 <p>Work only in this draft directory. For string statuses, ignore surrounding
 whitespace and ASCII letter case; map ok to passed, fail to failed and everything
@@ -6752,17 +6762,17 @@ else to unknown. First run python3 check_status.py and retain its failing output
 Repair status_label.py without changing check_status.py. Run the same check again,
 then explain what you changed and what the result covers.</p>
 </blockquote>
-<p>Read any proposed command before approving execution. Keep the baseline failure
-inside the capture, including command, exit status and output. The recorder prints one
-line per exchange, such as <code>#1 POST /v1/... -&gt; 200</code>; if none appears once the agent has
-replied, the agent is not using the recorder. When the agent stops, press Ctrl+C in the
-recorder's terminal and remove the base-URL setting. Export the session
+<p>Read each proposed command before you approve it. Keep the baseline failure inside
+the capture, with its command, exit status and output. The recorder prints one line
+per exchange, such as <code>#1 POST /v1/... -&gt; 200</code>. If no such line appears after the
+agent has replied, the agent is not using the recorder. When the agent stops, press
+Ctrl+C in the recorder's terminal and remove the base-URL setting. Export the session
 in its supported format to a private directory of your own. The full export stays
-there, outside <code>week01-studio</code> and outside what you hand in: A1 takes only the
-excerpt or redacted transcript your report cites. If export is unavailable,
-copy the visible messages in order into <code>session.txt</code>, retaining role labels and
-call/result identifiers when shown. Record agent name, version, date and task.
-Exclude credentials and private data from any excerpts you submit.</p>
+there, outside <code>week01-studio</code> and outside what you hand in. A1 takes only the
+excerpt or redacted transcript that your report cites. If the agent cannot export,
+copy the visible messages in order into <code>session.txt</code>. Keep the role labels and the
+call/result identifiers when they are shown. Record the agent's name and version, the
+date and the task. Leave credentials and private data out of any excerpt you submit.</p>
 <h3 id="read-and-revise">Read and revise</h3>
 <table>
 <thead>
@@ -6801,9 +6811,9 @@ Exclude credentials and private data from any excerpts you submit.</p>
 </tbody>
 </table>
 <p>Ask for help as soon as the seat, the recording or the first check is blocked. If it
-is still blocked at the midpoint of the session, switch to the
-<a href="#text-participation">text participation</a> exercise and keep the missing real-run
-evidence explicitly missing.</p>
+is still blocked halfway through the session, switch to the
+<a href="#text-participation">text participation</a> exercise. Mark the evidence from the real
+run as missing; do not fill it in.</p>
 <p>Make one row per recorded request or visible event:</p>
 <table>
 <thead>
@@ -6830,64 +6840,79 @@ evidence explicitly missing.</p>
 </tbody>
 </table>
 <p>Summarize the capture, using the file name the recorder printed:</p>
-<pre><code class="language-sh">python3 practice/a1/recorder.py summary ../a1-capture/capture-TIMESTAMP.jsonl
-python3 practice/a1/recorder.py summary ../a1-capture/capture-TIMESTAMP.jsonl --request 1
-</code></pre>
-<p>The first command gives one row per exchange; the requests with messages are the model
-requests. The second gives the size of the system text and the list of tools for one
-request: choose the request that carries your task. The summary prints no message text,
-so open the log in your editor to read the system text and each tool's description, and
-group the tools by kind with the table on the A1 page. Count requests separately from tool
-calls: one request can carry several calls. Match each result to its call, inspect
-recovery after the forced failure, find the request that carried the failure back to the
-model, and find the check that supports the final message. If you used a fallback, say
-which parts of the request were not visible, and do not treat a published prompt file as
-proof that your session sent it.</p>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>practice/a1/recorder.py<span class="w"> </span>summary<span class="w"> </span>../a1-capture/capture-TIMESTAMP.jsonl
+python3<span class="w"> </span>practice/a1/recorder.py<span class="w"> </span>summary<span class="w"> </span>../a1-capture/capture-TIMESTAMP.jsonl<span class="w"> </span>--request<span class="w"> </span><span class="m">1</span>
+</code></pre></div>
+<p>The first command gives one row per exchange. The rows for requests with messages
+are the model requests. The second command gives the size of the system text and the
+list of tools for one request. Choose the request that carries your task. The summary
+prints no message text. To read the system text and each tool's description, open the
+log in your editor. Then group the tools by kind with the table on the A1 page. Count
+requests separately from tool calls, because one request can carry several calls.
+Then:</p>
+<ul>
+<li>match each result to its call;</li>
+<li>inspect how the agent recovered after the forced failure;</li>
+<li>find the request that carried the failure back to the model; and</li>
+<li>find the check that supports the final message.</li>
+</ul>
+<p>If you used a fallback, say which parts of the request were not visible. A published
+prompt file does not prove that your session sent that prompt.</p>
 <p>Practice with the read-only viewer and the supplied hand-authored record:</p>
-<pre><code class="language-sh">python3 lectures/week-02/session/show_session.py \
-  lectures/week-02/session/sample-session.jsonl --request 4
-</code></pre>
-<p>A native export can be read directly as text. Use the viewer on your own export
-only if it uses its supported course-session or course-trajectory format. Do not
-invent a header or fabricate hidden request fields to make another format fit.</p>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>lectures/week-02/session/show_session.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>lectures/week-02/session/sample-session.jsonl<span class="w"> </span>--request<span class="w"> </span><span class="m">4</span>
+</code></pre></div>
+<p>You can read an agent's own export directly as text. Use the viewer on your export
+only if the export is in one of the viewer's supported formats (course-session or
+course-trajectory). Do not invent a header or make up hidden request fields to make
+another format fit.</p>
 <h2 id="verification">Verification</h2>
 <p>From the root of your course checkout, verify the candidate in the actual studio
 directory:</p>
-<pre><code class="language-sh">python3 week01-studio/check_status.py
-</code></pre>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>week01-studio/check_status.py
+</code></pre></div>
 <p>Expected after repair: zero exit and <code>PASS: four status cases</code>. A passing
-result covers these cases; it is not proof for all strings or callers.</p>
+result covers these four cases only. It does not prove the function is right for all
+strings or callers.</p>
 <p>Then compare both files with the copies you kept before the agent started:</p>
-<pre><code class="language-sh">diff week01-studio-before/check_status.py week01-studio/check_status.py
-diff -u week01-studio-before/status_label.py week01-studio/status_label.py
-</code></pre>
-<p>Expected: the first prints nothing, so the check file is unchanged. The second shows
-what changed in the candidate, with removed lines marked <code>-</code> and added lines marked
-<code>+</code>; that output is your bounded diff. <code>diff</code> exits with status 1 when the files
-differ. Confirm from it that the candidate only normalizes input before lookup.</p>
+<div class="highlight"><pre><span></span><code>diff<span class="w"> </span>week01-studio-before/check_status.py<span class="w"> </span>week01-studio/check_status.py
+diff<span class="w"> </span>-u<span class="w"> </span>week01-studio-before/status_label.py<span class="w"> </span>week01-studio/status_label.py
+</code></pre></div>
+<p>Expected: the first command prints nothing, so the check file is unchanged. The
+second shows what changed in the candidate. Removed lines are marked <code>-</code> and added
+lines are marked <code>+</code>. That output is your bounded diff: it shows only the change to
+the candidate file. <code>diff</code> exits with status 1 when the files differ. Use the diff to
+confirm that the candidate only normalizes the input before the lookup.</p>
 <p>For the separate live-loop exercise, use the completed draft controller:</p>
-<pre><code class="language-sh">python3 week01-loop/verify_loop.py
-</code></pre>
-<p>The original <code>lectures/week-02/fixture/loop.py</code> is an unfinished starter. Checking it
-would not test your repaired studio candidate or your copied controller.</p>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>week01-loop/verify_loop.py
+</code></pre></div>
+<p>The original <code>lectures/week-02/fixture/loop.py</code> is an unfinished starter. A check on
+it tests neither your repaired studio candidate nor your copied controller.</p>
 <h3 id="from-the-studio-to-a1">From the studio to A1</h3>
-<p>A1 is one <code>report.json</code> and the files it cites, in a submission directory of your own
-outside the course checkout. These two lines, run from the root of your course
-checkout, make that directory beside the checkout and copy the starter into it:</p>
-<pre><code class="language-sh">mkdir ../week01-a1
-cp practice/a1/starter/report.json ../week01-a1/report.json
-</code></pre>
-<p>Save the two capture summaries there; they hold counts and tool names, not message
+<p>A1 is one <code>report.json</code> plus the files it cites. They go in a submission directory
+of your own, outside the course checkout. Run these two lines from the root of your
+course checkout. They make that directory next to the checkout and copy the starter
+into it:</p>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>../week01-a1
+cp<span class="w"> </span>practice/a1/starter/report.json<span class="w"> </span>../week01-a1/report.json
+</code></pre></div>
+<p>Save the two capture summaries there. They hold counts and tool names, not message
 text:</p>
-<pre><code class="language-sh">python3 practice/a1/recorder.py summary ../a1-capture/capture-TIMESTAMP.jsonl &gt; ../week01-a1/capture-summary.txt
-python3 practice/a1/recorder.py summary ../a1-capture/capture-TIMESTAMP.jsonl --request 1 &gt;&gt; ../week01-a1/capture-summary.txt
-</code></pre>
-<p>Use the request number you chose in the second line. Put in <code>week01-a1</code>, as plain-text
-files, only what the report cites: the capture summary, your redacted session excerpt,
-the baseline failing output, the output of your own passing rerun and your prediction
-as first written. The capture log stays in <code>../a1-capture</code>. The check accepts only paths
-inside <code>week01-a1</code>. No unrelated session history is required. Leave <code>assignment</code> and
-<code>session_kind</code> as supplied and fill in the other fields:</p>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>practice/a1/recorder.py<span class="w"> </span>summary<span class="w"> </span>../a1-capture/capture-TIMESTAMP.jsonl<span class="w"> </span>&gt;<span class="w"> </span>../week01-a1/capture-summary.txt
+python3<span class="w"> </span>practice/a1/recorder.py<span class="w"> </span>summary<span class="w"> </span>../a1-capture/capture-TIMESTAMP.jsonl<span class="w"> </span>--request<span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>../week01-a1/capture-summary.txt
+</code></pre></div>
+<p>In the second line, use the request number you chose. In <code>week01-a1</code>, put only the
+plain-text files that the report cites:</p>
+<ul>
+<li>the capture summary;</li>
+<li>your redacted session excerpt;</li>
+<li>the baseline failing output;</li>
+<li>the output of your own passing rerun; and</li>
+<li>your prediction, as you first wrote it.</li>
+</ul>
+<p>The capture log stays in <code>../a1-capture</code>. The check accepts only paths inside
+<code>week01-a1</code>. You do not need any unrelated session history. Leave <code>assignment</code> and
+<code>session_kind</code> as supplied, and fill in the other fields:</p>
 <table>
 <thead>
 <tr>
@@ -6931,14 +6956,15 @@ inside <code>week01-a1</code>. No unrelated session history is required. Leave <
 </tbody>
 </table>
 <p>Then run the public check from the root of your course checkout:</p>
-<pre><code class="language-sh">python3 practice/a1/check.py ../week01-a1
-</code></pre>
-<p>Until the record is complete, it prints one <code>RECHECK:</code> line for each thing that is
-missing and exits with status 1. When nothing is missing it prints
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>practice/a1/check.py<span class="w"> </span>../week01-a1
+</code></pre></div>
+<p>Until the record is complete, it prints one <code>RECHECK:</code> line for each missing item
+and exits with status 1. When nothing is missing, it prints
 <code>PASS: record is internally consistent; inspect the evidence yourself.</code> and exits
-with status 0. The check reads the shape of the record only. The
-<a href="../../practice/a1/README.en.html">A1 page</a> has the task, the criteria and an outline
-of the whole record; where it lists a field this table does not, follow the A1 page.</p>
+with status 0. The check reads only the shape of the record, not whether the content
+is right. The <a href="../../practice/a1/README.en.html">A1 page</a> has the task, the criteria and
+an outline of the whole record. If it lists a field that this table does not, follow
+the A1 page.</p>
 <h2 id="common-mistakes">Common mistakes</h2>
 <table>
 <thead>
@@ -6992,11 +7018,11 @@ of the whole record; where it lists a field this table does not, follow the A1 p
 </tbody>
 </table>
 <h2 id="text-participation">Text participation</h2>
-<p>If capture is unavailable, dissect the sample with the same table. Its header says
-<code>course-made-sample</code>: it is practice evidence, not your real agent session. Predict
-recovery after the failed edit, reveal the next request, and revise your explanation.
-Complete the real capture through supported access later; preserve any missing
-observation rather than inventing it.</p>
+<p>If you cannot capture a session, dissect the sample with the same table. Its header
+says <code>course-made-sample</code>. It is practice evidence, not your real agent session.
+Predict how the agent recovers after the failed edit, reveal the next request, and
+revise your explanation. Complete the real capture later through supported access.
+If an observation is missing, record it as missing; do not invent it.</p>
 
 
 
@@ -7095,7 +7121,7 @@ observation rather than inventing it.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

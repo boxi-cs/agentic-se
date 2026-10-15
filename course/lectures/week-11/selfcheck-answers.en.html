@@ -6680,76 +6680,83 @@ field or a run that another reader could check.</p>
 <h2 id="q1">Q1</h2>
 <p>No. The report can be true and the session can still have gone beyond the task, because a
 call is checked only against its grant. The missing comparison is what each grant can reach
-against what the task needs. A grant that names every repository lets every read pass; narrow
-it to the task's repository and keep one denied call as its test.</p>
+against what the task needs. A grant that names every repository lets every read pass.
+Narrow it to the task's repository, and keep one denied call as its test.</p>
 <h2 id="q2">Q2</h2>
-<p>The third request is refused. After two replies 1200 tokens are used; the third reservation
+<p>The third request is refused. After two replies, 1200 tokens are used. The third reservation
 would make 1200 + 900 = 2100, which is more than 2000. At that moment 800 tokens are unspent.
-It is refused because the gateway reserves the worst case before sending: the actual use is
-unknown until the reply arrives, and a cap checked only afterwards would already be passed.
-To check it with the fixture, work in hundreds, because the ledger takes whole numbers up to
-1000: <code>python lectures/week-11/fixture/budget_ledger.py --cap 20 --reserve 9 --actual 6</code>
+The request is refused because the gateway reserves the worst case before sending. The actual
+use is unknown until the reply arrives, and a cap checked only afterwards would already be
+passed. To check this with the fixture, work in hundreds, because the ledger takes whole
+numbers up to 1000. The command
+<code>python lectures/week-11/fixture/budget_ledger.py --cap 20 --reserve 9 --actual 6</code>
 ends with
 <code>request 3: refused before sending (Request exceeds the remaining budget.) spent 12 of 20</code>.</p>
 <h2 id="q3">Q3</h2>
 <p>Four requests are sent and the fifth is refused. Each reply settles at 2 units, so four
-replies leave 8 units spent; the fifth reservation would make 8 + 5 = 13, more than 12, so it
-is refused with 4 units unspent. The fixture's last line reads
+replies leave 8 units spent. The fifth reservation would make 8 + 5 = 13, more than 12, so
+the fifth request is refused with 4 units unspent. The fixture's last line reads
 <code>request 5: refused before sending (Request exceeds the remaining budget.) spent 8 of 12</code>.</p>
 <h2 id="q4">Q4</h2>
-<p>The gateway cannot tell whether the provider did the work and charged for it; a lost reply
-marks where observation stopped, not that nothing happened. Releasing the reservation would
-let later requests spend units that may already be owed, so the run could pass its cap
-without any single request being refused.</p>
+<p>The gateway cannot tell whether the provider did the work and charged for it. A lost reply
+marks where observation stopped, not that nothing happened. If the gateway released the
+reservation, later requests could spend units that may already be owed. The run could then
+pass its cap without any single request being refused.</p>
 <h2 id="q5">Q5</h2>
 <p>Count every run and every review minute, including the failed run, the timed-out run and
-the rejected change: 4 + 4 + 2 + 6 + 2 = 18 units and 12 + 8 + 20 = 40 review minutes. Two
-changes were accepted, so 18 units ÷ 2 accepted changes = 9 units and 40 ÷ 2 = 20 review
+the rejected change. That gives 4 + 4 + 2 + 6 + 2 = 18 units and 12 + 8 + 20 = 40 review
+minutes. Two changes were accepted, so 18 units ÷ 2 accepted changes = 9 units and 40 ÷ 2 = 20 review
 minutes per accepted change. The summary's 4 units is one run of one change.</p>
 <h2 id="q6">Q6</h2>
-<p>No. The rates alone do not justify the switch: the rule route loses a case the model route
-passes, and a higher total hides which case was lost. Inspect that case, repair the rule,
-rerun all 50 frozen cases on the revision in use and switch only if no case the model route
-passes now fails. Even then the result says nothing about inputs outside the 50 cases.</p>
+<p>No. The rates alone do not justify the switch. The rule route loses a case that the model
+route passes, and a higher total hides which case was lost. Inspect that case and repair the
+rule. Then rerun all 50 frozen cases on the revision in use. Switch only if every case the
+model route passes now also passes on the rule route. Even then, the result says nothing
+about inputs outside the 50 cases.</p>
 <h2 id="q7">Q7</h2>
-<p>Refuted. The claim says the errors rose; the log shows 2 in 50 before and 1 in 50 after.
-Refuting it leaves the server errors in both windows unexplained, and it does not show that
-imports are healthy. Record those errors as a separate observation to follow up.</p>
-<p>If you wrote cannot tell because the counts are small: cannot tell is for a claim that no
-field in the log could show either way. Here time, path and status show a window without the
-rise the claim asserts. Small counts are a reason not to conclude that the change reduced
-errors, which nobody claimed.</p>
+<p>Refuted. The claim says the errors rose, but the log shows 2 in 50 before and 1 in 50 after.
+Refuting the claim does not explain the server errors in either window. It also does not show
+that imports are healthy. Record those errors as a separate observation to follow up.</p>
+<p>Perhaps you wrote cannot tell because the counts are small. Cannot tell is for a claim that no
+field in the log could show either way. Here, time, path and status show a window without the
+rise that the claim asserts. Small counts are a reason not to conclude that the change
+reduced errors, but nobody claimed that.</p>
 <h2 id="q8">Q8</h2>
 <p>Cannot tell. No field in the request log records a query or an index, so the log can neither
-confirm nor refute the claim; slow lines show only that the page was slow. A check that
-could decide it: on the same data, compare the page's duration with and without the index,
-or read the query plan for that page. Until then name the missing observation and keep the
-claim open.</p>
+confirm nor refute the claim. Slow lines show only that the page was slow. One check that
+could decide it is to compare the page's duration with and without the index, on the same
+data. Another is to read the query plan for that page. Until then, name the missing
+observation and keep the claim open.</p>
 <h2 id="q9">Q9</h2>
 <p>The request committed: its effect exists and only the reply was lost. The timeout marks
 where the client stopped observing. A repeat with the same key and the same build must
-return the existing job and create no new one; the same key with a different build is a
-conflict that creates nothing, and a new intended retry needs a new key.</p>
+return the existing job and create no new one. The same key with a different build is a
+conflict that creates nothing. A new intended retry needs a new key.</p>
 <h2 id="q10">Q10</h2>
-<p>The missing input is two deliveries of the same request arriving together, with the order
-forced so that both lookups finish before either insert; a lookup followed by a separate
-insert then stores two jobs. A regression is evidence of recovery when it fails on the
-incident build, fails on the repair that only looks right, and passes on the real repair,
-with the stored jobs counted as well as the replies.</p>
+<p>The missing input is two deliveries of the same request arriving together. The regression
+must force the order so that both lookups finish before either insert. A lookup followed by a
+separate insert then stores two jobs. A regression is evidence of recovery when it gives
+three results:</p>
+<ul>
+<li>it fails on the incident build;</li>
+<li>it fails on the repair that only looks right; and</li>
+<li>it passes on the real repair.</li>
+</ul>
+<p>In each run, count the stored jobs as well as the replies.</p>
 <h2 id="spaced-retrieval-and-transfer">Spaced retrieval and transfer</h2>
-<p><strong>Retrieval 1.</strong> Settle the denominator first: find the two instances missing from the
-results table, record why each is absent, and either run them or report the rate over all 12
-instances with the missing ones shown as not run. A pass rate over 10 is not a result for a
-manifest of 12.</p>
-<p><strong>Retrieval 2.</strong> The text is data. A tool result carries no authority, whatever it says;
-whether a command runs is decided by a check of the proposed action against what the user
-authorised for the task, before any effect. An instruction file can ask the agent to ignore
-such text, but the agent may skip a request, so it is not that check. Record the text as an
-injection attempt and do not act on it.</p>
+<p><strong>Retrieval 1.</strong> Settle the denominator first: the number of instances the rate is taken
+over. Find the two instances missing from the results table and record why each is absent.
+Then either run them, or report the rate over all 12 instances with the missing ones shown
+as not run. A pass rate over 10 is not a result for a manifest of 12.</p>
+<p><strong>Retrieval 2.</strong> The text is data. A tool result carries no authority, whatever it says.
+Whether a command runs is decided before any effect, by a check of the proposed action
+against what the user authorised for the task. An instruction file can ask the agent to
+ignore such text. But the agent may skip a request, so an instruction file is not that check.
+Record the text as an injection attempt and do not act on it.</p>
 <p><strong>Transfer.</strong> A useful answer names a condition outside the tested path, for example a
-repeat after a restart or three deliveries at once, gives the input and the expected stored
-state, and says which decision moves: a failure on that input changes accept to narrow or
-recheck, and the note says so before anyone relies on the fix.</p>
+repeat after a restart or three deliveries at once. It gives the input and the expected
+stored state. It also says which decision changes: a failure on that input changes accept to
+narrow or recheck. The note says so before anyone relies on the fix.</p>
 
 
 
@@ -6848,7 +6855,7 @@ recheck, and the note says so before anyone relies on the fix.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

@@ -6516,9 +6516,9 @@ before running it. Run the commands from the course checkout.</p>
   tool names its repository, or every repository with <code>*</code>. It then lists what each
   grant can reach and marks the repositories the task does not need. It exits 1 when
   any grant reaches beyond the task.</li>
-<li><code>gateway</code> replays each run through the policy: a request is refused before it is sent
-  when it would exceed the request cap, when the tokens already used plus its own
-  reservation would exceed the token cap, or when its route is not listed; when the
+<li><code>gateway</code> replays each run through the policy. A request is refused before it is sent
+  if it would exceed the request cap. It is also refused if the tokens already used plus
+  its own reservation would exceed the token cap, or if its route is not listed. When the
   provider is unavailable, the policy's fallback must answer. It also searches every
   line logged on the agent's side (<code>sandbox_log</code> in the file) for the key. It exits 1
   when a recorded decision differs from the policy or the key appears.</li>
@@ -6536,43 +6536,44 @@ of the wrong kind.</p>
 <li>
 <p><a href="org-portal.json">org-portal.json</a>, <a href="org-gateway.json">org-gateway.json</a>,
   <a href="org-changes.json">org-changes.json</a> and <a href="org-routes.json">org-routes.json</a> hold the
-  records: a portal's grants and one agent session, a gateway policy and six runs, the runs
-  and review minutes behind four changes, and a routing policy with its evaluator results.
-  Each holds an <code>agent_summary</code> that stands in for an agent's report; no model wrote it. The
-  route names are placeholders and the only key is the placeholder <code>sk-EXAMPLE</code>.</p>
+  records. In that order, they hold a portal's grants and one agent session; a gateway policy
+  and six runs; the runs and review minutes behind four changes; and a routing policy with
+  its evaluator results. Each holds an <code>agent_summary</code> that stands in for an agent's report.
+  No model wrote it. The route names are placeholders, and the only key is the placeholder
+  <code>sk-EXAMPLE</code>.</p>
 </li>
 <li>
 <p><a href="budget_ledger.py">budget_ledger.py</a> replays a per-run ledger through the small <code>Budget</code>
-  class at the top of the file: reserve a worst case before sending, settle to the actual
-  cost after the reply, and keep the whole reservation when a reply is lost. Its units are
+  class at the top of the file. The class reserves a worst case before sending and settles
+  to the actual cost after the reply. When a reply is lost, it keeps the whole reservation. Its units are
   course-made numbers, not prices. Change the numbers with <code>--cap</code>, <code>--reserve</code>, <code>--actual</code>
   and <code>--lost-reply N</code>.</p>
 </li>
 <li>
-<p><a href="check_rca.py">check_rca.py</a> reads <a href="request_log.jsonl">request_log.jsonl</a>, forty request
-  records, and <a href="agent_rca.json">agent_rca.json</a>, a course-authored stand-in for an agent's
-  draft root-cause analysis that no model wrote. For each five-minute window it prints the
-  request count, the number and share of 5xx responses and the 95th-percentile duration by
-  nearest rank; <code>--path</code> limits that summary to paths with one prefix. Then it prints every
-  log line each claim cites. It never decides whether a claim is confirmed, refuted or cannot
+<p><a href="check_rca.py">check_rca.py</a> reads two files. <a href="request_log.jsonl">request_log.jsonl</a>
+  holds forty request records. <a href="agent_rca.json">agent_rca.json</a> is a course-authored
+  stand-in for an agent's draft root-cause analysis; no model wrote it. For each five-minute
+  window, the script prints the request count, the number and share of 5xx responses, and
+  the 95th-percentile duration by nearest rank. <code>--path</code> limits that summary to paths with
+  one prefix. Then the script prints every log line each claim cites. It never decides whether a claim is confirmed, refuted or cannot
   tell.</p>
 </li>
 <li>
 <p><a href="retry_replay.py">retry_replay.py</a> plays the four replay rows from the notes against an
   in-memory SQLite database with one of three handlers: <code>unprotected</code>, <code>check-then-insert</code>
-  (look the key up, then insert it if absent) and <code>repaired</code>. Row 2 forces the race: its two
-  requests run in two threads, and each handler pauses just before its first write, so both
-  finish any lookup before either one writes; put any lookup you add before that pause. The
-  connection runs one statement at a time and no lock spans a lookup and an insert. In the
-  repaired handler an operation key is unique within its pipeline, the whole batch is one
-  statement so a conflicting row saves nothing, and the dashboard shows the job of a build's
-  greatest attempt.</p>
+  (look the key up, then insert it if absent) and <code>repaired</code>. Row 2 forces the race. Its two
+  requests run in two threads, and each handler pauses just before its first write. So both
+  requests finish any lookup before either one writes. Put any lookup you add before that
+  pause. The connection runs one statement at a time, and no lock spans a lookup and an
+  insert. In the repaired handler, an operation key is unique within its pipeline. The whole
+  batch is one statement, so a conflicting row saves nothing. The dashboard shows the job of
+  a build's highest-numbered attempt.</p>
 </li>
 </ul>
 <h2 id="expected-distinction">Expected distinction</h2>
-<p><code>portal</code> on the supplied file exits 1: every call but the deploy is allowed, and grant G2
-reaches three repositories the task does not need, one of which the session read. With G2
-narrowed to the task's repository it exits 0 and that read is denied. <code>gateway</code> exits 1: runs
+<p><code>portal</code> on the supplied file exits 1. Every call except the deploy is allowed. Grant G2
+reaches three repositories that the task does not need, and the session read one of them.
+With G2 narrowed to the task's repository it exits 0 and that read is denied. <code>gateway</code> exits 1: runs
 R2 and R4 differ from the policy and the key appears in a line of R6. <code>cost</code> exits 0 with 8
 units and 20 review minutes per accepted change, beside a single run of 3 units. <code>route</code>
 exits 1 with one of three choices supported.</p>
@@ -6582,32 +6583,32 @@ lost the fifth request is refused.</p>
 <p>The log check summarises 40 records, 20 in each window: 2 server errors before 10:05 and none
 after, and a p95 of 58.9 ms before and 884.1 ms after. It exits 0 and leaves every outcome to
 you.</p>
-<p>The unprotected replay stores two jobs for a repeated or concurrent retry and a job for
-build 43 under a reused key; one row of four meets the repaired requirement and it exits 1.
-Check-then-insert handles the sequential repeat and the reused key but stores two jobs in
-row 2, because both lookups ran before either insert; three rows of four meet the
-requirement and it exits 1. The repaired replay returns J81 to both matching requests, even
-in row 2, answers the reused key with a conflict that writes nothing, creates J82 for the
-new key and exits 0. In row 4 the dashboard shows J82, the job of attempt 8.</p>
+<p>The unprotected replay stores two jobs for a repeated or concurrent retry. It also stores a
+job for build 43 under a reused key. One row of four meets the repaired requirement, and it
+exits 1. Check-then-insert handles the sequential repeat and the reused key. But it stores
+two jobs in row 2, because both lookups ran before either insert. Three rows of four meet
+the requirement, and it exits 1. The repaired replay returns J81 to both matching requests,
+even in row 2. It answers the reused key with a conflict that writes nothing, creates J82 for
+the new key and exits 0. In row 4 the dashboard shows J82, the job of attempt 8.</p>
 <p>A result is evidence about the rule a script applied to synthetic records. It is not
 evidence about a real portal, gateway, route or model, and the replay is not evidence that
 any service of yours recovered. The request log's durations say nothing about how fast any
 real build is.</p>
 <h2 id="optional-variation">Optional variation</h2>
 <p>Test what the forced order adds to the evidence. Copy the replay into a new directory:</p>
-<pre><code class="language-sh">mkdir week11-replay
-cp lectures/week-11/fixture/retry_replay.py week11-replay/
-</code></pre>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>week11-replay
+cp<span class="w"> </span>lectures/week-11/fixture/retry_replay.py<span class="w"> </span>week11-replay/
+</code></pre></div>
 <p>In <code>week11-replay/retry_replay.py</code>, delete the <code>self.between()</code> line in the
 <code>check-then-insert</code> branch of <code>Store.handle</code>, so the two requests in row 2 are no longer
 held until both lookups finish. Predict whether row 2 still fails on every run. Then run your
 copy about 20 times and read the last line of each run:</p>
-<pre><code class="language-sh">python week11-replay/retry_replay.py check-then-insert
-</code></pre>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>week11-replay/retry_replay.py<span class="w"> </span>check-then-insert
+</code></pre></div>
 <p>Record how many runs printed <code>3 of 4</code>. How often the race appears depends on the machine and
-on thread timing; any single run may print <code>4 of 4</code> and exit 0, so one pass proves nothing.
-If none of your 20 runs prints <code>3 of 4</code>, that does not show your edit is wrong: it is twenty
-green runs for a repair that is still broken. Run it more times if you want to see the
+on thread timing. Any single run may print <code>4 of 4</code> and exit 0, so one pass proves nothing.
+If none of your 20 runs prints <code>3 of 4</code>, that does not show your edit is wrong. It shows
+twenty green runs for a repair that is still broken. Run it more times if you want to see the
 duplicate. Explain which line of the handler lets the duplicate through when it does appear,
 then delete <code>week11-replay</code>.</p>
 
@@ -6708,7 +6709,7 @@ then delete <code>week11-replay</code>.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>

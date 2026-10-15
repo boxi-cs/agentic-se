@@ -6976,25 +6976,25 @@
 <hr />
 <h2 id="an-instruction-file-is-scoped-context">An instruction file is scoped context</h2>
 <p><code>AGENTS.md</code> can state:</p>
-<pre><code class="language-text">Before editing: read the target and its tests.
+<div class="highlight"><pre><span></span><code>Before editing: read the target and its tests.
 After editing: run the focused test.
 Stop: do not change lockfiles for this task.
-</code></pre>
+</code></pre></div>
 <p>The rule is readable. It is not yet a Git permission boundary.</p>
 <hr />
 <h2 id="request-versus-gate">Request versus gate</h2>
 <p><strong>Request:</strong> “Run the focused test and report it.”</p>
 <p><strong>Gate:</strong> “At <code>before_commit</code>, exit 2 when a staged Python file has an unused import.”</p>
-<p>A request can be skipped. Git still invokes the gate.</p>
+<p>The agent can skip a request. Git still runs the gate.</p>
 <hr />
 <h2 id="generate-then-verify">Generate, then verify</h2>
 <p><strong>Generated proposal:</strong> add <code>import json</code> to <code>report.py</code>.</p>
-<p><strong>Verification:</strong> stage it, commit, read the nonzero hook result; remove the import and
-commit again; read the <code>PASS</code> result.</p>
+<p><strong>Verification:</strong> stage it, commit and read the nonzero hook result. Remove the import,
+commit again and read the <code>PASS</code> result.</p>
 <p>The first record proves the gate stopped that input. The second proves the clean path passed.</p>
 <hr />
 <h2 id="a-hook-is-a-narrow-invariant">A hook is a narrow invariant</h2>
-<p>A hook should:</p>
+<p>An invariant is a rule that must always hold. A hook should:</p>
 <ul>
 <li>read the staged paths;</li>
 <li>reject malformed input and protected paths;</li>
@@ -7004,17 +7004,17 @@ commit again; read the <code>PASS</code> result.</p>
 <p>It does not replace tests, review or a specification.</p>
 <hr />
 <h2 id="live-gate-bad-commit">Live gate: bad commit</h2>
-<pre><code class="language-text">$ git commit -m &quot;practice: blocked import&quot;
+<div class="highlight"><pre><span></span><code>$ git commit -m "practice: blocked import"
 src/report.py:1: unused import 'json'
 STOP: fix the findings above, then run the hook again
-</code></pre>
+</code></pre></div>
 <p>The commit is not created. Save this output as evidence.</p>
 <hr />
 <h2 id="live-gate-good-commit">Live gate: good commit</h2>
-<pre><code class="language-text">$ git commit -m &quot;practice: pass the gate&quot;
+<div class="highlight"><pre><span></span><code>$ git commit -m "practice: pass the gate"
 PASS: no protected file and no unused import in 1 file(s)
-</code></pre>
-<p>Now inspect <code>git show --stat</code>. A green hook leaves application behavior unverified.</p>
+</code></pre></div>
+<p>Now inspect <code>git show --stat</code>. A green hook does not verify application behavior.</p>
 <hr />
 <h2 id="hooks-on-the-agents-own-events">Hooks on the agent's own events</h2>
 <p><strong>Before a tool call:</strong> the agent has chosen a tool and its arguments; nothing has run.</p>
@@ -7022,25 +7022,25 @@ PASS: no protected file and no unused import in 1 file(s)
 <p>A hook on either event can refuse. Your agent's documentation names its events.</p>
 <hr />
 <h2 id="before-a-tool-call-refuse-the-write">Before a tool call: refuse the write</h2>
-<pre><code class="language-text">step 1 tool call: write_file tests/check_pairs.py
+<div class="highlight"><pre><span></span><code>step 1 tool call: write_file tests/check_pairs.py
   exit 2: the call is refused and no file changes
 step 3 tool call: write_file src/pairs.py
   exit 0: the call runs and writes src/pairs.py
-</code></pre>
+</code></pre></div>
 <p>The rewritten test never reaches the disk. The fix does.</p>
 <hr />
 <h2 id="end-of-turn-not-while-the-test-fails">End of turn: not while the test fails</h2>
-<pre><code class="language-text">step 2 end of turn: &quot;Done: the parser test passes now.&quot;
+<div class="highlight"><pre><span></span><code>step 2 end of turn: "Done: the parser test passes now."
   hook:   1 passed, 1 failed
   exit 2: the turn goes on, and the agent receives the hook's message
-</code></pre>
+</code></pre></div>
 <p>“Done” is a claim. The hook runs the test before the turn may end.</p>
 <hr />
 <h2 id="the-two-rules-depend-on-each-other">The two rules depend on each other</h2>
 <p>Remove the <code>tests/</code> write rule and replay:</p>
-<pre><code class="language-text">  hook: ALLOW end_of_turn: the focused test passes (2 passed, 0 failed)
+<div class="highlight"><pre><span></span><code>  hook: ALLOW end_of_turn: the focused test passes (2 passed, 0 failed)
 FAIL: files under tests/ changed; the original focused test fails
-</code></pre>
+</code></pre></div>
 <p>The rewritten test passes. The bug stays.</p>
 <hr />
 <h2 id="two-gates-two-events">Two gates, two events</h2>
@@ -7103,7 +7103,7 @@ FAIL: files under tests/ changed; the original focused test fails
 <h2 id="fresh-context-smaller-boundary">Fresh context, smaller boundary</h2>
 <p>Pass the implementer only the role contract, the research record and named files.</p>
 <p>Pass the reviewer the issue, diff and evidence. Do not pass the implementer's private plan.</p>
-<p>A fresh context makes the contract visible; it does not make the reviewer infallible.</p>
+<p>A fresh context makes the contract visible. It does not make the reviewer always right.</p>
 <hr />
 <h2 id="studio-output">Studio output</h2>
 <p>You will keep:</p>
@@ -7131,11 +7131,11 @@ FAIL: files under tests/ changed; the original focused test fails
 <li>instruction scope and failure it prevents;</li>
 <li>hook event, input and exit condition;</li>
 <li>subagent role, tools and hand-back;</li>
-<li>the check that could falsify each claim.</li>
+<li>the check that could prove each claim wrong.</li>
 </ul>
 <hr />
 <h2 id="exit-decision">Exit decision</h2>
-<p>Accept only the invariant your records check.</p>
+<p>Accept only the rule that your records check.</p>
 <p>Narrow when a role or gate is too broad.</p>
 <p>Recheck when the command or input is missing.</p>
 <p>Stop when the boundary cannot be enforced safely.</p>
@@ -7242,7 +7242,7 @@ FAIL: files under tests/ changed; the original focused test fails
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

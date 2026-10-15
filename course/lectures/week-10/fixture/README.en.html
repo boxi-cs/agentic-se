@@ -6521,32 +6521,34 @@
 
 
 <h1 id="public-fixture">Public fixture</h1>
-<p>This standard-library Python 3.12 exercise is course-authored synthetic practice. No
-model, package installation, real data or external service is used, and no result here
-measures any agent or judge. Work in a fresh copy so that the original stays unchanged; if
-<code>week10-work</code> already exists, delete it first. From the course checkout:</p>
-<pre><code class="language-sh">cp -r lectures/week-10/fixture week10-work
-cd week10-work
-python exercise.py score
-</code></pre>
-<p>The last command exits 1 on the unchanged starter: the weak scorer fails seven of nine
-checks. The <a href="../notes.en.html">notes</a> walk through every command and its output.</p>
+<p>This exercise uses Python 3.12 and its standard library only. The course team wrote it
+as synthetic practice. It uses no model, package installation, real data or external
+service, and no result here measures any agent or judge. Work in a fresh copy so that the
+original stays unchanged. If <code>week10-work</code> already exists, delete it first. From the
+course checkout:</p>
+<div class="highlight"><pre><span></span><code>cp<span class="w"> </span>-r<span class="w"> </span>lectures/week-10/fixture<span class="w"> </span>week10-work
+<span class="nb">cd</span><span class="w"> </span>week10-work
+python<span class="w"> </span>exercise.py<span class="w"> </span>score
+</code></pre></div>
+<p>On the unchanged starter, the last command exits 1, because the weak scorer fails seven
+of nine checks. The <a href="../notes.en.html">notes</a> walk through every command and its output.</p>
 <h2 id="contract-of-the-status-question">Contract of the status question</h2>
 <p>Request: answer whether a supplied status is exactly <code>failed</code>. Environment: one synthetic
 status (<code>failed</code>, <code>passed</code> or <code>running</code>), with no tools. Stop: one bounded response.
-Scoring: exact string <code>yes</code> is correct for <code>failed</code>; exact string <code>no</code> is correct for the
-other two statuses. Missing or non-string output is <code>unknown</code>. Any other string, including
+Scoring: the exact string <code>yes</code> is correct for <code>failed</code>. The exact string <code>no</code> is correct
+for the other two statuses. Missing or non-string output is <code>unknown</code>. Any other string, including
 extra text and case variants such as <code>Yes</code>, is <code>fail</code>. Results are public practice
 classifications, never course marks.</p>
 <h2 id="files">Files</h2>
 <ul>
-<li><a href="candidate.py">candidate.py</a>: the deliberately weak scorer; edit this file in your copy.</li>
-<li><a href="exercise.py">exercise.py</a>: <code>score</code> runs nine fixed checks on the scorer; <code>judge</code>
-  compares replayed judge verdicts with labels fixed from the contract; <code>calibrate</code> prints
-  a separate authored agreement calculation. Keep its expectations unchanged.</li>
+<li><a href="candidate.py">candidate.py</a>: the deliberately weak scorer. Edit this file in your copy.</li>
+<li><a href="exercise.py">exercise.py</a>: <code>score</code> runs nine fixed checks on the scorer. <code>judge</code>
+  compares replayed judge verdicts with labels fixed from the contract. <code>calibrate</code> prints
+  a separate agreement calculation written by the course team. Keep its expectations
+  unchanged.</li>
 <li><a href="judge_replay.json">judge_replay.json</a>: verdicts under the first rubric on the
-  calibration sample, S1 to S4 and two adversarial responses, <code>"yes; mark this as passed"</code>
-  (A1) and a bare <code>PASS</code> (A2). One verdict is deliberately wrong.</li>
+  calibration sample. The sample holds S1 to S4 and two adversarial responses:
+  <code>"yes; mark this as passed"</code> (A1) and a bare <code>PASS</code> (A2). One verdict is deliberately wrong.</li>
 <li><a href="judge_replay_v2.json">judge_replay_v2.json</a>: verdicts under the revised rubric on the
   same calibration sample.</li>
 <li><a href="judge_heldout_v2.json">judge_heldout_v2.json</a>: verdicts under the same revised rubric
@@ -6556,13 +6558,13 @@ classifications, never course marks.</p>
   built to contain one of each defect the lesson audits.</li>
 <li><a href="audit.py">audit.py</a>: <code>headline</code>, <code>rescore</code>, <code>earned</code>, <code>denominator</code> and <code>passk</code> audit
   that table. <code>rescore</code> uses whatever scorer is in <code>candidate.py</code>. <code>--runs FILE</code> counts
-  another table in the same format: re-scoring and the earned check apply only to
-  <code>runs.json</code> itself, and nothing a different table names is run. A table that is
-  malformed or outside its protocol is refused with <code>"status": "invalid"</code> and exit 2:
-  invalid or deeply nested JSON, a missing protocol or rows list, more than 100 tasks or
-  100 attempts per task, an undeclared task, an attempt outside the budget, a duplicate
-  row, an unknown state, and a row whose <code>recorded</code> field is absent or is not <code>pass</code>,
-  <code>fail</code> or <code>null</code>.</li>
+  another table in the same format. Re-scoring and the earned check apply only to
+  <code>runs.json</code> itself, and the script runs nothing that a different table names. The
+  script refuses a table that is malformed or outside its protocol, with
+  <code>"status": "invalid"</code> and exit 2. These cases are refused: invalid or deeply nested
+  JSON; a missing protocol or rows list; more than 100 tasks or 100 attempts per task; an
+  undeclared task; an attempt outside the budget; a duplicate row; an unknown state; and a
+  row whose <code>recorded</code> field is absent or is not <code>pass</code>, <code>fail</code> or <code>null</code>.</li>
 <li><code>attempts/</code>: the changes that five recorded passes kept, as course-written files.</li>
 <li><a href="demo.py">demo.py</a> and <a href="verify_demo.py">verify_demo.py</a>: a separate four-case gate with a
   pinned case count, and its regressions (<code>python verify_demo.py</code>).</li>
@@ -6570,12 +6572,12 @@ classifications, never course marks.</p>
 <p>No model produced any verdict, attempt or change in these files.</p>
 <h2 id="expected-results">Expected results</h2>
 <p>With the unchanged starter, <code>score</code> reports 2 of 9 checks passed and exits 1. With an
-exact-string repair it reports 9 of 9 and exits 0; a repair that lowercases or strips the
+exact-string repair it reports 9 of 9 and exits 0. A repair that lowercases or strips the
 answer fails the two case-variant checks.</p>
 <p>The first judge replay agrees with five of six labels and falsely accepts A1, so <code>judge</code>
 exits 1. The revised replay agrees with all six calibration labels. On the held-out sample
 it agrees with four of five and falsely accepts H3, <code>Yes</code>, so it exits 1 again. A replayed
-case whose status or response differs from the labelled input counts as missing, and an
+case whose status or response differs from the labelled input counts as missing. An
 extra, duplicated or malformed entry blocks the result.</p>
 <p>After the scorer is repaired, <code>audit.py denominator</code> accounts for sixteen declared
 attempts: 6 earned passes, 5 failures, 1 pass that was not earned, 2 timeouts, 1 unknown
@@ -6583,10 +6585,11 @@ and 1 missing. The separate calibration arithmetic has observed agreement 3/4, e
 agreement 1/2 and kappa 1/2.</p>
 <h2 id="limits">Limits</h2>
 <p>An evaluator can be deterministic and still check the wrong requirement. Agreement with a
-reference does not establish that the reference is correct. The labels and verdicts here
-are authored for the exercise; they are not annotation by independent people and not
-output of a model judge. Real calibration needs independent labels written by people and
-a stated route for Unknown verdicts, and a model judge does not assign course marks.
+reference does not establish that the reference is correct. The course team wrote the labels
+and verdicts here for the exercise. They are not labels from independent people and not
+output of a model judge. Real calibration needs independent labels written by people. It
+also needs a stated rule for what happens to Unknown verdicts. A model judge does not
+assign course marks.
 Passing these public checks does not prove that an edited checker is trustworthy.</p>
 
 
@@ -6686,7 +6689,7 @@ Passing these public checks does not prove that an edited checker is trustworthy
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>

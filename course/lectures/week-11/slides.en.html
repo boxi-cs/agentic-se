@@ -7157,8 +7157,8 @@ then prove the recovery with a regression.</p>
 <h2 id="generate-then-verify">Generate, then verify</h2>
 <p><strong>Generate:</strong> a record of what agents and services did, ending in an <code>agent_summary</code>.</p>
 <p><strong>Verify:</strong> check the record by hand, write the result you expect, then run one command.</p>
-<pre><code class="language-sh">python lectures/week-11/fixture/org_check.py portal lectures/week-11/fixture/org-portal.json
-</code></pre>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>lectures/week-11/fixture/org_check.py<span class="w"> </span>portal<span class="w"> </span>lectures/week-11/fixture/org-portal.json
+</code></pre></div>
 <hr />
 <!-- _class: challenge -->
 <h2 id="portal-is-this-summary-true">Portal: is this summary true?</h2>
@@ -7169,18 +7169,18 @@ then prove the recovery with a regression.</p>
 <p>Five calls, three grants. Match each call to its grant before we run the check.</p>
 <hr />
 <h2 id="the-summary-is-true-and-the-session-still-went-too-far">The summary is true, and the session still went too far</h2>
-<pre><code class="language-text">call 3 code.read release-config (private): allowed by G2; outside the task
+<div class="highlight"><pre><span></span><code>call 3 code.read release-config (private): allowed by G2; outside the task
 G2 code.read reaches: ci-dashboard, docs-site, hr-notes (private), release-config (private); beyond the task: docs-site, hr-notes, release-config
 result: OVER-BROAD - grants reaching beyond the task: 1; calls outside the task that a grant allowed: 1
-</code></pre>
+</code></pre></div>
 <p>Checking each call against its grant is not enough when the grant reaches past the task.</p>
 <hr />
 <h2 id="a-grant-is-code">A grant is code</h2>
 <p>It has an owner, a reason and a test.</p>
 <p>Narrow G2 to the task's repository and run the same session:</p>
-<pre><code class="language-text">call 3 code.read release-config (private): denied, no grant covers this repository; the tool did not run; outside the task
+<div class="highlight"><pre><span></span><code>call 3 code.read release-config (private): denied, no grant covers this repository; the tool did not run; outside the task
 result: WITHIN THE TASK - every grant reaches only the task's repositories; 2 calls denied
-</code></pre>
+</code></pre></div>
 <p>The denied call is the grant's test.</p>
 <hr />
 <h2 id="gateway-describe-it-by-what-it-refuses">Gateway: describe it by what it refuses</h2>
@@ -7201,16 +7201,16 @@ result: WITHIN THE TASK - every grant reaches only the task's repositories; 2 ca
 <p>Which runs differ? Where is the key?</p>
 <hr />
 <h2 id="three-separate-failures">Three separate failures</h2>
-<pre><code class="language-text">R2 route-small: request 5 was sent; the policy refuses it before sending (request cap 4); DIFFERS
+<div class="highlight"><pre><span></span><code>R2 route-small: request 5 was sent; the policy refuses it before sending (request cap 4); DIFFERS
 R4 route-preview: request 1 was sent; the policy refuses every request on a route it does not list; DIFFERS
 sandbox-side log: the key appears in R6 line 2
-</code></pre>
-<p>R6 matches the policy on every request and still leaks the key:
-a policy replay and a key search are two checks.</p>
+</code></pre></div>
+<p>R6 matches the policy on every request but still leaks the key.
+A policy replay and a key search are two different checks.</p>
 <hr />
 <h2 id="a-refusal-can-be-the-gateway-working">A refusal can be the gateway working</h2>
-<pre><code class="language-text">R3 route-large: request 3 refused before sending (2000 used + 1200 reserved &gt; 3000); matches the policy
-</code></pre>
+<div class="highlight"><pre><span></span><code>R3 route-large: request 3 refused before sending (2000 used + 1200 reserved &gt; 3000); matches the policy
+</code></pre></div>
 <p>1000 tokens remained. The request could have used 1200.</p>
 <hr />
 <!-- _class: challenge -->
@@ -7221,13 +7221,13 @@ a policy replay and a key search are two checks.</p>
 <p><small>Units are course-made numbers, not prices.</small></p>
 <hr />
 <h2 id="reserve-before-sending-settle-after-the-reply">Reserve before sending, settle after the reply</h2>
-<pre><code class="language-text">request 7: sent, reply cost 1; spent 7 of 10
+<div class="highlight"><pre><span></span><code>request 7: sent, reply cost 1; spent 7 of 10
 request 8: refused before sending (Request exceeds the remaining budget.) spent 7 of 10
-</code></pre>
+</code></pre></div>
 <p>With the lost reply:</p>
-<pre><code class="language-text">request 2: sent, reply lost, reservation of 4 kept; spent 5 of 10
+<div class="highlight"><pre><span></span><code>request 2: sent, reply lost, reservation of 4 kept; spent 5 of 10
 request 5: refused before sending (Request exceeds the remaining budget.) spent 7 of 10
-</code></pre>
+</code></pre></div>
 <p>A timeout marks where observation stopped. It does not show that nothing happened.</p>
 <hr />
 <h2 id="cost-per-accepted-change">Cost per accepted change</h2>
@@ -7272,9 +7272,9 @@ request 5: refused before sending (Request exceeds the remaining budget.) spent 
 </blockquote>
 <hr />
 <h2 id="count-everything-the-team-paid-for">Count everything the team paid for</h2>
-<pre><code class="language-text">all runs: 7 runs, 24 units; review: 60 minutes; accepted changes: 3
+<div class="highlight"><pre><span></span><code>all runs: 7 runs, 24 units; review: 60 minutes; accepted changes: 3
 result: cost per accepted change is 8 units of model use and 20 review minutes
-</code></pre>
+</code></pre></div>
 <p>Failed, retried and rejected work counts. Review minutes stay minutes.</p>
 <hr />
 <!-- _class: challenge -->
@@ -7308,10 +7308,10 @@ result: cost per accepted change is 8 units of model use and 20 review minutes
 <p>All three pass the rule. How many choices does the evaluator support?</p>
 <hr />
 <h2 id="one-of-three">One of three</h2>
-<pre><code class="language-text">  no-model: NOT SUPPORTED - fails case 7, which route-large passes
+<div class="highlight"><pre><span></span><code>  no-model: NOT SUPPORTED - fails case 7, which route-large passes
   route-small: NOT SUPPORTED - the results for route-small are for r1 and the route is now r2; rerun the frozen cases
 result: 1 of 3 route choices supported by the evaluator
-</code></pre>
+</code></pre></div>
 <p>A rate hides which case was lost. A route's name does not guarantee unchanged behaviour.</p>
 <hr />
 <h2 id="what-each-piece-can-hide">What each piece can hide</h2>
@@ -7377,10 +7377,10 @@ result: 1 of 3 route choices supported by the evaluator
 <p>For each: confirmed, refuted or cannot tell, and the line or field that decides it.</p>
 <hr />
 <h2 id="what-a-request-log-can-show">What a request log can show</h2>
-<pre><code class="language-text">window       requests  5xx  error rate  p95 ms
+<div class="highlight"><pre><span></span><code>window       requests  5xx  error rate  p95 ms
 10:00-10:05  20        2    10.0%       58.9
 10:05-10:10  20        0    0.0%        884.1
-</code></pre>
+</code></pre></div>
 <ul>
 <li>Open every cited line: time, path and status.</li>
 <li>Over six requests, p95 is the slowest one.</li>
@@ -7388,9 +7388,13 @@ result: 1 of 3 route choices supported by the evaluator
 </ul>
 <hr />
 <h2 id="act-only-on-what-you-confirmed">Act only on what you confirmed</h2>
-<p>A mitigation that rests on timing must be reversible,
-state its rollback condition and end with a check of the user path.</p>
-<p>A code repair waits for a check that can see its cause.</p>
+<p>A mitigation that rests on timing must:</p>
+<ul>
+<li>be reversible</li>
+<li>state its rollback condition</li>
+<li>end with a check of the user path</li>
+</ul>
+<p>Repair code only after a check that can see the cause has run.</p>
 <p>Drop what rests on a refuted claim.</p>
 <hr />
 <!-- _class: challenge -->
@@ -7469,20 +7473,20 @@ Two jobs now exist.</p>
 <hr />
 <h2 id="the-agents-repair-look-up-then-insert">The agent's repair: look up, then insert</h2>
 <p>Its summary says the duplicate is fixed.</p>
-<pre><code class="language-text">mode: check-then-insert
+<div class="highlight"><pre><span></span><code>mode: check-then-insert
 row  replies       jobs (build/attempt)  build 42 shows
 1    J81 J81       J81 42/7              J81
 2    J81 J82       J81 42/7, J82 42/7    J82
 rows meeting the repaired requirement: 3 of 4
-</code></pre>
+</code></pre></div>
 <p>The reported sequence passes. The forced race still stores two jobs.</p>
 <hr />
 <h2 id="uniqueness-belongs-to-the-database">Uniqueness belongs to the database</h2>
 <p>One statement stores a unique <code>(pipeline, operation_key)</code> with the job.</p>
-<pre><code class="language-text">mode: repaired
+<div class="highlight"><pre><span></span><code>mode: repaired
 2    J81 J81       J81 42/7              J81
 rows meeting the repaired requirement: 4 of 4
-</code></pre>
+</code></pre></div>
 <p>Check the stored jobs, then the replies, then what the user sees.</p>
 <hr />
 <h2 id="a-regression-that-proves-the-recovery">A regression that proves the recovery</h2>
@@ -7499,15 +7503,19 @@ rows meeting the repaired requirement: 4 of 4
 <p>Seventeen green runs would have accepted it.</p>
 <hr />
 <h2 id="agents-that-keep-running-after-deployment">Agents that keep running after deployment</h2>
-<p>Scoped credentials, a budget, a switch that stops it without a deploy.</p>
+<p>Give it scoped credentials, a budget and a switch that stops it without a deploy.</p>
 <p>A log of what it read, proposed and changed.</p>
 <p>Irreversible operations behind a person's approval.</p>
 <p>Put the agent in the runbook.</p>
 <hr />
 <h2 id="second-session">Second session</h2>
 <p>CP2 takes the first 30 minutes of the second session, on paper, without AI.</p>
-<p>Then a guest or the studio: in your own project, compare reach with need,
-count what one accepted change cost, and write one regression that fails before a fix and passes after.</p>
+<p>Then a guest or the studio. In your own project:</p>
+<ul>
+<li>compare reach with need</li>
+<li>count what one accepted change cost</li>
+<li>write one regression that fails before a fix and passes after</li>
+</ul>
 <hr />
 <h2 id="exit-one-decision-line">Exit: one decision line</h2>
 <p>Accept, narrow, recheck or stop, with the evidence behind it.</p>
@@ -7610,7 +7618,7 @@ count what one accepted change cost, and write one regression that fails before 
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

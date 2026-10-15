@@ -6823,9 +6823,9 @@ Anything else → <code>unknown</code></p>
 <hr />
 <!-- _class: challenge -->
 <h2 id="generate-a-plausible-candidate">Generate a plausible candidate</h2>
-<pre><code class="language-python">def status_label(raw):
-    return {&quot;ok&quot;: &quot;passed&quot;, &quot;fail&quot;: &quot;failed&quot;}.get(raw.lower(), &quot;unknown&quot;)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">status_label</span><span class="p">(</span><span class="n">raw</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"ok"</span><span class="p">:</span> <span class="s2">"passed"</span><span class="p">,</span> <span class="s2">"fail"</span><span class="p">:</span> <span class="s2">"failed"</span><span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="s2">"unknown"</span><span class="p">)</span>
+</code></pre></div>
 <p>What does it return for <code>" OK "</code>?</p>
 <p>Predict before reading the check.</p>
 <hr />
@@ -6833,7 +6833,7 @@ Anything else → <code>unknown</code></p>
 <p>The contract requires <code>" OK "</code> → <code>passed</code>.</p>
 <p>The candidate returns <code>unknown</code>.</p>
 <p>Add <code>.strip()</code> before <code>.lower()</code>, then keep the original and unknown cases.</p>
-<p>A patch is a proposal until the regression runs.</p>
+<p>A patch is only a proposal until the regression check runs.</p>
 <hr />
 <h2 id="the-fixture-has-three-tools">The fixture has three tools</h2>
 <table>
@@ -6872,26 +6872,26 @@ Anything else → <code>unknown</code></p>
 <li>Answer every call with its own tool message.</li>
 <li>Exhausted budget means <code>step_limit</code>.</li>
 </ol>
-<p>Steps 1-3 are built in class; steps 4-5 are yours.</p>
+<p>We build steps 1-3 in class. Steps 4-5 are yours.</p>
 <hr />
 <h2 id="generate-a-successful-path">Generate a successful path</h2>
-<pre><code class="language-text">c1 read result.txt       → 5\n
+<div class="highlight"><pre><span></span><code>c1 read result.txt       → 5\n
 c2 write result.txt 4\n → written
 c3 bash verify           → verified
 final                    → no more calls
-</code></pre>
+</code></pre></div>
 <p>Left: generated actions.<br>Right: observed results.</p>
 <hr />
 <h2 id="verify-the-controller">Verify the controller</h2>
 <p>Once, to make your copy:</p>
-<pre><code class="language-sh">mkdir week01-loop
-cp lectures/week-02/fixture/*.py week01-loop/
-</code></pre>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>week01-loop
+cp<span class="w"> </span>lectures/week-02/fixture/*.py<span class="w"> </span>week01-loop/
+</code></pre></div>
 <p>Every time, the check:</p>
-<pre><code class="language-sh">python3 week01-loop/verify_loop.py
-</code></pre>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>week01-loop/verify_loop.py
+</code></pre></div>
 <p>Before <code>run()</code> is complete, the check explains what is missing.
-Afterwards, read the named checks and retain the output.</p>
+After that, read the named checks and keep the output.</p>
 <hr />
 <!-- _class: challenge -->
 <h2 id="a-write-is-not-a-check">A write is not a check</h2>
@@ -6929,15 +6929,15 @@ Afterwards, read the named checks and retain the output.</p>
 <p>A later write also makes an earlier check stale.</p>
 <hr />
 <h2 id="practise-reading-the-supplied-request">Practise reading the supplied request</h2>
-<pre><code class="language-sh">python3 lectures/week-02/session/show_session.py \
-  lectures/week-02/session/sample-session.jsonl --request 4
-</code></pre>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>lectures/week-02/session/show_session.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>lectures/week-02/session/sample-session.jsonl<span class="w"> </span>--request<span class="w"> </span><span class="m">4</span>
+</code></pre></div>
 <p>Predict first: request count, first tool, failure recovery and stop evidence.</p>
 <hr />
 <h2 id="mark-observed-and-inferred">Mark observed and inferred</h2>
 <p><strong>Observed:</strong> a request contains a call, a result or an instruction at a cited index.</p>
 <p><strong>Inferred:</strong> an explanation of why the agent acted or what it might do next.</p>
-<p>The supplied record is hand-authored. Your studio capture supports claims about your agent.</p>
+<p>The supplied record was written by hand. Your studio capture is what supports claims about your agent.</p>
 <hr />
 <h2 id="prompt-text-is-not-always-enforcement">Prompt text is not always enforcement</h2>
 <p>A system instruction can ask for a plan.</p>
@@ -7062,7 +7062,7 @@ Afterwards, read the named checks and retain the output.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

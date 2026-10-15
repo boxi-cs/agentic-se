@@ -6616,12 +6616,12 @@
 <h1 id="a4-make-a-messy-repository-agent-ready">A4: Make a messy repository agent-ready</h1>
 <h2 id="at-a-glance">At a glance</h2>
 <ul>
-<li><strong>Task:</strong> improve the supplied small, course-made synthetic messy repository with instructions, a blocking hook, structure and checks.</li>
+<li><strong>Task:</strong> improve the small, messy practice repository that the course supplies. You add instructions, a blocking hook, better structure and checks.</li>
 <li><strong>Week:</strong> <a href="../../lectures/week-05/README.en.html">5</a>; hooks are taught in <a href="../../lectures/week-04/README.en.html">week 4</a></li>
 <li><strong>Weight:</strong> 2.5 points</li>
 <li><strong>Due:</strong> Sunday 23:59 in the listed week</li>
 <li><strong>Hand in:</strong> your revised repository, probe outputs, and <code>report.json</code>.</li>
-<li><strong>Done when:</strong> the assigned bad change is blocked at the event your hook is attached to, a good change and the regression pass, and the map tells a new agent where to work.</li>
+<li><strong>Done when:</strong> your hook blocks the assigned bad change at the event you attached it to. A good change and the regression run both pass. Your map tells a new agent where to work.</li>
 <li><strong>Time:</strong> published after a timed pilot; record your prediction and actual time.</li>
 </ul>
 <h2 id="objectives">Objectives</h2>
@@ -6637,51 +6637,59 @@
 <p>Use the mature coding-agent seat supplied for the course. Do not run an unknown generated command on a credential-bearing host.</p>
 <p>The probes need Git and pytest in the environment you prepared on the <a href="../../site/docs/week0/setup.en.html">setup page</a>. Check before you start: <code>python -m pytest --version</code> must print a version.</p>
 <h2 id="tasks">Tasks</h2>
-<p><strong>1. Inspect.</strong> Copy <a href="starter/"><code>starter/</code></a> to a directory of your own outside the course checkout. That copy is your repository and your submission directory; run every command in tasks 1 to 5 inside it. Make the baseline commit described in its README, and map one behaviour to its files, tests and check command before asking for a change. The assigned bad change adds <code>print("debug: leaked value")</code> to <code>app.py</code>; your hook must block it.</p>
+<p><strong>1. Inspect.</strong> Copy <a href="starter/"><code>starter/</code></a> to a directory of your own outside the course checkout. That copy is your repository and your submission directory. Run every command in tasks 1 to 5 inside it. Make the baseline commit that its README describes. Then, before you ask for any change, map one behaviour to its files, tests and check command. The assigned bad change adds <code>print("debug: leaked value")</code> to <code>app.py</code>; your hook must block it.</p>
 <p><strong>2. Generate.</strong> Ask the agent to propose an instruction file, a small hook that blocks the assigned bad change, and a structural cleanup. Review every command before running it. Attach the hook to one of the two kinds of event taught in <a href="../../lectures/week-04/notes.en.html">week 4</a>, and record your choice as <code>gate</code> in <code>report.json</code>.</p>
-<p><strong>A Git hook</strong> (<code>gate: {kind: git, event: pre-commit}</code>) acts at the commit, whoever makes it. Put the hook where Git and your reader can both find it: create the directory with <code>mkdir -p .githooks</code>, write your hook to <code>.githooks/pre-commit</code>, then run:</p>
-<pre><code class="language-bash">chmod +x .githooks/pre-commit
-git config core.hooksPath .githooks
-git add .githooks/pre-commit
-git commit -m &quot;Add pre-commit hook&quot;
-</code></pre>
-<p><code>core.hooksPath</code> is a local setting and is not part of a commit, so name that command in your instruction file. The hook file itself must be committed; a hook left in <code>.git/hooks/</code> is not handed in.</p>
-<p><strong>A hook on the agent's own events</strong> (<code>gate: {kind: agent, event: &lt;the name your agent gives the event&gt;}</code>) acts before a tool call, so the bad line is never written, or at the end of a turn, so the agent may not report that it is done while the line is there. Your agent's documentation says how to attach a hook, how the hook receives the event and how it refuses. Commit the hook script, for example under <code>.agent-hooks/</code>. If the setting that attaches it lives outside the repository, commit a copy of that setting next to the script and name its real location in your instruction file. Make the hook save each event it receives under <code>hook-events/</code> before it decides, so that you can run it again on the same input. Either event sees only this agent's work, and a hook at the end of a turn lets the line sit in <code>app.py</code> until the agent tries to finish: say in your explanation what your choice does not stop.</p>
-<p>Commit your structural cleanup too before you go on to task 3: the bad probe there ends by resetting <code>app.py</code> to the last commit, which discards any uncommitted change to that file.</p>
+<p><strong>A Git hook</strong> (<code>gate: {kind: git, event: pre-commit}</code>) runs at each commit, whoever makes the commit. Put the hook where both Git and your reader can find it. Create the directory with <code>mkdir -p .githooks</code>, write your hook to <code>.githooks/pre-commit</code>, then run:</p>
+<div class="highlight"><pre><span></span><code>chmod<span class="w"> </span>+x<span class="w"> </span>.githooks/pre-commit
+git<span class="w"> </span>config<span class="w"> </span>core.hooksPath<span class="w"> </span>.githooks
+git<span class="w"> </span>add<span class="w"> </span>.githooks/pre-commit
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"Add pre-commit hook"</span>
+</code></pre></div>
+<p><code>core.hooksPath</code> is a local setting. It is not saved in a commit, so name that command in your instruction file. You must commit the hook file itself. A hook left in <code>.git/hooks/</code> is not handed in.</p>
+<p><strong>A hook on the agent's own events</strong> (<code>gate: {kind: agent, event: &lt;the name your agent gives the event&gt;}</code>) runs at one of two moments. Before a tool call, it can stop the bad line from ever being written. At the end of a turn, it can stop the agent from reporting that it is done while the line is still there. Your agent's documentation explains how to attach a hook, how the hook receives the event and how it refuses. Commit the hook script, for example under <code>.agent-hooks/</code>. If the setting that attaches it lives outside the repository, commit a copy of that setting next to the script and name its real location in your instruction file. Make the hook save each event it receives under <code>hook-events/</code> before it decides. You can then run it again on the same input. Either event sees only this agent's work. A hook at the end of a turn also lets the line stay in <code>app.py</code> until the agent tries to finish. In your explanation, say what your choice does not stop.</p>
+<p>Also commit your structural cleanup before you go on to task 3. The bad probe in task 3 ends by resetting <code>app.py</code> to the last commit. That reset discards any uncommitted change to the file.</p>
 <p><strong>3. Verify the gate.</strong> Run the three probes as commands and keep each command, exit code and output.</p>
-<p><strong>With a Git hook</strong>, the probes are <code>bad_commit</code>, <code>good_commit</code> and <code>regression</code>. The bad commit must exit non-zero; the last line resets <code>app.py</code> to the last commit:</p>
-<pre><code class="language-bash">echo 'print(&quot;debug: leaked value&quot;)' &gt;&gt; app.py
-git add app.py
-git commit -m &quot;bad probe&quot;; echo &quot;exit=$?&quot;
-git restore --staged app.py &amp;&amp; git restore app.py
-</code></pre>
+<p><strong>With a Git hook</strong>, the probes are <code>bad_commit</code>, <code>good_commit</code> and <code>regression</code>. The bad commit must exit non-zero. The last line resets <code>app.py</code> to the last commit:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s1">'print("debug: leaked value")'</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>app.py
+git<span class="w"> </span>add<span class="w"> </span>app.py
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"bad probe"</span><span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit=</span><span class="nv">$?</span><span class="s2">"</span>
+git<span class="w"> </span>restore<span class="w"> </span>--staged<span class="w"> </span>app.py<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>restore<span class="w"> </span>app.py
+</code></pre></div>
 <p>The good commit is a documentation or behaviour-preserving change and must exit zero:</p>
-<pre><code class="language-bash">printf '\nReviewed.\n' &gt;&gt; NOTES.md
-git add NOTES.md
-git commit -m &quot;good probe&quot;; echo &quot;exit=$?&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">printf</span><span class="w"> </span><span class="s1">'\nReviewed.\n'</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>NOTES.md
+git<span class="w"> </span>add<span class="w"> </span>NOTES.md
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"good probe"</span><span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit=</span><span class="nv">$?</span><span class="s2">"</span>
+</code></pre></div>
 <p><strong>With a hook on the agent's own events</strong>, the probes are <code>blocked_run</code>, <code>allowed_run</code> and <code>regression</code>. For the blocked run, ask the agent in a new turn to add <code>print("debug: leaked value")</code> to <code>app.py</code>. The hook must refuse the call that writes the line, or refuse the end of the turn while the line is there. Keep the part of the session that shows the refusal and the output of <code>git diff --stat</code>. Before you reset <code>app.py</code> with <code>git restore app.py</code>, run your hook again on the event it saved for that run. For a hook that reads its event on standard input, the probe's command looks like this:</p>
-<pre><code class="language-bash">python .agent-hooks/hook.py &lt; hook-events/blocked.json; echo &quot;exit=$?&quot;
-</code></pre>
-<p>For the allowed run, ask the agent in another turn to add a <code>Reviewed.</code> line at the end of <code>NOTES.md</code>; the hook must allow it. Run the hook again on that saved event in the same way, then commit the change. The blocked run must exit non-zero and the allowed run zero. If your agent reads a refusal from the hook's output rather than its exit code, write the probe command so that it exits non-zero when that output refuses, and keep the output in the evidence.</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>.agent-hooks/hook.py<span class="w"> </span>&lt;<span class="w"> </span>hook-events/blocked.json<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit=</span><span class="nv">$?</span><span class="s2">"</span>
+</code></pre></div>
+<p>For the allowed run, ask the agent in another turn to add a <code>Reviewed.</code> line at the end of <code>NOTES.md</code>. The hook must allow it. Run the hook again on that saved event in the same way, then commit the change. The blocked run must exit non-zero and the allowed run zero. Some agents read a refusal from the hook's output, not from its exit code. In that case, write the probe command so that it exits non-zero when the output refuses. Keep that output in the evidence.</p>
 <p>For either kind, the regression run must pass:</p>
-<pre><code class="language-bash">python -m pytest -q; echo &quot;exit=$?&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>-q<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit=</span><span class="nv">$?</span><span class="s2">"</span>
+</code></pre></div>
 <p><strong>4. Check structure.</strong> Confirm the instruction file names the same commands and invariants that the repository actually contains.</p>
-<p><strong>5. Revise.</strong> Fix one stale instruction or weak check, commit that fix with the instruction file, the map and your cleanup, and then repeat all three probes, so that the revision you record as <code>after_revision</code> contains them (print it with <code>git rev-parse HEAD</code>); A5 later scores this repository at a named commit. Write the decision line.</p>
-<p>Generation is the agent's proposed repository change; verification is the three probes and direct file inspection.</p>
+<p><strong>5. Revise.</strong> Fix one stale instruction or weak check. Commit that fix together with the instruction file, the map and your cleanup. Then repeat all three probes. The revision you record as <code>after_revision</code> must contain all of these changes (print it with <code>git rev-parse HEAD</code>). A5 later scores this repository at a named commit. Write the decision line.</p>
+<p>Generation is the repository change that the agent proposes. Verification is the three probes plus your own inspection of the files.</p>
 <h2 id="deliverables">Deliverables</h2>
 <p>Include the revised repository, the behaviour-to-code map, probe outputs and <code>report.json</code>. Name before and after revisions. Run from the course checkout:</p>
-<pre><code class="language-bash">python practice/a4/check.py path/to/submission
-</code></pre>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>practice/a4/check.py<span class="w"> </span>path/to/submission
+</code></pre></div>
 <h2 id="grading">Grading</h2>
-<p>Criteria are usable instructions; a hook that blocks the assigned bad change at the event you name; passing good and regression checks; clear structure; and evidence for one revision. The public check verifies record consistency and cannot replace a code review.</p>
+<p>The criteria are:</p>
+<ul>
+<li>usable instructions;</li>
+<li>a hook that blocks the assigned bad change at the event you name;</li>
+<li>passing good and regression checks;</li>
+<li>clear structure;</li>
+<li>evidence for one revision.</li>
+</ul>
+<p>The public check only tests whether your record is consistent. It cannot replace a code review.</p>
 <h2 id="ai-use-rules">AI use rules</h2>
-<p>Green: proposing documentation, a hook and refactoring ideas. Yellow: generated code after you inspect it and run the probes. Red: accepting a gate, interpreting a failure and making the decision. Keep credentials and private data out of the agent environment and logs. Attach one AI-use note ID.</p>
+<p>Green: the agent may propose documentation, a hook and refactoring ideas. Yellow: you may use generated code after you inspect it and run the probes. Red: accepting a gate, interpreting a failure and making the decision must be your own work. Keep credentials and private data out of the agent environment and logs. Attach one AI-use note ID.</p>
 <h2 id="estimated-time">Estimated time</h2>
-<p>Published after a timed pilot. Record predicted and actual time; ask for support when a hook or check behaves differently from its description.</p>
+<p>Published after a timed pilot. Record your predicted and actual time. Ask for support when a hook or check behaves differently from its description.</p>
 <h2 id="work-record-outline">Work record outline</h2>
-<pre><code class="language-text">assignment: A4
+<div class="highlight"><pre><span></span><code>assignment: A4
 evidence: [{id: TODO, path: TODO, observation: TODO}]
 before_revision: TODO
 after_revision: TODO
@@ -6694,8 +6702,8 @@ ai_use_note: TODO
 predicted_time: TODO
 actual_time: TODO
 decision: {action: accept | narrow | recheck | stop, because: [evidence ID(s)], next: TODO}
-</code></pre>
-<p>The probe cases are <code>bad_commit</code>, <code>good_commit</code> and <code>regression</code> for <code>kind: git</code>, and <code>blocked_run</code>, <code>allowed_run</code> and <code>regression</code> for <code>kind: agent</code>; record each once. The outline lists the fields of <code>report.json</code> in plain text. <code>starter/report.json</code> holds them as JSON, except <code>predicted_time</code> and <code>actual_time</code>, which you add yourself. Evidence paths are relative to your submission directory. The check reads a field that still contains the word <code>TODO</code>, or text in angle brackets such as <code>&lt;name&gt;</code>, as unfilled.</p>
+</code></pre></div>
+<p>For <code>kind: git</code>, the probe cases are <code>bad_commit</code>, <code>good_commit</code> and <code>regression</code>. For <code>kind: agent</code>, they are <code>blocked_run</code>, <code>allowed_run</code> and <code>regression</code>. Record each case once. The outline lists the fields of <code>report.json</code> in plain text. <code>starter/report.json</code> holds them as JSON, except <code>predicted_time</code> and <code>actual_time</code>, which you add yourself. Evidence paths are relative to your submission directory. The check reads a field that still contains the word <code>TODO</code>, or text in angle brackets such as <code>&lt;name&gt;</code>, as unfilled.</p>
 
 
 
@@ -6794,7 +6802,7 @@ decision: {action: accept | narrow | recheck | stop, because: [evidence ID(s)], 
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

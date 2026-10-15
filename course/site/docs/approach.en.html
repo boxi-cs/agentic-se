@@ -6478,55 +6478,64 @@
 
 
 <h1 id="how-this-course-works">How this course works</h1>
-<p>A coding agent proposes a change; you decide whether the evidence supports it and whether
-you can explain it. Every example shows generation and verification. A test you can rerun
-is evidence; an agent saying “done” is a claim to check.</p>
+<p>A coding agent proposes a change. You decide whether the evidence supports it and whether
+you can explain it. Every example shows both generation and verification. A test you can
+rerun is evidence. An agent saying “done” is only a claim, and you check it.</p>
 <h2 id="twelve-teaching-weeks-then-assessment">Twelve teaching weeks, then assessment</h2>
 <p>The topics and their order follow the public Fall 2026 calendar of Stanford's
-<a href="https://themodernsoftware.dev/">CS146S</a>, with two verification weeks added; this course
-is not affiliated with Stanford University. Each teaching week has two 90-minute sessions: a lecture with live generation
-and verification, then a practitioner guest or a studio. When no guest is available, you
-work on your project or contribution in a studio with teaching support. Week 13 has the
-project expo followed by individual defenses. The <a href="schedule.en.html">schedule</a> gives topics
+<a href="https://themodernsoftware.dev/">CS146S</a>, with two verification weeks added. This course
+is not affiliated with Stanford University. Each teaching week has two 90-minute sessions.
+The first is a lecture with live generation and verification. The second is a practitioner
+guest or a studio. When no guest is available, you work on your project or contribution in
+a studio, with support from the teaching team. Week 13 has the project expo, followed by
+individual defenses. The <a href="schedule.en.html">schedule</a> gives topics
 and deadlines.</p>
 <h2 id="three-lines-of-work">Three lines of work</h2>
 <ul>
 <li><strong>Six assignments:</strong> A1–A6, due in weeks 1, 2, 3, 5, 6 and 10. Each earns up to 2.5
-  points (15 total). Keep the artifact, verification results and a short explanation,
-  ending with one decision: accept, narrow, recheck or stop, and the evidence supporting it.</li>
-<li><strong>Four open-source contributions:</strong> 30 points across two repositories. A small fix and
-  a substantial change in the first repository earn up to 5 and 10 points in weeks 4 and
-  8; repeat in the second repository for 5 and 10 points in weeks 9 and 12. A TA performs
-  acceptance review when the repository has no partner contact, the maintainer has not
-  replied within seven days, or the maintainer declines the contribution as out of scope. Your mark does not depend on a maintainer replying.</li>
+  points (15 total). Keep the artifact, the verification results and a short explanation.
+  End with one decision (accept, narrow, recheck or stop) and the evidence that supports it.</li>
+<li><strong>Four open-source contributions:</strong> 30 points across two repositories. In the first
+  repository, a small fix earns up to 5 points in week 4, and a substantial change earns up
+  to 10 points in week 8. In the second repository you repeat this: 5 points in week 9 and
+  10 points in week 12. A TA performs an acceptance review in three cases: the repository
+  has no partner contact, the maintainer has not replied within seven days, or the
+  maintainer declines the contribution as out of scope. Your mark does not depend on a
+  maintainer replying.</li>
 <li><strong><a href="project.en.html">A term project</a>:</strong> choose a topic and build runnable software with an agent, alone or
-  with one other student. Proposal, technical specification, alpha and final milestones
-  earn 2, 4, 6 and 8 points in weeks 2, 4, 7 and 12 (20 total). In a two-person project,
-  milestone marks are shared; each student defends their own understanding separately.</li>
+  with one other student. The four milestones are the proposal, the technical
+  specification, the alpha (one minimal path that runs end to end) and the final version.
+  They earn 2, 4, 6 and 8 points in weeks 2, 4, 7 and 12 (20 total). In a two-person
+  project, the two students share the milestone marks. Each student defends their own
+  understanding separately.</li>
 </ul>
 <p>Your term project has its own topic and repository. Attach an AI-use note once to each work
-item and reuse its evidence ID rather than copying logs into multiple submissions.</p>
+item. Then reuse its evidence ID instead of copying logs into several submissions.</p>
 <h2 id="explain-your-work-without-ai">Explain your work without AI</h2>
-<p>CP1 in week 6 and CP2 in week 11 are thirty-minute, in-class paper checkpoints, each worth
-7.5 points. The week 13 defense is worth 15 points: without a device, respond to a change
-or fault introduced in your own code during a fifteen-minute sitting. These three items
-provide <strong>30 points of individual evidence without AI</strong>. Participation earns the remaining
+<p>CP1 in week 6 and CP2 in week 11 are thirty-minute checkpoints that you take on paper in
+class. Each is worth 7.5 points. The week 13 defense is worth 15 points. In a
+fifteen-minute sitting, without a device, you respond to a change or fault introduced in
+your own code. Together, these three items provide <strong>30 points of individual evidence
+without AI</strong>. Participation earns the remaining
 5 points through guest questions, studio work and the expo.</p>
 <p>Passing requires <strong>at least 60/100 overall, at least 15/30 across CP1, CP2 and the
-project defense, and at least 5/15 on the defense</strong>. The defense is the only AI-off item
-on your own code, so it has its own floor. Each of those three items permits one resit
-after feedback when the first mark is below half; the replacement mark is capped at half
-the item's maximum. Invalid technical or approved accommodation sittings are replaced by an
-equivalent sitting without consuming that resit. Incomplete assessments stay missing, and
-the course is not passed while a checkpoint or the defense is missing. Read the
+project defense, and at least 5/15 on the defense</strong>. The defense is the only item without
+AI on your own code, so it has its own minimum mark. Each of those three items allows one
+resit after feedback if your first mark is below half of the item's maximum. A resit mark
+that replaces the first mark is capped at half the item's maximum. A sitting can become
+invalid because of a technical failure or an approved accommodation. You then take an
+equivalent sitting instead, and it does not use up your resit. Incomplete assessments stay
+missing. You cannot pass the course while a checkpoint or the defense is missing. Read the
 <a href="../../SYLLABUS.en.html">syllabus</a> for the full rules.</p>
 <h2 id="practise-making-a-decision">Practise making a decision</h2>
-<p>Save a prediction before discussion, inspect a candidate or trace, run a discriminating
-check, revise after feedback and try a changed input. After checking, choose whether to
-accept, narrow, recheck or stop. Another generation call helps only when it answers a
+<p>Save a prediction before discussion. Inspect a candidate change or a trace. Run a
+discriminating check, that is, a check that can tell a right result from a wrong one.
+Revise after feedback, and try a changed input. After checking, choose whether to accept,
+narrow, recheck or stop. Another generation call helps only when it answers a
 question you can name.</p>
 <p>Follow the safety practices in <a href="week0/setup.en.html">Week 0 setup</a> before using your supplied
-coding agent. <a href="staff.en.html">Ask for help</a> when access or a concept prevents progress.</p>
+coding agent. <a href="staff.en.html">Ask for help</a> when an access problem or a concept stops you
+from making progress.</p>
 
 
 
@@ -6625,7 +6634,7 @@ coding agent. <a href="staff.en.html">Ask for help</a> when access or a concept 
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

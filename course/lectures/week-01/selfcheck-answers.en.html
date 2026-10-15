@@ -6521,60 +6521,62 @@
 
 
 <h1 id="week-1-self-check-answer-guidance">Week 1 self-check answer guidance</h1>
-<p>Try each question before reading this page. These are evidence prompts, not a
-graded answer key: cite the fixture, the request index or your own captured record.</p>
+<p>Try each question before you read this page. These notes point you to evidence.
+They are not a graded answer key. Cite the fixture, the request index or your own
+captured record.</p>
 <h2 id="the-minimal-loop">The minimal loop</h2>
-<p><strong>Q1.</strong> The proposer generates an assistant message containing tool calls. The
-controller checks the message and passes each call to the tool; the tool returns the
-file text, <code>written</code>, <code>verified</code> or a refusal. A tool result is an observation, not
-the proposal that caused it.</p>
+<p><strong>Q1.</strong> The proposer generates an assistant message that contains tool calls. The
+controller checks the message and passes each call to the tool. The tool returns the
+file text, <code>written</code>, <code>verified</code> or a refusal. A tool result is an observation. It is
+not the proposal that caused it.</p>
 <p><strong>Q2.</strong> <code>written</code> reports that the tool wrote the text it was given to the permitted
-path. It does not compare that text with the requirement. The fixed <code>bash</code> verification is
-the observation that checks the required <code>4\n</code> content.</p>
-<p><strong>Q3.</strong> The controller answers calls in their listed order and returns one tool
-message per call. Each message carries the corresponding <code>tool_call_id</code>, including
-for a refused call, so the next request can match every result to its proposal.</p>
+path. It does not compare that text with the requirement. The observation that checks
+for the required <code>4\n</code> content comes from the fixed <code>bash</code> verification.</p>
+<p><strong>Q3.</strong> The controller answers calls in the order they are listed. It returns one
+tool message per call. Each message carries the matching <code>tool_call_id</code>, even for a
+refused call. This lets the next request match every result to its proposal.</p>
 <p><strong>Q4.</strong> <code>final</code> means a reply had no calls and the controller stopped normally.
 <code>step_limit</code> means the request budget ended. Neither stop reason proves that the
 candidate is correct.</p>
-<p><strong>Q5.</strong> “Done” after a write does not establish that the required bytes are present.
-Run the fixed verification on the current file and retain its result before accepting
+<p><strong>Q5.</strong> “Done” after a write does not show that the required bytes are present.
+Run the fixed verification on the current file and keep its result. Only then accept
 the claim.</p>
 <h2 id="reading-a-request">Reading a request</h2>
 <p><strong>Q6.</strong> A valid answer names one role or goal instruction, one argument constraint
 from a tool definition, and one earlier message carried in request 4. Label each
 with its request or message location. If the capture hides system content, say that
-it was not visible rather than filling the gap from a published prompt.</p>
-<p><strong>Q7.</strong> A schema or <code>checked()</code> rejection prevents the malformed call from running;
-the tool's own code can return a refusal after the call is received. A sentence in
-the prompt is only a request unless a checker or runtime control enforces it. Cite
-one example of each from the prompt and fixture.</p>
-<p><strong>Q8.</strong> Count request blocks because one assistant response can contain several tool
-calls. The viewer's request index identifies a model request; a call ID identifies
+it was not visible. Do not fill the gap from a published prompt.</p>
+<p><strong>Q7.</strong> When a schema or <code>checked()</code> rejects a malformed call, the call does not run.
+The tool's own code can also return a refusal after it receives the call. A sentence
+in the prompt only asks. It is not enforced unless a checker or runtime control
+enforces it. Cite one example of each from the prompt and the fixture.</p>
+<p><strong>Q8.</strong> Count request blocks, because one assistant response can contain several tool
+calls. The viewer's request index identifies a model request. A call ID identifies
 one proposed action inside that request.</p>
 <p><strong>Q9.</strong> <code>course-made-sample</code> identifies the supplied record as a hand-authored
 teaching example. It does not establish what a real agent sent or what a student's
 session did.</p>
 <h2 id="your-studio-record">Your studio record</h2>
-<p><strong>Q10.</strong> An observed claim has a citation containing the event, such as a command,
-result or visible instruction. An inference explains why it happened or predicts a
-next action. A follow-up run of the same check, or a newly visible request field,
-can turn a bounded inference into an observation.</p>
-<p><strong>Q11.</strong> With no verification result, choose <strong>recheck</strong> (or <strong>narrow</strong> if a
-recheck is impossible). The evidence supports that a proposal or write occurred,
-not that the required behavior is correct.</p>
-<p><strong>Q12.</strong> Preserve both sentences: “I predicted ___ before the check” and “After
-the check on revision <strong><em>, I observed </em></strong>.” This keeps the original prediction
-available while recording what the new evidence changed.</p>
+<p><strong>Q10.</strong> An observed claim has a citation that contains the event, such as a
+command, a result or a visible instruction. An inference explains why something
+happened or predicts the next action. A later run of the same check, or a request
+field that has become visible, can turn a narrow inference into an observation.</p>
+<p><strong>Q11.</strong> If there is no verification result, choose <strong>recheck</strong>. If a recheck is
+impossible, choose <strong>narrow</strong>. The evidence shows that a proposal or a write
+happened. It does not show that the required behavior is correct.</p>
+<p><strong>Q12.</strong> Keep both sentences: “I predicted ___ before the check” and “After
+the check on revision <strong><em>, I observed </em></strong>.” The original prediction stays visible,
+and the record also shows what the new evidence changed.</p>
 <h2 id="decision-line">Decision line</h2>
-<p><strong>Decision.</strong> Accept only the current revision and cases covered by a passing check;
-otherwise narrow the claim, recheck the current revision or stop. Name the command,
-result and next check that support the selected decision.</p>
-<p><strong>Retrieval 1.</strong> A generated call is an assistant proposal with a call ID; a tool
-effect is the returned result carrying that same ID. Record both sides before
-explaining what the effect means.</p>
-<p><strong>Retrieval 2.</strong> A final completion sentence is insufficient without a verification
-result tied to the latest write; preserve that result and its call or command ID.</p>
+<p><strong>Decision.</strong> Accept only the current revision, and only the cases that a passing
+check covers. Otherwise, narrow the claim, recheck the current revision or stop. Name
+the command, the result and the next check that support the decision you chose.</p>
+<p><strong>Retrieval 1.</strong> A generated call is an assistant proposal with a call ID. A tool
+effect is the returned result that carries the same ID. Record both sides before you
+explain what the effect means.</p>
+<p><strong>Retrieval 2.</strong> A final sentence saying the work is complete is not enough. You
+also need a verification result from after the latest write. Keep that result and
+its call or command ID.</p>
 
 
 
@@ -6673,7 +6675,7 @@ result tied to the latest write; preserve that result and its call or command ID
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

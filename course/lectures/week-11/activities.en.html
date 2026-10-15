@@ -6705,68 +6705,71 @@
 <p>After CP2 the session is offered to a practitioner guest for at most 45 minutes, on how
 their team runs agents. Write one question for the guest beforehand. In a week without a
 guest, or in the time that remains, the session is the studio below. You work on your own
-project while staff circulate; what you do not finish in the room, finish before next week.
-Without a guest, steps 1 to 3 fit in the room and step 4 is finished in writing afterwards.
-With a guest, about ten minutes remain: start step 1 in the room and do the rest before next
-week.</p>
+project while staff circulate. Whatever you do not finish in the room, finish before next
+week. Without a guest, steps 1 to 3 fit in the room, and you finish step 4 in writing
+afterwards. With a guest, about ten minutes remain: start step 1 in the room and do the rest
+before next week.</p>
 <h2 id="studio-sequence">Studio sequence</h2>
 <p><strong>Format:</strong> individual work in your project repository, then a short written exchange with
 a partner. <strong>Materials:</strong> your project repository, your agent's session records for one
 change you accepted, and a text editor. The studio produces one operating note, kept in your
 project repository. It has three parts, one for each half of the lecture and one decision.</p>
-<p>The <code>git</code> commands below read your repository and, in step 3, swap one file to an earlier
-version and back. Commit or set aside your current work before step 3. If your project is
+<p>The <code>git</code> commands below read your repository. In step 3 they also swap one file to an
+earlier version and back. Commit or set aside your current work before step 3. If your project is
 not written in Python, use its own test command where a step says <code>python -m pytest</code>.</p>
 <h3 id="1-reach-against-need-15-minutes">1. Reach against need (15 minutes)</h3>
 <p>Pick one task from your project backlog that you would hand to your agent. Write the
 repositories, directories, tools and network destinations that task needs. Then list what
 the agent can actually reach in the environment where you run it. Start in your project
 repository with:</p>
-<pre><code class="language-sh">git status --short
-git remote -v
-awk 'BEGIN { for (name in ENVIRON) print name }' | grep -i -E 'key|token|secret|password|credential'
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>status<span class="w"> </span>--short
+git<span class="w"> </span>remote<span class="w"> </span>-v
+awk<span class="w"> </span><span class="s1">'BEGIN { for (name in ENVIRON) print name }'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>-E<span class="w"> </span><span class="s1">'key|token|secret|password|credential'</span>
+</code></pre></div>
 <p>The last command prints only the names of environment variables whose name suggests a
 credential, never their values. It prints nothing when no name matches. Any name it prints
-is something every command your agent runs can read. Add what the first two do not show:
-other repositories and directories the agent's working directory or container can see, the
-tools and MCP servers it has enabled, and whether its permission mode asks before a command
-runs.</p>
-<p>Write two columns, need and reach, and mark every entry of reach that the task does not
+is something every command your agent runs can read. Then add what the first two commands
+do not show:</p>
+<ul>
+<li>other repositories and directories that the agent's working directory or container can see;</li>
+<li>the tools and MCP servers the agent has enabled; and</li>
+<li>whether its permission mode asks you before a command runs.</li>
+</ul>
+<p>Write two columns, need and reach. Mark every entry under reach that the task does not
 need. For each marked entry decide: narrow it now, or keep it with an owner and a reason.
 This is the portal check from the lecture, applied to a team of one.</p>
 <h3 id="2-what-one-accepted-change-cost-15-minutes">2. What one accepted change cost (15 minutes)</h3>
 <p>Choose the most recent change in your project that you accepted from your agent. Find it:</p>
-<pre><code class="language-sh">git log --oneline -10
-git show --stat HEAD
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>log<span class="w"> </span>--oneline<span class="w"> </span>-10
+git<span class="w"> </span>show<span class="w"> </span>--stat<span class="w"> </span>HEAD
+</code></pre></div>
 <p>Replace <code>HEAD</code> with the commit you chose if it is not the latest. From your agent's session
-records, count every run that led to this change, including the ones that failed, timed out
+records, count every run that led to this change. Include the runs that failed, timed out
 or were abandoned, and any run spent on an approach you rejected along the way. Use the unit
-your agent reports (requests, tokens or credit) and do not convert it into a price. Add the
+your agent reports (requests, tokens or credit), and do not convert it into a price. Add the
 minutes you spent reviewing and checking the change yourself.</p>
 <p>Write one line: runs, total in your agent's unit, and review minutes for this one accepted
-change. If your records cannot show an earlier run, write cannot tell for that part and the
-record you would keep next time. One change is one observation about your own process; it is
-not a finding about any model.</p>
+change. If your records cannot show an earlier run, write cannot tell for that part. Also
+write which record you would keep next time. One change is one observation about your own
+process. It is not a finding about any model.</p>
 <h3 id="3-one-regression-for-one-fix-25-minutes">3. One regression for one fix (25 minutes)</h3>
 <p>Choose a defect you have already fixed in your project, with the fix committed. Find the
 commit before the fix:</p>
-<pre><code class="language-sh">git log --oneline -- FILE
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>log<span class="w"> </span>--oneline<span class="w"> </span>--<span class="w"> </span>FILE
+</code></pre></div>
 <p>Here <code>FILE</code> is the source file the fix changed. Write a test that states the required
 behaviour for the input that showed the defect, and commit it. Then show that the test can
 fail: put the file back as it was before the fix, run the test, restore the file and run the
 test again. <code>BEFORE</code> is the commit before the fix and <code>TEST</code> is your test file:</p>
-<pre><code class="language-sh">git checkout BEFORE -- FILE
-python -m pytest TEST -q
-git checkout HEAD -- FILE
-python -m pytest TEST -q
-git status --short
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>BEFORE<span class="w"> </span>--<span class="w"> </span>FILE
+python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>TEST<span class="w"> </span>-q
+git<span class="w"> </span>checkout<span class="w"> </span>HEAD<span class="w"> </span>--<span class="w"> </span>FILE
+python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>TEST<span class="w"> </span>-q
+git<span class="w"> </span>status<span class="w"> </span>--short
+</code></pre></div>
 <p>Expected evidence: the first test run fails on the assertion about the defect, the second
-passes, and <code>git status --short</code> prints nothing for <code>FILE</code>, which shows the file is back at
-your current version (untracked files such as a test cache may still be listed). Keep both
+passes, and <code>git status --short</code> prints nothing for <code>FILE</code>. That shows the file is back at
+your current version. Untracked files, such as a test cache, may still be listed. Keep both
 outputs beside their revisions. Three results need a second look:</p>
 <ul>
 <li><strong>The test passes on the earlier file.</strong> It does not reach the defect. Change the input,
@@ -6775,27 +6778,27 @@ outputs beside their revisions. Three results need a second look:</p>
   is not evidence about the defect. If the fix changed several files, name them all in both
   <code>git checkout</code> commands.</li>
 <li><strong>The defect depends on timing or order.</strong> A test that sometimes passes on the earlier
-  file proves nothing; force the order, as row 2 of the lecture's replay does.</li>
+  file proves nothing. Force the order, as row 2 of the lecture's replay does.</li>
 </ul>
 <p>If you have no fixed defect yet, take one open item from your backlog instead: write the
 test first, keep its failing output, and record the regression as half done.</p>
 <h3 id="4-decide-and-exchange-10-minutes">4. Decide and exchange (10 minutes)</h3>
 <p>Finish the operating note with one decision line: accept, narrow, recheck or stop, and the
-evidence behind it. Then exchange notes with a partner in writing. Each of you asks one
-changed-condition question, for example "what would your regression show if two requests
-arrived together?", and the other answers with the input, the expected result and the check
-that would decide it.</p>
+evidence behind it. Then exchange notes with a partner in writing. Each of you asks the
+other one changed-condition question: a question about what happens when one condition
+changes. For example: "what would your regression show if two requests arrived together?"
+The partner answers with the input, the expected result and the check that would decide it.</p>
 <p>Your operating note holds:</p>
-<pre><code class="language-text">Task and what it needs
+<div class="highlight"><pre><span></span><code>Task and what it needs
 Reach: what the agent can reach; entries beyond the need, each narrowed or kept with owner and reason
 One accepted change: runs, total in the agent's unit, review minutes; what the records cannot show
 Regression: defect, BEFORE and current revisions, failing output, passing output
 Not covered: one condition the regression does not test
 Decision: accept | narrow | recheck | stop, with the evidence
-</code></pre>
+</code></pre></div>
 <h2 id="after-class-fixture-practice">After class: fixture practice</h2>
-<p>If you did not finish the lecture's predictions, do them now from the course checkout. Each
-takes a prediction first and a run second; the commands and their expected output are in the
+<p>If you did not finish the lecture's predictions, do them now from the course checkout. For
+each one, predict first and run second. The commands and their expected output are in the
 <a href="notes.en.html#minimal-example">notes</a>.</p>
 <table>
 <thead>
@@ -6873,13 +6876,14 @@ takes a prediction first and a run second; the commands and their expected outpu
 </tbody>
 </table>
 <p>From the course checkout:</p>
-<pre><code class="language-sh">python lectures/week-11/fixture/check_rca.py
-python lectures/week-11/fixture/check_rca.py --path /domains/ci_dashboard/projects/
-python lectures/week-11/fixture/check_rca.py --path /domains/ci_dashboard/import
-</code></pre>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>lectures/week-11/fixture/check_rca.py
+python<span class="w"> </span>lectures/week-11/fixture/check_rca.py<span class="w"> </span>--path<span class="w"> </span>/domains/ci_dashboard/projects/
+python<span class="w"> </span>lectures/week-11/fixture/check_rca.py<span class="w"> </span>--path<span class="w"> </span>/domains/ci_dashboard/import
+</code></pre></div>
 <p>With the first prefix the summary reads 12 records, with a p95 of 61.4 ms before 10:05 and
 912.6 ms after. With the second it reads 8 records, with 2 server errors in 4 requests
-before 10:05 and 0 in 4 after. The script never gives an outcome; that part is yours.</p>
+before 10:05 and 0 in 4 after. The script never gives an outcome. Deciding the outcome is
+your part.</p>
 <h2 id="transfer">Transfer</h2>
 <p>Leave the job table behind. While a service runs revision R7, an on-call agent asks the
 deployment tool to "roll back one revision". The call times out, so the agent sends the same
@@ -6888,11 +6892,11 @@ request again. The first call had in fact completed, and the service already run
 recovery assertion you would check afterwards. Then describe a later rollback that the tool
 must still carry out, and say what tells it apart from a repeat.</p>
 <h2 id="participation-and-accessibility">Participation and accessibility</h2>
-<p>All required material is plain text and can be completed with a keyboard. An approved
-written or asynchronous exchange can replace the live exchange while preserving the same
-individual note. Planned times organise support; they do not penalise extra time or an
-approved arrangement. Keep one operating note; do not copy private chat, personal data or
-credentials into it, and record a variable's name, never its value.</p>
+<p>All required material is plain text and can be completed with a keyboard. If it is
+approved, a written or asynchronous exchange can replace the live exchange. You still keep
+the same individual note. The planned times help staff organise support. They do not
+penalise extra time or an approved arrangement. Keep one operating note. Do not copy private
+chat, personal data or credentials into it. Record a variable's name, never its value.</p>
 
 
 
@@ -6991,7 +6995,7 @@ credentials into it, and record a variable's name, never its value.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

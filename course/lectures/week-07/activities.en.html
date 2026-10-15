@@ -6710,18 +6710,18 @@
 
 <h1 id="week-7-studio-your-projects-tests">Week 7 studio: Your project's tests</h1>
 <p>This is the week's second session: a studio on your project's tests. You apply the three
-ideas from the <a href="notes.en.html">notes</a> to code you wrote, in your project repository, and
+ideas from the <a href="notes.en.html">notes</a> to code you wrote, in your project repository. You
 leave with one closed gap, one property and a reviewed agent diff.</p>
 <h2 id="due-this-week">Due this week</h2>
 <p>The project alpha and task backlog are due this week; the
 <a href="../../SYLLABUS.en.html#term-project">syllabus</a> says what they contain.</p>
 <p>You hand them in on the alpha template that the
 <a href="../../site/docs/project.en.html#four-milestones">project page</a> links. Today's record feeds
-two of its sections. Its verification record takes the test command from entry 1, the
-mutant table from entry 2 as your mutation configuration, and the survivors and the new
-test from entries 2 and 3. Each item from entry 6 becomes a row of its task backlog once
-you add an ID, a priority and an owner. The template's sections on the end-to-end path,
-the instruction file and the hook gate are not part of today's session.</p>
+two of its sections. Its verification record uses the test command from entry 1. It uses
+the mutant table from entry 2 as your mutation configuration. It also uses the survivors
+and the new test from entries 2 and 3. Each item from entry 6 becomes a row of its task
+backlog once you add an ID, a priority and an owner. The template's sections on the
+end-to-end path, the instruction file and the hook gate are not part of today's session.</p>
 <h2 id="before-you-start">Before you start</h2>
 <p><strong>Format:</strong> individual work, or the two members of a project pair alternating who types.
 <strong>Materials:</strong> your project repository with the tests it has today, the one command that
@@ -6730,24 +6730,25 @@ runs them, a text editor and terminal, and your coding agent for step 5 only.
 the six entries named in the steps below.</p>
 <p>Work in your project repository, on a branch, starting from a clean tree. This command
 should print nothing:</p>
-<pre><code class="language-sh">git status --short
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>status<span class="w"> </span>--short
+</code></pre></div>
 <p>If it prints file names, commit or set aside that work first. Every step below ends by
 returning to a clean tree or a commit, so that a planted fault can never be mistaken for
 your real code.</p>
 <p>If your project has no test yet, write one test with an expected value for the behaviour
 you pick in step 1, see it pass, and continue. That test is your suite for today.</p>
 <h2 id="studio-sequence">Studio sequence</h2>
-<p>The step times add up to 100 minutes and the session is 90. Steps 1 to 5 need the
-session; step 6 is writing, and you can finish it afterwards, before you hand in the
+<p>The step times add up to 100 minutes, but the session is 90 minutes. Do steps 1 to 5 in
+the session. Step 6 is writing, so you can finish it afterwards, before you hand in the
 alpha.</p>
 <h3 id="1-pick-one-behaviour-and-write-its-contract-10-minutes">1. Pick one behaviour and write its contract (10 minutes)</h3>
 <p>Choose one function or module on your alpha path: something your end-to-end path
 actually calls, with inputs you can construct in a test. Write its contract in the form
 the notes use, in four lines or fewer: what it requires, what it accepts, what it ensures,
 what it rejects and how. Take each line from your technical specification or your own
-decision, not from reading what the code currently does. If the specification is silent,
-say so in the record and decide; that is a specification change, and you own it.</p>
+decision, not from reading what the code currently does. If the specification says
+nothing, say so in the record and make the decision yourself. That decision is a
+specification change, and you own it.</p>
 <p>Record entry 1: the contract and the exact test command.</p>
 <h3 id="2-plant-three-faults-and-find-a-survivor-25-minutes">2. Plant three faults and find a survivor (25 minutes)</h3>
 <p>Without a model, make three one-line mutants of that code, one at a time. Useful shapes:</p>
@@ -6756,18 +6757,18 @@ say so in the record and decide; that is a specification change, and you own it.
 <li>replace a returned value with a constant, or return early;</li>
 <li>delete a check: a validation, a guard, an error branch.</li>
 </ul>
-<p>For each mutant: edit the one line, run your test command, write down <em>killed</em> (a test
-failed because of your change: a failed assertion, or an exception your change makes
-the code raise) or <em>survived</em> (everything passed), and restore the file. Check that the
-fault is gone before planting the next one:</p>
-<pre><code class="language-sh">git diff --stat
-</code></pre>
+<p>For each mutant, edit the one line and run your test command. Write down <em>killed</em> or
+<em>survived</em>, then restore the file. <em>Killed</em> means a test failed because of your change:
+a failed assertion, or an exception your change makes the code raise. <em>Survived</em> means
+everything passed. Check that the fault is gone before planting the next one:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>diff<span class="w"> </span>--stat
+</code></pre></div>
 <p>It should print nothing after each restore. Deleting a guard often makes the code raise
-<code>KeyError</code>, <code>IndexError</code> or <code>TypeError</code> in a test; that test noticed the fault, so the
-mutant is killed. A run that fails for a reason your change did not cause in the
-behaviour under test, such as a syntax error in the edited line or a missing import, is
-an invalid mutant: fix it and do not count it. If a run hangs, record a timeout
-separately and count it as killed only after you have confirmed your change causes it.</p>
+<code>KeyError</code>, <code>IndexError</code> or <code>TypeError</code> in a test. That test noticed the fault, so the
+mutant is killed. Sometimes a run fails for a reason other than a change in the
+behaviour under test, such as a syntax error in the edited line or a missing import.
+That is an invalid mutant: fix it and do not count it. If a run hangs, record a timeout
+separately. Count it as killed only after you have confirmed that your change causes it.</p>
 <p>If your project already runs a mutation tool, you may use its report for this step.
 Pick three of its mutants in the chosen code and reproduce each by hand once, so that you
 know what the report's words mean in your repository.</p>
@@ -6777,41 +6778,42 @@ in a place the tests look thinner, such as an error path, before concluding anyt
 in words ("3 hand-written mutants of <code>parse_config</code>, chosen by me").</p>
 <h3 id="3-kill-one-survivor-15-minutes">3. Kill one survivor (15 minutes)</h3>
 <p>Take one survivor and say which observation is missing: which input, and which expected
-result, would have told the mutant from the original. Write that test. Then show both
-halves:</p>
+result, would have told the mutant apart from the original. Write that test. Then show
+both halves:</p>
 <ol>
 <li>with the fault planted, the new test fails because of the fault;</li>
 <li>with the fault removed, the whole suite passes.</li>
 </ol>
-<p>A test that passes in both states has not closed the gap; change the test, not the
-mutant. If you believe a survivor is equivalent, write the contract reason; "I could not
-think of a test" is not one. Commit the new test on its own, so the diff shows only test
-code.</p>
+<p>A test that passes in both states has not closed the gap. Change the test, not the
+mutant. You may believe a survivor is equivalent, meaning no test of the contract can
+tell it from the original. Then write the contract reason. "I could not think of a test"
+is not a reason. Commit the new test on its own, so the diff shows only test code.</p>
 <p>Record entry 3: the survivor, the new test's name, and the two run results.</p>
 <h3 id="4-state-one-property-and-try-to-break-it-20-minutes">4. State one property and try to break it (20 minutes)</h3>
 <p>Write one property for the same behaviour as a sentence beginning "for every …". Good
 sources are a round trip (parse then format), an invariant (the output is always sorted,
 never longer than the input, always within a range), or agreement with a simple, slow
-reference. Name where the expected side comes from; it must not be the function under
+reference. Name where the expected side comes from. It must not be the function under
 test.</p>
 <p>Check it on generated inputs. Use a property-testing library for your language if your
-project has one or you can add one in a few minutes; otherwise write a seeded loop that
+project has one or you can add one in a few minutes. Otherwise, write a seeded loop that
 builds 100 inputs, as the course fixture does. Include inputs the contract rejects.</p>
-<p>If the property fails, shrink before you debug: remove or simplify parts of the failing
-input, keeping each change only while the same failure still occurs, until no single
-change keeps it failing. Save the shrunk input as an ordinary test with a fixed input and
-decide whether the code or the contract is wrong. If the property holds, record how many
-inputs, from what generator, and one family of inputs it did not cover.</p>
+<p>If the property fails, shrink the input before you debug. Remove or simplify parts of the
+failing input, one change at a time. Keep a change only if the same failure still occurs.
+Stop when no single change keeps it failing. Save the shrunk input as an ordinary test
+with a fixed input. Then decide whether the code or the contract is wrong. If the property
+holds, record how many inputs you used, from what generator, and one family of inputs it
+did not cover.</p>
 <p>Record entry 4: the property sentence, the source of the expected side, the generator and
 count, and either the shrunk counterexample with its failure or the stated limit.</p>
 <h3 id="5-give-your-agent-a-red-test-and-review-the-diff-20-minutes">5. Give your agent a red test and review the diff (20 minutes)</h3>
 <p>Now the agent. Plant one of your killed mutants again and commit it on a scratch branch
 with a neutral message, so the fault is in the code and a test is red. Start a fresh
 agent session and give it only this request: the test command fails, make it pass, and
-do not commit. Do not mention the planted line. Let it finish, then review as the notes do, before reading the
-agent's summary:</p>
-<pre><code class="language-sh">git diff --stat
-</code></pre>
+do not commit. Do not mention the planted line. Let it finish. Before you read the agent's
+summary, review the diff as the notes do:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>diff<span class="w"> </span>--stat
+</code></pre></div>
 <ol>
 <li>Which files changed? A change to test files and none to the code under test is the
    first signal.</li>
@@ -6823,16 +6825,16 @@ agent's summary:</p>
 <li>Compare the agent's summary with the diff. Note any sentence the diff does not support.</li>
 </ol>
 <p>Whatever happened is the result. If the agent repaired the code and left the tests alone,
-record that and the evidence; if it edited a test, record the lines and your decision.
+record that and the evidence. If it edited a test, record the lines and your decision.
 Either way this is one run on one planted fault in your repository: a process exercise
 about how you review, not a finding about what a model does in general. When entry 5 is
-written, discard the agent's uncommitted edits but keep your record file: restore the
-files the agent changed by name, not the whole tree. Then switch back to your working
-branch, commit the record there and delete the scratch branch. <code>git status --short</code>
-should then print nothing: an edited test must not travel back with you.</p>
+written, discard the agent's uncommitted edits but keep your record file. To do this,
+restore the files the agent changed by name, not the whole tree. Then switch back to your
+working branch, commit the record there and delete the scratch branch. <code>git status --short</code>
+should then print nothing. An edited test must not travel back with you.</p>
 <p>Record entry 5: the request you gave, the files changed, each changed test line with its
-disposition, and one sentence comparing the summary with the diff. Reuse your existing
-AI-use note; no chat export is needed.</p>
+disposition (what you decided about it), and one sentence comparing the summary with the
+diff. Reuse your existing AI-use note. No chat export is needed.</p>
 <h3 id="6-turn-what-is-left-into-backlog-items-10-minutes">6. Turn what is left into backlog items (10 minutes)</h3>
 <p>Every survivor you did not kill, every family of inputs your property did not cover and
 every test the agent touched is an item for your task backlog. Write each as a task a
@@ -6844,8 +6846,8 @@ change.</p>
 <h2 id="what-a-finished-record-lets-a-reader-do">What a finished record lets a reader do</h2>
 <p>A reader with your repository and your record can replant each mutant and get the same
 killed or survived result, rerun the property with the same generator, replay the shrunk
-input, and see which lines the agent changed. If one of those needs you in the room, the
-entry is not finished.</p>
+input, and see which lines the agent changed. If any of those needs you there to explain
+it, the entry is not finished.</p>
 <h2 id="if-you-get-stuck">If you get stuck</h2>
 <ul>
 <li><strong>No survivor after five mutants.</strong> Mutate an error path or a boundary your tests do
@@ -6857,13 +6859,13 @@ entry is not finished.</p>
 <li><strong>The tests take minutes to run.</strong> Narrow the command to the tests for the chosen code
   for steps 2 and 3, and run the full suite once at the end.</li>
 <li><strong>Agent access fails.</strong> Record the failure, skip the run in step 5, and review the
-  course-written patch from the notes instead; say in your record that you did.</li>
+  course-written patch from the notes instead. Say in your record that you did.</li>
 </ul>
 <h2 id="participation-and-accessibility">Participation and accessibility</h2>
-<p>All required material is plain text and can be completed with a keyboard. An approved
-written or asynchronous exchange can replace working beside a partner while keeping the
-same individual record. Keep credentials, private data and full chat logs out of the
-record.</p>
+<p>All required material is plain text and can be completed with a keyboard. With approval,
+you can work with a partner in writing or asynchronously instead of side by side. You
+still keep the same individual record. Keep credentials, private data and full chat logs
+out of the record.</p>
 
 
 
@@ -6962,7 +6964,7 @@ record.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

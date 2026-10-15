@@ -6512,7 +6512,7 @@ and is marked on a separate defense. The milestones total 20 marks, and the indi
 defense is a separate 15 marks.</p>
 <h2 id="four-milestones">Four milestones</h2>
 <p>Deadlines are Sunday at 23:59 in the due week. Use the linked templates as the body of
-your submission; link existing evidence rather than copying it into a second report.</p>
+your submission. Link to evidence that already exists; do not copy it into a second report.</p>
 <table>
 <thead>
 <tr>
@@ -6549,9 +6549,9 @@ your submission; link existing evidence rather than copying it into a second rep
 </tr>
 </tbody>
 </table>
-<p>For each milestone, identify the submitted revision, link its artifacts and verification
-results, and explain any missing result or known limitation. Include one AI-use note for
-the work and reuse its ID as you carry the project forward. Submit through the published
+<p>For each milestone, name the submitted revision and link its artifacts and verification
+results. Explain any missing result or known limitation. Include one AI-use note for the
+work, and reuse its ID in the later milestones of the project. Submit through the published
 course submission channel and milestone assignment links.</p>
 <h2 id="what-engineering-evidence-means">What engineering evidence means</h2>
 <p>An interface and a collection of features alone earn no milestone marks. The evidence
@@ -6562,32 +6562,34 @@ whether the result was earned. Build this evidence as the project develops:</p>
   normal, boundary and failure inputs. Explain why you chose a design and rejected an
   alternative; update the specification when new evidence changes the decision.</li>
 <li><strong>Instruction file and hook gate:</strong> give the agent the repository's conventions and
-  verification commands. Demonstrate a bad change the gate blocks and a valid change it
-  permits; disabling the gate does not establish correctness.</li>
-<li><strong>Tests and mutation result:</strong> preserve a regression that fails before a repair and
-  passes after it. Record the mutation configuration, what was tested, and surviving
-  faults; inspect a survivor and strengthen the test or explain the result's limit.</li>
-<li><strong>Evaluation script:</strong> score your coding agent's attempts at your project's own tasks
-  against a number of attempts declared in advance, and show that the scorer fails a
-  deliberately wrong candidate rather than merely producing a favourable result. The
-  next section says what the script must contain.</li>
+  verification commands. Show a bad change that the gate blocks and a valid change that
+  it lets through. Turning the gate off does not show that the code is correct.</li>
+<li><strong>Tests and mutation result:</strong> keep a regression test that fails before a repair and
+  passes after it. Record the mutation configuration, what was tested, and the surviving
+  faults (planted faults that no test detected). Inspect one survivor. Then either
+  strengthen the test or explain the limit of the result.</li>
+<li><strong>Evaluation script:</strong> score your coding agent's attempts at your project's own tasks.
+  Declare the number of attempts in advance and score against that number. Show that the
+  scorer fails a deliberately wrong candidate, so it does more than produce a favourable
+  result. The next section says what the script must contain.</li>
 <li><strong>Security-scan disposition:</strong> identify the scanned revision and scope. For each
   finding, record your reproduction or other evidence, the repair or reason it does not
-  apply, and the rerun result. An unexplained clean summary is insufficient evidence.</li>
-<li><strong>README:</strong> provide reproducible setup, run and verification commands and the known
-  limitations. Check those instructions against the final revision.</li>
+  apply, and the rerun result. A clean summary without an explanation is not enough
+  evidence.</li>
+<li><strong>README:</strong> give setup, run and verification commands that others can reproduce, and
+  list the known limitations. Check those instructions against the final revision.</li>
 </ul>
 <p>Keep generated changes small enough to inspect. Before accepting one, compare it against
 the specification, run the relevant checks, and explain what could still go wrong.
-Results must identify the revision and command that produced them; a predicted result
-or an unexecuted command is not a passing check.</p>
+Each result must name the revision and command that produced it. A predicted result or
+a command that was not run is not a passing check.</p>
 <h2 id="what-the-evaluation-script-evaluates">What the evaluation script evaluates</h2>
 <p>Your tests check your software. The evaluation script checks the agent you built it
 with: it scores the coding agent's attempts at your project's own tasks. A test suite
 that runs only against your finished code is not an evaluation script, however thorough
-it is. It applies what week 10 teaches about any pass rate to your own project: the
-check must be able to fail, and the denominator must be complete. The script and its
-report contain four things:</p>
+it is. The script applies to your own project what week 10 teaches about any pass rate.
+The check must be able to fail, and the denominator (the number of attempts the rate is
+counted over) must be complete. The script and its report contain four things:</p>
 <ol>
 <li><strong>Your project's tasks and their checks.</strong> Take the tasks from your own project, for
    example items of your alpha's task backlog, each with the acceptance check that
@@ -6600,17 +6602,18 @@ report contain four things:</p>
    left no record). The five counts add up to the declared number, so the denominator is
    complete. Quote a rate only with that number beside it.</li>
 <li><strong>One deliberately wrong candidate.</strong> For one task, make a candidate that is wrong on
-   purpose, for example by returning a constant, dropping a condition or swapping a
-   comparison, and show that the scorer fails it. This candidate tests the scorer, not the
-   agent: report its verdict beside the attempts and leave it out of their counts.</li>
+   purpose. For example, return a constant, drop a condition or swap a comparison. Show
+   that the scorer fails it. This candidate tests the scorer, not the agent. Report its
+   verdict beside the attempts, but leave it out of their counts.</li>
 <li><strong>At least one unattended attempt.</strong> At least one of the evaluated attempts comes from
-   an unattended run of the kind week 9 teaches: the agent receives the complete request
-   and works without answers until it returns or reaches its stop condition. Its
-   acceptance check sits outside what the agent may edit, for example in your original
-   checkout at the recorded base while the agent may edit only its own worktree. Keep the
-   handoff record: the request, the recorded base revision, the returned diff, the
-   agent's report or stop reason, and the acceptance result you ran yourself. A local
-   terminal and your supplied agent seat are enough; no hosted service is needed.</li>
+   an unattended run of the kind week 9 teaches. In such a run the agent receives the
+   complete request. Nobody answers its questions; it works until it returns or reaches
+   its stop condition. The acceptance check sits outside what the agent may edit. For
+   example, keep it in your original checkout at the recorded base, and let the agent edit
+   only its own worktree. Keep the handoff record: the request, the recorded base
+   revision, the returned diff, the agent's report or stop reason, and the acceptance
+   result you ran yourself. A local terminal and your supplied agent seat are enough. You
+   do not need a hosted service.</li>
 </ol>
 <p>Two studios already produce these records; build on them rather than starting again.
 The <a href="../../lectures/week-09-background-agents/activities.en.html">week 9 studio</a> runs one
@@ -6624,8 +6627,8 @@ that step on a project task before the final. Run the agent as the
 <p>The expo takes place in week 13 before the defenses and counts towards participation.
 Demonstrate the submitted software and the evidence supporting your main claims.</p>
 <p>Each student then has a fifteen-minute defense without devices. The examiner changes
-one thing or plants one fault in your own code; you locate it, explain it, and decide
-what to do. In a two-person project your defense examines only code you wrote or changed
+one thing or plants one fault in your own code. You find it, explain it, and decide what
+to do. In a two-person project your defense examines only code you wrote or changed
 yourself. Shared milestone marks do not replace your individual explanation. The
 <a href="syllabus.en.html">syllabus</a> defines the project and defense rules.</p>
 <p>The <a href="../../capstone/kit/open-source-contributions.en.html">four open-source contributions</a>
@@ -6728,7 +6731,7 @@ are a separate work stream.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

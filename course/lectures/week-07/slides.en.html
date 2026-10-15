@@ -7260,26 +7260,26 @@
 <p>All examples today are course-written and rerunnable.</p>
 <hr />
 <h2 id="the-contract-comes-first">The contract comes first</h2>
-<pre><code class="language-text">accepts:  exactly one of &quot;0&quot; ... &quot;9&quot;
+<div class="highlight"><pre><span></span><code>accepts:  exactly one of "0" ... "9"
 ensures:  the corresponding integer
 rejects:  every other string with ValueError
-</code></pre>
+</code></pre></div>
 <p>Every expected value comes from these lines.</p>
 <hr />
 <h2 id="the-candidate">The candidate</h2>
-<pre><code class="language-python">def parse_level(text: str) -&gt; int:
-    if text[0] in &quot;0123456789&quot;:
-        return int(text[0])
-    raise ValueError(&quot;Invalid level&quot;)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">parse_level</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">text</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="s2">"0123456789"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Invalid level"</span><span class="p">)</span>
+</code></pre></div>
 <p>Predict two rejected inputs it mishandles.</p>
 <hr />
 <h2 id="a-suite-that-cannot-fail">A suite that cannot fail</h2>
-<pre><code class="language-python">result = parser(&quot;3&quot;)
-assert result == result
-assert parser
-assert result or True
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">result</span> <span class="o">=</span> <span class="n">parser</span><span class="p">(</span><span class="s2">"3"</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="n">result</span>
+<span class="k">assert</span> <span class="n">parser</span>
+<span class="k">assert</span> <span class="n">result</span> <span class="ow">or</span> <span class="kc">True</span>
+</code></pre></div>
 <p><code>demo.py weak</code> exits 0 on the faulty candidate.</p>
 <hr />
 <h2 id="a-suite-with-expected-values">A suite with expected values</h2>
@@ -7328,16 +7328,16 @@ assert result or True
 </table>
 <hr />
 <h2 id="an-agents-first-suite">An agent's first suite</h2>
-<pre><code class="language-python">assert parser(&quot;3&quot;) == 3
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">assert</span> <span class="n">parser</span><span class="p">(</span><span class="s2">"3"</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span>
+</code></pre></div>
 <p>Plus one rejected input: <code>parser("x")</code> raises <code>ValueError</code>.</p>
 <p>Reads well. Passes on the repair.</p>
 <hr />
 <h2 id="it-kills-1-of-3">It kills 1 of 3</h2>
 <p><code>demo.py survivors</code>, first line:</p>
-<pre><code class="language-text">&quot;all_zero&quot;: &quot;killed&quot;, &quot;nine_to_zero&quot;: &quot;survived&quot;,
-&quot;accept_trailing&quot;: &quot;survived&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code>"all_zero": "killed", "nine_to_zero": "survived",
+"accept_trailing": "survived"
+</code></pre></div>
 <hr />
 <h2 id="a-survivor-is-a-gap-in-the-tests">A survivor is a gap in the tests</h2>
 <p><code>nine_to_zero</code> survives: no test looks at <code>"9"</code>.</p>
@@ -7345,8 +7345,8 @@ assert result or True
 <p>Each survivor names the missing observation.</p>
 <hr />
 <h2 id="write-the-test-the-survivor-asks-for">Write the test the survivor asks for</h2>
-<pre><code class="language-python">assert parser(&quot;9&quot;) == 9
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">assert</span> <span class="n">parser</span><span class="p">(</span><span class="s2">"9"</span><span class="p">)</span> <span class="o">==</span> <span class="mi">9</span>
+</code></pre></div>
 <p>Second line of the output: <code>nine_to_zero</code> is killed, 2 of 3.</p>
 <hr />
 <h2 id="then-the-next-one">Then the next one</h2>
@@ -7361,7 +7361,7 @@ assert result or True
 <ul>
 <li>The original passes first.</li>
 <li>State the denominator: which mutants, chosen how.</li>
-<li>A kill is a test failing because of the change; an import error or broken run is not.</li>
+<li>A kill is a test failing because of the change. An import error or broken run is not.</li>
 <li>An equivalent mutant is excluded with a written reason.</li>
 </ul>
 <hr />
@@ -7379,7 +7379,7 @@ assert result or True
 <p>It never leaves the ten valid strings.</p>
 <hr />
 <h2 id="the-property-the-contract-states">The property the contract states</h2>
-<p>For every string <code>s</code>: a digit string returns its integer; anything else raises <code>ValueError</code>.</p>
+<p>For every string <code>s</code>: a digit string returns its integer, and anything else raises <code>ValueError</code>.</p>
 <p>The expected side is a table of ten strings, not the parser.</p>
 <hr />
 <h2 id="100-generated-strings-two-failures">100 generated strings, two failures</h2>
@@ -7428,7 +7428,7 @@ assert result or True
 <path d="M785 82 H811" stroke="#934126" stroke-dasharray="5 4" stroke-width="3" marker-end="url(#arrow-07a-accent)"/>
 <rect x="815" y="50" width="130" height="64" rx="10" fill="#f7eee2" stroke="#934126" stroke-dasharray="6 4" stroke-width="2"/><text x="880" y="90" text-anchor="middle" font-size="24" font-family="monospace" fill="#934126">"0"</text><text x="880" y="140" text-anchor="middle" font-size="15" fill="#934126">valid: stop</text>
 </svg></p>
-<p>In words: delete, delete, replace with 0, replace with 0; one more deletion gives the valid <code>"0"</code>.</p>
+<p>In words: delete, delete, replace with 0, replace with 0. One more deletion gives the valid <code>"0"</code>.</p>
 <hr />
 <h2 id="the-shrunk-counterexample-is-a-diagnosis">The shrunk counterexample is a diagnosis</h2>
 <p><code>"00"</code>: two ordinary characters, accepted.</p>
@@ -7459,15 +7459,15 @@ assert result or True
 <p>Course-written, in the style of an agent's summary. <code>demo.py unit</code> now exits 0.</p>
 <hr />
 <h2 id="first-look-which-files-changed">First look: which files changed?</h2>
-<pre><code class="language-text"> lectures/week-07/fixture/demo.py | 2 +-
+<div class="highlight"><pre><span></span><code> lectures/week-07/fixture/demo.py | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
-</code></pre>
+</code></pre></div>
 <p>The test was "fixed". The code under test is not in the list.</p>
 <hr />
 <h2 id="then-read-the-test-diff">Then read the test diff</h2>
-<pre><code class="language-diff">-    for text in (&quot;&quot;, &quot;12&quot;, &quot;x&quot;):
-+    for text in (&quot;x&quot;,):
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="gd">-    for text in ("", "12", "x"):</span>
+<span class="gi">+    for text in ("x",):</span>
+</code></pre></div>
 <p>Two contract obligations deleted. No behaviour changed.</p>
 <hr />
 <h2 id="two-runs-confirm-it">Two runs confirm it</h2>
@@ -7491,7 +7491,7 @@ assert result or True
 <hr />
 <h2 id="when-the-agent-proposes-the-tests">When the agent proposes the tests</h2>
 <p>Read its oracle. Run it on a known-bad and a repaired version.</p>
-<p>It never picks its own score or declares a survivor equivalent.</p>
+<p>The agent never picks its own score or declares a survivor equivalent.</p>
 <p>A target that builds, a run that crashes and a validated input are separate results (tools/oss-fuzz-gen; as_of: 2026-09-05; <a href="https://github.com/google/oss-fuzz-gen/blob/main/README.md">Source 1</a>; <a href="https://github.com/google/oss-fuzz-gen/blob/main/USAGE.md">Source 2</a>; <a href="https://github.com/google/oss-fuzz-gen/blob/main/LICENSE">Source 3</a>) (tools/fuzzingbrain; as_of: 2026-09-05; <a href="https://github.com/fuzzingbrain/afc-crs-all-you-need-is-a-fuzzing-brain/blob/main/README.md">Source 1</a>).</p>
 <hr />
 <h2 id="studio-your-projects-tests">Studio: your project's tests</h2>
@@ -7600,7 +7600,7 @@ assert result or True
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

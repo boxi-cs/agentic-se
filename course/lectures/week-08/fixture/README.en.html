@@ -6548,40 +6548,42 @@
 service is used. Every file works in memory or inside the directory it is run from.</p>
 <h2 id="run-it">Run it</h2>
 <p>Work on a copy, never in this directory. From the course checkout:</p>
-<pre><code class="language-sh">WORK=&quot;$(mktemp -d)&quot;
-cp -r lectures/week-08/fixture/. &quot;$WORK&quot;/
-cd &quot;$WORK&quot;
-export PYTHONDONTWRITEBYTECODE=1
-python chain.py; echo &quot;exit $?&quot;
-python exercise.py &gt; starter-checks.json; echo &quot;exit $?&quot;
-python verify_triage.py &gt; triage-before.json; echo &quot;exit $?&quot;
-</code></pre>
-<pre><code class="language-text">{&quot;surface&quot;: &quot;repository_note&quot;, &quot;proposed&quot;: [&quot;read_label&quot;, &quot;export&quot;], &quot;responses&quot;: [&quot;text&quot;, &quot;tool_denied&quot;], &quot;effects&quot;: [&quot;read_label&quot;, &quot;export&quot;]}
-{&quot;surface&quot;: &quot;tool_response&quot;, &quot;proposed&quot;: [&quot;read_label&quot;, &quot;export&quot;], &quot;responses&quot;: [&quot;text&quot;, &quot;tool_denied&quot;], &quot;effects&quot;: [&quot;read_label&quot;, &quot;export&quot;]}
-{&quot;surface&quot;: &quot;copied_log&quot;, &quot;proposed&quot;: [&quot;read_label&quot;, &quot;export&quot;], &quot;responses&quot;: [&quot;text&quot;, &quot;tool_denied&quot;], &quot;effects&quot;: [&quot;read_label&quot;, &quot;export&quot;]}
-{&quot;kind&quot;: &quot;synthetic_injection_chain&quot;, &quot;task_completed&quot;: true, &quot;unauthorized_effects&quot;: 3}
+<div class="highlight"><pre><span></span><code><span class="nv">WORK</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>mktemp<span class="w"> </span>-d<span class="k">)</span><span class="s2">"</span>
+cp<span class="w"> </span>-r<span class="w"> </span>lectures/week-08/fixture/.<span class="w"> </span><span class="s2">"</span><span class="nv">$WORK</span><span class="s2">"</span>/
+<span class="nb">cd</span><span class="w"> </span><span class="s2">"</span><span class="nv">$WORK</span><span class="s2">"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONDONTWRITEBYTECODE</span><span class="o">=</span><span class="m">1</span>
+python<span class="w"> </span>chain.py<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit </span><span class="nv">$?</span><span class="s2">"</span>
+python<span class="w"> </span>exercise.py<span class="w"> </span>&gt;<span class="w"> </span>starter-checks.json<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit </span><span class="nv">$?</span><span class="s2">"</span>
+python<span class="w"> </span>verify_triage.py<span class="w"> </span>&gt;<span class="w"> </span>triage-before.json<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit </span><span class="nv">$?</span><span class="s2">"</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{"surface": "repository_note", "proposed": ["read_label", "export"], "responses": ["text", "tool_denied"], "effects": ["read_label", "export"]}
+{"surface": "tool_response", "proposed": ["read_label", "export"], "responses": ["text", "tool_denied"], "effects": ["read_label", "export"]}
+{"surface": "copied_log", "proposed": ["read_label", "export"], "responses": ["text", "tool_denied"], "effects": ["read_label", "export"]}
+{"kind": "synthetic_injection_chain", "task_completed": true, "unauthorized_effects": 3}
 exit 1
 exit 1
 exit 1
-</code></pre>
+</code></pre></div>
 <p>All three commands exit 1 on the unchanged starter. The notes walk through each output, the
-repair and the rerun. The <code>export</code> line stops Python from caching compiled modules, so each
+repair and the rerun. The <code>export</code> line stops Python from caching compiled modules. So each
 run reads the file you have just edited.</p>
 <h2 id="contract">Contract</h2>
-<p>A request has exactly two string fields, <code>tool</code> and <code>record</code>. The record names one of three supplied synthetic surfaces. Only <code>read_label</code> is permitted. Malformed requests return <code>invalid_arguments</code>; other tool names return <code>tool_denied</code>. Refused calls must not append an effect. Every attempted call consumes one of two attempts, including invalid and denied requests. A third call returns <code>budget_exhausted</code> without any new effect.</p>
+<p>A request has exactly two string fields, <code>tool</code> and <code>record</code>. The record names one of three supplied synthetic surfaces. Only <code>read_label</code> is permitted. Malformed requests return <code>invalid_arguments</code>. Other tool names return <code>tool_denied</code>. Refused calls must not append an effect. Every attempted call consumes one of two attempts, including invalid and denied requests. A third call returns <code>budget_exhausted</code> without any new effect.</p>
 <h2 id="files">Files</h2>
 <p>Boundary example:</p>
 <ul>
-<li><a href="candidate.py">candidate.py</a>: deliberately faulty proposal; edit this file in your copy.</li>
+<li><a href="candidate.py">candidate.py</a>: a deliberately faulty proposal. Edit this file in your copy.</li>
 <li><a href="chain.py">chain.py</a>: the inert chain. A fixed rule, not a model, performs the authorized
   read and proposes <code>export</code> when the returned text asks for it. It exits 0 only when no
   unauthorized effect is recorded and the authorized read still works.</li>
-<li><a href="exercise.py">exercise.py</a>: public feedback checks, case by case; keep the original
-  expectations while repairing.</li>
+<li><a href="exercise.py">exercise.py</a>: public feedback checks, case by case. Keep the original
+  expectations while you repair the candidate.</li>
 <li><code>demo.py</code>: deterministic generator for a four-request packet with the required responses
   and effects.</li>
-<li><code>verify_demo.py</code>: verifier for that packet; it refuses a packet whose cases were edited.</li>
-<li><code>scan-report.json</code>: three course-written scanner claims for disposition practice.</li>
+<li><code>verify_demo.py</code>: verifier for that packet. It refuses a packet whose cases someone has
+  edited.</li>
+<li><code>scan-report.json</code>: three course-written scanner claims. You practice writing a
+  disposition (your decision about one finding) for each.</li>
 </ul>
 <p>Triage example:</p>
 <ul>
@@ -6593,37 +6595,39 @@ run reads the file you have just edited.</p>
 <li><code>agent-draft.json</code>: a course-written agent draft classifying each finding. It is not a model transcript.</li>
 <li><code>scan/</code>: the course's three offline scanners in plain Python (static rules, a dependency
   audit against the dated <code>advisories.json</code> snapshot, a secret scan) and <code>run_scans.py</code>,
-  which prints one JSON report. The notes run it from the course checkout on your copy; it
-  reads files only and exits 0 whether or not it finds anything.</li>
-<li><code>verify_triage.py</code>: parses <code>preferences.py</code> before running it, against three allowlists listed at
-  the top of the verifier and in the notes: the modules it may import (<code>json</code>, <code>logging</code>, <code>typing</code>,
-  <code>dataclasses</code>, <code>re</code>, <code>__future__</code>), the attribute names it may use, and the built-in names it may
-  use; every other name must be defined in the file. Anything else is refused unread and the file
-  is not executed. A refusal means "outside what this small check can vouch for", not "malicious".
-  Assigned, defined, parameter and alias names cannot shadow Python built-ins; class fields are
-  added as attributes only when no allowlisted module already exposes that name.
-  A file that imports <code>pickle</code> is run only against a stand-in module whose loaders record the call,
-  so it never receives the real <code>pickle</code> module, and it is never accepted. The verifier exits 1
-  until the file passes the allowlists without importing <code>pickle</code>, JSON text parses, six different
-  texts that are not JSON each raise an error, and the permitted status path still works. It is a
-  narrow public check for a teaching fixture, not a sandbox: it does not make running unknown code
-  safe.</li>
+  which prints one JSON report. The notes run it from the course checkout on your copy. It
+  reads files only, and it exits 0 whether or not it finds anything.</li>
+<li><code>verify_triage.py</code>: parses <code>preferences.py</code> before running it. It checks the file against
+  three allowlists, listed at the top of the verifier and in the notes: the modules it may
+  import (<code>json</code>, <code>logging</code>, <code>typing</code>, <code>dataclasses</code>, <code>re</code>, <code>__future__</code>), the attribute
+  names it may use, and the built-in names it may use. Every other name must be defined in
+  the file. The verifier refuses anything else unread and does not execute the file. A
+  refusal means "outside what this small check can vouch for", not "malicious". Names the
+  file assigns or defines, parameter names and aliases cannot shadow (reuse the name of)
+  Python built-ins. Class fields are added as attributes only when no allowlisted module
+  already exposes that name. A file that imports <code>pickle</code> is run only against a stand-in
+  module whose loaders record the call. So it never receives the real <code>pickle</code> module, and
+  it is never accepted. The verifier exits 1 until all of these hold: the file passes the
+  allowlists without importing <code>pickle</code>, JSON text parses, six different texts that are not
+  JSON each raise an error, and the permitted status path still works. It is a narrow public
+  check for a teaching fixture, not a sandbox. It does not make running unknown code safe.</li>
 </ul>
 <h2 id="what-the-starter-does">What the starter does</h2>
 <p>On the starter, <code>chain.py</code> reports three unauthorized effects, one per surface. In
-<code>exercise.py</code> four of the nine checks fail: the three denied-surface cases report
-<code>tool_denied</code> but leave <code>export</code> in <code>effects</code>, and <code>denied_unlisted</code>, which asks for a
-<code>delete_label</code> tool the contract never names, fails the same way. The allowed reads, the
+<code>exercise.py</code>, four of the nine checks fail. The three denied-surface cases report
+<code>tool_denied</code> but leave <code>export</code> in <code>effects</code>. <code>denied_unlisted</code> asks for a <code>delete_label</code>
+tool that the contract never names, and it fails the same way. The allowed reads, the
 malformed-input check and the budget check pass. <code>verify_demo.py</code> fails <code>denied_export</code> and
 <code>denied_unlisted</code> on a packet generated by <code>demo.py</code>.</p>
 <h2 id="limits">Limits</h2>
-<p>The effect list demonstrates dispatcher ordering, not operating-system containment: a
-modified process could bypass this toy dispatcher altogether. What such a process can reach
-is decided by the directory or container it runs in, not by this code. The exercise is not a
+<p>The effect list shows the order in which the dispatcher (the code that receives each
+proposed call and acts on it) does things. It does not show operating-system containment.
+A modified process could skip this toy dispatcher altogether. The directory or container
+that such a process runs in decides what it can reach, not this code. The exercise is not a
 live attack, a vulnerability scan of a real project or an acceptance decision about your own
 work.</p>
-<p>Keep the original fixture separately from your copy. The public output is feedback, not a
-mark, and a check you have edited no longer shows what the original showed.</p>
+<p>Keep the original fixture separate from your copy. The public output is feedback, not a
+mark. A check you have edited no longer shows what the original showed.</p>
 
 
 
@@ -6722,7 +6726,7 @@ mark, and a check you have edited no longer shows what the original showed.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>

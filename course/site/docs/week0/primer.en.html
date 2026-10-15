@@ -6485,30 +6485,32 @@
 supports a generated answer (LO5). Describe why tools need a workspace boundary and a stop
 condition (LO2, LO7).</p>
 <p>A language model produces a response from the context it receives. Fluent text can still be
-wrong. An agent adds a program around the model: observe, request, validate, call an allowed
-tool, inspect its result and decide whether to continue. The program owns permissions and
-stop conditions; a model request is never permission to read every file on your computer.</p>
+wrong. An agent adds a program around the model. The program repeats a loop: observe, request,
+validate, call an allowed tool, inspect its result and decide whether to continue. The
+program, not the model, controls permissions and stop conditions. A model's request is
+never permission to read every file on your computer.</p>
 <h2 id="minimal-example">Minimal example</h2>
 <p>Consider: “Given two integers, return the larger value; equal values are returned unchanged.”
 Before asking for a candidate, predict the outputs yourself. Use this request with your agent:</p>
-<pre><code class="language-text">Write only a Python function larger_of_two(a, b). Inputs are integers (not booleans).
+<div class="highlight"><pre><span></span><code>Write only a Python function larger_of_two(a, b). Inputs are integers (not booleans).
 Return the greater input, or that same value when equal. Negative integers are valid.
 No input(), printing, imports, Markdown or explanation.
-</code></pre>
+</code></pre></div>
 <p>For the first check, use the course's deliberately faulty <code>candidate.py</code>:</p>
-<pre><code class="language-python">def larger_of_two(a, b):
-    return a
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">larger_of_two</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span>
+</code></pre></div>
 <p>Choose an input where the candidate and requirement disagree. Save these checks as
-<code>check_generated.py</code>; the expected values come from the requirement, not generated text.</p>
-<pre><code class="language-python">from candidate import larger_of_two
+<code>check_generated.py</code>. The expected values come from the requirement, not from generated
+text.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">candidate</span><span class="w"> </span><span class="kn">import</span> <span class="n">larger_of_two</span>
 
-assert larger_of_two(3, 7) == 7, &quot;second input is larger&quot;
-assert larger_of_two(9, 4) == 9, &quot;first input is larger&quot;
-assert larger_of_two(5, 5) == 5, &quot;equal inputs&quot;
-assert larger_of_two(-8, -2) == -2, &quot;negative inputs&quot;
-print(&quot;PASS: four specified cases&quot;)
-</code></pre>
+<span class="k">assert</span> <span class="n">larger_of_two</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span> <span class="o">==</span> <span class="mi">7</span><span class="p">,</span> <span class="s2">"second input is larger"</span>
+<span class="k">assert</span> <span class="n">larger_of_two</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="o">==</span> <span class="mi">9</span><span class="p">,</span> <span class="s2">"first input is larger"</span>
+<span class="k">assert</span> <span class="n">larger_of_two</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">"equal inputs"</span>
+<span class="k">assert</span> <span class="n">larger_of_two</span><span class="p">(</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="s2">"negative inputs"</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"PASS: four specified cases"</span><span class="p">)</span>
+</code></pre></div>
 <h2 id="hands-on-exercise">Hands-on exercise</h2>
 <ol>
 <li>Create <code>week0-guided</code> in your dedicated course directory. Put <code>candidate.py</code> and
@@ -6521,13 +6523,13 @@ print(&quot;PASS: four specified cases&quot;)
    proposed function before copying it to <code>candidate.py</code>. If access is unavailable, repair
    it yourself and label that work as manual; see <a href="fallbacks.en.html">fallbacks</a>.</li>
 <li>Run the same checks again. A correct candidate prints <code>PASS: four specified cases</code>
-   and exits successfully. If a check fails, decide whether the candidate or expected
-   value is wrong. Keep that result as evidence and try a different input independently.</li>
+   and exits successfully. If a check fails, decide whether the candidate or the
+   expected value is wrong. Keep that result as evidence and try a different input independently.</li>
 </ol>
 <h2 id="verify-and-explain">Verify and explain</h2>
 <p>Keep the candidate, failed baseline, check results and a brief explanation under one
 evidence ID. State which input exposed the defect and what check you added. Attach one
-AI-use note identifying actual agent use or manual repair. Four passing examples do not
+AI-use note that says whether you actually used the agent or repaired the code manually. Four passing examples do not
 prove correctness for every integer. A model statement that its code works is not a test.</p>
 
 
@@ -6627,7 +6629,7 @@ prove correctness for every integer. A model statement that its code works is no
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>

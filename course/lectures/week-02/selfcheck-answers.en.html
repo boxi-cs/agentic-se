@@ -6634,13 +6634,13 @@
 <p>Use these explanations after a first attempt. They describe the evidence a student should
 be able to reproduce from the proposal, schema and checks.</p>
 <h2 id="q1">Q1</h2>
-<p>The research artifact names the permission test and its revision; the plan repeats the
-read-only boundary; the schema constrains the path; and the negative case attempts a write
-under <code>reports/</code> and expects an unchanged state.</p>
+<p>The research artifact names the permission test and its revision. The plan repeats the
+read-only boundary. The schema constrains the path. The negative case attempts a write
+under <code>reports/</code> and expects the state to stay unchanged.</p>
 <h2 id="q2">Q2</h2>
-<p>The plan phase lost the boundary. Read the current permission test and the export handler,
-record the paths and unknowns, then write a case that distinguishes an allowed path from a
-forbidden one before editing.</p>
+<p>The plan phase lost the boundary. Before editing, read the current permission test and the
+export handler, and record the paths and unknowns. Then write a case that tells an allowed
+path apart from a forbidden one.</p>
 <h2 id="q3">Q3</h2>
 <p>For example: “Given a row without <code>id</code>, when export is requested, then no file is written
 and the result is <code>invalid row: id</code>.” Run it against a fresh temporary directory and check
@@ -6650,27 +6650,27 @@ both the result and the directory contents.</p>
 writing. The error should name <code>path</code> and say to use an <code>out/&lt;name&gt;.csv</code> path.</p>
 <h2 id="q5">Q5</h2>
 <p>The unknown-field rule is schema-level. The three lines of context are a description-level
-request. Neither is a handler rule: the question offers three labels for two rules. The
-request is not evidence of runtime enforcement unless a visible handler or runtime check
-supports it; mark that enforcement as unknown.</p>
+request. Neither is a handler rule. The question offers three labels, but there are only two
+rules. The request alone does not show that the runtime enforces it. Unless you can see a
+handler or runtime check that does, mark that enforcement as unknown.</p>
 <h2 id="q6">Q6</h2>
 <p>Keep the task and acceptance check, the source of each constraint, current file state, the
 last failed check and tested revision, remaining unknowns, and the next action. After a
 write, rerun the acceptance case on the new revision.</p>
 <h2 id="q7">Q7</h2>
-<p>Return the refusal under the call's ID as the next tool observation. It should identify the
-rejected field and the repair, then let the model choose a corrected call. A refusal is an
-observation about one attempted input; it does not show that the requested outcome was
+<p>Return the refusal under the call's ID as the next tool observation. It should name the
+rejected field and the repair. Then the model can choose a corrected call. A refusal is an
+observation about one attempted input. It does not show that the requested outcome was
 achieved, so the controller must still verify the resulting state.</p>
 <h2 id="q8">Q8</h2>
 <p>Separate the requested behavior from enforcement. Identify the schema rule, the handler
 check and any runtime boundary you can see. If the source does not show a check, write
 “cannot tell” and propose the smallest call that would reveal it.</p>
 <h2 id="spaced-retrieval">Spaced retrieval</h2>
-<p><strong>Retrieval 1.</strong> Add a research row naming the read-only test and a negative case that
-attempts the forbidden write; verify both against the current revision.</p>
-<p><strong>Retrieval 2.</strong> Make the error identify <code>path</code> and the allowed <code>out/</code> form, then run a
-valid and invalid call and keep both observations.</p>
+<p><strong>Retrieval 1.</strong> Add a research row that names the read-only test. Add a negative case that
+attempts the forbidden write. Verify both against the current revision.</p>
+<p><strong>Retrieval 2.</strong> Make the error name <code>path</code> and the allowed <code>out/</code> form. Then run a valid
+call and an invalid call, and keep both observations.</p>
 
 
 
@@ -6769,7 +6769,7 @@ valid and invalid call and keep both observations.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

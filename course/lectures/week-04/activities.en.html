@@ -6581,9 +6581,9 @@
 repository. Do not place credentials, employer data or private material in it. The
 commands below use only ordinary <code>git</code> and <code>python</code>. Section 3 has a written alternative
 for a student with no agent at hand.</p>
-<p>In a guest week, do sections 1 and 2 before the session and bring <code>AGENTS.md</code>,
+<p>In a guest week, do sections 1 and 2 before the session. Bring <code>AGENTS.md</code>,
 <code>instruction-review.md</code>, <code>blocked.txt</code>, <code>passed.txt</code>, <code>agent-hooks.txt</code> and
-<code>hook-record.md</code>; sections 3 and 4 follow the talk.</p>
+<code>hook-record.md</code>. Do sections 3 and 4 after the talk.</p>
 <h2 id="studio-sequence">Studio sequence</h2>
 <table>
 <thead>
@@ -6631,141 +6631,149 @@ for a student with no agent at hand.</p>
 </tr>
 </tbody>
 </table>
-<p>Keyboard-only editing and a text record provide the same outputs. A partner may read your
-rule, but each student makes the decision and keeps their own records.</p>
+<p>You can produce the same outputs with keyboard-only editing and a text record. A partner
+may read your rule, but each student makes their own decision and keeps their own records.</p>
 <h2 id="1-write-the-instruction-file">1. Write the instruction file</h2>
 <p>From the root of the disposable project copy, create <code>AGENTS.md</code>:</p>
-<pre><code class="language-sh">cat &gt; AGENTS.md &lt;&lt;'__INSTRUCTIONS__'
-# Repository instructions
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>AGENTS.md<span class="w"> </span><span class="s">&lt;&lt;'__INSTRUCTIONS__'</span>
+<span class="s"># Repository instructions</span>
 
-- Scope: Python files under `src/`; keep public names stable.
-- Before editing: read the target function and its tests; name both in your note.
-- After editing: run `python -m pytest tests -q` when the repository has tests.
-- Stop: do not change lockfiles or files outside this checkout for this task.
-__INSTRUCTIONS__
-</code></pre>
-<p>Replace the paths and command with ones that exist in your repository or, if the project
-has no code yet, ones your specification plans. Under the file, write a four-row table in
-<code>instruction-review.md</code>: each rule, the failure it prevents, and the evidence a reviewer
-could inspect. Mark any rule that is only a request; an instruction file alone cannot
-enforce it.</p>
+<span class="s">- Scope: Python files under `src/`; keep public names stable.</span>
+<span class="s">- Before editing: read the target function and its tests; name both in your note.</span>
+<span class="s">- After editing: run `python -m pytest tests -q` when the repository has tests.</span>
+<span class="s">- Stop: do not change lockfiles or files outside this checkout for this task.</span>
+<span class="s">__INSTRUCTIONS__</span>
+</code></pre></div>
+<p>Replace the paths and the command with ones that exist in your repository. If the project
+has no code yet, use the ones your specification plans. Then write a four-row table in
+<code>instruction-review.md</code>. Each row gives a rule, the failure it prevents, and the evidence a
+reviewer could inspect. Mark any rule that is only a request, because an instruction file
+alone cannot enforce it.</p>
 <h2 id="2-install-a-small-hook-gate">2. Install a small hook gate</h2>
 <p>First, from the root of the course checkout, copy the course-written hook to a temporary
 path. Keep the same shell open while you work in the disposable project copy:</p>
-<pre><code class="language-sh">HOOK_SOURCE=&quot;$(mktemp)&quot;
-cp lectures/week-04/example/pre_commit.py &quot;$HOOK_SOURCE&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nv">HOOK_SOURCE</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>mktemp<span class="k">)</span><span class="s2">"</span>
+cp<span class="w"> </span>lectures/week-04/example/pre_commit.py<span class="w"> </span><span class="s2">"</span><span class="nv">$HOOK_SOURCE</span><span class="s2">"</span>
+</code></pre></div>
 <p>From the root of the disposable project copy, make a small practice repository for the
-two commits. It is a separate repository inside the copy, so the hook you install here
-does not run on your project's own commits:</p>
-<pre><code class="language-sh">mkdir -p week04-studio-hook/src
-cp &quot;$HOOK_SOURCE&quot; week04-studio-hook/pre_commit.py
-cd week04-studio-hook
-git init -q
-git config user.name &quot;Week 4 practice&quot;
-git config user.email &quot;week4@example.edu&quot;
-cat &gt; .git/hooks/pre-commit &lt;&lt;'__HOOK__'
-#!/usr/bin/env python3
-import json
-import subprocess
-import sys
-from pathlib import Path
+two commits. It is a separate repository inside the copy. This way the hook you install
+here does not run on your project's own commits:</p>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>week04-studio-hook/src
+cp<span class="w"> </span><span class="s2">"</span><span class="nv">$HOOK_SOURCE</span><span class="s2">"</span><span class="w"> </span>week04-studio-hook/pre_commit.py
+<span class="nb">cd</span><span class="w"> </span>week04-studio-hook
+git<span class="w"> </span>init<span class="w"> </span>-q
+git<span class="w"> </span>config<span class="w"> </span>user.name<span class="w"> </span><span class="s2">"Week 4 practice"</span>
+git<span class="w"> </span>config<span class="w"> </span>user.email<span class="w"> </span><span class="s2">"week4@example.edu"</span>
+cat<span class="w"> </span>&gt;<span class="w"> </span>.git/hooks/pre-commit<span class="w"> </span><span class="s">&lt;&lt;'__HOOK__'</span>
+<span class="s">#!/usr/bin/env python3</span>
+<span class="s">import json</span>
+<span class="s">import subprocess</span>
+<span class="s">import sys</span>
+<span class="s">from pathlib import Path</span>
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+<span class="s">sys.path.insert(0, str(Path(__file__).resolve().parents[2]))</span>
 
-from pre_commit import run
+<span class="s">from pre_commit import run</span>
 
-paths = subprocess.check_output(
-    [&quot;git&quot;, &quot;diff&quot;, &quot;--cached&quot;, &quot;--name-only&quot;], text=True
-).splitlines()
-event = {&quot;event&quot;: &quot;before_commit&quot;, &quot;paths&quot;: paths}
-raise SystemExit(run([json.dumps(event)]))
-__HOOK__
-chmod +x .git/hooks/pre-commit
-</code></pre>
+<span class="s">paths = subprocess.check_output(</span>
+<span class="s">    ["git", "diff", "--cached", "--name-only"], text=True</span>
+<span class="s">).splitlines()</span>
+<span class="s">event = {"event": "before_commit", "paths": paths}</span>
+<span class="s">raise SystemExit(run([json.dumps(event)]))</span>
+<span class="s">__HOOK__</span>
+chmod<span class="w"> </span>+x<span class="w"> </span>.git/hooks/pre-commit
+</code></pre></div>
 <p>The copied hook is course-written teaching code. Read it before using it. It checks staged
-paths and returns 2 for a protected path or an unused import; it does not execute the
-staged file. Compare its <code>PROTECTED</code> set with the Stop rule you wrote: the set names only
+paths and returns 2 for a protected path or an unused import. It does not execute the
+staged file. Compare its <code>PROTECTED</code> set with the Stop rule you wrote. The set names only
 <code>Dockerfile</code>, <code>pyproject.toml</code> and <code>uv.lock</code> at the repository root.</p>
 <p>Create the intentionally bad change and capture the failed attempt:</p>
-<pre><code class="language-sh">printf 'import json\n\nvalue = 1\n' &gt; src/report.py
-git add src/report.py
-rc=0
-git commit -m &quot;practice: blocked import&quot; &gt; blocked.txt 2&gt;&amp;1 || rc=$?
-echo &quot;exit status: $rc&quot; &gt;&gt; blocked.txt
-cat blocked.txt
-[ &quot;$rc&quot; -ne 0 ] &amp;&amp; grep -F &quot;unused import 'json'&quot; blocked.txt
-</code></pre>
-<p>The command must leave the commit uncreated, and <code>blocked.txt</code> must contain the hook's
-finding and <code>exit status: 1</code>. Git reports 1 for a commit that a hook stopped; the hook's
-own exit code is 2. If it commits, or the record shows an error in place of the finding,
-stop and inspect the wrapper before proceeding; do not rewrite the record to make it look
-blocked.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">printf</span><span class="w"> </span><span class="s1">'import json\n\nvalue = 1\n'</span><span class="w"> </span>&gt;<span class="w"> </span>src/report.py
+git<span class="w"> </span>add<span class="w"> </span>src/report.py
+<span class="nv">rc</span><span class="o">=</span><span class="m">0</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"practice: blocked import"</span><span class="w"> </span>&gt;<span class="w"> </span>blocked.txt<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nv">rc</span><span class="o">=</span><span class="nv">$?</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"exit status: </span><span class="nv">$rc</span><span class="s2">"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>blocked.txt
+cat<span class="w"> </span>blocked.txt
+<span class="o">[</span><span class="w"> </span><span class="s2">"</span><span class="nv">$rc</span><span class="s2">"</span><span class="w"> </span>-ne<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>grep<span class="w"> </span>-F<span class="w"> </span><span class="s2">"unused import 'json'"</span><span class="w"> </span>blocked.txt
+</code></pre></div>
+<p>The command must not create the commit. <code>blocked.txt</code> must contain the hook's finding and
+<code>exit status: 1</code>. Git reports 1 for a commit that a hook stopped. The hook's own exit code
+is 2. If Git makes the commit, or the record shows an error instead of the finding, stop.
+Inspect the wrapper before you go on. Do not rewrite the record to make it look blocked.</p>
 <p>Now fix the violation and capture the passing run:</p>
-<pre><code class="language-sh">printf 'value = 1\n' &gt; src/report.py
-git add src/report.py
-git commit -m &quot;practice: pass the gate&quot; &gt; passed.txt 2&gt;&amp;1
-cat passed.txt
-grep -F &quot;PASS: no protected file&quot; passed.txt
-git show --stat --oneline HEAD
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">printf</span><span class="w"> </span><span class="s1">'value = 1\n'</span><span class="w"> </span>&gt;<span class="w"> </span>src/report.py
+git<span class="w"> </span>add<span class="w"> </span>src/report.py
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"practice: pass the gate"</span><span class="w"> </span>&gt;<span class="w"> </span>passed.txt<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+cat<span class="w"> </span>passed.txt
+grep<span class="w"> </span>-F<span class="w"> </span><span class="s2">"PASS: no protected file"</span><span class="w"> </span>passed.txt
+git<span class="w"> </span>show<span class="w"> </span>--stat<span class="w"> </span>--oneline<span class="w"> </span>HEAD
+</code></pre></div>
 <p>Keep <code>blocked.txt</code>, <code>passed.txt</code>, and the commit hash in <code>hook-record.md</code>. Explain that
-the hook proves this staged-path check ran; it does not prove the Python behavior is
-correct. Run the repository's focused test separately when one exists.</p>
-<p>These two records come from the practice repository, and its hook sits in <code>.git/hooks/</code>,
-which Git does not commit. Your project needs a gate of its own by the alpha in week 7.
-Choose one rule in your <code>AGENTS.md</code> that a commit can break and keep the hook in a
-committed directory such as <code>.githooks/</code>. To start from this section's two files, put
-<code>pre_commit.py</code> at the root of the project and save the wrapper as <code>.githooks/pre-commit</code>,
-executable as before. In the wrapper, change <code>parents[2]</code> to <code>parents[1]</code>: it now sits one
-directory below the root, not two. Unchanged, it looks for <code>pre_commit.py</code> above the
-project, and every commit stops with an import error in place of a finding. Then run
-<code>git config core.hooksPath .githooks</code> in the project and record one blocked and one
-passing commit there in the same way. Change <code>pre_commit.py</code> to fit your project before
-you rely on it: as written it stops every commit that touches <code>pyproject.toml</code>, <code>uv.lock</code>
-or <code>Dockerfile</code> at the repository root, that deletes a <code>.py</code> file, that stages a <code>.py</code>
-file under a directory whose name starts with a dot, or that stages nothing, such as an
-amend that only rewords the message. The dot rule is why <code>pre_commit.py</code> stays at the
-root: a commit that adds it under <code>.githooks/</code> is refused.</p>
+the hook proves that this staged-path check ran. It does not prove that the Python behavior
+is correct. Run the repository's focused test separately when one exists.</p>
+<p>These two records come from the practice repository. Its hook sits in <code>.git/hooks/</code>, and
+Git does not commit that directory. Your project needs a gate of its own by the alpha in
+week 7. Choose one rule in your <code>AGENTS.md</code> that a commit can break. Keep the hook in a
+committed directory such as <code>.githooks/</code>. To start from this section's two files:</p>
+<ol>
+<li>Put <code>pre_commit.py</code> at the root of the project.</li>
+<li>Save the wrapper as <code>.githooks/pre-commit</code>, executable as before.</li>
+<li>In the wrapper, change <code>parents[2]</code> to <code>parents[1]</code>, because the wrapper now sits one
+   directory below the root, not two. If you leave it unchanged, it looks for
+   <code>pre_commit.py</code> above the project. Then every commit stops with an import error instead
+   of a finding.</li>
+<li>Run <code>git config core.hooksPath .githooks</code> in the project. Record one blocked and one
+   passing commit there in the same way.</li>
+</ol>
+<p>Change <code>pre_commit.py</code> to fit your project before you rely on it. As written, it stops
+every commit that does any of these:</p>
+<ul>
+<li>touches <code>pyproject.toml</code>, <code>uv.lock</code> or <code>Dockerfile</code> at the repository root;</li>
+<li>deletes a <code>.py</code> file;</li>
+<li>stages a <code>.py</code> file under a directory whose name starts with a dot;</li>
+<li>stages nothing, such as an amend that only rewords the message.</li>
+</ul>
+<p>The dot rule is why <code>pre_commit.py</code> stays at the root: the hook refuses a commit that adds
+it under <code>.githooks/</code>.</p>
 <h3 id="replay-the-agent-side-hooks">Replay the agent-side hooks</h3>
 <p>The notes show a hook on the agent's own events and a replay of four recorded steps. Run
-it yourself on a scratch copy. In a second terminal, from the root of the course checkout:</p>
-<pre><code class="language-sh">REPLAY=&quot;$(mktemp -d)&quot;
-cp -r lectures/week-04/fixture/. &quot;$REPLAY&quot;/
-cd &quot;$REPLAY&quot;
-rc=0
-python replay_hooks.py &gt; agent-hooks.txt 2&gt;&amp;1 || rc=$?
-echo &quot;exit status: $rc&quot; &gt;&gt; agent-hooks.txt
-cat agent-hooks.txt
-</code></pre>
-<p><code>agent-hooks.txt</code> must hold the output printed in the notes, ending with the <code>PASS</code> line and
-<code>exit status: 0</code>. Keep it with <code>blocked.txt</code> and <code>passed.txt</code>. Then read the generated
-proposal the replay fed to the hook. Step 1 changes one expected value in the test:</p>
-<pre><code class="language-sh">diff workspace/tests/check_pairs.py session/step-1-check_pairs.py; echo &quot;exit $?&quot;
-</code></pre>
-<pre><code class="language-text">12c12
-&lt;     (&quot;port: 8080&quot;, (&quot;port&quot;, &quot;8080&quot;)),
+the replay yourself on a scratch copy. In a second terminal, from the root of the course checkout:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">REPLAY</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>mktemp<span class="w"> </span>-d<span class="k">)</span><span class="s2">"</span>
+cp<span class="w"> </span>-r<span class="w"> </span>lectures/week-04/fixture/.<span class="w"> </span><span class="s2">"</span><span class="nv">$REPLAY</span><span class="s2">"</span>/
+<span class="nb">cd</span><span class="w"> </span><span class="s2">"</span><span class="nv">$REPLAY</span><span class="s2">"</span>
+<span class="nv">rc</span><span class="o">=</span><span class="m">0</span>
+python<span class="w"> </span>replay_hooks.py<span class="w"> </span>&gt;<span class="w"> </span>agent-hooks.txt<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nv">rc</span><span class="o">=</span><span class="nv">$?</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"exit status: </span><span class="nv">$rc</span><span class="s2">"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>agent-hooks.txt
+cat<span class="w"> </span>agent-hooks.txt
+</code></pre></div>
+<p><code>agent-hooks.txt</code> must hold the output printed in the notes. It ends with the <code>PASS</code> line
+and <code>exit status: 0</code>. Keep it with <code>blocked.txt</code> and <code>passed.txt</code>. Then read the generated
+proposal that the replay fed to the hook. Step 1 changes one expected value in the test:</p>
+<div class="highlight"><pre><span></span><code>diff<span class="w"> </span>workspace/tests/check_pairs.py<span class="w"> </span>session/step-1-check_pairs.py<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit </span><span class="nv">$?</span><span class="s2">"</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>12c12
+&lt;     ("port: 8080", ("port", "8080")),
 ---
-&gt;     (&quot;port: 8080&quot;, (&quot;port&quot;, &quot; 8080&quot;)),
+&gt;     ("port: 8080", ("port", " 8080")),
 exit 1
-</code></pre>
+</code></pre></div>
 <p>Predict the hook's decision for a shell command that edits the test, then run it:</p>
-<pre><code class="language-sh">printf '%s\n' '{&quot;event&quot;:&quot;before_tool_call&quot;,&quot;tool&quot;:&quot;run_shell&quot;,&quot;arguments&quot;:{&quot;command&quot;:&quot;sed -i s/8080/9090/ tests/check_pairs.py&quot;}}' | python agent_hook.py; echo &quot;exit $?&quot;
-</code></pre>
-<pre><code class="language-text">BLOCK run_shell: only the focused test may run; a command's text does not show what it writes
+<div class="highlight"><pre><span></span><code><span class="nb">printf</span><span class="w"> </span><span class="s1">'%s\n'</span><span class="w"> </span><span class="s1">'{"event":"before_tool_call","tool":"run_shell","arguments":{"command":"sed -i s/8080/9090/ tests/check_pairs.py"}}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>python<span class="w"> </span>agent_hook.py<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit </span><span class="nv">$?</span><span class="s2">"</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>BLOCK run_shell: only the focused test may run; a command's text does not show what it writes
 exit 2
-</code></pre>
+</code></pre></div>
 <p>The hook blocks the command because it allows the shell only for the focused test, not
 because it found <code>tests/</code> in the text. A command can reach a file without naming it.</p>
 <p>Now remove the write rule. In the scratch copy's <code>agent_hook.py</code>, change the line
 <code>PROTECTED_DIRS = ("tests",)</code> to <code>PROTECTED_DIRS = ()</code>. Predict which steps run and how the
 replay ends, then run it:</p>
-<pre><code class="language-sh">python replay_hooks.py; echo &quot;exit $?&quot;
-</code></pre>
-<pre><code class="language-text">step 1 tool call: write_file tests/check_pairs.py
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>replay_hooks.py<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit </span><span class="nv">$?</span><span class="s2">"</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>step 1 tool call: write_file tests/check_pairs.py
   hook: ALLOW write_file tests/check_pairs.py
   exit 0: the call runs and writes tests/check_pairs.py
-step 2 end of turn: &quot;Done: the parser test passes now.&quot;
+step 2 end of turn: "Done: the parser test passes now."
   hook: ALLOW end_of_turn: the focused test passes (2 passed, 0 failed)
   exit 0: the turn ends
 turn ended at step 2; steps 3-4 were not replayed
@@ -6773,51 +6781,54 @@ replay check: changed under tests/: tests/check_pairs.py
 replay check: original tests/check_pairs.py on the final code: exit 1, 1 passed, 1 failed
 FAIL: files under tests/ changed; the original focused test fails
 exit 1
-</code></pre>
-<p>In <code>hook-record.md</code>, write two sentences: what the end-of-turn hook checked when it let the
-turn end at step 2, and one change that the agent-side hook would not see but your Git hook
-from this section would. The scratch copy is yours to change; the course checkout stays as
-it was.</p>
+</code></pre></div>
+<p>In <code>hook-record.md</code>, write two sentences:</p>
+<ul>
+<li>what the end-of-turn hook checked when it let the turn end at step 2;</li>
+<li>one change that the agent-side hook would not see but your Git hook from this section
+  would.</li>
+</ul>
+<p>You may change the scratch copy as you like. The course checkout stays as it was.</p>
 <h2 id="3-give-a-subagent-a-role">3. Give a subagent a role</h2>
-<p>Write <code>role-contract.md</code> with exactly one role. This is a prompt and review exercise; you
-may use your coding agent directly, but do not give it credentials or an unrestricted
-command tool.</p>
-<pre><code class="language-markdown">Role: researcher
+<p>Write <code>role-contract.md</code> with exactly one role. This is an exercise in writing a prompt
+and reviewing the result. You may use your coding agent directly. Do not give it
+credentials or a command tool without limits.</p>
+<div class="highlight"><pre><span></span><code>Role: researcher
 Task: locate the function that parses one report and its callers.
 Allowed tools: read files, search text, run one named read-only test.
 Forbidden: edits, network, dependency installation, commits.
 Hand-back: research.md with file/function references, the test command and two open questions.
 Stop condition: stop if the parser is generated or the named test is absent.
-</code></pre>
+</code></pre></div>
 <p>Run the role where there is code to read. If your project copy already has a function with
 a test, replace the task and the named test with yours, as you did in section 1. If it has
-no code yet, run the role in <code>week04-studio-hook</code>: ask for the function in <code>pre_commit.py</code>
-that decides whether a path is protected, and for its callers, and name this read-only
-check, which prints a finding, exits 2 and changes no file:</p>
-<pre><code class="language-sh">python pre_commit.py '{&quot;event&quot;:&quot;before_commit&quot;,&quot;paths&quot;:[&quot;pyproject.toml&quot;]}'
-</code></pre>
+no code yet, run the role in <code>week04-studio-hook</code>. Ask for the function in <code>pre_commit.py</code>
+that decides whether a path is protected, and for its callers. Name the read-only check
+below. It prints a finding, exits 2 and changes no file:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>pre_commit.py<span class="w"> </span><span class="s1">'{"event":"before_commit","paths":["pyproject.toml"]}'</span>
+</code></pre></div>
 <p>Ask for the hand-back using that role contract. Open every cited file and run the named
 read-only check yourself. In <code>role-review.md</code>, mark each claim <strong>confirmed</strong>, <strong>refuted</strong>
 or <strong>cannot tell</strong>, with the location or output that supports the mark. If you continue to
-an implementer role, pass only <code>role-contract.md</code>, <code>research.md</code> and the named files; record
-its diff and test output separately. A role name without an allowlist and hand-back is not
-a boundary.</p>
-<p><strong>Written alternative.</strong> With no agent at hand, check this course-written hand-back about
-<code>pre_commit.py</code> in <code>week04-studio-hook</code> in place of an agent's. A person wrote it: say so
-in <code>role-review.md</code> and do not record it as a model run.</p>
-<pre><code class="language-text">research.md (course-written for teaching; a person wrote it, not an agent)
+an implementer role, pass it only <code>role-contract.md</code>, <code>research.md</code> and the named files.
+Record its diff and test output separately. A role name alone is not a boundary: it needs
+an allowlist and a hand-back contract.</p>
+<p><strong>Written alternative.</strong> If you have no agent at hand, check the course-written hand-back
+below instead of an agent's. It is about <code>pre_commit.py</code> in <code>week04-studio-hook</code>. A person
+wrote it, so say so in <code>role-review.md</code>. Do not record it as a model run.</p>
+<div class="highlight"><pre><span></span><code>research.md (course-written for teaching; a person wrote it, not an agent)
 
 1. run() in pre_commit.py reports a staged pyproject.toml as protected and exits 2.
-   Check: python pre_commit.py '{&quot;event&quot;:&quot;before_commit&quot;,&quot;paths&quot;:[&quot;pyproject.toml&quot;]}'; echo $?
+   Check: python pre_commit.py '{"event":"before_commit","paths":["pyproject.toml"]}'; echo $?
 2. unused_imports() in pre_commit.py imports the staged file to find unused names.
 3. The gate makes the commit safe.
-</code></pre>
+</code></pre></div>
 <h2 id="4-decision-line">4. Decision line</h2>
 <p>End <code>studio-record.md</code> with one line:</p>
-<pre><code class="language-text">Decision: accept | narrow | recheck | stop — evidence: blocked.txt, passed.txt, agent-hooks.txt and role-review.md
-</code></pre>
+<div class="highlight"><pre><span></span><code>Decision: accept | narrow | recheck | stop — evidence: blocked.txt, passed.txt, agent-hooks.txt and role-review.md
+</code></pre></div>
 <p>Choose the word that matches your evidence. A clean hook run can support accepting the
-staged-path invariant; it cannot support accepting untested application behavior.</p>
+staged-path rule. It cannot support accepting application behavior that nobody tested.</p>
 
 
 
@@ -6916,7 +6927,7 @@ staged-path invariant; it cannot support accepting untested application behavior
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

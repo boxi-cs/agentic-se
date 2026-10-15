@@ -6418,7 +6418,7 @@
 
 
 <h1 id="lecture-decks-week-by-week">Lecture decks, week by week</h1>
-<p>Each deck starts with a product problem and a decision. Predict before revealing the worked reasoning, use the activity for execution, then answer the changed-situation question independently. The notes preserve technical explanations and public fixtures for support.</p>
+<p>Each deck starts with a product problem and a decision. Make your prediction before the deck reveals the worked reasoning. Do the hands-on work in the activity. Then answer the question about a changed situation on your own. For support, the notes keep the full technical explanations and the public fixtures.</p>
 <table>
 <thead>
 <tr>
@@ -6490,12 +6490,14 @@
 </tr>
 </tbody>
 </table>
-<p>Week 13 is the assessment week and has no deck. A classroom transcript is a synthetic rehearsal; actual execution and participation retain their own evidence. Use <a href="../site/docs/week0/setup.en.html">Week 0 setup</a> before running anything.</p>
-<p>The instructor-only <code>&lt;!-- live --&gt;</code> comment marks a presenter-note point where a
-public fixture or loopback preview may be run. It does not add projected slide text;
-the matching teaching guide names the command, preparation and expected evidence.</p>
+<p>Week 13 is the assessment week and has no deck. A classroom transcript in a deck is a made-up rehearsal. Real runs and real participation have their own evidence. Use <a href="../site/docs/week0/setup.en.html">Week 0 setup</a> before running anything.</p>
+<p>In a deck's source, the instructor-only <code>&lt;!-- live --&gt;</code> comment marks a point in the
+presenter notes. At that point the instructor may run a public fixture or a loopback
+preview (one served only on 127.0.0.1). The comment adds no text to the projected
+slide. The matching teaching guide names the command, the preparation and the
+expected evidence.</p>
 <h2 id="export-and-navigation">Export and navigation</h2>
-<p>The teaching team builds the decks in the full course repository with <code>make slides</code> and its locked dependencies; that build is not part of the student package. It writes an HTML presentation and a PDF for each week under <code>build/slides/week-NN/</code>. Teacher guides and hidden assets are excluded. Links from a deck to notes, activities and fixtures need the source checkout or the repository online.</p>
+<p>The teaching team builds the decks in the full course repository. They run <code>make slides</code> with its locked dependencies. This build is not part of the student package. It writes an HTML presentation and a PDF for each week under <code>build/slides/week-NN/</code>. Teacher guides and hidden assets are left out. Links from a deck to notes, activities and fixtures work only with the source checkout or the online repository.</p>
 
 
 
@@ -6594,7 +6596,7 @@ the matching teaching guide names the command, preparation and expected evidence
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>

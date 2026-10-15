@@ -7217,7 +7217,7 @@
 </tr>
 <tr>
 <td>some input</td>
-<td>confirm it, with a witness</td>
+<td>confirm it, with an input that shows the problem</td>
 </tr>
 <tr>
 <td>every input</td>
@@ -7287,7 +7287,7 @@
 <h2 id="a-name-cannot-clear-a-stop">A name cannot clear a stop</h2>
 <p>Run it again with <code>--accept-by "A. Student"</code>.</p>
 <p>Same three lines, same exit status.</p>
-<p>A person accepts evidence; there is no passing evidence here.</p>
+<p>A person accepts evidence. Here there is no passing evidence.</p>
 <hr />
 <h2 id="a-green-run-is-held">A green run is held</h2>
 <table>
@@ -7319,10 +7319,10 @@
 <p>Exit status 3 is not zero: held is not released.</p>
 <hr />
 <h2 id="the-decision-line-of-the-pipeline">The decision line of the pipeline</h2>
-<pre><code class="language-text">{&quot;stage&quot;: &quot;release&quot;, &quot;status&quot;: &quot;released&quot;, &quot;accepted_by&quot;: &quot;A. Student&quot;,
- &quot;accepted_evidence&quot;: {&quot;candidate_sha256&quot;: &quot;9f75d5aca3be&quot;,
-                       &quot;cases_sha256&quot;: &quot;d087328e6120&quot;, &quot;cases&quot;: 9}}
-</code></pre>
+<div class="highlight"><pre><span></span><code>{"stage": "release", "status": "released", "accepted_by": "A. Student",
+ "accepted_evidence": {"candidate_sha256": "9f75d5aca3be",
+                       "cases_sha256": "d087328e6120", "cases": 9}}
+</code></pre></div>
 <p>The last line of the accepted run, wrapped to fit. It names who accepted, and exactly what.</p>
 <hr />
 <h2 id="a-second-proposal">A second proposal</h2>
@@ -7429,8 +7429,8 @@
 <hr />
 <h2 id="an-unfinished-search-is-not-a-disposition">An unfinished search is not a disposition</h2>
 <p>Inputs that behave do not refute a claim about some input.</p>
-<p>The snapshot still decides it, so it is not cannot tell either.</p>
-<p>Read the rule the code applies; probe its edges.</p>
+<p>The snapshot holds what decides it, so "cannot tell" is wrong too.</p>
+<p>Read the rule the code applies, then probe its edges.</p>
 <hr />
 <h2 id="could-the-review-run-unattended">Could the review run unattended?</h2>
 <table>
@@ -7475,7 +7475,7 @@
 <li><strong>accept</strong>: the evidence covers the claim as stated;</li>
 <li><strong>narrow</strong>: it supports a smaller claim; accept only that;</li>
 <li><strong>recheck</strong>: it is missing, or about an input that changed;</li>
-<li><strong>stop</strong>: a check failed, or the judged thing wrote the evidence.</li>
+<li><strong>stop</strong>: a check failed, or the thing being judged wrote the evidence.</li>
 </ul>
 <hr />
 <h2 id="every-week-handed-you-a-claim">Every week handed you a claim</h2>
@@ -7610,7 +7610,7 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

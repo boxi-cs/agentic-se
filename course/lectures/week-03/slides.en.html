@@ -6402,10 +6402,10 @@
 </ul>
 <hr />
 <h1 id="start-by-hand">Start by hand</h1>
-<pre><code class="language-sh">git status --short
-git diff --check
-python -m pytest -q
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>status<span class="w"> </span>--short
+git<span class="w"> </span>diff<span class="w"> </span>--check
+python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>-q
+</code></pre></div>
 <p>Save the revision and output before writing the skill.</p>
 <hr />
 <h1 id="the-description-is-the-boundary">The description is the boundary</h1>
@@ -6414,14 +6414,14 @@ python -m pytest -q
 <p>Which one stays quiet for “implement a new feature”?</p>
 <hr />
 <h1 id="the-body-is-the-procedure">The body is the procedure</h1>
-<pre><code class="language-markdown">## Steps
-1. Read the boundary.
-2. Run the check.
-## Judgement
-- If unrelated files are edited, stop.
-## Verification
-Run `git diff --check` and the focused test.
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="gu">## Steps</span>
+<span class="k">1.</span> Read the boundary.
+<span class="k">2.</span> Run the check.
+<span class="gu">## Judgement</span>
+<span class="k">-</span><span class="w"> </span>If unrelated files are edited, stop.
+<span class="gu">## Verification</span>
+Run <span class="sb">`git diff --check`</span> and the focused test.
+</code></pre></div>
 <p>A procedure does not grant permission.</p>
 <hr />
 <h1 id="three-positives-one-near-miss">Three positives, one near miss</h1>
@@ -6457,7 +6457,7 @@ Run `git diff --check` and the focused test.
 <p><code>research-codebase</code> · facts before edits</p>
 <p><code>plan-change</code> · bounded plan before implementation</p>
 <p><code>review-diff</code> · reproduce findings in an existing diff</p>
-<p>Read descriptions first; bodies are loaded after selection.</p>
+<p>Read the descriptions first. The agent loads a body only after it selects the skill.</p>
 <hr />
 <h1 id="what-the-checker-checks">What the checker checks</h1>
 <p><code>skill_check.py</code> checks:</p>
@@ -6470,11 +6470,11 @@ Run `git diff --check` and the focused test.
 <p>It does not run a model or observe hidden selection.</p>
 <hr />
 <h1 id="run-it-directly">Run it directly</h1>
-<p>From the course checkout; <code>PROJECT_ROOT</code> is your project.</p>
-<pre><code class="language-sh">python lectures/week-03/fixture/skill_check.py \
-  &quot;$PROJECT_ROOT/A3-work/skills/my-workflow/SKILL.md&quot; \
-  &quot;$PROJECT_ROOT/A3-work/trigger-test.yaml&quot;
-</code></pre>
+<p>Run it from the course checkout. <code>PROJECT_ROOT</code> is your project.</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>lectures/week-03/fixture/skill_check.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">"</span><span class="nv">$PROJECT_ROOT</span><span class="s2">/A3-work/skills/my-workflow/SKILL.md"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">"</span><span class="nv">$PROJECT_ROOT</span><span class="s2">/A3-work/trigger-test.yaml"</span>
+</code></pre></div>
 <p>Expected: <code>Structure checked.</code></p>
 <hr />
 <h1 id="prediction-versus-observation">Prediction versus observation</h1>
@@ -6503,16 +6503,16 @@ prompts, screenshots, logs, or commits. For generated commands, inspect before r
 <li><code>agent-run.txt</code>, with the four-row record and checker output as supporting evidence</li>
 <li>one decision line</li>
 </ol>
-<pre><code class="language-sh">python practice/a3/check.py &quot;$PROJECT_ROOT/A3-work&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>practice/a3/check.py<span class="w"> </span><span class="s2">"</span><span class="nv">$PROJECT_ROOT</span><span class="s2">/A3-work"</span>
+</code></pre></div>
 <hr />
 <h1 id="verify-before-accepting">Verify before accepting</h1>
-<pre><code class="language-sh">git rev-parse HEAD
-git diff --check
-git diff --name-only
-git status --short
-</code></pre>
-<p><code>git diff</code> reads tracked files only; <code>git status --short</code> also lists new ones.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>rev-parse<span class="w"> </span>HEAD
+git<span class="w"> </span>diff<span class="w"> </span>--check
+git<span class="w"> </span>diff<span class="w"> </span>--name-only
+git<span class="w"> </span>status<span class="w"> </span>--short
+</code></pre></div>
+<p><code>git diff</code> reads tracked files only. <code>git status --short</code> also lists new files.</p>
 <p>Then compare every <code>observed</code> value with the saved transcript.</p>
 <hr />
 <h1 id="common-failure-modes">Common failure modes</h1>
@@ -6625,7 +6625,7 @@ git status --short
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

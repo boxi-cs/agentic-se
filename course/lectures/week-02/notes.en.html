@@ -6710,8 +6710,9 @@ how to check it. The constraint can disappear in four transitions:</p>
 <li><strong>Verify:</strong> the test checks that a CSV exists but never attempts a write to <code>reports/</code>.</li>
 </ol>
 <p><strong>Generate:</strong> write a one-paragraph plan for the export request. <strong>Verify:</strong> underline the
-constraint, its source, the implementation boundary and the negative test. If one is
-missing, the plan is incomplete even when the generated code looks plausible.</p>
+constraint, its source, the implementation boundary and the negative test (a test that
+tries the forbidden action). If one is missing, the plan is incomplete, even when the
+generated code looks plausible.</p>
 <h3 id="research-plan-implement">Research, plan, implement</h3>
 <p>Use three short artifacts rather than one unbounded prompt:</p>
 <table>
@@ -6742,17 +6743,17 @@ missing, the plan is incomplete even when the generated code looks plausible.</p
 </table>
 <p><strong>Generate:</strong> for the synthetic export request, make an evidence table with two rows naming
 the export handler and its rejection test. Mark an unknown explicitly rather than guessing.
-<strong>Verify:</strong> the export request is invented, so there is no file to open yet: every
-“confirmed” in your table becomes “cannot tell”. In the studio the handler is the
-<code>export_result</code> function in <code>week02-studio/check_cases.py</code> and its rejection test is the
-<code>forbidden</code> case in the same file; check your two rows against that file then. In your own
-project, open the file each row names at the revision you are working on, and change
+<strong>Verify:</strong> the export request is invented, so there is no file to open yet. For now,
+every “confirmed” in your table becomes “cannot tell”. In the studio, the handler is the
+<code>export_result</code> function in <code>week02-studio/check_cases.py</code>. Its rejection test is the
+<code>forbidden</code> case in the same file. Check your two rows against that file then. In your own
+project, open the file that each row names, at the revision you are working on. Change
 “confirmed” to “cannot tell” when the source does not show the claim. A plan is more
 useful when a reader can disagree with one row and run one check.</p>
 <h3 id="a-specification-that-can-fail">A specification that can fail</h3>
 <p>Write acceptance cases as observable input and output. The following cases are deliberately
 small:</p>
-<pre><code class="language-text">Given an export root called out/
+<div class="highlight"><pre><span></span><code>Given an export root called out/
 When the request names out/summary.csv and rows are valid
 Then the file is created and the command reports exported
 
@@ -6763,33 +6764,33 @@ Then no file is written and the command reports refused: read-only root
 Given the same root
 When a row is missing its id
 Then no file is written and the command reports invalid row: id
-</code></pre>
+</code></pre></div>
 <p><strong>Generate:</strong> implement the smallest function that could satisfy the three cases.
 <strong>Verify:</strong> run the positive case and each negative case against a fresh temporary
   directory. A specification that only says “export works” cannot reveal a missing
-  refusal or a partial write. The studio's first checker runs the first two cases and
-  compares returned text only; observing “no file is written” and the row without <code>id</code>
-  is left for your own checker.</p>
+  refusal or a partial write. The studio's first checker runs only the first two cases,
+  and it compares only the returned text. Your own checker must observe that no file is
+  written, and it must cover the row without <code>id</code>.</p>
 <p>The project proposal due this week asks for less than this. Its
 <a href="../../templates/project-proposal.en.html">form</a> asks for the core scenario, a scope boundary
 and your first observable acceptance case. The three to five cases you write in the studio
-go further: keep them with the proposal, because they are the first draft of the
-requirements table in the technical specification due in week 4. Revise a case when
-research shows that it is not observable.</p>
+go further. Keep them with the proposal. They are the first draft of the requirements
+table in the technical specification due in week 4. If research shows that a case is not
+observable, revise it.</p>
 <p><span id="context-is-a-bounded-working-record"></span></p>
 <h3 id="context-packets-and-compaction">Context packets and compaction</h3>
 <p>A context window is a working budget. Tool output, repeated reads and failed attempts
-consume it; a later request can then miss the one constraint that mattered. The retained
-<a href="session/sample-session.jsonl">session recording</a> and <a href="dissection.en.html">dissection</a> let
-you inspect this effect without making a model call. The course-written
+use it up. A later request can then miss the one constraint that mattered. With the saved
+<a href="session/sample-session.jsonl">session recording</a> and <a href="dissection.en.html">dissection</a>, you
+can inspect this effect without making a model call. The course-written
 <a href="../week-03/fixture/compaction.py">compaction script</a> shows it on one hand-written session.
 It reads the session file beside it, so run it from its own folder:</p>
-<pre><code class="language-sh">(cd lectures/week-03/fixture &amp;&amp; python compaction.py full)
-(cd lectures/week-03/fixture &amp;&amp; python compaction.py auto)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="o">(</span><span class="nb">cd</span><span class="w"> </span>lectures/week-03/fixture<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>python<span class="w"> </span>compaction.py<span class="w"> </span>full<span class="o">)</span>
+<span class="o">(</span><span class="nb">cd</span><span class="w"> </span>lectures/week-03/fixture<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>python<span class="w"> </span>compaction.py<span class="w"> </span>auto<span class="o">)</span>
+</code></pre></div>
 <p><code>full</code> keeps all 19 messages, reports <code>"check": "passed"</code> and exits 0. <code>auto</code> clears the
-older tool results, loses the line that says not to edit <code>view.py</code>, reports
-<code>"check": "failed"</code> and exits 1. No model is called in either run.</p>
+older tool results. In doing so it loses the line that says not to edit <code>view.py</code>. It
+then reports <code>"check": "failed"</code> and exits 1. No model is called in either run.</p>
 <p><strong>Generate:</strong> before shortening a history, write a handoff with the task, the source of
 each constraint, the current file state, the last failed check, what is still unknown and
 the next action. <strong>Verify:</strong> compare each line with the recorded messages, then rerun the
@@ -6797,44 +6798,45 @@ check on the current revision. A summary that says “tests passed” without th
 revision is not evidence.</p>
 <p>Try it on the session above. <code>--show</code> prints the recorded messages before the result. Save
 your handoff as <code>handoff.txt</code> at the top of the course checkout, then restart from it alone:</p>
-<pre><code class="language-sh">(cd lectures/week-03/fixture &amp;&amp; python compaction.py full --show)
-(cd lectures/week-03/fixture &amp;&amp; python compaction.py fresh ../../../handoff.txt)
-</code></pre>
-<p><code>fresh</code> gives the course-written policy the task and your handoff and nothing else. The
-policy is not a model: it looks for a line that names <code>view.py</code> and says not to change it,
-and for a line that mentions <code>strip</code> and a failure. The run reports <code>"check": "passed"</code>
-only when your handoff carries both; leave either out and the check fails. Keep the handoff
-within 600 bytes: the script does not run a longer file, and prints its size and the limit
-instead.</p>
+<div class="highlight"><pre><span></span><code><span class="o">(</span><span class="nb">cd</span><span class="w"> </span>lectures/week-03/fixture<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>python<span class="w"> </span>compaction.py<span class="w"> </span>full<span class="w"> </span>--show<span class="o">)</span>
+<span class="o">(</span><span class="nb">cd</span><span class="w"> </span>lectures/week-03/fixture<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>python<span class="w"> </span>compaction.py<span class="w"> </span>fresh<span class="w"> </span>../../../handoff.txt<span class="o">)</span>
+</code></pre></div>
+<p><code>fresh</code> gives the course-written policy only two things: the task and your handoff. The
+policy is not a model. It looks for a line that names <code>view.py</code> and says not to change it.
+It also looks for a line that mentions <code>strip</code> and a failure. The run reports
+<code>"check": "passed"</code> only when your handoff contains both lines. If you leave either out,
+the check fails. Keep the handoff within 600 bytes. The script does not run a longer file.
+It prints the file size and the limit instead.</p>
 <p>When most entries are stale or contradictory, restart with a written handoff and reread
-the next files. Compacting is a choice about information, not a guarantee that the model
-will remember the right information.</p>
+the next files. Compacting (shortening the history) is a choice about which information to
+keep. It does not guarantee that the model will remember the right information.</p>
 <h3 id="tool-design-for-a-model-reader">Tool design for a model reader</h3>
 <p>A model sees a tool's name, description, input schema and returned message. Treat these as
 a contract, not decoration. A small example:</p>
-<pre><code class="language-json">{
-  &quot;name&quot;: &quot;export_report&quot;,
-  &quot;description&quot;: &quot;Write a CSV below out/; never writes reports/.&quot;,
-  &quot;inputSchema&quot;: {
-    &quot;type&quot;: &quot;object&quot;,
-    &quot;additionalProperties&quot;: false,
-    &quot;required&quot;: [&quot;path&quot;, &quot;rows&quot;],
-    &quot;properties&quot;: {
-      &quot;path&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;pattern&quot;: &quot;^out/[A-Za-z0-9_.-]+\\.csv$&quot;},
-      &quot;rows&quot;: {&quot;type&quot;: &quot;array&quot;, &quot;items&quot;: {&quot;type&quot;: &quot;object&quot;}}
-    }
-  }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"export_report"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Write a CSV below out/; never writes reports/."</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"inputSchema"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"additionalProperties"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"path"</span><span class="p">,</span><span class="w"> </span><span class="s2">"rows"</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w"> </span><span class="nt">"pattern"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^out/[A-Za-z0-9_.-]+\\.csv$"</span><span class="p">},</span>
+<span class="w">      </span><span class="nt">"rows"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"array"</span><span class="p">,</span><span class="w"> </span><span class="nt">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">}}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <p><strong>Generate:</strong> propose a call for <code>out/summary.csv</code> and one for <code>reports/summary.csv</code>.
 <strong>Verify:</strong> validate both against the schema and run the handler. The first should reach
-the handler; the second should produce a short, actionable error and no file effect. The
-studio gives you a stub that runs both calls and a third with an unknown field. It stands in
-for a schema validator: it reads the required fields and the allowed names from the JSON
-and checks the path with a rule of its own.</p>
+the handler. The second should produce a short error that says how to fix the call, and it
+should not touch any file. The studio gives you a stub that runs both calls, plus a third
+call with an unknown field. The stub stands in for a schema validator. It reads the
+required fields and the allowed names from the JSON, and it checks the path with its own
+rule.</p>
 <p>Use five design checks:</p>
 <ol>
-<li><strong>Name:</strong> a verb and object make the intended action selectable.</li>
+<li><strong>Name:</strong> use a verb and an object, so the model can pick the intended action.</li>
 <li><strong>Description:</strong> state the allowed root and the important exclusion.</li>
 <li><strong>Schema:</strong> make required fields, types, closed properties and simple patterns
    machine-checkable.</li>
@@ -6842,30 +6844,34 @@ and checks the path with a rule of its own.</p>
 <li><strong>Result:</strong> return the observation the next decision needs, including refusal and
    partial-failure states.</li>
 </ol>
-<p>MCP names the protocol family used to connect a model application with tools and resources.
-The protocol does not make a vague tool safe: the handler still enforces its boundary,
-and the controller still has to pass the result back to the model. Read the interface as
-a model reader would, then test the behavior with calls.</p>
+<p>MCP is the name of a protocol family. It connects a model application with tools and
+resources. The protocol alone does not make a vague tool safe. The handler still enforces
+its boundary, and the controller still has to pass the result back to the model. Read the
+interface as a model would read it, then test the behavior with calls.</p>
 <p><a href="../../practice/a2/README.en.html">A2</a> applies these five checks to a real local server. You
-start from the starter that page links, run its protocol check, register the server with
-your coding agent and record three real trials: selection (the agent must pick the right
-tool), arguments (a valid and an invalid call) and recovery (an error the agent recovers
-from). The schema you tighten in the studio is practice for that work; it is not the A2
-hand-in.</p>
+start from the starter code linked on that page and run its protocol check. Then you
+register the server with your coding agent and record three real trials:</p>
+<ul>
+<li>selection: the agent must pick the right tool;</li>
+<li>arguments: a valid call and an invalid call;</li>
+<li>recovery: the agent recovers from an error.</li>
+</ul>
+<p>The schema you tighten in the studio is practice for that work. It is not the A2 hand-in.</p>
 <p><span id="product-comparison-the-permission-primitive"></span></p>
 <h3 id="reading-a-production-agents-instructions">Reading a production agent's instructions</h3>
-<p>The factsheet readings compare two pinned open-source files. Select one rule about plans,
-one about a tool schema and one about stopping. For each, write four labels: what the
-text asks the model to do, what code checks, what the runtime checks and what remains
-unknown. A description can ask for three lines of context while tool code enforces only a
-single-match rule; keep those claims separate. Do not infer current releases from a pinned
-source.</p>
+<p>The factsheet readings compare two open-source files, each pinned to one fixed version.
+Select one rule about plans, one about a tool schema and one about stopping. For each,
+write four labels: what the text asks the model to do, what code checks, what the runtime
+checks and what remains unknown. For example, a description can ask for three lines of
+context, while the tool code enforces only a single-match rule. Keep those two claims
+separate. A pinned file shows one fixed version, so do not draw conclusions about current
+releases from it.</p>
 <h2 id="hands-on-exercise">Hands-on exercise</h2>
 <p>The <a href="activities.en.html">studio</a> is an individual 75-minute pass over your own project
 proposal. You will write three to five acceptance cases that can fail, then tighten one
 small tool schema and error message. Keep the before/after schema and every command result.
-The retained Week 1 <a href="fixture/">fixture</a> and <a href="session/">session</a> remain available for
-inspection.</p>
+The Week 1 <a href="fixture/">fixture</a> and <a href="session/">session</a> are still stored in this folder, so
+you can inspect them.</p>
 <h2 id="verification">Verification</h2>
 <p>Use this order:</p>
 <ol>
@@ -6887,7 +6893,7 @@ inspection.</p>
 <li><strong>An error that only says “invalid”:</strong> name the field and a repair, then test that the
   model receives the message.</li>
 <li><strong>Confusing a generated answer with verification:</strong> rerun the acceptance case after
-  the last write; preserve the failed result and tested revision.</li>
+  the last write. Keep the failed result and the tested revision.</li>
 <li><strong>Treating a protocol name as enforcement:</strong> identify the handler and runtime checks;
   mark anything else as unknown.</li>
 <li><strong>Compacting away the rule:</strong> keep the task, constraint source, current file state,
@@ -6991,7 +6997,7 @@ inspection.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

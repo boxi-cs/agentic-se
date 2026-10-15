@@ -6544,13 +6544,14 @@
 
 <h1 id="week-3-self-check-agent-skills-and-the-cli">Week 3 self-check: Agent skills and the CLI</h1>
 <h2 id="learning-objectives">Learning objectives</h2>
-<p>Use these questions to check whether you can explain a skill boundary, test a near miss,
-and preserve command-line evidence before submitting A3. <a href="selfcheck-answers.en.html">Answer guidance</a>
-is available after you write your own record.</p>
+<p>Use these questions before you submit A3. They check whether you can explain a skill
+boundary, test a near miss, and keep command-line evidence. A near miss is a request that
+looks similar but should not trigger the skill. Write your own record first, then read the
+<a href="selfcheck-answers.en.html">answer guidance</a>.</p>
 <h2 id="minimal-example">Minimal example</h2>
 <p>For a <code>research-codebase</code> skill, classify this request: “Implement the requested change
-and add a regression test.” It is a near miss because it asks for implementation, while
-the skill description is for a fact-only map before proposing a change.</p>
+and add a regression test.” It is a near miss because it asks for implementation. The skill
+description covers a fact-only map of the codebase, made before anyone proposes a change.</p>
 <h2 id="hands-on-exercise">Hands-on exercise</h2>
 <p>R1. <strong>Retrieval 1.</strong> Name the three fields that distinguish an intended trigger, your
 prediction, and what a CLI run actually showed.</p>
@@ -6565,8 +6566,8 @@ state one claim that command cannot make.</p>
 <li>If <code>observed</code> differs from <code>should_trigger</code>, what must the <code>revision</code> section contain?</li>
 </ol>
 <h2 id="verification">Verification</h2>
-<p>Run your own checker again and compare every <code>predicted</code> and <code>observed</code> value with the
-saved CLI evidence. A correct answer includes the command and revision, not only a final
+<p>Run the checker on your files again. Compare every <code>predicted</code> and <code>observed</code> value with
+the saved CLI evidence. A correct answer includes the command and revision, not only a final
 sentence.</p>
 <h2 id="common-mistakes">Common mistakes</h2>
 <ul>
@@ -6673,7 +6674,7 @@ sentence.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

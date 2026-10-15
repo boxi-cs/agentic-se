@@ -6458,16 +6458,23 @@
 
 
 <h1 id="assignments-a1a6">Assignments A1–A6</h1>
-<p>These six small assignments are the practical line through the first ten teaching weeks. Each is worth 2.5 points under the <a href="../SYLLABUS.en.html">syllabus</a>. Submit the artifact, verification evidence and a short explanation. End every report with <code>decision: accept | narrow | recheck | stop</code>, <code>because:</code> evidence IDs and <code>next:</code>.</p>
+<p>These six small assignments give you hands-on practice across the first ten teaching weeks. Each is worth 2.5 points under the <a href="../SYLLABUS.en.html">syllabus</a>. For each one, you submit the artifact, your verification evidence and a short explanation. End every report with <code>decision: accept | narrow | recheck | stop</code>, then <code>because:</code> with evidence IDs, then <code>next:</code>.</p>
 <h2 id="how-to-work-on-an-assignment">How to work on an assignment</h2>
 <ol>
 <li>Copy the assignment's <code>starter/</code> folder to a directory of your own outside the course checkout. That copy is your submission directory.</li>
-<li>Fill in its <code>report.json</code>. The decision line is the <code>decision</code> object with the fields <code>action</code>, <code>because</code> (evidence IDs) and <code>next</code>. Every evidence row names a file inside the submission directory.</li>
-<li>Write your AI-use note once with the <a href="../templates/disclosure.en.html">AI-use note template</a>: the tool, the purpose and what you verified yourself. Put the note, or its ID when you reuse an earlier one, in <code>ai_use_note</code>.</li>
+<li>Fill in its <code>report.json</code>. In this file, the decision line is the <code>decision</code> object. It has three fields: <code>action</code>, <code>because</code> (evidence IDs) and <code>next</code>. Every evidence row must name a file inside your submission directory.</li>
+<li>Write your AI-use note once with the <a href="../templates/disclosure.en.html">AI-use note template</a>. The note states the tool, the purpose and what you verified yourself. Put the note in <code>ai_use_note</code>. If you reuse an earlier note, put its ID there instead.</li>
 <li>Run the check in the table below from the course checkout, with <code>path/to/submission</code> replaced by your submission directory.</li>
 </ol>
 <h2 id="safety">Safety</h2>
-<p>Follow the <a href="../SYLLABUS.en.html#tools-and-model-access">course safety practices</a>: run the agent in a dedicated directory or container; keep residency, employer and cloud credentials out of it; keep keys out of repositories, prompts, screenshots and logs; and run injection demonstrations offline against the local machine only. Use the mature coding-agent seat supplied for the course and do not run unknown generated commands on a credential-bearing host.</p>
+<p>Follow the <a href="../SYLLABUS.en.html#tools-and-model-access">course safety practices</a>:</p>
+<ul>
+<li>Run the agent in a dedicated directory or container.</li>
+<li>Keep residency, employer and cloud credentials out of that environment.</li>
+<li>Keep keys out of repositories, prompts, screenshots and logs.</li>
+<li>Run injection demonstrations offline, against the local machine only.</li>
+</ul>
+<p>Use the mature coding-agent seat supplied for the course. Do not run unknown generated commands on a host that holds credentials.</p>
 <table>
 <thead>
 <tr>
@@ -6516,7 +6523,7 @@
 </tr>
 </tbody>
 </table>
-<p>The checks provide public consistency feedback. They do not execute model-generated code, authenticate provenance or assign marks.</p>
+<p>The checks only tell you whether your record is consistent. They do not run model-generated code, prove where your evidence came from or give you marks.</p>
 
 
 
@@ -6615,7 +6622,7 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>

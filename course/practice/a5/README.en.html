@@ -6638,26 +6638,26 @@
 <h1 id="a5-score-agent-readiness-from-observations">A5: Score agent readiness from observations</h1>
 <h2 id="at-a-glance">At a glance</h2>
 <ul>
-<li><strong>Task:</strong> score a repository with four observable anchors and report what would change each score.</li>
+<li><strong>Task:</strong> score a repository on four dimensions, using an observable anchor for each level. Report what would change each score.</li>
 <li><strong>Week:</strong> <a href="../../lectures/week-06/README.en.html">6</a>; the four dimensions are taught in <a href="../../lectures/week-05/notes.en.html#four-observable-readiness-dimensions">week 5</a></li>
 <li><strong>Weight:</strong> 2.5 points</li>
 <li><strong>Due:</strong> Sunday 23:59 in the listed week</li>
 <li><strong>Hand in:</strong> a four-row scorecard, verification evidence and <code>report.json</code>.</li>
-<li><strong>Done when:</strong> every level names an anchor and evidence, and a proposed agent score has been checked.</li>
+<li><strong>Done when:</strong> every level names an anchor and evidence, and you have checked a score that the agent proposed.</li>
 <li><strong>Time:</strong> published after a timed pilot; record your prediction and actual time.</li>
 </ul>
 <h2 id="objectives">Objectives</h2>
 <p>Use observable evidence to judge structure, documentation, tests and checks, and explain uncertainty (LO4, LO5).</p>
 <h2 id="prerequisites">Prerequisites</h2>
-<p>Score the <strong>revised A4 starter repository</strong> that you copied and changed, at the immutable
-commit or local snapshot named in your report. Do not score the course repository or an
-unrelated project. Read the revision from that repository and, if you score a snapshot, make
+<p>Score the <strong>revised A4 starter repository</strong> that you copied and changed. Score it at the
+fixed commit or local snapshot that you name in your report. Do not score the course repository
+or an unrelated project. Read the revision from that repository. If you score a snapshot, make
 the copy from the same commit:</p>
-<pre><code class="language-bash">git -C path/to/a4-repo rev-parse HEAD
-mkdir -p path/to/a5-submission/snapshot
-git -C path/to/a4-repo archive --format=tar HEAD | tar -x -C path/to/a5-submission/snapshot
-</code></pre>
-<p><code>git clone path/to/a4-repo path/to/a5-submission/snapshot</code> also works when you want the history.
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>-C<span class="w"> </span>path/to/a4-repo<span class="w"> </span>rev-parse<span class="w"> </span>HEAD
+mkdir<span class="w"> </span>-p<span class="w"> </span>path/to/a5-submission/snapshot
+git<span class="w"> </span>-C<span class="w"> </span>path/to/a4-repo<span class="w"> </span>archive<span class="w"> </span>--format<span class="o">=</span>tar<span class="w"> </span>HEAD<span class="w"> </span><span class="p">|</span><span class="w"> </span>tar<span class="w"> </span>-x<span class="w"> </span>-C<span class="w"> </span>path/to/a5-submission/snapshot
+</code></pre></div>
+<p>If you also want the history, <code>git clone path/to/a4-repo path/to/a5-submission/snapshot</code> works too.
 Put the printed commit in the <code>revision</code> field of your report.</p>
 <p>Follow the <a href="../../SYLLABUS.en.html#tools-and-model-access">course safety practices</a>:</p>
 <ul>
@@ -6668,8 +6668,8 @@ Put the printed commit in the <code>revision</code> field of your report.</p>
 </ul>
 <p>Use the mature coding-agent seat supplied for the course. Do not run an unknown generated command on a credential-bearing host.</p>
 <h2 id="published-anchors">Published anchors</h2>
-<p>Give each dimension the highest level whose observable anchor you can show at the named
-revision. These anchors are the complete vocabulary for this assignment.</p>
+<p>An anchor is the observable fact that a level requires. Give each dimension the highest level
+whose anchor you can show at the named revision. Use only these anchors in this assignment.</p>
 <table>
 <thead>
 <tr>
@@ -6711,29 +6711,37 @@ revision. These anchors are the complete vocabulary for this assignment.</p>
 </tr>
 </tbody>
 </table>
+<p>In Tests level 4, a mutant is a small deliberate change to the code. A surviving mutant is one that no test catches.</p>
 <h2 id="tasks">Tasks</h2>
 <ol>
 <li><strong>Choose a revision.</strong> Record the commit printed by <code>git -C path/to/a4-repo rev-parse HEAD</code>, and the snapshot directory if you made one.</li>
-<li><strong>Generate.</strong> Ask the agent to suggest a level and evidence for each dimension. Treat each suggestion as claims.</li>
-<li><strong>Disprove.</strong> For every claim, choose an observation that could show it false; run commands and open files at the named revision.</li>
-<li><strong>Score.</strong> Record the highest level whose anchors are all evidenced for Structure, Documentation, Tests and Checks. Name the observation that would change each score.</li>
-<li><strong>Review.</strong> Recheck one proposed agent claim yourself and record whether the evidence confirms, refutes or leaves it unresolved. Finish the decision line.</li>
+<li><strong>Generate.</strong> Ask the agent to suggest a level and evidence for each dimension. Treat each suggestion as a claim, not a fact.</li>
+<li><strong>Disprove.</strong> For every claim, choose an observation that could show it false. Run commands and open files at the named revision.</li>
+<li><strong>Score.</strong> For Structure, Documentation, Tests and Checks, record the highest level for which you have evidence of every anchor. Name the observation that would change each score.</li>
+<li><strong>Review.</strong> Recheck one of the agent's claims yourself. Record whether the evidence confirms it, refutes it or leaves it unresolved. Finish the decision line.</li>
 </ol>
-<p>Generation is a proposed score; verification is your command output, file reading and deliberate break where safe. A score without evidence stays unsupported.</p>
+<p>Generation is the score that the agent proposes. Verification is your command output, your reading of the files and, where it is safe, a deliberate break. A score without evidence stays unsupported.</p>
 <h2 id="deliverables">Deliverables</h2>
-<p>Copy the two files in <a href="starter/"><code>starter/</code></a>, <code>scorecard.md</code> and <code>report.json</code>, into your submission directory (the <code>path/to/a5-submission</code> of the Prerequisites block) and fill them in.
-Submit the four-row <code>scorecard.md</code>, evidence files or excerpts, the checked agent proposal and
-<code>report.json</code>; set <code>scorecard_path</code> to that file. Run from the course checkout:</p>
-<pre><code class="language-bash">python practice/a5/check.py path/to/submission
-</code></pre>
+<p>Copy the two files in <a href="starter/"><code>starter/</code></a>, <code>scorecard.md</code> and <code>report.json</code>, into your submission directory and fill them in. This is the <code>path/to/a5-submission</code> directory from the Prerequisites commands.
+Submit the four-row <code>scorecard.md</code>, evidence files or excerpts, the agent proposal you checked and
+<code>report.json</code>. Set <code>scorecard_path</code> to the scorecard file. Run from the course checkout:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>practice/a5/check.py<span class="w"> </span>path/to/submission
+</code></pre></div>
 <h2 id="grading">Grading</h2>
-<p>Criteria are reproducible anchors; correct distinction between evidence and inference; a concrete change condition for each dimension; and a checked proposal. The public check does not authenticate commits or assign a readiness status.</p>
+<p>The criteria are:</p>
+<ul>
+<li>anchors that someone else can reproduce;</li>
+<li>a correct distinction between evidence and inference;</li>
+<li>a concrete change condition for each dimension;</li>
+<li>a checked proposal.</li>
+</ul>
+<p>The public check does not verify that your commits are genuine, and it does not assign a readiness status.</p>
 <h2 id="ai-use-rules">AI use rules</h2>
-<p>Green: proposing levels, probes and prose. Yellow: using generated probe plans after reading and adapting them. Red: choosing the final levels, evidence interpretation and decision. Attach one AI-use note ID.</p>
+<p>Green: the agent may propose levels, probes and prose. Yellow: you may use generated probe plans after you read and adapt them. Red: choosing the final levels, interpreting the evidence and making the decision must be your own work. Attach one AI-use note ID.</p>
 <h2 id="estimated-time">Estimated time</h2>
-<p>Published after a timed pilot. Record predicted and actual time, including the time spent rechecking one claim.</p>
+<p>Published after a timed pilot. Record your predicted and actual time. Include the time you spent rechecking one claim.</p>
 <h2 id="work-record-outline">Work record outline</h2>
-<pre><code class="language-text">assignment: A5
+<div class="highlight"><pre><span></span><code>assignment: A5
 evidence: [{id: TODO, path: TODO, observation: TODO}]
 revision: TODO
 scorecard_path: TODO
@@ -6744,7 +6752,7 @@ ai_use_note: TODO
 predicted_time: TODO
 actual_time: TODO
 decision: {action: accept | narrow | recheck | stop, because: [evidence ID(s)], next: TODO}
-</code></pre>
+</code></pre></div>
 <p>The outline lists the fields of <code>report.json</code> in plain text. <code>starter/report.json</code> holds them as JSON, except <code>predicted_time</code> and <code>actual_time</code>, which you add yourself. Evidence paths are relative to your submission directory. The check reads a field that still contains the word <code>TODO</code>, or text in angle brackets such as <code>&lt;name&gt;</code>, as unfilled.</p>
 
 
@@ -6844,7 +6852,7 @@ decision: {action: accept | narrow | recheck | stop, because: [evidence ID(s)], 
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

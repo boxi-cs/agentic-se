@@ -6621,11 +6621,11 @@
 <li><strong>Weight:</strong> 2.5 points</li>
 <li><strong>Due:</strong> Sunday 23:59 in the listed week</li>
 <li><strong>Hand in:</strong> the server, a <code>report.json</code>, and outputs from the public protocol check.</li>
-<li><strong>Done when:</strong> selection, valid arguments and one recoverable error each have a real trial and evidence.</li>
+<li><strong>Done when:</strong> you have a real trial with evidence for each of three cases: tool selection, valid arguments and one recoverable error.</li>
 <li><strong>Time:</strong> published after a timed pilot; record your prediction and actual time.</li>
 </ul>
 <h2 id="objectives">Objectives</h2>
-<p>Design a small model-readable tool surface and verify its behaviour (LO2). No third-party sign-in or OAuth is required.</p>
+<p>Design a small set of tools that a model can read and use, and verify how they behave (LO2). No third-party sign-in or OAuth is required.</p>
 <h2 id="prerequisites">Prerequisites</h2>
 <p>Follow the <a href="../../SYLLABUS.en.html#tools-and-model-access">course safety practices</a>:</p>
 <ul>
@@ -6637,42 +6637,52 @@
 <p>Use the mature coding-agent seat supplied for the course. Do not run an unknown generated command on a credential-bearing host.</p>
 <h2 id="tasks">Tasks</h2>
 <ol>
-<li><strong>Specify.</strong> Choose two or three read or write operations and define names, descriptions, required arguments, errors and a safe retry rule.</li>
-<li><strong>Generate.</strong> Ask the agent to propose handlers and schemas. Review the proposal before placing it in the server.</li>
-<li><strong>Verify selection.</strong> Run a request where the right tool is distinguishable from its neighbours; record the selected call and result.</li>
+<li><strong>Specify.</strong> Choose two or three read or write operations. For each, define the name, description, required arguments and errors, and a safe rule for when to retry.</li>
+<li><strong>Generate.</strong> Ask the agent to propose handlers and schemas. Review the proposal before you put it in the server.</li>
+<li><strong>Verify selection.</strong> Run a request where the right tool is clearly different from the other tools. Record which call the agent selected and the result.</li>
 <li><strong>Verify arguments.</strong> Run a valid call and an invalid-argument call. Check that the server returns structured feedback without a traceback.</li>
-<li><strong>Verify recovery.</strong> Make one tool return a retryable local error, then show the agent taking the documented next step. Keep all three trials.</li>
+<li><strong>Verify recovery.</strong> Make one tool return a local error that the agent can retry. Then show the agent taking the next step that your error message documents. Keep all three trials.</li>
 <li><strong>Revise.</strong> Fix one unclear description or error, rerun the protocol check, and write the decision line.</li>
 </ol>
-<p>Generation is the proposed tool design; verification is the protocol transcript and direct result inspection. The check never calls a model and does not turn a transcript into a mark.</p>
+<p>Generation is the tool design the agent proposes. Verification is the protocol transcript and your own inspection of the results. The check never calls a model, and it does not turn a transcript into a mark.</p>
 <h2 id="deliverables">Deliverables</h2>
-<p>Include the server source, schemas, <code>report.json</code>, and protocol output. The report has a
-<code>server_path</code> naming the submitted <code>tool_server.py</code> and exactly three trial cases:
-<code>selection</code>, <code>arguments</code> and <code>recovery</code>, each with request, expected, actual, disposition and
-evidence IDs. Copy <a href="starter/"><code>starter/</code></a> to a submission directory of your own outside the
-course checkout, work in that copy, and run from the course checkout:</p>
-<pre><code class="language-bash">python practice/a2/protocol_check.py path/to/submission/tool_server.py
-python practice/a2/check.py path/to/submission
-</code></pre>
-<p><code>protocol_check.py</code> is an envelope smoke test. It checks the handshake, the shape of the
-tool list, one valid call and one refused invalid call. It never calls a model, so it does not
-show that a model can choose and use your tool; a pass states that limitation in its output.</p>
+<p>Include the server source, schemas, <code>report.json</code>, and protocol output. In the report,
+<code>server_path</code> names the submitted <code>tool_server.py</code>. The report has exactly three trial cases:
+<code>selection</code>, <code>arguments</code> and <code>recovery</code>. Each trial has a request, the expected result, the
+actual result, a disposition (your verdict on the result) and evidence IDs.</p>
+<p>Copy <a href="starter/"><code>starter/</code></a> to a submission directory of your own outside the course checkout.
+Work in that copy. Run the checks from the course checkout:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>practice/a2/protocol_check.py<span class="w"> </span>path/to/submission/tool_server.py
+python<span class="w"> </span>practice/a2/check.py<span class="w"> </span>path/to/submission
+</code></pre></div>
+<p><code>protocol_check.py</code> is an envelope smoke test: a quick check of the message format only. It
+checks the handshake, the shape of the tool list, one valid call and one refused invalid call.
+It never calls a model, so it does not show that a model can choose and use your tool. When it
+passes, its output states this limit.</p>
 <p>The check calls your first listed tool three times: valid, invalid, valid. By default it sends
 the string <code>alpha</code> for each required argument. If your first tool needs other values, pass them
 as JSON. This form works on the starter server:</p>
-<pre><code class="language-bash">python practice/a2/protocol_check.py path/to/submission/tool_server.py --arguments '{&quot;key&quot;: &quot;beta&quot;}'
-</code></pre>
-<p>Register the same <code>tool_server.py</code> command in your mature agent's documented local-stdio
-tool configuration. The three report trials are the real agent runs that establish selection,
-argument handling and recovery.</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>practice/a2/protocol_check.py<span class="w"> </span>path/to/submission/tool_server.py<span class="w"> </span>--arguments<span class="w"> </span><span class="s1">'{"key": "beta"}'</span>
+</code></pre></div>
+<p>Register the same <code>tool_server.py</code> command in your mature agent's tool configuration, using
+the agent's documented setting for local stdio servers. The three trials in the report are real
+agent runs. They are the evidence for selection, argument handling and recovery.</p>
 <h2 id="grading">Grading</h2>
-<p>Criteria are model-readable tool descriptions; correct schema validation; structured, bounded errors; recovery evidence; and an explanation of one revision. The public check only detects missing or inconsistent records; it does not claim that a model selected a tool correctly on unseen requests.</p>
+<p>The criteria are:</p>
+<ul>
+<li>tool descriptions that a model can read and act on;</li>
+<li>correct schema validation;</li>
+<li>structured, bounded errors;</li>
+<li>recovery evidence;</li>
+<li>an explanation of one revision.</li>
+</ul>
+<p>The public check only detects missing or inconsistent records. It does not claim that a model selected a tool correctly on requests it has not seen.</p>
 <h2 id="ai-use-rules">AI use rules</h2>
-<p>Green: drafting schemas and boilerplate. Yellow: proposing descriptions or recovery paths, followed by your own protocol runs. Red: the expected tool, error interpretation and decision are your own. Do not paste private data or keys into prompts or outputs. Attach one AI-use note ID.</p>
+<p>Green: the agent may draft schemas and boilerplate. Yellow: it may propose descriptions or recovery paths, which you then test with your own protocol runs. Red: the expected tool, the interpretation of errors and the decision must be your own. Do not paste private data or keys into prompts or outputs. Attach one AI-use note ID.</p>
 <h2 id="estimated-time">Estimated time</h2>
-<p>Published after a timed pilot. Record predicted and actual time and request help if a local protocol failure is unclear.</p>
+<p>Published after a timed pilot. Record your predicted and actual time. Ask for help if you do not understand a local protocol failure.</p>
 <h2 id="work-record-outline">Work record outline</h2>
-<pre><code class="language-text">assignment: A2
+<div class="highlight"><pre><span></span><code>assignment: A2
 server_path: TODO
 evidence: [{id: TODO, path: TODO, observation: TODO}]
 trials: [{case: selection|arguments|recovery, run_kind: real, request: TODO, expected: TODO, actual: TODO, disposition: TODO, evidence: [TODO]}]
@@ -6682,8 +6692,8 @@ ai_use_note: TODO
 predicted_time: TODO
 actual_time: TODO
 decision: {action: accept | narrow | recheck | stop, because: [evidence ID(s)], next: TODO}
-</code></pre>
-<p>The outline lists the fields of <code>report.json</code> in plain text. <code>starter/report.json</code> holds them as JSON, except <code>predicted_time</code> and <code>actual_time</code>, which you add yourself. Evidence paths are relative to your submission directory. The check reads a field that still contains the word <code>TODO</code>, or text in angle brackets such as <code>&lt;name&gt;</code>, as unfilled.</p>
+</code></pre></div>
+<p>The outline lists the fields of <code>report.json</code> in plain text. <code>starter/report.json</code> holds them as JSON, except <code>predicted_time</code> and <code>actual_time</code>, which you add yourself. Evidence paths are relative to your submission directory. If a field still contains the word <code>TODO</code>, or text in angle brackets such as <code>&lt;name&gt;</code>, the check treats it as unfilled.</p>
 
 
 
@@ -6782,7 +6792,7 @@ decision: {action: accept | narrow | recheck | stop, because: [evidence ID(s)], 
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

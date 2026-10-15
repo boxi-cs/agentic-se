@@ -6389,26 +6389,26 @@
 
 <h1 id="week-4-reading-path">Week 4 reading path</h1>
 <p>Read the <a href="notes.en.html">notes</a> and run the studio before the optional sources. The course
-examples are sufficient; no account, installation or external service is required.</p>
+examples are enough. You do not need an account, an installation or an external service.</p>
 <ul>
 <li><strong>Source 1 — instruction files:</strong> read the <em>Custom instructions with AGENTS.md</em> section
-  of the Codex CLI documentation recorded in (tools/codex-cli; as_of: 2026-10-09; <a href="https://github.com/openai/codex/blob/main/README.md">Source 1</a>; <a href="https://learn.chatgpt.com/docs/auth">Source 2</a>; <a href="https://learn.chatgpt.com/docs/extend/mcp">Source 3</a>; <a href="https://learn.chatgpt.com/docs/agent-configuration/agents-md">Source 4</a>; <a href="https://learn.chatgpt.com/docs/non-interactive-mode">Source 5</a>). Scope your reading to
-  how instructions are discovered and combined. Compare that context mechanism with the
-  studio's rule table; do not infer that instructions enforce filesystem permissions.</li>
-<li><strong>Source 2 — hooks:</strong> inspect the copied <code>pre_commit.py</code> and the Git event and exit-status
-  contract described in the studio, then <code>agent_hook.py</code> and the replay of its two agent
-  events. These are course-written synthetic examples; record their input, blocked output
-  and passing output rather than treating them as a vendor claim. For a real agent's event
+  of the Codex CLI documentation recorded in (tools/codex-cli; as_of: 2026-10-09; <a href="https://github.com/openai/codex/blob/main/README.md">Source 1</a>; <a href="https://learn.chatgpt.com/docs/auth">Source 2</a>; <a href="https://learn.chatgpt.com/docs/extend/mcp">Source 3</a>; <a href="https://learn.chatgpt.com/docs/agent-configuration/agents-md">Source 4</a>; <a href="https://learn.chatgpt.com/docs/non-interactive-mode">Source 5</a>). Focus on how the agent
+  finds instructions and combines them. Compare this way of giving context with the
+  studio's rule table. Do not conclude that instructions enforce filesystem permissions.</li>
+<li><strong>Source 2 — hooks:</strong> inspect the copied <code>pre_commit.py</code>. Read the studio's description
+  of the Git event and of what each exit status means. Then inspect <code>agent_hook.py</code> and the
+  replay of its two agent events. These are course-written synthetic examples. Record their
+  input, blocked output and passing output; do not treat them as a vendor's claim. For a real agent's event
   names and hook settings, read that agent's own documentation.</li>
 <li><strong>Source 3 — role context:</strong> read the <em>subagents</em> claim and its cited locator in
-  (studies/humanlayer-context-engineering; as_of: 2026-10-09; <a href="https://github.com/humanlayer/advanced-context-engineering-for-coding-agents/blob/18608dedb759256d86b1c0101de82ecef8a556ab/ace-fca.md">Source 1</a>). Scope the claim to limiting context and
-  returning a compact hand-back. Treat the article's workflow as a proposal to test, not
+  (studies/humanlayer-context-engineering; as_of: 2026-10-09; <a href="https://github.com/humanlayer/advanced-context-engineering-for-coding-agents/blob/18608dedb759256d86b1c0101de82ecef8a556ab/ace-fca.md">Source 1</a>). Apply the claim only to limiting context
+  and returning a short hand-back. Treat the article's workflow as a proposal to test, not
   as evidence that a role is safe or effective.</li>
-<li><strong>Source 4 — skills as instructions:</strong> read the scope and progressive-disclosure claim
-  in (tools/agent-skills; as_of: 2026-10-07; <a href="https://agentskills.io/specification">Source 1</a>). Scope your comparison to a description, instructions and
-  on-demand resources. A skill description does not grant a tool permission.</li>
+<li><strong>Source 4 — skills as instructions:</strong> read the claim about scope and progressive
+  disclosure (loading details only when needed) in (tools/agent-skills; as_of: 2026-10-07; <a href="https://agentskills.io/specification">Source 1</a>). Limit your
+  comparison to a description, instructions and resources loaded on demand. A skill description does not grant a tool permission.</li>
 </ul>
-<p>For each source, write one sentence naming the source section, the claim you used and the
+<p>For each source, write one sentence. Name the source section, the claim you used, and the
 check in your studio that could support or challenge it. Factsheet cards are citations for
 this page; they are not published reading material.</p>
 
@@ -6509,7 +6509,7 @@ this page; they are not published reading material.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

@@ -6702,56 +6702,57 @@ reach, a named piece of evidence and the person who decides.</p>
 <h2 id="q1">Q1</h2>
 <p>"Runs itself" is a claim about every change that enters the pipeline. One unattended run is
 one input: it supports "this change went through with nobody touching it" and nothing
-wider. One bad change that reaches release with every automatic stage passing counts
-against the claim, and so does a stop that has never been seen to keep a later stage from
-running, because then nobody has observed what the pipeline does with a bad change.</p>
+wider. Two things count against the claim. The first is one bad change that reaches
+release with every automatic stage passing. The second is a stop that nobody has seen keep
+a later stage from running. In that case nobody has observed what the pipeline does with a
+bad change.</p>
 <h2 id="q2">Q2</h2>
 <p>The second record is the same as the first: <code>scope</code> pass, <code>gate</code> stop, <code>release</code> not-run,
-exit status 1. The release stage accepts evidence left by the gate, and the gate left a
-failed case, so there is nothing to accept. A name records who took responsibility for
-passing evidence; it is not a way past a failed check. The change is approved only when a
-run ends in <code>released</code>, and the first step is to read the failed case.</p>
+exit status 1. The release stage accepts the evidence that the gate left. Here the gate
+left a failed case, so there is nothing to accept. A name records who took responsibility
+for passing evidence. It is not a way past a failed check. The change is approved only when
+a run ends in <code>released</code>. The first step is to read the failed case.</p>
 <h2 id="q3">Q3</h2>
-<p>The cases changed: two were removed or the file was replaced, which the lower count and
-the different digest both show. The change itself is the same, so the second pass says
+<p>The cases changed. The lower count and the different digest both show that two cases were
+removed or the file was replaced. The change itself is the same, so the second pass says
 only that it agrees with the seven cases that are left. An acceptance can rest on the first
 record alone, because that is the evidence someone agreed to. Before deciding, ask who
 changed the cases, which two went and why, and whether the first record's cases digest is
 the one that was frozen. The second pass is evidence that the cases file changed. If the
-seven left are among the original nine, it adds nothing about the change, which had already
-passed all nine.</p>
+seven that are left are among the original nine, the second pass adds nothing about the
+change. The change had already passed all nine.</p>
 <h2 id="q4">Q4</h2>
 <p>The green gate supports one sentence: the change agrees with the contract on the frozen
 cases. "No other behaviour changes" is a claim about every input, and the gate tested only
-the inputs it holds. To test the note, read the diff for the rule that changed, choose an
-input at that rule's edge that the cases lack, and run the old and the new version on it.
-If they differ and the contract sides with the old version, the claim in the note is
-refuted for that input, and the input becomes a new case. If they agree, you have one more
-input that behaves, and the conclusion stays narrow.</p>
+the inputs it holds. To test the note, read the diff to find the rule that changed.
+Choose an input at that rule's edge that the cases lack. Run the old and the new version on
+it. Suppose they differ and the contract sides with the old version. Then the note's claim
+is refuted for that input, and the input becomes a new case. If they agree, you have one
+more input that behaves, and the conclusion stays narrow.</p>
 <h2 id="q5">Q5</h2>
-<p>The gate ran the change inside the same process that produced the report, so the change's
+<p>The gate ran the change inside the same process that produced the report. So the change's
 own code could write the verdict and end the run before any case was scored. The last
 chance is the named person at the release stage, who reads the change before accepting the
-gate's evidence. To close the gap, the gate must call the change in a separate process and
-treat whatever that process prints as data, so that only the gate writes the report.
+gate's evidence. To close the gap, the gate must call the change in a separate process. It
+must treat whatever that process prints as data, so that only the gate writes the report.
 Counting cases or checking the exit status does not help while the change can produce both.</p>
 <h2 id="q6">Q6</h2>
 <p>A check seen to fail on a bad change and pass on a good one; cases the changing agent
 cannot edit; a verdict the change cannot write; and a stop path that someone has exercised.
 Two hundred green runs supply none of the four. They do not even supply the first, which
 needs a run in which the check failed on a change known to be bad. The stage is "not yet"
-until each of the four can be pointed to.</p>
+until you can point to each of the four.</p>
 <h2 id="q7">Q7</h2>
 <p><code>refuted</code>. The claim is about every file type, so one refused type is a counterexample.
-Keep the bound in the scope sentence: "Checked <code>report.exe</code> on the frozen tag: refused.
+Keep the claim's limit in the scope sentence: "Checked <code>report.exe</code> on the frozen tag: refused.
 This refutes acceptance of any file type; it does not show that every disallowed type is
 refused."</p>
 <h2 id="q8">Q8</h2>
 <p>Both are wrong. The claim is about some query, so queries that behave show only where the
-problem is not; they cannot make it <code>refuted</code>. It is not <code>undetermined</code> either, because the
-snapshot holds the search code that decides it. Read the rule the query builder applies,
-for example which fields it matches and how it combines the owner filter with the search
-terms, and try queries at that rule's edges. Keep each query you tried. One query that
+problem is not. They cannot make it <code>refuted</code>. It is not <code>undetermined</code> either, because the
+snapshot holds the search code that decides it. Read the rule the query builder applies:
+for example, which fields it matches and how it combines the owner filter with the search
+terms. Then try queries at that rule's edges. Keep each query you tried. One query that
 lists another user's report makes the claim <code>confirmed</code>.</p>
 <h2 id="q9">Q9</h2>
 <p>The scan read the tagged tree, not the deployment settings, so it does not test the claim.
@@ -6759,22 +6760,21 @@ A clean result there says nothing about a file it never read. Mark the row <code
 and name the missing input: the deployment settings. Do not close it with evidence about a
 different input, and do not mark it <code>confirmed</code> because of a different defect.</p>
 <h2 id="q10">Q10</h2>
-<p>Recheck. The old line accepted a results table produced by a scorer and a model version
-that are no longer the ones in use, so its evidence is about different inputs. Run the
-current scorer, with its added cases, on the current setup, record the new table next to
-the revision and the date, and write a new decision line from that. Keep the old line and
-its table; they record what was true then. If the new run cannot be made before the
-deadline, say so in the final project and cite the old result as dated, with the two
-changes named.</p>
+<p>Recheck. The old line accepted a results table from a scorer and a model version that are
+no longer in use. So its evidence is about different inputs. Run the current scorer, with
+its added cases, on the current setup. Record the new table next to the revision and the
+date, and write a new decision line from it. Keep the old line and its table: they record
+what was true then. If you cannot make the new run before the deadline, say so in the final
+project. Cite the old result as dated, and name the two changes.</p>
 <h2 id="transfer">Transfer</h2>
 <p>A bounded sentence names all three parts, for example: "Formatting-only changes to the
 report module can merge behind the hook gate without review; any failed check stops the
 merge and notifies me." The run to show is one in which the gate blocked a change you knew
-was bad, kept with its output. If you cannot point to such a run, the sentence is a plan
+was bad. Keep that run with its output. If you cannot point to such a run, the sentence is a plan
 and the stage still needs a person.</p>
 <h2 id="spaced-retrieval">Spaced retrieval</h2>
 <p><strong>Retrieval 1.</strong> Add a JSON contract, parser checks, malformed and missing-field cases, an Unknown route and regressions.</p>
-<p><strong>Retrieval 2.</strong> A timeout could hide a completed job or a job that never started; inspect persisted state by operation key and verify the current result.</p>
+<p><strong>Retrieval 2.</strong> A timeout could hide a completed job or a job that never started. Inspect the persisted state by operation key and verify the current result.</p>
 
 
 
@@ -6873,7 +6873,7 @@ and the stage still needs a person.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

@@ -6644,12 +6644,12 @@
 
 <h1 id="studio-foreground-and-unattended-on-the-same-task">Studio: foreground and unattended on the same task</h1>
 <h2 id="learning-objectives">Learning objectives</h2>
-<p>Demonstrate LO2 by designing a bounded background workflow and LO9 by accepting only
-what your own verification supports. Use a small subtask from your project or current
+<p>Demonstrate LO2 by designing a bounded background workflow. Demonstrate LO9 by accepting
+only what your own verification supports. Use a small subtask from your project or current
 contribution, such as a fix with a local reproducer. This is studio practice in your
-existing work record; it does not add a separate submission or change contribution
+existing work record. It does not add a separate submission or change contribution
 requirements. When the task comes from your project, the unattended run's record feeds
-the final project's evaluation item: the
+the final project's evaluation item. The
 <a href="../../site/docs/project.en.html#what-the-evaluation-script-evaluates">evaluation script</a>
 scores at least one unattended attempt like this one, with its acceptance check outside
 what the agent may edit.</p>
@@ -6659,18 +6659,18 @@ back from the two modes. Both candidates are course-written files under
 <code>lectures/week-09-background-agents/fixture/</code>, next to the base they start from; no agent
 returned them. First predict whether each candidate's branch report is enough.</p>
 <p><strong>Verify.</strong> From the course checkout, run both against the same unchanged cases, including
-the display case, then print the unattended candidate's diff against the base. If your
+the display case. Then print the unattended candidate's diff against the base. If your
 terminal has no <code>python</code> command, type <code>python3</code>.</p>
-<pre><code class="language-sh">python lectures/week-09-background-agents/fixture/verify.py foreground --tests acceptance; echo &quot;exit $?&quot;
-python lectures/week-09-background-agents/fixture/verify.py unattended --tests acceptance; echo &quot;exit $?&quot;
-git diff --no-index lectures/week-09-background-agents/fixture/base lectures/week-09-background-agents/fixture/unattended
-</code></pre>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>lectures/week-09-background-agents/fixture/verify.py<span class="w"> </span>foreground<span class="w"> </span>--tests<span class="w"> </span>acceptance<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit </span><span class="nv">$?</span><span class="s2">"</span>
+python<span class="w"> </span>lectures/week-09-background-agents/fixture/verify.py<span class="w"> </span>unattended<span class="w"> </span>--tests<span class="w"> </span>acceptance<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit </span><span class="nv">$?</span><span class="s2">"</span>
+git<span class="w"> </span>diff<span class="w"> </span>--no-index<span class="w"> </span>lectures/week-09-background-agents/fixture/base<span class="w"> </span>lectures/week-09-background-agents/fixture/unattended
+</code></pre></div>
 <p>Inspect the diff and identify which requirement the extra display change violates.</p>
 <h2 id="hands-on-exercise">Hands-on exercise</h2>
 <h3 id="if-there-is-a-guest">If there is a guest</h3>
 <p>A practitioner speaks for at most 45 minutes on this week's topic. Write one question
-beforehand. In that case do the part "Prepare a request that can stop" before class,
-including the reproducer on the base and the two worktrees. After the talk, run the two
+beforehand. In that case, do the part "Prepare a request that can stop" before class.
+That includes the reproducer on the base and the two worktrees. After the talk, run the two
 modes with a short limit you set in advance and verify at least one candidate in class.
 Finish the comparison table and the decision line afterwards in your existing record.</p>
 <h3 id="prepare-a-request-that-can-stop">Prepare a request that can stop</h3>
@@ -6678,53 +6678,55 @@ Finish the comparison table and the decision line afterwards in your existing re
 unchanged behavior, verification command, forbidden changes and stop condition. Run the
 reproducer on the base before asking the agent for a change. If you cannot reproduce the
 failure or the check cannot fail, ask the teaching team to help narrow the task.
-Use the <a href="../../SYLLABUS.en.html#tools-and-model-access">current syllabus's access rules</a>: run
-the agent in a dedicated directory or container, keep employer and cloud credentials out of
-that environment, and never put keys in the repository, prompts, screenshots or logs. For
-both runs, start the agent inside its own worktree and limit what it may edit to that
+Follow the <a href="../../SYLLABUS.en.html#tools-and-model-access">current syllabus's access rules</a>.
+Run the agent in a dedicated directory or container. Keep employer and cloud credentials
+out of that environment. Never put keys in the repository, prompts, screenshots or logs.
+For both runs, start the agent inside its own worktree. Limit what it may edit to that
 worktree: not the parent directory and not the other worktree.
-Use the provided agent seat; no new paid service or hosted pipeline is needed.</p>
-<p>From a clean local checkout of your own repository in a dedicated parent directory, type these
-Git commands yourself. Keeping both worktrees under that parent prevents the agent from being
-started outside the dedicated directory.
+Use the provided agent seat. You need no new paid service or hosted pipeline.</p>
+<p>Start from a clean local checkout of your own repository in a dedicated parent directory,
+and type these Git commands yourself. Because both worktrees sit under that parent, you
+never start the agent outside the dedicated directory.
 Commit the acceptance tests you wrote before recording the base. Use fresh sibling
-paths and branch names; if they already exist, inspect them and choose unused names.
+paths and branch names. If they already exist, inspect them and choose unused names.
 In the two <code>git worktree add</code> lines, replace <code>BASE_SHA</code> with the full revision that
 <code>git rev-parse HEAD</code> prints.</p>
-<pre><code class="language-sh">git status --short
-git rev-parse HEAD
-git worktree add -b studio-w9-foreground ../studio-w9-foreground BASE_SHA
-git worktree add -b studio-w9-unattended ../studio-w9-unattended BASE_SHA
-git worktree list
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>status<span class="w"> </span>--short
+git<span class="w"> </span>rev-parse<span class="w"> </span>HEAD
+git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>-b<span class="w"> </span>studio-w9-foreground<span class="w"> </span>../studio-w9-foreground<span class="w"> </span>BASE_SHA
+git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>-b<span class="w"> </span>studio-w9-unattended<span class="w"> </span>../studio-w9-unattended<span class="w"> </span>BASE_SHA
+git<span class="w"> </span>worktree<span class="w"> </span>list
+</code></pre></div>
 <p>Use the same recorded request, base and initial checks in both worktrees. Start no agent
 in your original checkout: it stays at the recorded base and is your acceptance copy. In
 each worktree, before you run the acceptance tests there,
 <code>git diff BASE_SHA -- &lt;paths of your acceptance tests&gt;</code> must print nothing. If it prints
-anything, the agent edited them; do not count a test rewritten by the agent as independent
+anything, the agent edited them. Do not count a test that the agent rewrote as independent
 acceptance evidence. After each run, <code>git status --short</code> in the original checkout and in
 the other worktree must show nothing new.</p>
 <h3 id="generate-then-verify-in-each-mode">Generate, then verify in each mode</h3>
 <ol>
 <li><strong>Foreground:</strong> open your usual coding agent in <code>../studio-w9-foreground</code>. Stay present
    and allow questions. Record only interventions that affect the task. Stop when it returns
-   a candidate or hits the limit you set. Ask for a diff and check evidence; no push or merge.</li>
+   a candidate or hits the limit you set. Ask for a diff and check evidence. Allow no push
+   or merge.</li>
 <li><strong>Unattended:</strong> start a fresh session in <code>../studio-w9-unattended</code> with the same request.
    Use the agent's supplied non-interactive mode if available. Otherwise send the complete
    request in an ordinary local terminal and give no further answers until it returns.
    Keep the computer awake; you may work on the comparison record while it runs. Require
    it to stop and report ambiguity, a permission request, a failing gate or its agreed limit.
    Do not weaken permissions to get a result. If the tool requires interaction, stop and
-   record that limitation; it is evidence about this workflow.</li>
-<li><strong>Verify each:</strong> review <code>git status --short</code> and <code>git diff BASE_SHA</code> (the recorded
-   base, so that changes the agent committed still show), every changed hunk and the
-   untracked files. Run the exact acceptance command yourself using the unchanged checks.
+   record that limitation. It is evidence about this workflow.</li>
+<li><strong>Verify each:</strong> review <code>git status --short</code> and <code>git diff BASE_SHA</code>. Diff against the
+   recorded base so that changes the agent committed still show. Review every changed hunk
+   (block of changed lines) and the untracked files. Run the exact acceptance command yourself using the unchanged checks.
    Keep the exit status and meaningful output, not merely the agent's summary. Check that
    a forbidden test edit or missing result would block acceptance.</li>
-<li><strong>Compare:</strong> fill the small table below. Hold the scope constant; any foreground
-   clarification is an intervention to report, not a silent improvement of the second prompt.</li>
+<li><strong>Compare:</strong> fill the small table below. Keep the scope the same in both runs. Report
+   any clarification you gave in the foreground run as an intervention. It is not a silent
+   improvement of the second prompt.</li>
 <li><strong>Revise:</strong> pick one uncertainty, narrow it and specify the next check. Do not spend the
-   whole studio waiting: stop at your agreed limit, retain the partial result and discuss
+   whole studio waiting. Stop at your agreed limit, keep the partial result and discuss
    what smaller task could finish. Reserve the final part of class for verification and revision.</li>
 </ol>
 <table>
@@ -6771,22 +6773,22 @@ the other worktree must show nothing new.</p>
 <h3 id="when-an-agent-seat-is-unavailable">When an agent seat is unavailable</h3>
 <p>If the supplied agent seat is unavailable, stop the run and record the access blocker. You can
 still practise the verification on the two course-written candidates from the
-<a href="notes.en.html#one-request-two-ways-to-run-it">notes</a>. Work from the course checkout; this
+<a href="notes.en.html#one-request-two-ways-to-run-it">notes</a>. Work from the course checkout. This
 route needs no key, network connection or cloud service.</p>
 <p><strong>Read.</strong> Print each candidate's diff against the base. <code>git diff --no-index</code> compares two
 directories; its exit status is 1 whenever they differ.</p>
-<pre><code class="language-sh">git diff --no-index lectures/week-09-background-agents/fixture/base lectures/week-09-background-agents/fixture/foreground
-git diff --no-index lectures/week-09-background-agents/fixture/base lectures/week-09-background-agents/fixture/unattended
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>diff<span class="w"> </span>--no-index<span class="w"> </span>lectures/week-09-background-agents/fixture/base<span class="w"> </span>lectures/week-09-background-agents/fixture/foreground
+git<span class="w"> </span>diff<span class="w"> </span>--no-index<span class="w"> </span>lectures/week-09-background-agents/fixture/base<span class="w"> </span>lectures/week-09-background-agents/fixture/unattended
+</code></pre></div>
 <p>Map every hunk to a line of the request in the notes. Mark each hunk that no line permits.</p>
 <p><strong>Predict.</strong> On paper, write the result you expect from each candidate's own tests and from
 the base tests run against it.</p>
 <p><strong>Run.</strong> Run the four checks. Keep each printed line with its exit status.</p>
-<pre><code class="language-sh">python lectures/week-09-background-agents/fixture/verify.py foreground --tests own; echo &quot;exit $?&quot;
-python lectures/week-09-background-agents/fixture/verify.py foreground --tests base; echo &quot;exit $?&quot;
-python lectures/week-09-background-agents/fixture/verify.py unattended --tests own; echo &quot;exit $?&quot;
-python lectures/week-09-background-agents/fixture/verify.py unattended --tests base; echo &quot;exit $?&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>lectures/week-09-background-agents/fixture/verify.py<span class="w"> </span>foreground<span class="w"> </span>--tests<span class="w"> </span>own<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit </span><span class="nv">$?</span><span class="s2">"</span>
+python<span class="w"> </span>lectures/week-09-background-agents/fixture/verify.py<span class="w"> </span>foreground<span class="w"> </span>--tests<span class="w"> </span>base<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit </span><span class="nv">$?</span><span class="s2">"</span>
+python<span class="w"> </span>lectures/week-09-background-agents/fixture/verify.py<span class="w"> </span>unattended<span class="w"> </span>--tests<span class="w"> </span>own<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit </span><span class="nv">$?</span><span class="s2">"</span>
+python<span class="w"> </span>lectures/week-09-background-agents/fixture/verify.py<span class="w"> </span>unattended<span class="w"> </span>--tests<span class="w"> </span>base<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit </span><span class="nv">$?</span><span class="s2">"</span>
+</code></pre></div>
 <p><strong>Record.</strong> Fill the comparison table from what you read and ran. Leave the rows
 "Interventions / unanswered questions" and "Observed elapsed time, waiting and rework"
 empty: no agent ran, so there is nothing to observe for them. Label the record
@@ -6795,26 +6797,26 @@ the results you ran.</p>
 <h2 id="verification">Verification</h2>
 <p>Keep the task request, each diff and check result, the comparison table, one AI-use note
 (or its existing ID), and this line in your existing record:</p>
-<pre><code class="language-text">Accept / Narrow / Recheck / Stop — evidence: [revision, check result, scope finding].
-</code></pre>
+<div class="highlight"><pre><span></span><code>Accept / Narrow / Recheck / Stop — evidence: [revision, check result, scope finding].
+</code></pre></div>
 <p>State separately which run your decision applies to. An unknown result needs a named
-next check. For a contribution, prepare a proposed PR description locally only after
-verification; upstream submission follows that repository's rules. The studio itself
+next check. For a contribution, prepare a proposed PR description locally, and only after
+verification. Follow that repository's rules when you submit upstream. The studio itself
 grants no authority to publish or merge. For a project, integrate only the chosen candidate
 and rerun the checks on the combined revision. Do not combine the two competing fixes.</p>
-<p>For a project task, keep the unattended run's handoff record: the final project's
+<p>For a project task, keep the unattended run's handoff record. The final project's
 evaluation script needs at least one unattended attempt, and this one can be it. The
 record is the request, the recorded base revision, the returned diff, the agent's report
 or stop reason, and the acceptance result you ran on the unchanged checks. Keep these
-five together so that the script can count the attempt in week 12 whatever its outcome,
-including a run stopped at its limit. A record from the route without a seat is not an
-agent run and cannot be that attempt. If your task came from a contribution, run one
+five together. Then the script can count the attempt in week 12 whatever its outcome,
+even a run stopped at its limit. A record from the route without a seat is not an
+agent run, so it cannot be that attempt. If your task came from a contribution, run one
 project task unattended in the same way before the final.</p>
 <p>After the agent processes have stopped and you have saved the evidence, inspect each
-worktree's status. Remove a worktree only after its intended changes are committed or
-saved elsewhere; do not force removal to hide untracked or unfinished work. From your
-original checkout, remove one with <code>git worktree remove ../studio-w9-foreground</code>; Git
-refuses while the worktree still holds modified or untracked files, which is your reminder
+worktree's status. Remove a worktree only after you have committed its intended changes or
+saved them elsewhere. Do not force removal to hide untracked or unfinished work. From your
+original checkout, remove one with <code>git worktree remove ../studio-w9-foreground</code>. Git
+refuses while the worktree still holds modified or untracked files. That is your reminder
 to save them first.</p>
 <h2 id="common-mistakes">Common mistakes</h2>
 <ul>
@@ -6924,7 +6926,7 @@ to save them first.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

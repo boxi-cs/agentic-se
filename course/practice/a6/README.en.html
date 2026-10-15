@@ -6621,7 +6621,7 @@
 <li><strong>Weight:</strong> 2.5 points</li>
 <li><strong>Due:</strong> Sunday 23:59 in the listed week</li>
 <li><strong>Hand in:</strong> an audit record, recomputed counts and <code>report.json</code>.</li>
-<li><strong>Done when:</strong> every denominator includes success, failure, timeout and missing outcomes, and one scorer weakness is demonstrated.</li>
+<li><strong>Done when:</strong> every denominator (the set of attempts a rate is divided by) includes success, failure, timeout and missing outcomes, and you have demonstrated one scorer weakness.</li>
 <li><strong>Time:</strong> published after a timed pilot; record your prediction and actual time.</li>
 </ul>
 <h2 id="objectives">Objectives</h2>
@@ -6638,24 +6638,32 @@
 <h2 id="tasks">Tasks</h2>
 <ol>
 <li><strong>Predict.</strong> Identify one check you expect to be weak and one outcome likely to be missing.</li>
-<li><strong>Generate.</strong> Ask an agent to propose an audit plan. Keep it as claims, not truth.</li>
-<li><strong>Audit the instance.</strong> Copy <a href="starter/"><code>starter/</code></a> to a submission directory of your own outside the course checkout and work in that copy; <code>instance.json</code>, <code>scorer.py</code> and <code>report.json</code> stay in it. Open <code>instance.json</code>, including its prompt, inputs, checks and four declared attempts. Run a safe counterexample showing a check can fail or a wrong answer can pass.</li>
-<li><strong>Audit the scorer.</strong> In your copy, run <code>python run_scorer.py instance.json</code>, then recompute the result with success, failure, timeout and missing rows visible. Compare the reported rate with a denominator that includes every declared attempt and record any difference you find.</li>
-<li><strong>Claim limits.</strong> Write one supported claim and at least three unsupported claims, such as a ranking, unseen-task generalization or stable rate from one attempt. Revise after feedback from a peer or the teaching team during the assignment week; record who gave it and the date, or your self-review date if no feedback was available. Finish the decision line.</li>
+<li><strong>Generate.</strong> Ask an agent to propose an audit plan. Treat the plan as claims, not as facts.</li>
+<li><strong>Audit the instance.</strong> Copy <a href="starter/"><code>starter/</code></a> to a submission directory of your own outside the course checkout. Work in that copy, and keep <code>instance.json</code>, <code>scorer.py</code> and <code>report.json</code> in it. Open <code>instance.json</code> and read its prompt, inputs, checks and four declared attempts. Run a safe counterexample: a case that shows a check can fail, or that a wrong answer can pass.</li>
+<li><strong>Audit the scorer.</strong> In your copy, run <code>python run_scorer.py instance.json</code>. Then recompute the result yourself, with separate visible rows for success, failure, timeout and missing. Compare the reported rate with a rate whose denominator includes every declared attempt. Record any difference you find.</li>
+<li><strong>Claim limits.</strong> Write one supported claim and at least three unsupported claims. Examples of unsupported claims are a ranking, generalization to unseen tasks, or a stable rate from one attempt. During the assignment week, get feedback from a peer or the teaching team and revise. Record who gave the feedback and the date. If no feedback was available, record the date of your self-review instead. Finish the decision line.</li>
 </ol>
-<p>Generation is a proposed audit; verification is the counterexample and recomputation. Never copy a reference answer or treat a course fixture as an industry result.</p>
+<p>Generation is the audit that the agent proposes. Verification is your counterexample and your recomputation. Never copy a reference answer. Never treat a course fixture as an industry result.</p>
 <h2 id="deliverables">Deliverables</h2>
 <p>Include the instance and scorer paths, audit output, counts and <code>report.json</code>. Counts must include <code>declared</code>, <code>success</code>, <code>failure</code>, <code>timeout</code> and <code>missing</code>. Run from the course checkout:</p>
-<pre><code class="language-bash">python practice/a6/check.py path/to/submission
-</code></pre>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>practice/a6/check.py<span class="w"> </span>path/to/submission
+</code></pre></div>
 <h2 id="grading">Grading</h2>
-<p>Criteria are a reproducible counterexample; a complete denominator; a precise supported claim; at least three limits; and a revision backed by evidence. The public check catches inconsistent records but does not judge the scorer or make a statistical claim.</p>
+<p>The criteria are:</p>
+<ul>
+<li>a counterexample that someone else can reproduce;</li>
+<li>a complete denominator;</li>
+<li>a precise supported claim;</li>
+<li>at least three limits;</li>
+<li>a revision backed by evidence.</li>
+</ul>
+<p>The public check catches inconsistent records. It does not judge the scorer, and it does not make a statistical claim.</p>
 <h2 id="ai-use-rules">AI use rules</h2>
-<p>Green: drafting an audit plan and recomputation table. Yellow: suggesting counterexamples, followed by your own run and inspection. Red: deciding what the result supports, what it cannot support and the final decision. Attach one AI-use note ID.</p>
+<p>Green: the agent may draft an audit plan and a recomputation table. Yellow: the agent may suggest counterexamples, but you must run and inspect them yourself. Red: deciding what the result supports, what it cannot support and the final decision must be your own work. Attach one AI-use note ID.</p>
 <h2 id="estimated-time">Estimated time</h2>
-<p>Published after a timed pilot. Record predicted and actual time, including recomputation and revision.</p>
+<p>Published after a timed pilot. Record your predicted and actual time. Include the time for recomputation and revision.</p>
 <h2 id="work-record-outline">Work record outline</h2>
-<pre><code class="language-text">assignment: A6
+<div class="highlight"><pre><span></span><code>assignment: A6
 evidence: [{id: TODO, path: TODO, observation: TODO}]
 instance: TODO
 scorer_path: TODO
@@ -6669,7 +6677,7 @@ ai_use_note: TODO
 predicted_time: TODO
 actual_time: TODO
 decision: {action: accept | narrow | recheck | stop, because: [evidence ID(s)], next: TODO}
-</code></pre>
+</code></pre></div>
 <p>The outline lists the fields of <code>report.json</code> in plain text. <code>starter/report.json</code> holds them as JSON, except <code>prediction</code>, <code>predicted_time</code> and <code>actual_time</code>, which you add yourself. Evidence paths are relative to your submission directory. The check reads a field that still contains the word <code>TODO</code>, or text in angle brackets such as <code>&lt;name&gt;</code>, as unfilled.</p>
 
 
@@ -6769,7 +6777,7 @@ decision: {action: accept | narrow | recheck | stop, because: [evidence ID(s)], 
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

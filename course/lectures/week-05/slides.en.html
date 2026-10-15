@@ -6902,21 +6902,21 @@
 <p>It does not prove the implementation is correct, all callers are covered or every command is safe.</p>
 <hr />
 <h2 id="generate-then-verify">Generate, then verify</h2>
-<p>Ask for a bounded expression as text.</p>
+<p>Ask the agent for one bounded change, as text.</p>
 <p>Inspect the diff and expected behavior.</p>
-<pre><code class="language-sh">python lectures/week-05/fixture/verify.py rejected
-python lectures/week-05/fixture/verify.py refactored
-</code></pre>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>lectures/week-05/fixture/verify.py<span class="w"> </span>rejected
+python<span class="w"> </span>lectures/week-05/fixture/verify.py<span class="w"> </span>refactored
+</code></pre></div>
 <hr />
 <h2 id="a-rejected-shortcut">A rejected shortcut</h2>
-<pre><code class="language-python">LABELS.get(raw.lower(), &quot;unknown&quot;)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">LABELS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="s2">"unknown"</span><span class="p">)</span>
+</code></pre></div>
 <p>What disappeared?</p>
 <p><code>strip()</code> was part of the contract.</p>
 <hr />
 <h2 id="the-verified-refactor">The verified refactor</h2>
-<pre><code class="language-python">LABELS.get(raw.strip().lower(), &quot;unknown&quot;)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">LABELS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="s2">"unknown"</span><span class="p">)</span>
+</code></pre></div>
 <p>The structure changed.</p>
 <p>The behavior cases remain.</p>
 <hr />
@@ -6937,7 +6937,7 @@ python lectures/week-05/fixture/verify.py refactored
 <h2 id="structure-find-the-change-point">Structure: find the change point</h2>
 <p><strong>1</strong> No map.</p>
 <p><strong>2</strong> A map exists, but an entry is wrong or responsibilities mix.</p>
-<p><strong>3</strong> Entries checked are accurate; the path reaches a single-responsibility change point in ≤3 opens.</p>
+<p><strong>3</strong> Checked entries are accurate. The path reaches a change point with one responsibility in ≤3 opens.</p>
 <p><strong>4</strong> A deliberate boundary violation fails a check.</p>
 <hr />
 <h2 id="documentation-write-the-rules">Documentation: write the rules</h2>
@@ -6956,11 +6956,11 @@ python lectures/week-05/fixture/verify.py refactored
 <p><strong>1</strong> No automatic gate.</p>
 <p><strong>2</strong> Gate is optional or misses an unused import.</p>
 <p><strong>3</strong> One offline gate stops an unused import.</p>
-<p><strong>4</strong> The gate runs before commit and a secret canary is stopped.</p>
+<p><strong>4</strong> The gate runs before commit and stops a secret canary (a planted fake key).</p>
 <hr />
 <h2 id="what-would-disprove-a-score">What would disprove a score?</h2>
 <p>“Tests are fast” → run twice and inspect time.</p>
-<p>“Docs are current” → copy every command at the scored revision.</p>
+<p>“Docs are current” → run every listed command at the scored revision.</p>
 <p>“Structure is clear” → open from the behavior, count steps and inspect the caller.</p>
 <p>“Checks protect us” → make the smallest deliberate bad change.</p>
 <hr />
@@ -6976,13 +6976,13 @@ python lectures/week-05/fixture/verify.py refactored
 </ol>
 <hr />
 <h2 id="record-the-observation">Record the observation</h2>
-<pre><code class="language-text">Dimension:
+<div class="highlight"><pre><span></span><code>Dimension:
 Revision:
 Path or command:
 Observed output:
 Score:
 What would disprove it:
-</code></pre>
+</code></pre></div>
 <p>A score without a path, command or revision is a guess.</p>
 <hr />
 <h2 id="safe-boundaries">Safe boundaries</h2>
@@ -7098,7 +7098,7 @@ What would disprove it:
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

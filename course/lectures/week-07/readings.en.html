@@ -6388,27 +6388,28 @@
 
 
 <h1 id="week-7-reading-path">Week 7 reading path</h1>
-<p>Read the <a href="notes.en.html">notes</a> and rerun their commands before the studio; that is the
+<p>Read the <a href="notes.en.html">notes</a> and rerun their commands before the studio. That is the
 required reading. The course fixture is enough for the week: no account, installation or
-external service is needed. The two sources below are optional and both concern the last
-part of the notes' example, an agent that proposes tests or harnesses.</p>
+external service is needed. The two sources below are optional. Both relate to the last
+part of the notes' example: an agent that proposes tests or harnesses.</p>
 <ul>
 <li><strong>Source 1 — generated fuzz targets and what is reported about them (optional).</strong> Read
   the overview of the <a href="https://github.com/google/oss-fuzz-gen/blob/main/README.md">OSS-Fuzz-Gen README</a>.
-  Use it for one distinction: results report build success, run-time crashes and coverage
-  separately, and the coverage denominator is the code linked into the target, not the
-  whole project (tools/oss-fuzz-gen; as_of: 2026-09-05; <a href="https://github.com/google/oss-fuzz-gen/blob/main/README.md">Source 1</a>; <a href="https://github.com/google/oss-fuzz-gen/blob/main/USAGE.md">Source 2</a>; <a href="https://github.com/google/oss-fuzz-gen/blob/main/LICENSE">Source 3</a>). Ask the same of any test an agent writes for
+  Use it for one distinction. Results report build success, run-time crashes and coverage
+  separately. The coverage denominator (what coverage is measured against) is the
+  code linked into the target, not the whole project (tools/oss-fuzz-gen; as_of: 2026-09-05; <a href="https://github.com/google/oss-fuzz-gen/blob/main/README.md">Source 1</a>; <a href="https://github.com/google/oss-fuzz-gen/blob/main/USAGE.md">Source 2</a>; <a href="https://github.com/google/oss-fuzz-gen/blob/main/LICENSE">Source 3</a>). Ask the
+  same of any test an agent writes for
   you: does it run, does it fail on a known fault, and what does its number count?</li>
 <li><strong>Source 2 — a candidate is not a verified finding (optional).</strong> Read the
   <a href="https://github.com/fuzzingbrain/afc-crs-all-you-need-is-a-fuzzing-brain/blob/main/README.md">FuzzingBrain CRS README</a>
-  for how a run's artifacts keep validated triggering inputs apart from candidate patches,
-  and why a failed build is diagnosed from its logs and is not evidence that no
+  for two points. A run's artifacts keep validated triggering inputs apart from candidate
+  patches. A failed build is diagnosed from its logs, and it is not evidence that no
   vulnerability exists (tools/fuzzingbrain; as_of: 2026-09-05; <a href="https://github.com/fuzzingbrain/afc-crs-all-you-need-is-a-fuzzing-brain/blob/main/README.md">Source 1</a>). Do not install or run either tool for
   this course.</li>
 </ul>
 <p>For each source you read, write one sentence connecting its distinction to an entry in
 your studio record, and one sentence naming what the source does not show about your
-project. Factsheet cards are citations for this page; they are not published reading
+project. Factsheet cards are citations for this page. They are not published reading
 material.</p>
 
 
@@ -6508,7 +6509,7 @@ material.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

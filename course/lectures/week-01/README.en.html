@@ -6388,11 +6388,11 @@
 
 
 <h1 id="week-1-the-internals-of-coding-agents">Week 1: The internals of coding agents</h1>
-<p>Build and verify a minimal agent loop in the first session, then inspect system
-instructions, tool definitions, observations and stopping. In the second session,
-record the requests of one real session with your own coding agent through a small
-local recorder, count its requests, system text and tools, and distinguish observed
-behavior from inference.</p>
+<p>In the first session, you build and verify a minimal agent loop. Then you inspect
+system instructions, tool definitions, observations (tool results) and how the loop
+stops. In the second session, you run your own coding agent once and record its
+requests with a small local recorder. You count the requests, the system text and the
+tools. You also keep what you observed separate from what you infer.</p>
 <ul>
 <li><a href="notes.en.html">Notes and live-loop instructions</a></li>
 <li><a href="slides.en.html">Slides</a></li>
@@ -6401,13 +6401,17 @@ behavior from inference.</p>
 <li><a href="selfcheck.en.html">Self-check and answer guidance</a></li>
 <li><a href="../week-02/dissection.en.html#step-3-dissect">Request dissection</a> and
   <a href="../week-02/prompt-dissection.en.html#part-2-tools-and-schemas">prompt comparison</a>:
-  optional Week 2 practice pages whose questions this week's reading borrows</li>
+  optional Week 2 practice pages. This week's reading borrows their questions.</li>
 </ul>
-<p>The loop code for this week is stored in the Week 2 folder:
-<a href="../week-02/fixture/">fixture</a>, with the
-<a href="../week-02/session/">sample session and its viewer</a>. The loop starter must be
-completed in a draft copy before its checks pass. The studio checks its own status
-candidate separately.</p>
+<p>The loop code for this week is stored in the Week 2 folder, not in this one. You
+need two folders from Week 2:</p>
+<ul>
+<li><a href="../week-02/fixture/"><code>lectures/week-02/fixture/</code></a> holds the loop starter and its checks.</li>
+<li><a href="../week-02/session/"><code>lectures/week-02/session/</code></a> holds the sample session and its viewer.</li>
+</ul>
+<p>Do not edit the starter in place. Copy it to a draft folder and finish it there. Its
+checks pass only after you complete it. The studio has its own status-label task and
+its own check, separate from the loop.</p>
 <p>Use the safety practices in <a href="../../SYLLABUS.en.html#tools-and-model-access">Tools and model access</a>.
 <strong><a href="../../practice/a1/README.en.html">A1</a> is due this week.</strong></p>
 
@@ -6508,7 +6512,7 @@ candidate separately.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

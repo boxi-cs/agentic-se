@@ -6642,26 +6642,26 @@ week's <code>fixture/</code> folder; none of them was returned by a model.</p>
 </tr>
 </tbody>
 </table>
-<p>The studio uses a small task from your project or current contribution. It adds a comparison
-and a decision to your existing work record, rather than another assignment.
+<p>The studio uses a small task from your project or current contribution. It is not another
+assignment. It adds a comparison and a decision to your existing work record.
 Follow the <a href="../../SYLLABUS.en.html#tools-and-model-access">current syllabus's model-access and safety section</a>
 while you work.</p>
 <h2 id="minimal-example">Minimal example</h2>
 <h3 id="one-request-two-ways-to-run-it">One request, two ways to run it</h3>
 <p>A duration summary fails when a running build has <code>duration=None</code>. The request is:</p>
-<pre><code class="language-text">Keep only completed durations when computing the median.
+<div class="highlight"><pre><span></span><code>Keep only completed durations when computing the median.
 [60, None] -&gt; 60; [60, 120, None] -&gt; 90; [None] -&gt; None.
-Keep duration display unchanged: format_duration(185) -&gt; &quot;3m 05s&quot;.
+Keep duration display unchanged: format_duration(185) -&gt; "3m 05s".
 Change only the summary implementation and add regression tests.
 Do not edit existing test expectations, dependencies or pipeline checks.
 If another change is needed, stop and explain. Return a diff, check evidence
 and unresolved questions. Do not push, open a remote PR or merge.
-</code></pre>
+</code></pre></div>
 <p><strong>Generate.</strong> In a foreground session, the student stays present to answer a question.
 In an unattended session, the same agent receives the same base revision and request,
 then works without answers until it returns or reaches its stop condition. Unattended
-means a later handoff; it can happen in a local directory with an ordinary terminal.
-It does not require a cloud service. Neither mode changes what counts as correct.</p>
+means the agent hands its result back to you later. This can happen in a local directory
+with an ordinary terminal. It does not require a cloud service. Neither mode changes what counts as correct.</p>
 <p>Before reading the candidates, predict what a green branch check can establish.</p>
 <table>
 <thead>
@@ -6690,48 +6690,49 @@ that uses the base display test against the unattended implementation would fail
 <code>3:05 != 3m 05s</code>. Write that prediction down, then run it.</p>
 <p>The base and both candidates are small file trees under
 <code>lectures/week-09-background-agents/fixture/</code>. There, <code>verify.py</code> runs one copy of the
-tests against one candidate, prints one JSON line and exits with status 1 if any test
-fails. Run the fixture commands on this page from the course checkout, in the repository
-root, with plain <code>python</code>; if your terminal has no <code>python</code> command, type <code>python3</code>. The
-fixture uses only the standard library, calls no model and needs no key. First run each
-candidate's own tests, as its branch report did, then the base tests against the unattended
-candidate:</p>
-<pre><code class="language-sh">python lectures/week-09-background-agents/fixture/verify.py foreground --tests own; echo &quot;exit $?&quot;
-python lectures/week-09-background-agents/fixture/verify.py unattended --tests own; echo &quot;exit $?&quot;
-python lectures/week-09-background-agents/fixture/verify.py unattended --tests base; echo &quot;exit $?&quot;
-</code></pre>
-<pre><code class="language-text">{&quot;candidate&quot;: &quot;foreground&quot;, &quot;tests&quot;: &quot;own&quot;, &quot;ran&quot;: 4, &quot;passed&quot;: 4, &quot;problems&quot;: [], &quot;scope&quot;: &quot;course-written candidate; not an agent run&quot;}
+tests against one candidate and prints one JSON line. It exits with status 1 if any test
+fails. Run the fixture commands on this page from the repository root of the course
+checkout, with plain <code>python</code>. If your terminal has no <code>python</code> command, type <code>python3</code>.
+The fixture uses only the standard library, calls no model and needs no key. First run
+each candidate's own tests, as its branch report did. Then run the base tests against the
+unattended candidate:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>lectures/week-09-background-agents/fixture/verify.py<span class="w"> </span>foreground<span class="w"> </span>--tests<span class="w"> </span>own<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit </span><span class="nv">$?</span><span class="s2">"</span>
+python<span class="w"> </span>lectures/week-09-background-agents/fixture/verify.py<span class="w"> </span>unattended<span class="w"> </span>--tests<span class="w"> </span>own<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit </span><span class="nv">$?</span><span class="s2">"</span>
+python<span class="w"> </span>lectures/week-09-background-agents/fixture/verify.py<span class="w"> </span>unattended<span class="w"> </span>--tests<span class="w"> </span>base<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit </span><span class="nv">$?</span><span class="s2">"</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{"candidate": "foreground", "tests": "own", "ran": 4, "passed": 4, "problems": [], "scope": "course-written candidate; not an agent run"}
 exit 0
-{&quot;candidate&quot;: &quot;unattended&quot;, &quot;tests&quot;: &quot;own&quot;, &quot;ran&quot;: 4, &quot;passed&quot;: 4, &quot;problems&quot;: [], &quot;scope&quot;: &quot;course-written candidate; not an agent run&quot;}
+{"candidate": "unattended", "tests": "own", "ran": 4, "passed": 4, "problems": [], "scope": "course-written candidate; not an agent run"}
 exit 0
-{&quot;candidate&quot;: &quot;unattended&quot;, &quot;tests&quot;: &quot;base&quot;, &quot;ran&quot;: 2, &quot;passed&quot;: 1, &quot;problems&quot;: [{&quot;test&quot;: &quot;test_display&quot;, &quot;reason&quot;: &quot;AssertionError: '3:05' != '3m 05s'&quot;}], &quot;scope&quot;: &quot;course-written candidate; not an agent run&quot;}
+{"candidate": "unattended", "tests": "base", "ran": 2, "passed": 1, "problems": [{"test": "test_display", "reason": "AssertionError: '3:05' != '3m 05s'"}], "scope": "course-written candidate; not an agent run"}
 exit 1
-</code></pre>
+</code></pre></div>
 <p>Both branch reports were accurate. The unattended branch's own tests pass because the
-branch rewrote the display test; the base copy of that test fails on the same code. The
-branch's green report does not resolve that disagreement. This is a possible pair of
-outcomes, not a claim that one mode always performs better.</p>
-<p>A file allowlist permits edits to the test file; it does not permit every edit within
-that file. Read the hunks:</p>
-<pre><code class="language-sh">git diff --no-index lectures/week-09-background-agents/fixture/base lectures/week-09-background-agents/fixture/unattended
-</code></pre>
-<p>One hunk of <code>test_durations.py</code> holds these two lines together with the permitted new
-tests:</p>
-<pre><code class="language-diff">-        self.assertEqual(format_duration(185), &quot;3m 05s&quot;)
-+        self.assertEqual(format_duration(185), &quot;3:05&quot;)
-</code></pre>
-<p>Keep the acceptance cases under the student's control and run them yourself against the
-returned revision. In the fixture they are <code>acceptance.py</code>, the request's four cases in a
-file that belongs to no candidate; <code>--tests acceptance</code> runs them. The unattended candidate
-needs revision.</p>
+branch rewrote the display test. The base copy of that test fails on the same code. A
+green report from the branch cannot settle that disagreement. This pair shows one possible
+outcome. It does not claim that one mode always performs better.</p>
+<p>A file allowlist (the list of files the agent may edit) permits edits to the test file.
+It does not permit every edit within that file. Read the hunks, the blocks of changed
+lines in the diff:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>diff<span class="w"> </span>--no-index<span class="w"> </span>lectures/week-09-background-agents/fixture/base<span class="w"> </span>lectures/week-09-background-agents/fixture/unattended
+</code></pre></div>
+<p>One hunk of <code>test_durations.py</code> contains these two lines next to the permitted new tests:</p>
+<div class="highlight"><pre><span></span><code><span class="gd">-        self.assertEqual(format_duration(185), "3m 05s")</span>
+<span class="gi">+        self.assertEqual(format_duration(185), "3:05")</span>
+</code></pre></div>
+<p>Keep the acceptance cases under your own control, and run them yourself against the
+returned revision. In the fixture, they are in <code>acceptance.py</code>. That file holds the
+request's four cases and belongs to no candidate. <code>--tests acceptance</code> runs them. The
+unattended candidate needs revision.</p>
 <h3 id="parallel-work-has-three-different-boundaries">Parallel work has three different boundaries</h3>
 <p><strong>Generate.</strong> Suppose another agent adds the summary tests while the implementation
 agent changes the summary. Give each a separate worktree and branch from the same base,
 with a bounded file list and a stop condition. Give neither authority to merge.</p>
-<p><strong>Verify.</strong> Inspect the diff in each branch, then test the combined candidate. If the
-implementation returns <code>None</code> for no completed builds but the new tests require <code>0</code>,
-isolation has prevented an edit collision while leaving a contract conflict.
-Resolve the conflict from the request, then rerun the checks after integration.</p>
+<p><strong>Verify.</strong> Inspect the diff in each branch, then test the combined candidate. Suppose the
+implementation returns <code>None</code> when no build has completed, but the new tests require <code>0</code>.
+Isolation stopped the two agents from editing the same lines. It did not stop them from
+disagreeing about the contract, the behavior the request defines. Resolve the conflict
+from the request, then rerun the checks after integration.</p>
 <table>
 <thead>
 <tr>
@@ -6754,21 +6755,21 @@ Resolve the conflict from the request, then rerun the checks after integration.<
 </tr>
 </tbody>
 </table>
-<p>Parallelism helps only when useful independent work outweighs coordination and integration.
-For a tiny fix, sequential runs may be easier to inspect. A second session is not automatically
+<p>Parallel work helps only when the useful independent work is worth more than the cost of
+coordinating and integrating it. For a tiny fix, sequential runs may be easier to inspect. A second session is not automatically
 an independent reviewer if it helped implement the change.</p>
 <h3 id="an-issue-to-pull-request-pipeline">An issue-to-pull-request pipeline</h3>
-<p><strong>Generate.</strong> Draft a controller that reads an authorized issue, records its base and
-acceptance criteria, creates a task branch, runs an agent, checks its result and prepares
-a pull request. The diagram describes a design you can simulate locally.</p>
-<pre><code class="language-text">Authorized issue -&gt; frozen request/base -&gt; isolated agent workspace
+<p><strong>Generate.</strong> Draft a controller, a program that runs each stage in turn. It reads an
+authorized issue, records its base and acceptance criteria, and creates a task branch. It
+then runs an agent, checks the result and prepares a pull request. The diagram describes a design you can simulate locally.</p>
+<div class="highlight"><pre><span></span><code>Authorized issue -&gt; frozen request/base -&gt; isolated agent workspace
   -&gt; candidate revision -&gt; controller verification -&gt; draft pull request
                                        |
                             FAIL / missing evidence / timeout
                                        v
                               stop; retain a failure reason
 Draft pull request -&gt; independent review -&gt; integration checks -&gt; merge decision
-</code></pre>
+</code></pre></div>
 <p><strong>Verify.</strong> Try three failures: a forbidden diff, an omitted check and a changed base.
 Name the component that prevents each from advancing. Writing “please run tests” in the
 prompt is a request. A controller that refuses the next stage when a required check is
@@ -6787,15 +6788,15 @@ missing or fails is a gate. The agent's own “PASS” text is not the controlle
 </tr>
 <tr>
 <td>Run</td>
-<td>Execution controls enforce permissions and stop limits; no unattended permission expansion</td>
+<td>Execution controls enforce permissions and stop limits; permissions never widen during an unattended run</td>
 </tr>
 <tr>
 <td>Return</td>
-<td>Controller collects the actual diff and revision, detects forbidden changes and incomplete evidence</td>
+<td>Controller collects the actual diff and revision, and detects forbidden changes and incomplete evidence</td>
 </tr>
 <tr>
 <td>Check</td>
-<td>Checks retained outside the candidate's writable scope run against that exact candidate; failures and missing results block</td>
+<td>Checks kept where the candidate cannot write run against that exact candidate; a failure or a missing result blocks</td>
 </tr>
 <tr>
 <td>Open PR</td>
@@ -6807,25 +6808,27 @@ missing or fails is a gate. The agent's own “PASS” text is not the controlle
 </tr>
 </tbody>
 </table>
-<p>For the display change, a branch-local rewritten test is a request-shaped safeguard:
-the agent can redefine success. Keeping the base test outside its writable scope and
-requiring its result blocks the candidate. Review still checks whether the contract and
-test cover the right behavior. Retry only a bounded failed stage; first inspect whether
-it already created a branch or PR so a retry does not create duplicate work.</p>
+<p>In the display example, the agent rewrote the test inside its own branch. That test
+protects you only as much as a request does, because the agent can redefine success. Keep
+the base test where the agent cannot write, and require its result: then the candidate is
+blocked. Review still checks whether the contract and the test cover the right behavior.
+When a stage fails, retry only that bounded stage. First check whether it already created
+a branch or PR, so the retry does not duplicate work.</p>
 <h2 id="hands-on-exercise">Hands-on exercise</h2>
 <p>Use the <a href="activities.en.html">studio instructions</a> to run one task twice from the same
 base in two local worktrees. Hold the request and acceptance checks constant. Record
 interventions in the foreground run and unresolved questions in the unattended run.
-Compare correctness, scope, waiting and rework; do not infer general agent performance
-from this single pair. If the supplied agent seat is unavailable, stop and record the access
-blocker; you can still read and run the two fixture candidates by the
+Compare correctness, scope, waiting and rework. Do not draw conclusions about agent
+performance in general from this single pair. If the supplied agent seat is unavailable,
+stop and record what blocked your access. You can still read and run the two fixture
+candidates by the
 <a href="activities.en.html#when-an-agent-seat-is-unavailable">studio's route for that case</a>.</p>
 <h2 id="verification">Verification</h2>
 <ol>
-<li>Before generation, preserve a reproducer that fails on the base and the relevant
-   existing checks. Verify that the check notices the fault; otherwise recheck the test.
-   In the example, <code>verify.py base --tests acceptance</code> is that reproducer: on the base it
-   exits with status 1, and two of the request's four cases fail.</li>
+<li>Before generation, save a reproducer (a check that shows the fault) that fails on the
+   base, and keep the relevant existing checks. Verify that the check notices the fault;
+   otherwise recheck the test. In the example, <code>verify.py base --tests acceptance</code> is that
+   reproducer. On the base it exits with status 1, and two of the request's four cases fail.</li>
 <li>After each run, use <code>git status --short</code>, <code>git diff BASE_SHA</code> and the project's exact
    verification command recorded in the request. Review untracked files as well as the diff.</li>
 <li>Keep command, candidate revision, exit status and the meaningful failing/passing output.
@@ -6979,7 +6982,7 @@ or cannot tell, with the evidence or the missing check that would decide it.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

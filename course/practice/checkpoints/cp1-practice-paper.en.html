@@ -6573,16 +6573,16 @@
 
 <h1 id="cp1-practice-paper">CP1 practice paper</h1>
 <p>This paper practises CP1, the week 6 checkpoint. It has the real paper's format, length,
-question types and marks. The session and the code were written by the course for this
-practice paper; they come from no real project and appear on no real paper. How to sit and
-mark it is on the <a href="README.en.html">practice papers page</a>. The marking points and worked
-answers are on a <a href="cp1-practice-answers.en.html">separate page</a>: open it only when you have
-finished.</p>
+question types and marks. The course wrote the session and the code for this practice
+paper. They come from no real project, and no real paper uses them. The
+<a href="README.en.html">practice papers page</a> explains how to sit and mark the paper. The marking
+points and worked answers are on a <a href="cp1-practice-answers.en.html">separate page</a>. Open it only
+when you have finished.</p>
 <p><strong>Conditions.</strong> Work alone for 30 minutes with no device, model, agent or reference
-material; the paper prints everything you need. Keep answers short, and cite turns and line
-numbers so that a marker can find what you mean.</p>
-<p><strong>Marks.</strong> Ten points of one mark each. The real paper records raw marks × 0.75, so 7.5 at
-most.</p>
+material. The paper prints everything you need. Keep your answers short. Cite turn numbers
+and line numbers, so that a marker can find what you mean.</p>
+<p><strong>Marks.</strong> The paper has ten points of one mark each. On the real paper, the recorded mark
+is the raw mark × 0.75, so 7.5 at most.</p>
 <p><strong>Suggested pace.</strong> The first half ends after Q2. If you sit the paper in two halves, stop
 there at minute 15 and take Q3 and Q4 in one more 15-minute sitting.</p>
 <table>
@@ -6708,40 +6708,40 @@ search the whole project before finishing not stop that claim? (1)</p>
 <li>An item of 5000 g or more needs two people to lift. A receipt shows the item's weight in
   grams, for example <code>2000 g</code>.</li>
 </ul>
-<pre><code class="language-text">01 KG = 1000  # grams in one kilogram
+<div class="highlight"><pre><span></span><code>01 KG = 1000  # grams in one kilogram
 02 HEAVY = 5000  # grams: an item this heavy or heavier needs two people
 03
 04 def split_weight(entry):
-05     &quot;&quot;&quot;Split an entry such as &quot;750 g&quot; into (750, &quot;g&quot;).&quot;&quot;&quot;
+05     """Split an entry such as "750 g" into (750, "g")."""
 06     amount, unit = entry.split()
 07     return int(amount), unit
 08
 09 def to_grams(entry):
-10     &quot;&quot;&quot;The weight of one donated item, in grams.&quot;&quot;&quot;
+10     """The weight of one donated item, in grams."""
 11     amount, unit = split_weight(entry)
 12     grams = amount
-13     if unit == &quot;kg&quot;:
+13     if unit == "kg":
 14         grams = amount * KG
 15     return amount
 16
 17 def total_grams(entries):
-18     &quot;&quot;&quot;The weight of all the items together, in grams.&quot;&quot;&quot;
+18     """The weight of all the items together, in grams."""
 19     total = 0
 20     for entry in entries:
 21         total += to_grams(entry)
 22     return total
 23
 24 def two_person_items(entries):
-25     &quot;&quot;&quot;The items that need two people to lift.&quot;&quot;&quot;
+25     """The items that need two people to lift."""
 26     return [entry for entry in entries if to_grams(entry) &gt;= HEAVY]
 27
 28 def receipt_line(entry):
-29     &quot;&quot;&quot;The weight printed on the donor's receipt.&quot;&quot;&quot;
+29     """The weight printed on the donor's receipt."""
 30     grams = to_grams(entry)
-31     if entry.endswith(&quot;kg&quot;):
+31     if entry.endswith("kg"):
 32         grams = grams * KG  # added in April: receipts showed kg items too light
-33     return f&quot;{grams} g&quot;
-</code></pre>
+33     return f"{grams} g"
+</code></pre></div>
 <p><code>entry.split()</code> cuts the text at the space, so <code>"3 kg".split()</code> is <code>["3", "kg"]</code>, and
 <code>int("3")</code> is the number 3. <code>entry.endswith("kg")</code> is true when the text ends in <code>kg</code>.
 <code>f"{grams} g"</code> is the value of <code>grams</code> followed by a space and <code>g</code>, for example <code>"2000 g"</code>
@@ -6774,11 +6774,11 @@ when <code>grams</code> is 2000.</p>
 </tbody>
 </table>
 <p><strong>These tests exist, and every one of them passes on the listing.</strong></p>
-<pre><code class="language-text">assert to_grams(&quot;750 g&quot;) == 750
-assert total_grams([&quot;200 g&quot;, &quot;450 g&quot;]) == 650
-assert two_person_items([&quot;6000 g&quot;, &quot;900 g&quot;]) == [&quot;6000 g&quot;]
-assert receipt_line(&quot;2 kg&quot;) == &quot;2000 g&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code>assert to_grams("750 g") == 750
+assert total_grams(["200 g", "450 g"]) == 650
+assert two_person_items(["6000 g", "900 g"]) == ["6000 g"]
+assert receipt_line("2 kg") == "2000 g"
+</code></pre></div>
 <p><strong>What was reported.</strong> A donor brought a 3 kg bag of rice and a 500 g bag of lentils.
 <code>total_grams(["3 kg", "500 g"])</code> returned <code>503</code>. By the rules the total is 3500.</p>
 <h3 id="q2-3-marks">Q2 (3 marks)</h3>
@@ -6914,7 +6914,7 @@ why. (1)</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

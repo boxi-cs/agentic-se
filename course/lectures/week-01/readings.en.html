@@ -6480,20 +6480,20 @@
 <p>Before class, read the Week 1 row of the <a href="../../SYLLABUS.en.html#calendar">calendar</a>
 and the <a href="notes.en.html#learning-objectives">notes</a>. Recall Python functions, lists,
 dictionaries and assertions. No machine-learning course is assumed.</p>
-<p>Read the five-step <code>run()</code> contract in <a href="../week-02/fixture/loop.py"><code>loop.py</code></a> and
-one success, wrong-write and refused-call check in
-<a href="../week-02/fixture/verify_loop.py"><code>verify_loop.py</code></a>. Predict the observations before
-following the live build. The starter is deliberately incomplete.</p>
+<p>Read the five-step <code>run()</code> contract in <a href="../week-02/fixture/loop.py"><code>loop.py</code></a>. In
+<a href="../week-02/fixture/verify_loop.py"><code>verify_loop.py</code></a>, read one check each for a
+success, a wrong write and a refused call. Predict the observations before you follow
+the live build. The starter is incomplete on purpose.</p>
 <h2 id="primary-source-reading">Primary-source reading</h2>
-<p>Two open-source coding agents publish the code that builds their instructions under
-the Apache-2.0 licence: Codex CLI and Qwen Code. Read the pinned files below on
-GitHub for the prompt comparison. Each project has a reading card that links the
+<p>Two open-source coding agents, Codex CLI and Qwen Code, publish the code that builds
+their instructions under the Apache-2.0 licence. For the prompt comparison, read the
+files below on GitHub. Each is pinned to one fixed commit. Each project has a reading card that links the
 files at a fixed commit and records what they contain: one for
 <a href="../../factsheets/tools/codex-base-instructions.en.html">Codex CLI</a>
 (tools/codex-base-instructions; as_of: 2026-10-09; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/codex-rs/protocol/src/prompts/base_instructions/default.md">Source 1</a>; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/codex-rs/core/src/tools/handlers/plan_spec.rs">Source 2</a>; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/LICENSE">Source 3</a>) and one for
 <a href="../../factsheets/tools/qwen-code-system-prompt.en.html">Qwen Code</a>
-(tools/qwen-code-system-prompt; as_of: 2026-10-09; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/core/prompts.ts">Source 1</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/edit.ts">Source 2</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/todoWrite.ts">Source 3</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/tool-names.ts">Source 4</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/LICENSE">Source 5</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/README.md">Source 6</a>; <a href="https://github.com/QwenLM/qwen-code/releases/tag/v0.25.0">Source 7</a>). Neither set of files is the complete prompt a
-release sends at run time; your session capture establishes what your run exposed.
+(tools/qwen-code-system-prompt; as_of: 2026-10-09; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/core/prompts.ts">Source 1</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/edit.ts">Source 2</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/todoWrite.ts">Source 3</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/tool-names.ts">Source 4</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/LICENSE">Source 5</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/README.md">Source 6</a>; <a href="https://github.com/QwenLM/qwen-code/releases/tag/v0.25.0">Source 7</a>). Neither set of files is the complete prompt that
+a release sends at run time. Your session capture shows what your own run exposed.
 This page does not rank the two products.</p>
 <ul>
 <li><strong>Source 1: Codex CLI's base instructions and plan schema.</strong> Open the two files
@@ -6509,19 +6509,20 @@ This page does not rank the two products.</p>
   <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/core/prompts.ts">prompt builder</a>
   and the
   <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/edit.ts"><code>edit</code> tool</a>.
-  Read Software Engineering Tasks and Final Reminder. Separate argument-schema
-  rules, tool validation and requests in prose.</li>
+  Read Software Engineering Tasks and Final Reminder. Sort what you find into three
+  groups: argument-schema rules, tool validation, and requests written in prose.</li>
 </ul>
-<p>You need not install both agents. Read the files as text, name the enforcing
-component where visible, and say “cannot tell” where these files do not settle it.</p>
+<p>You do not need to install both agents. Read the files as text. Where you can see
+which component enforces a rule, name it. Where these files do not settle the
+question, say “cannot tell”.</p>
 <h2 id="before-the-studio">Before the studio</h2>
-<p>Read the <a href="activities.en.html">studio steps</a>, then save a prediction before your own
-agent runs. Practice request indexing with the supplied
+<p>Read the <a href="activities.en.html">studio steps</a>. Then save a prediction before your own
+agent runs. Practice finding requests by their index with the supplied
 <a href="../week-02/session/sample-session.jsonl">sample record</a> and
 <a href="../week-02/session/show_session.py">viewer</a>. The request questions in
-<a href="../week-02/dissection.en.html#step-3-dissect">the dissection</a> and schema questions in
+<a href="../week-02/dissection.en.html#step-3-dissect">the dissection</a> and the schema questions in
 <a href="../week-02/prompt-dissection.en.html#part-2-tools-and-schemas">the prompt comparison</a>
-help you choose citations. Use this week's studio for the task and the
+help you choose what to cite. Use this week's studio for the task and the
 <a href="../../practice/a1/README.en.html">A1 page</a> for what you hand in.</p>
 <p>After capture, answer the <a href="selfcheck.en.html">self-check</a>. Bring one observed claim
 and one inference to discuss. <strong><a href="../../practice/a1/README.en.html">A1</a> is due this week.</strong></p>
@@ -6623,7 +6624,7 @@ and one inference to discuss. <strong><a href="../../practice/a1/README.en.html"
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

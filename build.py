@@ -241,7 +241,8 @@ def home(course: dict, films: list[dict]) -> str:
     )
     assessment = section(syllabus, "Assessment").split("\n\n")
     table_html = markdown(next(block for block in assessment if block.startswith("|")))[0]
-    passing = next(block for block in assessment if block.startswith("Passing requires"))
+    # The passing rule is the paragraph that names the overall threshold.
+    passing = next(block for block in assessment if "60/100" in block and not block.startswith("|"))
     deadline = next(
         (sentence for sentence in re.split(r"(?<=\.)\s+", section(syllabus, "Calendar")) if sentence.startswith("The deadline")), ""
     )

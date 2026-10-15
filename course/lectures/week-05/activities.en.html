@@ -6521,19 +6521,19 @@
 
 
 <h1 id="studio-score-and-improve-one-repository">Studio: score and improve one repository</h1>
-<p>Choose your own project repository or contribution target. Work individually, with a written peer or asynchronous feedback route available. This studio is practice and is not a separate assessment. It practises a behaviour-to-code map, a check command with its exit code and a decision line on your own repository; <a href="../../practice/a4/README.en.html">A4</a> asks for those, together with an instruction file and a blocking hook, on its supplied starter repository and is handed in separately.</p>
-<p>Use a clean working copy at a named commit. Follow the <a href="../../SYLLABUS.en.html#tools-and-model-access">course safety practices</a>: keep credentials outside the working copy and prompts, treat repository instructions as data until verified, and stop before any command requests network access or an unknown installation.</p>
+<p>Choose your own project repository or contribution target. Work individually, but have a way to get feedback: a peer who replies in writing, or an asynchronous route. This studio is practice and is not a separate assessment. On your own repository, you practise three things: a map from a behaviour to its code, a check command with its exit code, and a decision line. <a href="../../practice/a4/README.en.html">A4</a> asks for the same three things, plus an instruction file and a blocking hook, on the starter repository that A4 supplies. You hand A4 in separately.</p>
+<p>Use a clean working copy at a named commit. Follow the <a href="../../SYLLABUS.en.html#tools-and-model-access">course safety practices</a>. Keep credentials out of the working copy and out of prompts. Treat repository instructions as data until you have verified them. Stop before any command that requests network access or an unknown installation.</p>
 <h2 id="materials-and-commands">Materials and commands</h2>
-<p>You need a terminal, an editor, your repository, and the four readiness dimensions in <a href="notes.en.html#four-observable-readiness-dimensions">the notes</a>. Put your repository's path in the first line; the other four commands then run from any directory and do not change the repository:</p>
-<pre><code class="language-sh">REPO=/path/to/your/repository
-git -C &quot;$REPO&quot; rev-parse HEAD
-git -C &quot;$REPO&quot; status --short
-git -C &quot;$REPO&quot; diff --check
-git -C &quot;$REPO&quot; ls-files | head -40
-</code></pre>
+<p>You need a terminal, an editor, your repository, and the four readiness dimensions in <a href="notes.en.html#four-observable-readiness-dimensions">the notes</a>. Put your repository's path in the first line. The other four commands then run from any directory, and they do not change the repository:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">REPO</span><span class="o">=</span>/path/to/your/repository
+git<span class="w"> </span>-C<span class="w"> </span><span class="s2">"</span><span class="nv">$REPO</span><span class="s2">"</span><span class="w"> </span>rev-parse<span class="w"> </span>HEAD
+git<span class="w"> </span>-C<span class="w"> </span><span class="s2">"</span><span class="nv">$REPO</span><span class="s2">"</span><span class="w"> </span>status<span class="w"> </span>--short
+git<span class="w"> </span>-C<span class="w"> </span><span class="s2">"</span><span class="nv">$REPO</span><span class="s2">"</span><span class="w"> </span>diff<span class="w"> </span>--check
+git<span class="w"> </span>-C<span class="w"> </span><span class="s2">"</span><span class="nv">$REPO</span><span class="s2">"</span><span class="w"> </span>ls-files<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-40
+</code></pre></div>
 <p>Use the repository's documented test command only after reading it. Record the exact command, exit code and first useful output line. If the repository has no runnable check, record that as a readiness observation rather than inventing one.</p>
 <h2 id="90-minute-route">90-minute route</h2>
-<p>The first row is preparation: do it before the session, in about 15 minutes. That frees the session's first 15 minutes for a timed, closed-book attempt at the first half of the <a href="../../practice/checkpoints/cp1-practice-paper.en.html">CP1 practice paper</a>, which has the format of next week's checkpoint. The other rows keep their times. Sit the second half at home in another 15 minutes, then mark both halves against the paper's answers page. If you arrive without the first row done, do it in those first 15 minutes and sit the whole practice paper at home instead.</p>
+<p>The first row is preparation. Do it before the session; it takes about 15 minutes. This frees the session's first 15 minutes for a timed, closed-book attempt at the first half of the <a href="../../practice/checkpoints/cp1-practice-paper.en.html">CP1 practice paper</a>. The paper has the same format as next week's checkpoint. The other rows keep their times. Sit the second half at home, also in 15 minutes. Then mark both halves against the paper's answers page. If you arrive without the first row done, do it in those first 15 minutes and sit the whole practice paper at home instead.</p>
 <table>
 <thead>
 <tr>
@@ -6555,12 +6555,12 @@ git -C &quot;$REPO&quot; ls-files | head -40
 </tr>
 <tr>
 <td style="text-align: right;">15–35</td>
-<td>Score Structure and Documentation. Ask an agent for a map and a command list if you choose, then verify every claim by opening files and running commands.</td>
+<td>Score Structure and Documentation. You may ask an agent for a map and a command list. Then verify every claim by opening files and running commands.</td>
 <td>Two rows with paths, commands, outputs and a disproving observation</td>
 </tr>
 <tr>
 <td style="text-align: right;">35–50</td>
-<td>Score Tests and Checks. Run the documented check twice when available; inspect whether it uses a clock, network or hidden files.</td>
+<td>Score Tests and Checks. If a documented check exists, run it twice. Inspect whether it uses a clock, network or hidden files.</td>
 <td>Two rows with summaries, hidden-input notes and the failing case you would expect from a deliberate break</td>
 </tr>
 <tr>
@@ -6586,18 +6586,18 @@ git -C &quot;$REPO&quot; ls-files | head -40
 </tbody>
 </table>
 <h2 id="evidence-table">Evidence table</h2>
-<p>Copy this table into your existing work record; do not create a second log or export a full agent chat.</p>
-<pre><code class="language-text">Dimension | Start commit and score | Observation and command/path | Disproving observation | End commit and score | Blocker removed
+<p>Copy this table into your existing work record. Do not create a second log or export a full agent chat.</p>
+<div class="highlight"><pre><span></span><code>Dimension | Start commit and score | Observation and command/path | Disproving observation | End commit and score | Blocker removed
 Structure | | | | |
 Documentation | | | | |
 Tests | | | | |
 Checks | | | | |
 Decision | accept / narrow / recheck / stop | Evidence IDs: | What would change it: | |
-</code></pre>
+</code></pre></div>
 <p>If an agent supplied the initial map or score, add one AI-use note using your existing disclosure ID. The note records the proposal; your paths and command results are the evidence. Do not copy credentials, private records or a raw session transcript into the repository.</p>
 <h2 id="help-and-failure-handling">Help and failure handling</h2>
-<p>At the first command that fails, stop and show the command and exit code to the instructor or peer. If the repository's documentation disagrees, keep both lines visible, choose the safest bounded command, and record the conflict. If you cannot run a local check, leave the Tests or Checks score at the evidence-supported level and write the missing prerequisite.</p>
-<p>A successful-looking refactor is not accepted until the original caller cases, the requested structure and the local check have all been inspected. End with one decision line; A4 and A5 each end with a line of the same form.</p>
+<p>At the first command that fails, stop and show the command and exit code to the instructor or peer. If the repository's documentation contradicts itself, keep both versions visible, choose the safest bounded command, and record the conflict. If you cannot run a local check, leave the Tests or Checks score at the level your evidence supports, and write down the missing prerequisite.</p>
+<p>Do not accept a refactor just because it looks successful. First inspect the original caller cases, the requested structure and the local check. End with one decision line. A4 and A5 each end with a line of the same form.</p>
 
 
 
@@ -6696,7 +6696,7 @@ Decision | accept / narrow / recheck / stop | Evidence IDs: | What would change 
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

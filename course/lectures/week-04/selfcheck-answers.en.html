@@ -6719,66 +6719,67 @@
 
 
 <h1 id="week-4-self-check-answer-guidance">Week 4 self-check answer guidance</h1>
-<p>Answers should name an observable failure, a boundary and evidence. Equivalent wording is
-fine when the evidence remains checkable.</p>
+<p>A good answer names a failure you can observe, a boundary and the evidence. Other wording
+is fine if someone can still check the evidence.</p>
 <h2 id="q1">Q1</h2>
 <p>For example: “For a parser change, keep the public function name stable and run the named
-parser test.” The failure is an accidental API break or an untested behavior change. Evidence
-is the diff, the test command and its output.</p>
+parser test.” The failure is an accidental API break or an untested behavior change. The
+evidence is the diff, the test command and its output.</p>
 <h2 id="q2">Q2</h2>
-<p>The request is agent context and can be omitted; the hook is invoked by Git at the commit
-event and its nonzero exit prevents the commit. The agent can claim it ran the test without
-running it, so inspect the command output and the commit result.</p>
+<p>The request is only context for the agent, and the agent can skip it. Git runs the hook at
+the commit, and the hook's nonzero exit prevents the commit. The agent can claim that it ran
+the test without running it. So inspect the command output and the commit result.</p>
 <h2 id="q3">Q3</h2>
-<p>No. A gate needs a nonzero exit for the bad staged input and a commit that is not created.
-The shell status and <code>git log</code>/<code>git show</code> observation settle it.</p>
+<p>No. A gate must exit nonzero for the bad staged input, and Git must not create the commit.
+Check the shell's exit status and look at <code>git log</code>/<code>git show</code> to settle it.</p>
 <h2 id="q4">Q4</h2>
-<p><code>pyproject.toml</code> is the finding because it is a protected dependency file for this task.
-The Python file may still receive the unused-import finding if it contains one; each finding
-must be fixed before the passing run.</p>
+<p>The hook should report <code>pyproject.toml</code>, because it is a protected dependency file for this
+task. If the Python file contains an unused import, the hook reports that too. Fix each
+finding before the passing run.</p>
 <h2 id="q5">Q5</h2>
-<p>It leaves application behavior, test coverage and the correctness of unstaged files
-unverified. Run the focused test and inspect the committed diff.</p>
+<p>It does not verify application behavior, test coverage or the correctness of unstaged
+files. Run the focused test and inspect the committed diff.</p>
 <h2 id="q6">Q6</h2>
-<p>The hook before a tool call sees only the calls of an agent session that has it attached,
-and judges each call by its arguments. A person's edit, another tool's edit, or a change by
-an agent without the hook reaches <code>tests/</code> without such a call; the Git hook sees the
-staged result of every commit in the clone, once it checks the same rule. The agent-side
-hook acts earlier and gives the agent a message it can act on; the Git hook acts later,
-whoever made the change.</p>
+<p>The hook before a tool call sees only the calls of an agent session that has it attached.
+It judges each call by its arguments. Some changes reach <code>tests/</code> without such a call: a
+person's edit, another tool's edit, or a change by an agent without the hook. The Git hook
+sees the staged result of every commit in the clone, once you make it check the same rule.
+The agent-side hook acts earlier and gives the agent a message it can act on. The Git hook
+acts later, whoever made the change.</p>
 <h2 id="q7">Q7</h2>
 <p><code>ALLOW write_file tests/check_pairs.py</code>, then <code>ALLOW end_of_turn: the focused test passes</code>,
 then <code>replay check: changed under tests/</code> and the original test exiting 1 on the final
-code. The end-of-turn hook checked only that the test it found passed; it could not tell
-that the test had been rewritten to expect the bug. The write rule keeps the test
+code. The end-of-turn hook checked only that the test it found passed. It could not tell
+that someone had rewritten the test to expect the bug. The write rule keeps the test
 meaningful.</p>
 <h2 id="q8">Q8</h2>
-<p>Example: allowed tools are read-only search and one named test; forbidden action is editing
-or committing; hand-back field is <code>research.md</code> with file/function references. The parent
-opens the location because a generated summary is a claim, not proof.</p>
+<p>Example: the allowed tools are read-only search and one named test. The forbidden action
+is editing or committing. The hand-back field is <code>research.md</code> with file/function references.
+The parent opens the location because a generated summary is a claim, not proof.</p>
 <h2 id="q9">Q9</h2>
-<p>The test-output field is missing. Pause or return the work until the implementer supplies
-that evidence; a diff alone cannot establish the behavior.</p>
+<p>The test-output field is missing. Pause, or return the work, until the implementer
+supplies that evidence. A diff alone cannot show the behavior.</p>
 <h2 id="q10">Q10</h2>
 <p><strong>Cannot tell.</strong> The hand-back has no location, input, command or output, so there is no evidence
 to confirm or refute safety.</p>
 <h2 id="q11">Q11</h2>
-<p>Stop when the target is outside the role's files, the required test is absent, a tool would
-need a forbidden capability or the hand-back cannot satisfy its contract. Record the exact
-boundary and ask for a narrower task.</p>
+<p>Stop in any of these cases: the target is outside the role's files; the required test is
+absent; a tool would need a forbidden capability; or the hand-back cannot meet its contract.
+Record the exact boundary and ask for a narrower task.</p>
 <h2 id="q12">Q12</h2>
-<p>Any decision is defensible only when its evidence matches it. For example: “Decision: accept
+<p>You can defend any decision, but only when its evidence matches it. For example:
+“Decision: accept
 — evidence: <code>blocked.txt</code> has the finding and a nonzero exit status, <code>passed.txt</code> has PASS,
 and <code>git show</code> identifies the commit.”</p>
 <h2 id="transfer">Transfer</h2>
 <p>An instruction might say “before editing <code>src/parser.py</code>, read its tests and report the
 focused test.” A gate might refuse a commit that stages <code>pyproject.toml</code> with that parser
-change. The first check establishes context was requested; the second establishes the
-staged-path invariant at the commit event. Neither proves parser semantics.</p>
+change. The first check shows that the agent was asked to gather context. The second
+enforces the staged-path rule at the commit. Neither proves that the parser behaves correctly.</p>
 <p><strong>Retrieval 1.</strong> The hook's green result does not show that the focused test ran. Read the
 test command and its output, then inspect the commit result.</p>
-<p><strong>Retrieval 2.</strong> Open the cited file and run the named check yourself. A summary without a
-location and observable result remains cannot tell.</p>
+<p><strong>Retrieval 2.</strong> Open the cited file and run the named check yourself. Mark a summary
+without a location and an observable result <strong>cannot tell</strong>.</p>
 
 
 
@@ -6877,7 +6878,7 @@ location and observable result remains cannot tell.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

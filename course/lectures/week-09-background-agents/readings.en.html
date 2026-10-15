@@ -6499,28 +6499,28 @@
 
 
 <h1 id="readings-a-check-that-survives-an-unattended-run">Readings: a check that survives an unattended run</h1>
-<p>Read these two primary sources; they are listed in alphabetical order. The questions
+<p>Read these two primary sources. They are listed in alphabetical order. The questions
 below use only the part of each source named here.</p>
 <h2 id="source-1-anthropic-best-practices-for-claude-code">Source 1 — Anthropic, Best practices for Claude Code</h2>
 <p>Read <a href="https://code.claude.com/docs/en/best-practices#give-claude-a-way-to-verify-its-work">Give Claude a way to verify its work</a>
-(tools/claude-code-best-practices; as_of: 2026-10-07; <a href="https://code.claude.com/docs/en/best-practices">Source 1</a>). The part to read is the recommendation to give
-an agent a runnable test, build or comparison with a readable pass/fail signal. Product
-commands are not required for the studio.</p>
+(tools/claude-code-best-practices; as_of: 2026-10-07; <a href="https://code.claude.com/docs/en/best-practices">Source 1</a>). The part to read recommends giving an agent a
+runnable test, build or comparison that shows a clear pass/fail signal. You do not need
+the product's commands for the studio.</p>
 <p>Before the run, name that signal for your task. After the run, ask whether the agent
 could change the check itself. What must your verification preserve outside its scope?</p>
 <h2 id="source-2-github-docs-understanding-github-actions">Source 2 — GitHub Docs, Understanding GitHub Actions</h2>
 <p>Read <a href="https://docs.github.com/en/actions/get-started/understand-github-actions#workflows">Workflows</a>
-(tools/github-actions; as_of: 2026-09-05; <a href="https://docs.github.com/en/actions/get-started/understand-github-actions">Source 1</a>). Read the part on YAML workflows, the events, manual runs and
-schedules that trigger them, and jobs. This is a reading about pipeline entry points; the
-studio needs no hosted workflow, token or paid service.</p>
+(tools/github-actions; as_of: 2026-09-05; <a href="https://docs.github.com/en/actions/get-started/understand-github-actions">Source 1</a>). Read the part on YAML workflows, on jobs, and on the events,
+manual runs and schedules that trigger workflows. This reading is about how a pipeline
+starts. The studio needs no hosted workflow, token or paid service.</p>
 <p>Draw an issue-triggered path to a proposed PR. Mark the stage that blocks an absent check.
 Does the presence of a job definition prove that it ran on the candidate you are reviewing?
 Use your own local check result to answer, rather than inferring success from the diagram.</p>
 <h2 id="connect-the-readings-to-the-studio">Connect the readings to the studio</h2>
-<p>Use the <a href="notes.en.html#an-issue-to-pull-request-pipeline">notes</a> to distinguish a model request
-from a controller gate. Bring one stage, one failure input and the observable block to
-<a href="activities.en.html">studio</a>. Neither source tells you that a particular workflow is safe or
-correct; your own check result does.</p>
+<p>Use the <a href="notes.en.html#an-issue-to-pull-request-pipeline">notes</a> to tell a request to the model
+apart from a gate that the controller enforces. Bring one stage, one failure input and the
+block you can observe to <a href="activities.en.html">studio</a>. Neither source tells you that a
+particular workflow is safe or correct. Your own check result does.</p>
 
 
 
@@ -6619,7 +6619,7 @@ correct; your own check result does.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

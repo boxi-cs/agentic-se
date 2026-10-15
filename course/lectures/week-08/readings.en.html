@@ -6499,26 +6499,26 @@
 
 
 <h1 id="week-8-readings-security">Week 8 readings: Security</h1>
-<p>The required reading is the <a href="notes.en.html">notes</a> and the <a href="activities.en.html">second session</a>;
-the topic is the Week 8 row of the <a href="../../SYLLABUS.en.html#calendar">syllabus calendar</a>. Try
+<p>The required reading is the <a href="notes.en.html">notes</a> and the <a href="activities.en.html">second session</a>.
+The topic is the Week 8 row of the <a href="../../SYLLABUS.en.html#calendar">syllabus calendar</a>. Try
 the first prediction in the notes before you open a source. Everything below is optional.</p>
 <p>Read each source to compare a boundary with the one in the course fixture. Do not run any
-source's payload; every exercise this week uses only the course's inert fixture.</p>
+source's payload. Every exercise this week uses only the course's inert fixture.</p>
 <h2 id="injection-and-permission-boundaries">Injection and permission boundaries</h2>
 <ul>
 <li><strong>Source 1 — Invariant, “GitHub MCP Exploited: Accessing private repositories via MCP”.</strong> Scope: trace how
   injected text in a public issue crosses from reading into writing when one agent
-  connection can reach both public and private repositories. Note where the disclosers
-  locate the problem. (incidents/github-mcp; as_of: 2026-09-05; <a href="https://invariantlabs.ai/blog/mcp-github-vulnerability">Source 1</a>)</li>
+  connection can reach both public and private repositories. Note where the people who
+  disclosed it locate the problem. (incidents/github-mcp; as_of: 2026-09-05; <a href="https://invariantlabs.ai/blog/mcp-github-vulnerability">Source 1</a>)</li>
 <li><strong>Source 2 — Embrace The Red, “GitHub Copilot: Remote Code Execution via Prompt
   Injection” (about 12 minutes).</strong> Read “Exploit Chain Explained” and “Recommendations and
   Fix” in the <a href="https://embracethered.com/blog/posts/2025/github-copilot-remote-code-execution-via-prompt-injection/">post</a>
   to see how untrusted content changes an approval setting. Compare it with the fixture:
   which file would the agent have to be unable to write? (incidents/github-copilot-rce; as_of: 2026-10-07; <a href="https://embracethered.com/blog/posts/2025/github-copilot-remote-code-execution-via-prompt-injection/">Source 1</a>)</li>
 <li><strong>Source 3 — Codex documentation, “Agent approvals &amp; security”.</strong> Scope: the difference
-  between a sandbox, which constrains writable scope and networking, and an approval
-  policy, which controls when approval is requested. Find the same two controls in the
-  agent you use. (tools/codex; as_of: 2026-09-05; <a href="https://learn.chatgpt.com/docs/agent-approvals-security">Source 1</a>)</li>
+  between a sandbox and an approval policy. The sandbox limits where the agent can write
+  and its network access. The approval policy controls when the agent asks for approval.
+  Find the same two controls in the agent you use. (tools/codex; as_of: 2026-09-05; <a href="https://learn.chatgpt.com/docs/agent-approvals-security">Source 1</a>)</li>
 <li><strong>Source 4 — Unit 42, “AI Agents Are Here. So Are the Threats.” (about 15 minutes).</strong>
   Read “Simulated Attacks on AI Agents” and “Protection and Mitigation” in the
   <a href="https://unit42.paloaltonetworks.com/agentic-ai-threats/">article</a>. The researchers built
@@ -6541,7 +6541,8 @@ source's payload; every exercise this week uses only the course's inert fixture.
 <ul>
 <li><strong>Source 7 — OWASP Top 10 (about 8 minutes).</strong> Read “About OWASP Top 10” on the
   <a href="https://owasp.org/www-project-top-ten/">project page</a> to name a risk category before
-  choosing a concrete regression test. A category label is orientation, not a check.
+  choosing a concrete regression test. A category label tells you where to look. It is not
+  a check.
   (policies/owasp-top-ten; as_of: 2026-10-07; <a href="https://owasp.org/www-project-top-ten/">Source 1</a>)</li>
 <li><strong>Source 8 — OWASP DevSecOps Guideline, the SAST, DAST and IAST comparison (about 8
   minutes).</strong> Read the table under “How IAST differs from SAST and DAST” in the
@@ -6557,9 +6558,9 @@ source's payload; every exercise this week uses only the course's inert fixture.
   <a href="https://sean.heelan.io/2025/05/22/how-i-used-o3-to-find-cve-2025-37899-a-remote-zeroday-vulnerability-in-the-linux-kernels-smb-implementation/">post</a>
   and note what the author says he has not evaluated. (studies/o3-cve-2025-37899; as_of: 2026-10-07; <a href="https://sean.heelan.io/2025/05/22/how-i-used-o3-to-find-cve-2025-37899-a-remote-zeroday-vulnerability-in-the-linux-kernels-smb-implementation/">Source 1</a>)</li>
 </ul>
-<p>For each source you read, write one sentence that connects its claim to a row in your
-triage record and one sentence naming what the source does not establish. Factsheet cards
-are the citations for this page; they are not themselves reading material.</p>
+<p>For each source you read, write two sentences. The first connects its claim to a row in
+your triage record. The second names what the source does not establish. The fact-sheet
+cards are the citations for this page. They are not reading material themselves.</p>
 
 
 
@@ -6658,7 +6659,7 @@ are the citations for this page; they are not themselves reading material.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

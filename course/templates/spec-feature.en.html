@@ -6536,31 +6536,31 @@
 <p>Interview ID / approved equivalent-material ID -&gt; requirement ID -&gt; acceptance criteria
 ID -&gt; test ID. Do not include real names.</p>
 <h2 id="acceptance-criteria">Acceptance criteria</h2>
-<p>Given input, action, expected result, boundaries and failure paths. Each criterion must
-support executable verification.</p>
+<p>Given input, action, expected result, boundaries and failure paths. You must be able to
+verify each criterion by running a check.</p>
 <h2 id="implementation-and-verification">Implementation and verification</h2>
 <p>Generate an approach -&gt; have a human check its assumptions -&gt; implement in the dedicated workspace described by Week 0 safety
 practices -&gt; retain acceptance and regression evidence.</p>
 <p>Before implementation, add two scope tables and one location note to the plan:</p>
 <ol>
 <li><strong>Changed files:</strong> list every file with its relevant <code>path:line</code> (or <code>new</code> for a new
-   file). Only the files in this table may be changed; update the table and obtain another
-   scope check before adding a file.</li>
+   file). You may change only the files in this table. Before you add a file, update the
+   table and get another scope check.</li>
 <li><strong>Tests to write:</strong> list each test separately and map it to exactly one acceptance case
-   and its expected result. Every acceptance case must have a named test; a generic “run
-   the suite” entry is not a substitute.</li>
+   and its expected result. Every acceptance case must have a named test. A generic “run
+   the suite” entry does not count.</li>
 <li><strong>Specification location and update:</strong> record where this specification, its plan and
-   decision record live, and how a code change keeps those records and acceptance tests
-   synchronized for the next session.</li>
+   its decision record live. Say how a code change keeps those records and the acceptance
+   tests in sync for the next session.</li>
 </ol>
 <h2 id="risks-and-review">Risks and review</h2>
 <p>Data minimization, permission boundaries, unresolved questions and review results. Refer
-to existing PR or review evidence; do not submit a separate teaching-design form.</p>
+to existing PR or review evidence. Do not submit a separate teaching-design form.</p>
 <h2 id="change-log">Change log</h2>
-<p>One entry per agreed change to an acceptance criterion: the date, the changed clause,
-the acceptance-case and test IDs it affects, the reason and who agreed. Update those
-tests' expected results from the new clause first, then the code; never edit a check
-only to make existing code pass.</p>
+<p>Add one entry for each agreed change to an acceptance criterion. Give the date, the
+changed clause, the acceptance-case and test IDs it affects, the reason and who agreed.
+First update those tests' expected results to match the new clause. Then change the code.
+Never edit a check only to make existing code pass.</p>
 
 
 
@@ -6659,7 +6659,7 @@ only to make existing code pass.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>

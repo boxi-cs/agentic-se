@@ -6388,8 +6388,8 @@
 
 
 <h1 id="running-agents-as-a-team">Running agents as a team</h1>
-<p>The required reading is the <a href="notes.en.html">notes</a> and the <a href="activities.en.html">studio guide</a>;
-the week's row in the syllabus <a href="../../SYLLABUS.en.html#calendar">calendar</a> lists what is due.
+<p>The required reading is the <a href="notes.en.html">notes</a> and the <a href="activities.en.html">studio guide</a>.
+The week's row in the syllabus <a href="../../SYLLABUS.en.html#calendar">calendar</a> lists what is due.
 Before the first session, read the learning objectives and the event table in
 <a href="notes.en.html#the-continuing-dashboard-case">the continuing dashboard case</a>, and write which
 observation separates a failed request from a lost reply.</p>
@@ -6401,33 +6401,35 @@ for.</p>
   “Upperbound /key/generate params”, and
   <a href="https://docs.litellm.ai/docs/proxy/logging">Logging — LiteLLM</a>, especially “Redact
   Messages, Response Content”. Compare those controls with the gateway jobs in the notes
-  (key held outside the work, listed routes, per-run caps, minimal logs), then say which
+  (key held outside the work, listed routes, per-run caps, minimal logs). Then say which
   checks would still need a record to show the setting enforced. (tools/litellm; as_of: 2026-09-05; <a href="https://docs.litellm.ai/docs/proxy/virtual_keys">Source 1</a>; <a href="https://docs.litellm.ai/docs/proxy/logging">Source 2</a>)</li>
 <li><strong>A postmortem is reviewed before it counts (about 20 minutes):</strong> read the opening and the
   “Google’s Postmortem Philosophy” and “Collaborate and Share Knowledge” sections of
   <a href="https://sre.google/sre-book/postmortem-culture/">Postmortem Culture: Learning from Failure</a>,
-  Chapter 15 of Google's <em>Site Reliability Engineering</em> book. It gives the parts a
-  postmortem must cover, the triggers that call for one, a blameless way to describe
-  contributing causes, and review questions such as whether the root cause is deep enough.
-  Use those questions on the draft root-cause analysis in the notes.
+  Chapter 15 of Google's <em>Site Reliability Engineering</em> book. It lists the parts a
+  postmortem must cover and the triggers that call for one. It shows a blameless way to
+  describe contributing causes. It also gives review questions, such as whether the root
+  cause is deep enough. Use those questions on the draft root-cause analysis in the notes.
   (studies/sre-postmortem-culture; as_of: 2026-10-09; <a href="https://sre.google/sre-book/postmortem-culture/">Source 1</a>)</li>
 <li><strong>Alerts, rollback and changes (about 15 minutes):</strong> read the “Monitoring”, “Emergency
   Response” and “Change Management” sections of
   <a href="https://sre.google/sre-book/introduction/">Introduction</a>, Chapter 1 of the same book. It
-  sorts monitoring output into alerts, tickets and logs, and treats changes to a live system
-  as a common cause of outages, to be rolled out gradually and rolled back safely. Use it to
-  decide which signals of your own project should interrupt someone and which only belong in
-  a log, and to check that a rollback ends with a runnable check of the user path.
+  sorts monitoring output into alerts, tickets and logs. It treats changes to a live system
+  as a common cause of outages, so changes should be rolled out gradually and rolled back
+  safely. Use it to decide which signals of your own project should interrupt someone and
+  which only belong in a log. Also use it to check that a rollback ends with a runnable check
+  of the user path.
   (studies/sre-introduction; as_of: 2026-10-09; <a href="https://sre.google/sre-book/introduction/">Source 1</a>)</li>
 <li><strong>Telemetry is not a storage backend (about 12 minutes):</strong> read
   <a href="https://opentelemetry.io/docs/what-is-opentelemetry/">What is OpenTelemetry?</a> and
   <a href="https://opentelemetry.io/docs/collector/">Collector — OpenTelemetry</a>, focusing on the
-  signals and the collector's role. Use them to choose the smallest trace, metric and log
-  fields an incident like this week's would need, and to state what a collector failure
-  would leave unknown. (tools/opentelemetry; as_of: 2026-09-05; <a href="https://opentelemetry.io/docs/what-is-opentelemetry/">Source 1</a>; <a href="https://opentelemetry.io/docs/collector/">Source 2</a>)</li>
+  signals and the collector's role. Use them to choose the smallest set of trace, metric and
+  log fields that an incident like this week's would need. Also state what a collector
+  failure would leave unknown. (tools/opentelemetry; as_of: 2026-09-05; <a href="https://opentelemetry.io/docs/what-is-opentelemetry/">Source 1</a>; <a href="https://opentelemetry.io/docs/collector/">Source 2</a>)</li>
 </ul>
-<p>For each source you read, write one sentence that connects its claim to a line of your
-studio note and one sentence naming what the source does not show about your own project.
+<p>For each source you read, write two sentences. The first connects the source's claim to a
+line of your studio note. The second names what the source does not show about your own
+project.
 Do not report a source's example as your own result.</p>
 
 
@@ -6527,7 +6529,7 @@ Do not report a source's example as your own result.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

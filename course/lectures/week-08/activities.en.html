@@ -6614,20 +6614,20 @@ which. Contribution 2 is due this week. Its deadline is Sunday 23:59, and the
 <a href="../../capstone/kit/open-source-contributions.en.html">contribution guide</a> lists what to hand
 in.</p>
 <p>The fixture files are course-made and synthetic. The commands printed in parts 1 and 2 need
-only <code>python</code> and its standard library: they install nothing, call no model and send nothing
-off your machine. Two steps use your coding agent (the repair in part 1 and the triage in
-part 3), and part 3 runs scanners on your own repository. Work in a dedicated directory as
+only <code>python</code> and its standard library. They install nothing, call no model and send nothing
+off your machine. Two steps use your coding agent: the repair in part 1 and the triage in
+part 3. Part 3 also runs scanners on your own repository. Work in a dedicated directory as
 the <a href="../../SYLLABUS.en.html#tools-and-model-access">tools and model access</a> practices describe.</p>
 <h2 id="if-there-is-a-guest">If there is a guest</h2>
 <p>A practitioner speaks for at most 45 minutes on agent and application security. Write one
 question beforehand. Afterwards, write one sentence comparing one claim the guest made with
-evidence from your own triage record. A guest describes their own organization's practice;
-the course endorses no product.</p>
+evidence from your own triage record. A guest describes their own organization's practice.
+The course endorses no product.</p>
 <p>The rest of the session is <a href="#3-your-own-repository-scan-triage-reproduce">part 3</a> and
-<a href="#4-decide">part 4</a> of the studio. Do parts 1 and 2 before class in that case: they take
+<a href="#4-decide">part 4</a> of the studio. In that case, do parts 1 and 2 before class. They take
 about 50 minutes and need only the course checkout.</p>
 <h2 id="if-there-is-no-guest-studio-sequence">If there is no guest: studio sequence</h2>
-<p>Individual work, with a written comparison in place of discussion if you prefer.</p>
+<p>You work individually. If you prefer, write a comparison instead of discussing.</p>
 <table>
 <thead>
 <tr>
@@ -6660,99 +6660,100 @@ about 50 minutes and need only the course checkout.</p>
 </tbody>
 </table>
 <p>The times are a plan, not a limit. If part 1 is not running after ten minutes, ask for help
-and start part 2, which needs the copy made by part 1's first command block but not the
-repair.</p>
+and start part 2. Part 2 needs the copy that part 1's first command block makes, but it does
+not need the repair.</p>
 <h2 id="1-reproduce-the-chain-and-repair-the-boundary">1. Reproduce the chain and repair the boundary</h2>
 <p>Read the contract in the <a href="notes.en.html#fix-the-contract-before-inspecting-the-proposal">notes</a>
 and <a href="fixture/candidate.py">candidate.py</a>. Write down what a fresh boundary returns for
 <code>{"tool": "export", "record": "copied_log"}</code> and what <code>effects</code> holds afterwards.</p>
-<p>This is the injection demonstration that the fourth safety practice on the
-<a href="../../site/docs/week0/setup.en.html">setup page</a> asks you to check before you run it. Its
+<p>This is the injection demonstration. The fourth safety practice on the
+<a href="../../site/docs/week0/setup.en.html">setup page</a> asks you to check it before you run it. Its
 directory is <code>lectures/week-08/fixture</code>. The check prints three lines, all from
-<code>scan/advisories.json</code>: they record where the advisory snapshot was collected and the source
-of each advisory, and no file in the fixture opens a connection.</p>
+<code>scan/advisories.json</code>. They record where the advisory snapshot was collected and the source
+of each advisory. No file in the fixture opens a connection.</p>
 <p>Then, from the course checkout:</p>
-<pre><code class="language-sh">COURSE=&quot;$PWD&quot;
-WORK=&quot;$(mktemp -d)&quot;
-cp -r lectures/week-08/fixture/. &quot;$WORK&quot;/
-cd &quot;$WORK&quot;
-export PYTHONDONTWRITEBYTECODE=1
-python chain.py &gt; chain-before.txt; echo &quot;exit $?&quot;
-python exercise.py &gt; starter-checks.json; echo &quot;exit $?&quot;
-cp candidate.py candidate.starter.py
-</code></pre>
-<pre><code class="language-text">exit 1
+<div class="highlight"><pre><span></span><code><span class="nv">COURSE</span><span class="o">=</span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">"</span>
+<span class="nv">WORK</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>mktemp<span class="w"> </span>-d<span class="k">)</span><span class="s2">"</span>
+cp<span class="w"> </span>-r<span class="w"> </span>lectures/week-08/fixture/.<span class="w"> </span><span class="s2">"</span><span class="nv">$WORK</span><span class="s2">"</span>/
+<span class="nb">cd</span><span class="w"> </span><span class="s2">"</span><span class="nv">$WORK</span><span class="s2">"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONDONTWRITEBYTECODE</span><span class="o">=</span><span class="m">1</span>
+python<span class="w"> </span>chain.py<span class="w"> </span>&gt;<span class="w"> </span>chain-before.txt<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit </span><span class="nv">$?</span><span class="s2">"</span>
+python<span class="w"> </span>exercise.py<span class="w"> </span>&gt;<span class="w"> </span>starter-checks.json<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit </span><span class="nv">$?</span><span class="s2">"</span>
+cp<span class="w"> </span>candidate.py<span class="w"> </span>candidate.starter.py
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>exit 1
 exit 1
-</code></pre>
-<p>The <code>export</code> line stops Python from caching compiled modules, so every run reads the file
-you have just edited. Both commands fail on the starter. Open <code>chain-before.txt</code> and compare it with your
-prediction: which field shows that the refusal came too late?</p>
+</code></pre></div>
+<p>The <code>export</code> line stops Python from caching compiled modules. So every run reads the file
+you have just edited. Both commands fail on the starter. Open <code>chain-before.txt</code> and compare
+it with your prediction. Which field shows that the refusal came too late?</p>
 <p>Now get a repair. Give your coding agent only the contract and <code>candidate.py</code>, and ask for
 the smallest change that meets the contract. Edit only <code>candidate.py</code>; leave <code>chain.py</code>,
 <code>exercise.py</code> and the expectations alone. If you have no working agent today, write the
 repair yourself and say so in your record. Then run the block below in the same shell. The
-output shown is for the repair from the notes, which moves the allowlist check before the
-effect:</p>
-<pre><code class="language-sh">diff candidate.starter.py candidate.py
-python chain.py &gt; chain-after.txt; echo &quot;exit $?&quot;
-python exercise.py &gt; repaired-checks.json; echo &quot;exit $?&quot;
-tail -n 1 chain-before.txt chain-after.txt
-</code></pre>
-<pre><code class="language-text">31d30
-&lt;         self.effects.append(request[&quot;tool&quot;])
+output shown comes from the repair in the notes. That repair moves the allowlist check
+before the effect:</p>
+<div class="highlight"><pre><span></span><code>diff<span class="w"> </span>candidate.starter.py<span class="w"> </span>candidate.py
+python<span class="w"> </span>chain.py<span class="w"> </span>&gt;<span class="w"> </span>chain-after.txt<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit </span><span class="nv">$?</span><span class="s2">"</span>
+python<span class="w"> </span>exercise.py<span class="w"> </span>&gt;<span class="w"> </span>repaired-checks.json<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit </span><span class="nv">$?</span><span class="s2">"</span>
+tail<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>chain-before.txt<span class="w"> </span>chain-after.txt
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>31d30
+&lt;         self.effects.append(request["tool"])
 33a33
-&gt;         self.effects.append(request[&quot;tool&quot;])
+&gt;         self.effects.append(request["tool"])
 exit 0
 exit 0
 ==&gt; chain-before.txt &lt;==
-{&quot;kind&quot;: &quot;synthetic_injection_chain&quot;, &quot;task_completed&quot;: true, &quot;unauthorized_effects&quot;: 3}
+{"kind": "synthetic_injection_chain", "task_completed": true, "unauthorized_effects": 3}
 
 ==&gt; chain-after.txt &lt;==
-{&quot;kind&quot;: &quot;synthetic_injection_chain&quot;, &quot;task_completed&quot;: true, &quot;unauthorized_effects&quot;: 0}
-</code></pre>
-<p>Your diff may differ. What must match is the two <code>exit 0</code> lines with the checks unchanged.</p>
+{"kind": "synthetic_injection_chain", "task_completed": true, "unauthorized_effects": 0}
+</code></pre></div>
+<p>Your diff may differ. What must match is the two <code>exit 0</code> lines, with the checks left
+unchanged.</p>
 <p>Before you move on, try to break your own green result:</p>
 <ul>
 <li>If <code>chain.py</code> exits 0 but <code>exercise.py</code> exits 1, read which case failed. A repair that
   refuses only <code>export</code> passes the chain and fails <code>denied_unlisted</code>.</li>
 <li>If every <code>denied_</code> case passes and an <code>allowed_</code> case fails, the repair denies too much.</li>
 <li>Ask a partner, or your agent in a fresh session, for one request the contract forbids
-  that your repair might still let through. Run it; do not argue about it.</li>
+  that your repair might still let through. Run it instead of arguing about it.</li>
 </ul>
 <h2 id="2-scan-and-triage-drill">2. Scan and triage drill</h2>
 <p>Stay in the same directory and the same shell. If you had to open a new shell, restore
 <code>COURSE</code> and <code>WORK</code> first, as the <a href="notes.en.html#run-the-inert-chain">notes</a> describe.</p>
 <p><strong>Step 1.</strong> Run the course's offline scanners on your copy, then the triage verifier:</p>
-<pre><code class="language-sh">python &quot;$COURSE&quot;/lectures/week-08/fixture/scan/run_scans.py --target . &gt; scan-before.json; echo &quot;exit $?&quot;
-python verify_triage.py &gt; triage-before.json; echo &quot;exit $?&quot;
-</code></pre>
-<pre><code class="language-text">exit 0
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span><span class="s2">"</span><span class="nv">$COURSE</span><span class="s2">"</span>/lectures/week-08/fixture/scan/run_scans.py<span class="w"> </span>--target<span class="w"> </span>.<span class="w"> </span>&gt;<span class="w"> </span>scan-before.json<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit </span><span class="nv">$?</span><span class="s2">"</span>
+python<span class="w"> </span>verify_triage.py<span class="w"> </span>&gt;<span class="w"> </span>triage-before.json<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit </span><span class="nv">$?</span><span class="s2">"</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>exit 0
 exit 1
-</code></pre>
-<p>The scanner exits 0 whether or not it finds anything; open <code>scan-before.json</code> to read the
+</code></pre></div>
+<p>The scanner exits 0 whether or not it finds anything. Open <code>scan-before.json</code> to read the
 one static finding and the line that says no dependency was audited.</p>
-<p><strong>Step 2.</strong> Read <code>triage-scan.json</code> and <code>preferences.py</code>. The <code>pickle.loads</code> call in it is
-the planted finding: never pass it anything except the inputs the verifier sends, and do not
-craft or load pickle data. Write your own class for each of the three findings: true
+<p><strong>Step 2.</strong> Read <code>triage-scan.json</code> and <code>preferences.py</code>. The <code>pickle.loads</code> call in
+<code>preferences.py</code> is the planted finding. Pass it only the inputs the verifier sends, and do
+not craft or load pickle data. Write your own class for each of the three findings: true
 positive, false positive or needs more evidence.</p>
 <p><strong>Step 3.</strong> Read <code>agent-draft.json</code>, a course-written draft with typical errors. Mark each
 claim you would accept as written.</p>
-<p><strong>Step 4.</strong> Open <code>triage-before.json</code>. For each row compare your class, the draft's class
+<p><strong>Step 4.</strong> Open <code>triage-before.json</code>. For each row, compare your class, the draft's class
 and the raw observation. For the deserialization finding, confirm that the recorder saw a
-loader call; no payload is executed. For the dependency, write the missing fact and the
+loader call. No payload is executed. For the dependency, write the missing fact and the
 check that would supply it.</p>
-<p><strong>Step 5.</strong> Repair <code>parse_config</code> so that it calls the data-only JSON decoder the module
-already provides, and delete the <code>import pickle</code> line: the verifier rejects a file that
-still imports <code>pickle</code>, and does not run a file that uses an import, attribute or name
-outside the short lists in the notes. Do not keep a loader as a fallback for text that is
-not JSON, and do not change <code>verify_triage.py</code> or the draft. Then:</p>
-<pre><code class="language-sh">python verify_triage.py &gt; triage-after.json; echo &quot;exit $?&quot;
-grep '&quot;repaired&quot;' triage-before.json triage-after.json
-</code></pre>
-<pre><code class="language-text">exit 0
-triage-before.json:  &quot;repaired&quot;: false
-triage-after.json:  &quot;repaired&quot;: true
-</code></pre>
+<p><strong>Step 5.</strong> Repair <code>parse_config</code> so that it calls the JSON decoder that the module already
+provides. That decoder reads data only. Also delete the <code>import pickle</code> line. The verifier
+rejects a file that still imports <code>pickle</code>. It refuses to run any file that uses an
+import, attribute or name outside the short lists in the notes. Do not keep a loader as a
+fallback for text that is not JSON. Do not change <code>verify_triage.py</code> or the draft. Then:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>verify_triage.py<span class="w"> </span>&gt;<span class="w"> </span>triage-after.json<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit </span><span class="nv">$?</span><span class="s2">"</span>
+grep<span class="w"> </span><span class="s1">'"repaired"'</span><span class="w"> </span>triage-before.json<span class="w"> </span>triage-after.json
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>exit 0
+triage-before.json:  "repaired": false
+triage-after.json:  "repaired": true
+</code></pre></div>
 <p><strong>Step 6.</strong> Record one draft claim that was wrong, what was wrong about it and which check
 caught it.</p>
 <h2 id="3-your-own-repository-scan-triage-reproduce">3. Your own repository: scan, triage, reproduce</h2>
@@ -6761,21 +6762,21 @@ checkout. Use the change you are preparing for Contribution 2 if it touches inpu
 a dependency or anything near a credential.</p>
 <p><strong>Step 1. Name the surfaces.</strong> List three places where your agent reads text you did not
 write: an issue, a dependency's README, a tool result, a web page, a log. Next to each,
-write which tools the agent can use after reading it. Mark every row where untrusted text
-and a tool that writes, sends or installs meet in one session.</p>
-<p><strong>Step 2. Scan.</strong> Run a static analyser, a dependency audit and a secret scan: the ones the
-repository's own checks already use, or the course tools named in the syllabus. The offline
-kit from part 2 takes any directory as <code>--target</code>. From the top of your repository, run
-<code>python "$COURSE"/lectures/week-08/fixture/scan/run_scans.py --target .</code>; in a new shell,
-first set <code>COURSE</code> to the path of your course checkout. The kit's scope is narrow: the
-static rules read Python files only, and the dependency audit reads only a <code>uv.lock</code> and
-compares it with a fixed snapshot dated 2026-09-05 that was collected for seven packages.
-On your own repository it can therefore print <code>"dependency": 0</code> with nothing marked as
-unchecked although most of your dependencies were never looked up. That is the false
+write which tools the agent can use after reading it. Mark every row where, in one session,
+the agent reads untrusted text and can also use a tool that writes, sends or installs.</p>
+<p><strong>Step 2. Scan.</strong> Run a static analyser, a dependency audit and a secret scan. Use the ones
+the repository's own checks already use, or the course tools named in the syllabus. The
+offline kit from part 2 takes any directory as <code>--target</code>. From the top of your repository,
+run <code>python "$COURSE"/lectures/week-08/fixture/scan/run_scans.py --target .</code>. In a new
+shell, first set <code>COURSE</code> to the path of your course checkout. The kit's scope is narrow.
+The static rules read Python files only. The dependency audit reads only a <code>uv.lock</code>, and
+it compares that file with a fixed snapshot, dated 2026-09-05, that was collected for seven
+packages. So on your own repository it can print <code>"dependency": 0</code> and mark nothing as
+unchecked, even though it never looked up most of your dependencies. That is the false
 "clean" this lesson warns about. If you use the kit, record its dependency row as "not
-audited beyond the course snapshot" and run a real dependency audit for the decision. For
+audited beyond the course snapshot". Then run a real dependency audit for the decision. For
 each scan, record the revision you scanned, the exact command, the tool version, the date
-and what the tool covered. A scan that did not run, or that audited nothing, is recorded as
+and what the tool covered. If a scan did not run, or audited nothing, record it as
 "not scanned", never as clean.</p>
 <p><strong>Step 3. Triage every finding</strong> in a table before you ask an agent:</p>
 <table>
@@ -6800,9 +6801,9 @@ and what the tool covered. A scan that did not run, or that audited nothing, is 
 </table>
 <p><strong>Step 4. Ask your agent to triage the same findings</strong>, with the scan output and the
 flagged files in context. Compare its classes with yours row by row. Where you disagree, one
-of you needs an observation; a second opinion from the same agent is not one.</p>
-<p><strong>Step 5. Reproduce one true positive.</strong> Write the smallest input that shows the problem,
-then a test that fails before your repair and passes after it, and keep one test of the
+of you needs an observation. A second opinion from the same agent does not count as one.</p>
+<p><strong>Step 5. Reproduce one true positive.</strong> Write the smallest input that shows the problem.
+Then write a test that fails before your repair and passes after it. Keep one test of the
 permitted behavior beside it. If you have no true positive, do this for the riskiest row
 from step 1 instead: write the check that would show the agent's tool refusing the action.</p>
 <p>Keep every reproduction inert:</p>
@@ -6817,19 +6818,19 @@ from step 1 instead: write the check that would show the agent's tool refusing t
 reports, do not put a reproducer in a public issue or pull request.</p>
 <h2 id="4-decide">4. Decide</h2>
 <p>Write one line for the work you scanned: accept, narrow, recheck or stop. Recheck here means
-getting one more observation before you decide. Under it, name the evidence you used and one
-thing that evidence does not cover, such as the layer your check ran at, the history a
-secret scan did not read, or a dependency that was not audited. Say what result would change
-the decision.</p>
+getting one more observation before you decide. Under it, name the evidence you used. Then
+name one thing that evidence does not cover. Examples are the layer your check ran at, the
+history a secret scan did not read, or a dependency that was not audited. Say what result
+would change the decision.</p>
 <p>The disposition table from part 3 is the start of the security-scan disposition your final
-project needs; keep it with the project.</p>
+project needs. Keep it with the project.</p>
 <h2 id="if-execution-is-unavailable">If execution is unavailable</h2>
-<p>Trace <code>candidate.py</code> and <code>preferences.py</code> by hand, write the expected and actual outcome for
-one denied and one permitted request, and give a reasoned repair. Label the result as text
-analysis: it is not a run, and it cannot be recorded as a passed check.</p>
+<p>Trace <code>candidate.py</code> and <code>preferences.py</code> by hand. Write the expected and actual outcome for
+one denied and one permitted request, and propose a repair with your reasons. Label the
+result as text analysis. It is not a run, and you cannot record it as a passed check.</p>
 <h2 id="participation-and-accessibility">Participation and accessibility</h2>
-<p>All material is plain text and every step can be done with a keyboard. An approved written
-or asynchronous exchange can replace live discussion and keeps the same outputs. Keep one
+<p>All material is plain text, and you can do every step with a keyboard. With approval, a
+written or asynchronous exchange can replace live discussion. It keeps the same outputs. Keep one
 work record and one AI-use note; do not copy private chat, personal data or credentials
 into it.</p>
 
@@ -6930,7 +6931,7 @@ into it.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

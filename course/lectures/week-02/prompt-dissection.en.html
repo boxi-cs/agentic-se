@@ -6631,19 +6631,20 @@
 
 
 <h1 id="compare-two-production-prompts">Compare two production prompts</h1>
-<p>The Week 1 loop keeps a short tool contract for a model, the <code>CONTRACT</code> text in <code>demo.py</code>.
-A production coding agent sends much more: a role, working rules, a permission policy, a stopping rule and a
-schema for every tool. Two open-source coding agents publish the code that builds that text under the
-Apache-2.0 licence: Codex CLI and Qwen Code. In this activity you read the same four parts in
-both, at fixed commits, and ask the same two questions of every sentence you pick: <strong>what does
-it make the model do</strong>, and <strong>what, if anything, enforces it?</strong></p>
+<p>The Week 1 loop keeps a short tool contract for a model: the <code>CONTRACT</code> text in <code>demo.py</code>.
+A production coding agent sends much more. It sends a role, working rules, a permission
+policy, a stopping rule and a schema for every tool. Two open-source coding agents, Codex CLI
+and Qwen Code, publish the code that builds that text under the Apache-2.0 licence. In this
+activity you read the same four parts in both, at fixed commits. For every sentence you pick,
+you ask the same two questions: <strong>what does it make the model do</strong>, and <strong>what, if anything,
+enforces it?</strong></p>
 <p>You read the original files on GitHub. This page links them and quotes only a few words,
-always naming the project; it does not copy the files. Facts about the files come from two
+always naming the project. It does not copy the files. Facts about the files come from two
 reading pages, one for <a href="../../factsheets/tools/codex-base-instructions.en.html">Codex CLI</a>
 (tools/codex-base-instructions; as_of: 2026-10-09; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/codex-rs/protocol/src/prompts/base_instructions/default.md">Source 1</a>; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/codex-rs/core/src/tools/handlers/plan_spec.rs">Source 2</a>; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/LICENSE">Source 3</a>) and one for
 <a href="../../factsheets/tools/qwen-code-system-prompt.en.html">Qwen Code</a>
-(tools/qwen-code-system-prompt; as_of: 2026-10-09; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/core/prompts.ts">Source 1</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/edit.ts">Source 2</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/todoWrite.ts">Source 3</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/tool-names.ts">Source 4</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/LICENSE">Source 5</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/README.md">Source 6</a>; <a href="https://github.com/QwenLM/qwen-code/releases/tag/v0.25.0">Source 7</a>). Neither agent's files are the complete prompt a release
-sends at run time, and this page does not rank the two products.</p>
+(tools/qwen-code-system-prompt; as_of: 2026-10-09; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/core/prompts.ts">Source 1</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/edit.ts">Source 2</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/todoWrite.ts">Source 3</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/tool-names.ts">Source 4</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/LICENSE">Source 5</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/README.md">Source 6</a>; <a href="https://github.com/QwenLM/qwen-code/releases/tag/v0.25.0">Source 7</a>). For both agents, these files are not the complete prompt that a release
+sends at run time. This page does not rank the two products.</p>
 <h2 id="purpose">Purpose</h2>
 <p><strong>Optional, about 45 minutes.</strong> It earns no marks. It extends the notes' section on
 <a href="notes.en.html#reading-a-production-agents-instructions">reading a production agent's instructions</a>.
@@ -6651,7 +6652,7 @@ Parts 1-4 need only a browser. Part 5 is a written plan.</p>
 <p><strong>Before you start:</strong> your Week 1 <code>run()</code> passes its checks, or you have read its five steps
 in the <a href="../week-01/notes.en.html#build-the-agent-around-a-proposer">Week 1 notes</a>. You can name
 its three tools and its two stop reasons.</p>
-<p><strong>AI use:</strong> red. Write your answers yourself; the point is your own reading.</p>
+<p><strong>AI use:</strong> red (no AI). Write your answers yourself. The point is your own reading.</p>
 <p><strong>Output:</strong> one table for Parts 1-4 and a short Part 5 plan, for your own notes. Nothing is
 handed in.</p>
 <h2 id="the-files">The files</h2>
@@ -6686,17 +6687,17 @@ handed in.</p>
 </tr>
 </tbody>
 </table>
-<p>Open both Codex CLI files, the base instructions <code>default.md</code> and the tool definition
-<code>plan_spec.rs</code>, from the links on its
-<a href="../../factsheets/tools/codex-base-instructions.en.html">reading page</a>; the Qwen Code files are
+<p>Open both Codex CLI files from the links on its
+<a href="../../factsheets/tools/codex-base-instructions.en.html">reading page</a>. They are the base
+instructions <code>default.md</code> and the tool definition <code>plan_spec.rs</code>. The Qwen Code files are
 linked in the table and on its <a href="../../factsheets/tools/qwen-code-system-prompt.en.html">reading page</a>.</p>
-<p><code>default.md</code> is Markdown: read it as it stands. <code>prompts.ts</code> is TypeScript that <em>builds</em> the
-prompt. Text between backticks is what the model receives, and <code>${...}</code> inserts a value,
-often a tool name such as <code>${ToolNames.EDIT}</code>; the names are listed in
+<p><code>default.md</code> is Markdown, so read it as it stands. <code>prompts.ts</code> is TypeScript that <em>builds</em>
+the prompt. Text between backticks is what the model receives. <code>${...}</code> inserts a value,
+often a tool name such as <code>${ToolNames.EDIT}</code>. The names are listed in
 <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/tool-names.ts"><code>tool-names.ts</code></a>.
-Which sections appear depends on the interaction mode, the sandbox configuration and whether
-the directory is a Git repository, and an environment variable can replace the whole default
-base prompt with a file. (tools/qwen-code-system-prompt; as_of: 2026-10-09; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/core/prompts.ts">Source 1</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/edit.ts">Source 2</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/todoWrite.ts">Source 3</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/tool-names.ts">Source 4</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/LICENSE">Source 5</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/README.md">Source 6</a>; <a href="https://github.com/QwenLM/qwen-code/releases/tag/v0.25.0">Source 7</a>) Read the interactive default.</p>
+Which sections appear depends on three things: the interaction mode, the sandbox
+configuration, and whether the directory is a Git repository. Also, an environment variable
+can replace the whole default base prompt with a file. (tools/qwen-code-system-prompt; as_of: 2026-10-09; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/core/prompts.ts">Source 1</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/edit.ts">Source 2</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/todoWrite.ts">Source 3</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/tool-names.ts">Source 4</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/LICENSE">Source 5</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/README.md">Source 6</a>; <a href="https://github.com/QwenLM/qwen-code/releases/tag/v0.25.0">Source 7</a>) Read the interactive default.</p>
 <h2 id="record">Record</h2>
 <p>Use one row per sentence or rule. Pick at least two per part, one from each agent.</p>
 <table>
@@ -6721,18 +6722,23 @@ base prompt with a file. (tools/qwen-code-system-prompt; as_of: 2026-10-09; <a h
 </tr>
 </tbody>
 </table>
-<p>For <strong>what enforces it</strong>, choose one: the <strong>schema</strong> (a malformed call is rejected before the
-tool runs); the <strong>tool's own code</strong> (it checks and returns an error text to the model); a
-<strong>runtime permission or sandbox</strong> outside the model; or <strong>nothing visible</strong>. Write "cannot
-tell" when you did not open the code that would decide, and say which file you would need.</p>
+<p>For <strong>what enforces it</strong>, choose one:</p>
+<ul>
+<li>the <strong>schema</strong>: a malformed call is rejected before the tool runs;</li>
+<li>the <strong>tool's own code</strong>: it checks the call and returns an error text to the model;</li>
+<li>a <strong>runtime permission or sandbox</strong> outside the model;</li>
+<li><strong>nothing visible</strong>.</li>
+</ul>
+<p>Write "cannot tell" when you did not open the code that would decide. Say which file you
+would need.</p>
 <h2 id="part-1-role-and-instructions">Part 1: role and instructions</h2>
 <ol>
 <li>Find the sentence in each file that says what the agent is and what its goal is. Which
    words could change a choice the agent makes on a dashboard repair, and which only name it?</li>
-<li>Find each agent's rule for checking work after a change. The Codex CLI file ties when to
-   run tests and lint to the approval mode; the Qwen Code file asks for the project's own
-   checks before reporting a change complete, and for an honest report when a check failed
-   or was not run. (tools/codex-base-instructions; as_of: 2026-10-09; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/codex-rs/protocol/src/prompts/base_instructions/default.md">Source 1</a>; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/codex-rs/core/src/tools/handlers/plan_spec.rs">Source 2</a>; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/LICENSE">Source 3</a>) (tools/qwen-code-system-prompt; as_of: 2026-10-09; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/core/prompts.ts">Source 1</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/edit.ts">Source 2</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/todoWrite.ts">Source 3</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/tool-names.ts">Source 4</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/LICENSE">Source 5</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/README.md">Source 6</a>; <a href="https://github.com/QwenLM/qwen-code/releases/tag/v0.25.0">Source 7</a>)
+<li>Find each agent's rule for checking work after a change. In the Codex CLI file, the approval
+   mode decides when to run tests and lint. The Qwen Code file asks for the project's own
+   checks before the agent reports a change complete. It also asks for an honest report when
+   a check failed or was not run. (tools/codex-base-instructions; as_of: 2026-10-09; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/codex-rs/protocol/src/prompts/base_instructions/default.md">Source 1</a>; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/codex-rs/core/src/tools/handlers/plan_spec.rs">Source 2</a>; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/LICENSE">Source 3</a>) (tools/qwen-code-system-prompt; as_of: 2026-10-09; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/core/prompts.ts">Source 1</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/edit.ts">Source 2</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/todoWrite.ts">Source 3</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/tool-names.ts">Source 4</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/LICENSE">Source 5</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/README.md">Source 6</a>; <a href="https://github.com/QwenLM/qwen-code/releases/tag/v0.25.0">Source 7</a>)
    For each, describe a run in which the agent reports a change without having run a test.
    Which field in your Week 1 <code>completion.json</code> would show that case, and with what value?</li>
 </ol>
@@ -6740,12 +6746,12 @@ tell" when you did not open the code that would decide, and say which file you w
 <ol>
 <li>Compare <code>update_plan</code> with <code>todo_write</code>: required and optional fields, the allowed status
    values, and where "one step in progress" is written. In <code>todoWrite.ts</code>, read
-   <code>validateTodos</code>: list what it checks, and say whether it checks that limit. For Codex CLI,
+   <code>validateTodos</code>. List what it checks, and say whether it checks that limit. For Codex CLI,
    can you tell from the files you opened? Mark "cannot tell" where you cannot.</li>
 <li>In <code>edit.ts</code>, read the <code>edit</code> tool's description, its parameter schema,
    <code>validateToolParamValues</code> and <code>calculateEdit</code>. Sort each rule into required by the schema,
    checked by code with an error returned to the model, or only asked in the description.
-   Start from two: "at least 3 lines of context" is only asked, while a second match without
+   Start from two rules. "At least 3 lines of context" is only asked. A second match without
    <code>replace_all</code> fails with an error that gives the count. (tools/qwen-code-system-prompt; as_of: 2026-10-09; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/core/prompts.ts">Source 1</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/edit.ts">Source 2</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/todoWrite.ts">Source 3</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/tool-names.ts">Source 4</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/LICENSE">Source 5</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/README.md">Source 6</a>; <a href="https://github.com/QwenLM/qwen-code/releases/tag/v0.25.0">Source 7</a>)
    What does the model see on its next turn when it breaks each kind?</li>
 <li>The Codex CLI file names <code>apply_patch</code> and shows one call. Did you open its schema? If
@@ -6756,23 +6762,23 @@ tell" when you did not open the code that would decide, and say which file you w
 <h2 id="part-3-safety-and-permission-rules">Part 3: safety and permission rules</h2>
 <ol>
 <li>In the Qwen Code file, "Respect Tool Decisions" says the runtime enforces tool
-   permissions, while "Denied Tool Calls" asks the model not to reach a denied action another
-   way, through a shell, a generated script or an alias. (tools/qwen-code-system-prompt; as_of: 2026-10-09; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/core/prompts.ts">Source 1</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/edit.ts">Source 2</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/todoWrite.ts">Source 3</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/tool-names.ts">Source 4</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/LICENSE">Source 5</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/README.md">Source 6</a>; <a href="https://github.com/QwenLM/qwen-code/releases/tag/v0.25.0">Source 7</a>)
+   permissions. "Denied Tool Calls" asks the model not to reach a denied action another
+   way, such as through a shell, a generated script or an alias. (tools/qwen-code-system-prompt; as_of: 2026-10-09; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/core/prompts.ts">Source 1</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/edit.ts">Source 2</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/todoWrite.ts">Source 3</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/tool-names.ts">Source 4</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/LICENSE">Source 5</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/README.md">Source 6</a>; <a href="https://github.com/QwenLM/qwen-code/releases/tag/v0.25.0">Source 7</a>)
    Why might a product need that request as well as the runtime check? For your loop, name
-   one route that <code>tool</code> closes and one that only the environment the agent runs in closes
-   (the dedicated directory or container of the
-   <a href="../../SYLLABUS.en.html#tools-and-model-access">safety practices</a>).</li>
+   one route that <code>tool</code> closes. Then name one route that only the agent's environment
+   closes: the dedicated directory or container described in the
+   <a href="../../SYLLABUS.en.html#tools-and-model-access">safety practices</a>.</li>
 <li>The Codex CLI capabilities list refers to a "Sandbox and approvals" section that the file
    itself does not contain. (tools/codex-base-instructions; as_of: 2026-10-09; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/codex-rs/protocol/src/prompts/base_instructions/default.md">Source 1</a>; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/codex-rs/core/src/tools/handlers/plan_spec.rs">Source 2</a>; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/LICENSE">Source 3</a>) What does that tell you about
    where the rest of the prompt comes from, and what would you need to read next?</li>
 <li>Pick one sentence from "Executing actions with care" or a sandbox section in the Qwen
-   Code file. Describing a sandbox to the model does not create one: which control outside
+   Code file. Describing a sandbox to the model does not create one. Which control outside
    the prompt would have to exist for the sentence to be true?</li>
 </ol>
 <h2 id="part-4-stopping-and-plans">Part 4: stopping and plans</h2>
 <ol>
-<li>Both files ask the agent to keep going until the request is resolved; the Qwen Code file
-    also names an exit, reporting the specific blocker. (tools/codex-base-instructions; as_of: 2026-10-09; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/codex-rs/protocol/src/prompts/base_instructions/default.md">Source 1</a>; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/codex-rs/core/src/tools/handlers/plan_spec.rs">Source 2</a>; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/LICENSE">Source 3</a>)
+<li>Both files ask the agent to keep going until the request is resolved. The Qwen Code file
+    also names a way out: the agent reports the specific blocker. (tools/codex-base-instructions; as_of: 2026-10-09; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/codex-rs/protocol/src/prompts/base_instructions/default.md">Source 1</a>; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/codex-rs/core/src/tools/handlers/plan_spec.rs">Source 2</a>; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/LICENSE">Source 3</a>)
     (tools/qwen-code-system-prompt; as_of: 2026-10-09; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/core/prompts.ts">Source 1</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/edit.ts">Source 2</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/todoWrite.ts">Source 3</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/tool-names.ts">Source 4</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/LICENSE">Source 5</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/README.md">Source 6</a>; <a href="https://github.com/QwenLM/qwen-code/releases/tag/v0.25.0">Source 7</a>) Neither sentence can stop a loop. Which code stops
     your <code>run()</code>, and what would a production agent need in place of your <code>step_limit</code>?</li>
 <li>A plan step marked <code>completed</code> is the model's own claim. Which observation would you need
@@ -6793,13 +6799,13 @@ final reply. Write three things:</p>
 <li><strong>The verification:</strong> which line of a record, or which check, would show the effect.</li>
 </ul>
 <p>Keep this part a written prediction. The scripted proposer in the Week 1 <code>demo.py</code> never
-reads <code>CONTRACT</code>, so adding your sentence there changes nothing you can observe in scripted
-practice. Write the record you would expect with and without the change: did a <code>verify</code> call
-follow the last write, and what were the stop reason and the check? If you later try the
-sentence in a real agent session, one run of each version is one observation, not a rate;
-report it that way. Either way, also say which part of your loop already reports the truth
-regardless of the prompt: <code>last_check</code> stays <code>not_run</code> or <code>check_failed</code> whatever the model
-writes.</p>
+reads <code>CONTRACT</code>. So if you add your sentence there, nothing changes that you can observe in
+scripted practice. Write the record you would expect with and without the change. Did a
+<code>verify</code> call follow the last write? What were the stop reason and the check? You may later
+try the sentence in a real agent session. One run of each version is then one observation,
+not a rate, so report it that way. In both cases, also say which part of your loop already
+reports the truth regardless of the prompt. <code>last_check</code> stays <code>not_run</code> or <code>check_failed</code>,
+whatever the model writes.</p>
 <h2 id="common-mistakes">Common mistakes</h2>
 <table>
 <thead>
@@ -6837,8 +6843,8 @@ writes.</p>
 </tr>
 </tbody>
 </table>
-<p>All files are plain text on GitHub and can be read with a screen reader or keyboard; no
-diagram or colour is needed for any step.</p>
+<p>All files are plain text on GitHub. You can read them with a screen reader or keyboard. No
+step needs a diagram or colour.</p>
 
 
 
@@ -6937,7 +6943,7 @@ diagram or colour is needed for any step.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

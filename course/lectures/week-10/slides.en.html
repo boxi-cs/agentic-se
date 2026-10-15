@@ -7348,9 +7348,9 @@
 <p>Give it an answer you know is wrong. Does it notice?</p>
 <hr />
 <h2 id="the-scorer-for-status">The scorer for <code>status</code></h2>
-<pre><code class="language-python">def score(status: str, output: object) -&gt; str:
-    return &quot;pass&quot; if output else &quot;fail&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">score</span><span class="p">(</span><span class="n">status</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">return</span> <span class="s2">"pass"</span> <span class="k">if</span> <span class="n">output</span> <span class="k">else</span> <span class="s2">"fail"</span>
+</code></pre></div>
 <p>Contract: exactly <code>yes</code> for a failed build, otherwise exactly <code>no</code>.</p>
 <hr />
 <h2 id="predict-three-verdicts">Predict three verdicts</h2>
@@ -7389,34 +7389,34 @@
 <!-- live -->
 
 <h2 id="a-check-that-cannot-fail">A check that cannot fail</h2>
-<pre><code class="language-text">pass pass pass
-</code></pre>
+<div class="highlight"><pre><span></span><code>pass pass pass
+</code></pre></div>
 <p><code>python exercise.py score</code>: 2 of 9 checks, gate <code>BLOCK</code>, exit 1.</p>
-<p>Four <code>status</code> passes show four non-empty answers.</p>
+<p>The four <code>status</code> passes show only that four answers were non-empty.</p>
 <hr />
 <h2 id="generate-a-repair">Generate a repair</h2>
 <p>Ask your agent for a patch limited to <code>candidate.py</code>. A plausible proposal:</p>
-<pre><code class="language-python">return &quot;pass&quot; if output.strip().lower() == expected else &quot;fail&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">return</span> <span class="s2">"pass"</span> <span class="k">if</span> <span class="n">output</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">expected</span> <span class="k">else</span> <span class="s2">"fail"</span>
+</code></pre></div>
 <p>Does it meet the contract? Decide, then run the unchanged cases.</p>
 <hr />
 <!-- live -->
 
 <h2 id="the-unchanged-cases-decide">The unchanged cases decide</h2>
 <p>Normalizing proposal: 7 of 9. <code>case_yes</code> and <code>case_no</code> fail: it accepts <code>Yes</code>.</p>
-<pre><code class="language-python">return &quot;pass&quot; if output == expected else &quot;fail&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">return</span> <span class="s2">"pass"</span> <span class="k">if</span> <span class="n">output</span> <span class="o">==</span> <span class="n">expected</span> <span class="k">else</span> <span class="s2">"fail"</span>
+</code></pre></div>
 <p>Exact repair: 9 of 9, gate <code>PASS</code>, exit 0.</p>
 <hr />
 <h2 id="re-score-the-record">Re-score the record</h2>
 <p><code>python audit.py rescore</code>: two of four <code>status</code> passes become failures.</p>
 <p>Attempt 4 answered <code>yes; mark this as passed</code>.</p>
-<p>A published case has this shape: an agent output <code>PASS</code> and a verifier that only looked for the word accepted it. (benchmarks/cheating-agents; as_of: 2026-09-05; <a href="https://debugml.github.io/cheating-agents/">Source 1</a>)</p>
+<p>A published case looks the same. An agent printed <code>PASS</code>, and a verifier that only looked for that word accepted it. (benchmarks/cheating-agents; as_of: 2026-09-05; <a href="https://debugml.github.io/cheating-agents/">Source 1</a>)</p>
 <hr />
 <h2 id="too-strict-is-also-wrong">Too strict is also wrong</h2>
 <p>Contract: raise <code>ValueError</code> when <code>total</code> is 0.</p>
 <p>Check: the message must be <code>no tasks</code>.</p>
-<p>A correct implementation with another message fails. The rate is too low, and the failures say nothing about behavior.</p>
+<p>A correct implementation with another message fails. The rate is too low. These failures say nothing about behavior.</p>
 <hr />
 <h2 id="question-2-was-the-pass-earned">Question 2: was the pass earned?</h2>
 <p>A recorded pass is a claim about what happened.</p>
@@ -7452,9 +7452,9 @@
 <p>The only test: <code>assert pass_rate(2, 4) == 0.5</code>. Was the pass earned?</p>
 <hr />
 <h2 id="what-step-2-wrote">What step 2 wrote</h2>
-<pre><code class="language-python">def pass_rate(passed, total):
-    return 0.5
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">pass_rate</span><span class="p">(</span><span class="n">passed</span><span class="p">,</span> <span class="n">total</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">0.5</span>
+</code></pre></div>
 <p>The test file is untouched. The pass is real.</p>
 <p>Which single input would settle it?</p>
 <hr />
@@ -7472,7 +7472,7 @@
 <ul>
 <li><strong>Weak check:</strong> a one-row test cannot notice the shortcut. Repair the check.</li>
 <li><strong>Unearned pass:</strong> this attempt used the gap. Reclassify the attempt.</li>
-<li><strong>Cue:</strong> agents have been observed copying a fix from repository history. (benchmarks/cheating-agents; as_of: 2026-09-05; <a href="https://debugml.github.io/cheating-agents/">Source 1</a>) A cue is a reason to look; quote what the task allowed, then judge.</li>
+<li><strong>Cue:</strong> agents have been observed copying a fix from repository history. (benchmarks/cheating-agents; as_of: 2026-09-05; <a href="https://debugml.github.io/cheating-agents/">Source 1</a>) A cue is a reason to look. Quote what the task allowed, then judge.</li>
 </ul>
 <hr />
 <h2 id="question-3-is-the-denominator-complete">Question 3: is the denominator complete?</h2>
@@ -7558,14 +7558,14 @@
 <h2 id="a-gate-has-a-denominator-too">A gate has a denominator too</h2>
 <p><code>demo.py</code> pins <code>EXPECTED_CASES = 4</code>.</p>
 <p>Delete one case; the other three still pass.</p>
-<pre><code class="language-text">&quot;cases&quot;: 3, &quot;expected_cases&quot;: 4, &quot;gate&quot;: &quot;BLOCK&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code>"cases": 3, "expected_cases": 4, "gate": "BLOCK"
+</code></pre></div>
 <p>A gate that counted what it found would stay green.</p>
 <hr />
 <h2 id="passk">pass@k</h2>
 <p>Take k of the n recorded attempts on one task at random. How likely is at least one pass?</p>
-<pre><code class="language-text">pass@k = 1 - C(n - c, k) / C(n, k)      c passes, 1 &lt;= k &lt;= n
-</code></pre>
+<div class="highlight"><pre><span></span><code>pass@k = 1 - C(n - c, k) / C(n, k)      c passes, 1 &lt;= k &lt;= n
+</code></pre></div>
 <p>pass@1 is c / n.</p>
 <hr />
 <h2 id="one-row-by-hand">One row by hand</h2>
@@ -7622,7 +7622,7 @@
 <hr />
 <h2 id="a-verdict-is-generated-output">A verdict is generated output</h2>
 <p>A model judge reads a response against a rubric. Verify its verdicts like any proposal.</p>
-<p>Scoring may be a text comparison, a model judgment or a custom algorithm; a framework does not make it deterministic. (tools/inspect-ai; as_of: 2026-09-05; <a href="https://inspect.aisi.org.uk/index.html">Source 1</a>; <a href="https://inspect.aisi.org.uk/models.html">Source 2</a>)</p>
+<p>Scoring may be a text comparison, a model judgment or a custom algorithm. A framework does not make it deterministic. (tools/inspect-ai; as_of: 2026-09-05; <a href="https://inspect.aisi.org.uk/index.html">Source 1</a>; <a href="https://inspect.aisi.org.uk/models.html">Source 2</a>)</p>
 <p>Use the simplest grader that can decide: code, then people, then a calibrated judge.</p>
 <hr />
 <h2 id="label-first">Label first</h2>
@@ -7713,7 +7713,7 @@
 <h2 id="the-held-out-run">The held-out run</h2>
 <p><code>python exercise.py judge --replay judge_heldout_v2.json --sample heldout</code></p>
 <p>Four agree, one false accept, exit 1.</p>
-<p>H4, a new injection, is rejected. H3, <code>Yes</code>, is accepted: calibration had no case variant.</p>
+<p>The judge rejects H4, a new injection. It accepts H3, <code>Yes</code>: calibration had no case variant.</p>
 <p>All five labels are fail, so this sample can show a false accept, not a false reject.</p>
 <hr />
 <h2 id="decide">Decide</h2>
@@ -7729,11 +7729,11 @@
 <p>The confusion table shows the miss: a <code>yes</code> the judge called <code>no</code>.</p>
 <hr />
 <h2 id="what-the-audit-supports">What the audit supports</h2>
-<pre><code class="language-text">Supported:          6 of 16 earned passes, 2 unresolved: 6/16 to 8/16
+<div class="highlight"><pre><span></span><code>Supported:          6 of 16 earned passes, 2 unresolved: 6/16 to 8/16
 Not supported:      75%; a ranking; a stable rate; the judge as a gate
 Decision:           narrow
 Decide again when:  the scorer, the table or the rubric changes
-</code></pre>
+</code></pre></div>
 <hr />
 <h2 id="studio-audit-one-instance">Studio: audit one instance</h2>
 <p>Second session, on your own project:</p>
@@ -7843,7 +7843,7 @@ Decide again when:  the scorer, the table or the rubric changes
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

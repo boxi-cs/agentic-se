@@ -7320,23 +7320,23 @@ Returned text cannot enlarge that permission.</p>
 <h2 id="the-same-boundary-in-three-public-cases">The same boundary in three public cases</h2>
 <ul>
 <li>An injection in a public issue; private data written to a public pull request.</li>
-<li>Injected text changes a setting so that tools are auto-approved.</li>
+<li>Injected text changes a setting so that tools are approved automatically.</li>
 <li>A malicious package's install script tries to call local AI tools.</li>
 </ul>
 <p><small>Sources and limits are in the notes. Compare boundaries; run no payload.</small></p>
 <hr />
 <h2 id="a-contract-for-an-inspectable-boundary">A contract for an inspectable boundary</h2>
 <p>Requests have exactly the string fields <code>tool</code> and <code>record</code>.
-The record names a supplied surface; only <code>read_label</code> is allowed.</p>
+The record names a supplied surface. Only <code>read_label</code> is allowed.</p>
 <p>Every attempted call consumes one of two attempts.
 A refused call must add <strong>no effect</strong>.</p>
 <hr />
 <h2 id="the-candidates-dispatch-order">The candidate's dispatch order</h2>
 <p>After argument validation:</p>
-<pre><code class="language-python">self.effects.append(request[&quot;tool&quot;])
-if request[&quot;tool&quot;] != &quot;read_label&quot;:
-    return {&quot;error&quot;: &quot;tool_denied&quot;}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="bp">self</span><span class="o">.</span><span class="n">effects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">request</span><span class="p">[</span><span class="s2">"tool"</span><span class="p">])</span>
+<span class="k">if</span> <span class="n">request</span><span class="p">[</span><span class="s2">"tool"</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">"read_label"</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"error"</span><span class="p">:</span> <span class="s2">"tool_denied"</span><span class="p">}</span>
+</code></pre></div>
 <p>The effect list is an in-memory stand-in for an operation.</p>
 <hr />
 <!-- _class: challenge -->
@@ -7357,10 +7357,10 @@ Which part violates the contract?</p>
 <p>No model, file, socket or credential is involved.</p>
 <hr />
 <h2 id="a-correct-refusal-message-can-follow-a-wrong-effect">A correct refusal message can follow a wrong effect</h2>
-<pre><code class="language-text">&quot;proposed&quot;: [&quot;read_label&quot;, &quot;export&quot;]
-&quot;responses&quot;: [&quot;text&quot;, &quot;tool_denied&quot;]
-&quot;effects&quot;: [&quot;read_label&quot;, &quot;export&quot;]
-</code></pre>
+<div class="highlight"><pre><span></span><code>"proposed": ["read_label", "export"]
+"responses": ["text", "tool_denied"]
+"effects": ["read_label", "export"]
+</code></pre></div>
 <p><code>unauthorized_effects</code> is 3, one per surface. The command exits 1.</p>
 <hr />
 <h2 id="the-checks-name-the-failing-cases">The checks name the failing cases</h2>
@@ -7369,11 +7369,11 @@ Which part violates the contract?</p>
 The fourth is <code>denied_unlisted</code>: <code>delete_label</code>, a tool nobody wrote down.</p>
 <hr />
 <h2 id="permission-before-the-effect">Permission before the effect</h2>
-<pre><code class="language-python">if request[&quot;tool&quot;] != &quot;read_label&quot;:
-    return {&quot;error&quot;: &quot;tool_denied&quot;}
-self.effects.append(request[&quot;tool&quot;])
-</code></pre>
-<p>One moved line. Shape validation and attempt accounting stay where they were.</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="n">request</span><span class="p">[</span><span class="s2">"tool"</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">"read_label"</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"error"</span><span class="p">:</span> <span class="s2">"tool_denied"</span><span class="p">}</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">effects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">request</span><span class="p">[</span><span class="s2">"tool"</span><span class="p">])</span>
+</code></pre></div>
+<p>One line moved. The request-shape check and the attempt count stay where they were.</p>
 <hr />
 <h2 id="rerun-unchanged">Rerun, unchanged</h2>
 <p><code>chain.py</code> exits 0: <code>unauthorized_effects</code> is 0 and <code>task_completed</code> is true.</p>
@@ -7382,9 +7382,9 @@ self.effects.append(request[&quot;tool&quot;])
 <hr />
 <!-- _class: challenge -->
 <h2 id="an-agent-offers-a-smaller-patch">An agent offers a smaller patch</h2>
-<pre><code class="language-python">if request[&quot;tool&quot;] == &quot;export&quot;:
-    return {&quot;error&quot;: &quot;tool_denied&quot;}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="n">request</span><span class="p">[</span><span class="s2">"tool"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"export"</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"error"</span><span class="p">:</span> <span class="s2">"tool_denied"</span><span class="p">}</span>
+</code></pre></div>
 <p>placed before the append. Predict the exit status of <code>chain.py</code> and of <code>exercise.py</code>.</p>
 <hr />
 <h2 id="the-reproduction-passes-the-contract-does-not">The reproduction passes; the contract does not</h2>
@@ -7461,7 +7461,7 @@ Why would free refused attempts weaken the limit?</p>
 <p><code>demo.py</code> emits four requests with the required responses and effects.</p>
 <p><code>verify_demo.py</code> runs the unchanged packet against the candidate:
 exit 1 on the starter, exit 0 on the repair.</p>
-<p>An edited packet is refused, so expectations cannot be bent to fit.</p>
+<p>The verifier refuses an edited packet, so nobody can bend the expectations to fit.</p>
 <hr />
 <h2 id="name-the-layer-before-accepting-evidence">Name the layer before accepting evidence</h2>
 <table>
@@ -7493,14 +7493,14 @@ exit 1 on the starter, exit 0 on the repair.</p>
 <p>One green layer never proves the others.</p>
 <hr />
 <h2 id="approval-is-not-containment">Approval is not containment</h2>
-<p>An approval setting answers when a person is asked before a tool call.
-The environment answers what the process can reach.</p>
+<p>An approval setting decides when a person is asked before a tool call.
+The environment decides what the process can reach.</p>
 <p>Which of your agent's settings can the agent itself edit?
-If every prompt were auto-approved, what could a command still reach?</p>
+If every prompt were approved automatically, what could a command still reach?</p>
 <hr />
 <h2 id="a-package-suggestion-is-also-a-proposal">A package suggestion is also a proposal</h2>
 <p>Synthetic proposal: <code>course-label-fixture==0.0.0</code> with a setup hook.</p>
-<p>Before installation: source, exact pin and digest, transitive dependencies,
+<p>Before installing, ask for: source, exact pin and digest, transitive dependencies,
 and what the install script does. A plausible name is data.</p>
 <p>This lesson installs no package.</p>
 <hr />
@@ -7531,12 +7531,12 @@ and what the install script does. A plausible name is data.</p>
 <hr />
 <!-- live -->
 <h2 id="scan-the-working-copy-run-live">Scan the working copy, run live</h2>
-<pre><code class="language-text">&quot;static&quot;: 1,
-&quot;dependency&quot;: 0,
-&quot;secret&quot;: 0
-&quot;id&quot;: &quot;static:unsafe-deserialization@preferences.py::parse_config&quot;,
-&quot;uv.lock (missing: no dependency was audited)&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code>"static": 1,
+"dependency": 0,
+"secret": 0
+"id": "static:unsafe-deserialization@preferences.py::parse_config",
+"uv.lock (missing: no dependency was audited)"
+</code></pre></div>
 <p>Read the last line before the zeros: nothing was audited.</p>
 <hr />
 <h2 id="three-triage-outcomes-three-kinds-of-evidence">Three triage outcomes, three kinds of evidence</h2>
@@ -7546,9 +7546,12 @@ and what the install script does. A plausible name is data.</p>
 <hr />
 <!-- _class: challenge -->
 <h2 id="predict-before-you-ask">Predict before you ask</h2>
-<p><code>preferences.py</code>: caller text reaches <code>pickle.loads</code> in <code>parse_config</code>;
-an allowlisted value is interpolated in <code>format_status</code>;
-a locked package is in an advisory's range when an optional extra is installed.</p>
+<p>Three findings in <code>preferences.py</code>:</p>
+<ul>
+<li>Caller text reaches <code>pickle.loads</code> in <code>parse_config</code>.</li>
+<li>An allowlisted value is interpolated in <code>format_status</code>.</li>
+<li>A locked package is in an advisory's range when an optional extra is installed.</li>
+</ul>
 <p>Write your class for each before reading any agent output.</p>
 <hr />
 <h2 id="generate-the-agents-draft">Generate: the agent's draft</h2>
@@ -7563,13 +7566,13 @@ a locked package is in an advisory's range when an optional extra is installed.<
 <h2 id="verify-observe-the-loader-without-running-an-attack">Verify: observe the loader without running an attack</h2>
 <p>The verifier hands the parser a stand-in <code>pickle</code> that only records calls,
 then passes two JSON texts and six texts that are not JSON.</p>
-<p><code>"loader_called": true</code>. No payload executes; the unsafe path is observed.
+<p><code>"loader_called": true</code>. No payload runs, but the verifier observes the unsafe path.
 All three draft claims are unsupported. Exit 1.</p>
 <hr />
 <h2 id="verify-name-what-stops-the-other-finding">Verify: name what stops the other finding</h2>
 <p><code>format_status</code> accepts only <code>ok</code> and <code>paused</code> through <code>ALLOWED_STATUSES</code>.</p>
-<p>The label is one of two fixed strings; an unknown status is rejected.
-Deleting the formatter would break a permitted path to fix nothing.</p>
+<p>The label is one of two fixed strings. An unknown status is rejected.
+Deleting the formatter would break a permitted path and fix nothing.</p>
 <hr />
 <h2 id="needs-more-evidence-is-a-real-answer">"Needs more evidence" is a real answer</h2>
 <p>The package version is in the affected range.
@@ -7577,23 +7580,24 @@ Nothing here shows whether the optional <code>toml-loader</code> extra is instal
 <p>Name the missing fact and the check that supplies it.</p>
 <hr />
 <h2 id="fix-then-keep-both-directions-as-regressions">Fix, then keep both directions as regressions</h2>
-<pre><code class="language-text">&lt; import pickle
-&lt;     return pickle.loads(text.encode(&quot;latin1&quot;))
+<div class="highlight"><pre><span></span><code>&lt; import pickle
+&lt;     return pickle.loads(text.encode("latin1"))
 &gt;     return parse_json(text)
-</code></pre>
+</code></pre></div>
 <p>Same verifier, exit 0: no loader imported or called, JSON parses,
 six other texts raise, <code>status:Ready</code> still works.</p>
 <hr />
 <h2 id="a-quiet-scanner-is-not-a-repair">A quiet scanner is not a repair</h2>
-<p>A suppression comment, a rewrite that hides the pattern, or a pickle fallback
-after JSON fails leaves the unsafe loader. The verifier still exits 1.</p>
+<p>Each of these leaves the unsafe loader in place: a suppression comment, a rewrite
+that hides the pattern, or a pickle fallback when JSON parsing fails.
+The verifier still exits 1.</p>
 <p>Record the agent claim the observation proved wrong.</p>
 <hr />
 <h2 id="a-secret-finding-is-decided-by-use-not-by-looks">A secret finding is decided by use, not by looks</h2>
 <p>A credential-shaped string in teaching text: does any code path read, send or
 compare it as a credential?</p>
 <p><code>grep</code> over the fixture's Python files finds no line. Record the search beside a
-narrow exception. If a value was ever real: revoke it and check history.</p>
+narrow exception. If the value was ever real, revoke it and check history.</p>
 <hr />
 <!-- _class: challenge -->
 <h2 id="a-result-that-supports-limited-acceptance">A result that supports limited acceptance</h2>
@@ -7711,7 +7715,7 @@ Contribution 2 is due this week.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

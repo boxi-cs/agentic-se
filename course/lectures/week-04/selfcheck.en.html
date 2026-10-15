@@ -6456,15 +6456,15 @@
 
 <h1 id="week-4-self-check">Week 4 self-check</h1>
 <p>Answer without an agent, then compare with the <a href="selfcheck-answers.en.html">public answer guidance</a>.
-These questions are formative. Use the studio records as evidence rather than guessing what
-an agent “must have” done.</p>
+These questions are formative, not a graded submission. Use the studio records as evidence
+instead of guessing what an agent “must have” done.</p>
 <ol>
 <li>Write one instruction-file rule for a parser change. Name the failure it prevents and
    the evidence a reviewer can inspect.</li>
 <li>What is the difference between the request “run the focused test” and a pre-commit hook
    that exits 2 for an unused import? Give one way the request can be skipped.</li>
 <li>A hook prints a finding but exits 0. Did it gate the commit? What observation settles it?</li>
-<li>Your staged paths are <code>src/report.py</code> and <code>pyproject.toml</code>; the rule forbids dependency
+<li>Your staged paths are <code>src/report.py</code> and <code>pyproject.toml</code>. The rule forbids dependency
    changes in a parser task. Which path should the hook report, and why?</li>
 <li>A passing hook run is recorded. What application behavior does that record leave
    unverified?</li>
@@ -6486,8 +6486,8 @@ an agent “must have” done.</p>
 </ol>
 <h2 id="transfer">Transfer</h2>
 <p>A project specification says “the agent should follow repository rules.” Rewrite it as one
-observable instruction and one event-time gate. State what each check proves and what it
-cannot prove.</p>
+instruction whose effect you can observe, and one gate that runs at an event such as a
+commit. State what each check proves and what it cannot prove.</p>
 <p>R1. A request says “run the focused test,” but the agent reports only a green hook. What
 observation is still missing?</p>
 <p>R2. A subagent returns a file name and a confident summary. What evidence lets you decide
@@ -6590,7 +6590,7 @@ whether its hand-back is confirmed?</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

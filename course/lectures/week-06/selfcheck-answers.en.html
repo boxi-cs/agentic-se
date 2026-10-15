@@ -6679,11 +6679,11 @@
 another reader could reproduce.</p>
 <h2 id="q1">Q1</h2>
 <p>A useful first note names the location, input or path, expected result, observed or traced
-result, and consequence. If a field is unavailable, record that boundary rather than
-filling it with an assumption.</p>
+result, and consequence. If you cannot fill a field, record that limit. Do not
+fill it with an assumption.</p>
 <h2 id="q2">Q2</h2>
 <p>Use <code>active=False, owner=True, staff=False</code>. Because <code>and</code> binds more tightly than <code>or</code>,
-the second expression returns <code>True</code>; the contract requires <code>False</code> for every inactive
+the second expression returns <code>True</code>. The contract requires <code>False</code> for every inactive
 account. A case with an active owner or staff member does not separate the expressions.</p>
 <h2 id="q3">Q3</h2>
 <p>The claim is refuted as a conclusion about the guard. An active-staff example exercises
@@ -6697,34 +6697,35 @@ outside the contract. Cite that clause and keep the review focused on the reques
 the requirement. Mark it refuted with a counterexample or a contract clause that
 contradicts it. A plausible explanation without either kind of evidence remains unresolved.</p>
 <h2 id="q6">Q6</h2>
-<p>Mark it cannot tell. List the diff, tests, callers, or other files inspected, identify the
-missing caller or documented requirement, and request the smallest safe check that would
-decide whether the status is relied upon.</p>
+<p>Mark it cannot tell. List the diff, tests, callers, or other files you inspected. Identify
+the missing caller or documented requirement. Then request the smallest safe check that
+would decide whether any caller relies on the status.</p>
 <h2 id="q7">Q7</h2>
-<p>No finding supports only the claim that nothing was reported in the supplied context. It
+<p>A no-finding result supports only one claim: the reviewer reported nothing for the context
+it was given. It
 does not establish that the change is correct, that omitted requirements are satisfied, or
 that unseen callers are safe. Perform your own boundary checks and record any omission.</p>
 <h2 id="q8">Q8</h2>
-<p>The person with merge authority owns acceptance. That person should see the requirement,
-the candidate and base revisions, the independent review, each disposition with evidence,
-the verification commands and any unresolved question before deciding to accept, narrow,
-recheck or stop.</p>
+<p>The person with merge authority owns acceptance. Before deciding to accept, narrow, recheck
+or stop, that person should see the requirement, the candidate and base revisions, the
+independent review, each disposition with its evidence, the verification commands and any
+unresolved question.</p>
 <h2 id="q9">Q9</h2>
 <p>Inspect the command's paths, inputs, credential and network use, and expected outputs before
-running it. Stop when its scope is unclear, it requests secrets or network access, or it
-would alter files outside the dedicated change directory; retain the refusal as evidence.</p>
+running it. Stop when its scope is unclear, when it requests secrets or network access, or when it
+would alter files outside the dedicated change directory. Keep the refusal as evidence.</p>
 <h2 id="q10">Q10</h2>
 <p>For example: “Source: the issue's target-file requirement. Location: every path in the
 candidate diff. Check: each path is the named target file; any other path is a failure.”
 The source, location or input, and expected result make the rule reproducible.</p>
 <h2 id="spaced-retrieval-and-transfer">Spaced retrieval and transfer</h2>
-<p><strong>Retrieval 1.</strong> The instruction is a request: it depends on the agent, which may omit it.
-Git invokes the hook at the commit even when the agent forgets the request, so the hook is
+<p><strong>Retrieval 1.</strong> The instruction is a request. It depends on the agent, which may skip it.
+Git runs the hook at the commit even when the agent forgets the request. So the hook is
 a gate, but only for the one invariant it checks. A blocked commit shows that the gate
-fired; it does not show that the final change is correct. Week 4 covers both.</p>
-<p><strong>Retrieval 2.</strong> An observed anchor of the higher level must have changed at a named
-revision: a command with its result, or a path a reader can open. A tidy directory without
-a changed observation does not raise a score. Week 5 covers this, and A5 asks for it.</p>
+fired. It does not show that the final change is correct. Week 4 covers both.</p>
+<p><strong>Retrieval 2.</strong> At a named revision, an observed anchor of the higher level must have
+changed. The anchor is a command with its result, or a path a reader can open. A tidier
+directory does not raise a score unless an observation changes. Week 5 covers this, and A5 asks for it.</p>
 <p><strong>Transfer.</strong> “No finding” means only that the reviewer reported none for the context it
 received. Add an omitted requirement as your own finding, identify its input or source,
 and run the smallest check that decides whether the change is acceptable.</p>
@@ -6826,7 +6827,7 @@ and run the smallest check that decides whether the change is acceptable.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

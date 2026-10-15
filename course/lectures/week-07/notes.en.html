@@ -6710,8 +6710,8 @@
 
 <h1 id="week-7-tests-that-notice-a-fault">Week 7: Tests that notice a fault</h1>
 <p>The parser, its tests, the mutants and the "agent" patch on this page are course-written
-teaching examples. Nothing here is a recorded model run or an industry statistic; every
-count comes from the commands shown, which you can rerun.</p>
+teaching examples. Nothing here is a recorded model run or an industry statistic. Every
+count comes from the commands shown, and you can rerun them.</p>
 <h2 id="learning-objectives">Learning objectives</h2>
 <p>By the end of this week, you can:</p>
 <ul>
@@ -6722,8 +6722,8 @@ count comes from the commands shown, which you can rerun.</p>
 <li>recognise a change that makes a failing test pass by weakening the test, and say in your
   own hand-off what was changed, why, and what you verified (LO5, LO9).</li>
 </ul>
-<p>Week 6 asked for evidence behind every review comment. This week turns the same question
-on the tests: a green run is evidence only for the faults those tests could have noticed.</p>
+<p>Week 6 asked for evidence behind every review comment. This week asks the same question
+about the tests. A green run is evidence only for the faults those tests could have noticed.</p>
 <h2 id="minimal-example">Minimal example</h2>
 <p>Run every command on this page from the course checkout, in the repository root, with
 plain <code>python</code> in the course's Python environment (see the
@@ -6734,75 +6734,75 @@ coding agent on your own code this week, follow
 <p>The part on a weakened test runs <code>git diff</code> and <code>git status</code> on the course files, so the
 course checkout must be a Git working tree. Check before you start:
 <code>git status --short lectures/week-07</code> should print nothing. If Git answers "not a git
-repository", your copy came without Git history; make it a repository once, as the
+repository", your copy came without Git history. Make it a repository once, as the
 <a href="../../site/docs/week0/setup.en.html#lay-out-your-dedicated-directory">setup page</a> shows.
 Uncommitted changes of your own elsewhere in the checkout also show up in
 <code>git diff --stat</code>; commit them first.</p>
 <h3 id="the-contract-and-the-candidate">The contract and the candidate</h3>
 <p>A configuration field holds a level. The contract is written before any code or test:</p>
-<pre><code class="language-text">requires: text is a string
-accepts:  exactly one of &quot;0&quot;, &quot;1&quot;, ..., &quot;9&quot;
+<div class="highlight"><pre><span></span><code>requires: text is a string
+accepts:  exactly one of "0", "1", ..., "9"
 ensures:  an integer with the corresponding value, with no state changes
 rejects:  every other string by raising ValueError
-</code></pre>
+</code></pre></div>
 <p>So <code>"3"</code> maps to <code>3</code>, and <code>"12"</code>, <code>""</code>, a space and a non-ASCII digit are all rejected.
-The wording of the error message is deliberately unspecified. This is the oracle: every
-expected value below comes from these four lines, never from what the code happens to do.</p>
+The wording of the error message is deliberately unspecified. These four lines are the
+oracle: every expected value below comes from them, never from what the code happens to do.</p>
 <p>The candidate in <code>lectures/week-07/fixture/candidate.py</code> was written to look reasonable
 and be wrong:</p>
-<pre><code class="language-python">def parse_level(text: str) -&gt; int:
-    if text[0] in &quot;0123456789&quot;:
-        return int(text[0])
-    raise ValueError(&quot;Invalid level&quot;)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">parse_level</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">text</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="s2">"0123456789"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Invalid level"</span><span class="p">)</span>
+</code></pre></div>
 <p>Before running anything, predict two inputs the contract rejects and this code does not
-handle as required. Keep your prediction; the next sections check it.</p>
+handle as required. Keep your prediction. The next sections check it.</p>
 <h3 id="a-suite-that-passes-and-notices-nothing">A suite that passes and notices nothing</h3>
 <p>Here is a test in the style an agent often produces when asked to "add tests". It is the
 <code>weak_checks</code> function in <code>lectures/week-07/fixture/demo.py</code>:</p>
-<pre><code class="language-python">result = parser(&quot;3&quot;)
-assert result == result
-assert parser
-assert result or True
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">result</span> <span class="o">=</span> <span class="n">parser</span><span class="p">(</span><span class="s2">"3"</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="n">result</span>
+<span class="k">assert</span> <span class="n">parser</span>
+<span class="k">assert</span> <span class="n">result</span> <span class="ow">or</span> <span class="kc">True</span>
+</code></pre></div>
 <p>Run it against the faulty candidate:</p>
-<pre><code class="language-sh">python lectures/week-07/fixture/demo.py weak
-</code></pre>
-<pre><code class="language-text">{&quot;exercise&quot;: &quot;course-synthetic&quot;, &quot;implementation&quot;: &quot;candidate&quot;, &quot;mode&quot;: &quot;weak&quot;, &quot;target_checks_passed&quot;: true}
-</code></pre>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>lectures/week-07/fixture/demo.py<span class="w"> </span>weak
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{"exercise": "course-synthetic", "implementation": "candidate", "mode": "weak", "target_checks_passed": true}
+</code></pre></div>
 <p>Exit status 0, on code that violates its contract. Each assertion has a blind spot:
 <code>result == result</code> is true for any value, <code>assert parser</code> checks that a function exists,
 and <code>result or True</code> is always true. None of them compares the result with the contract.</p>
 <p>A suite that states expected values behaves differently. <code>unit_checks</code> asserts
 <code>parser("3") == 3</code> and requires <code>ValueError</code> for <code>""</code>, <code>"12"</code> and <code>"x"</code>:</p>
-<pre><code class="language-sh">python lectures/week-07/fixture/demo.py unit
-</code></pre>
-<pre><code class="language-text">{&quot;exercise&quot;: &quot;course-synthetic&quot;, &quot;failure&quot;: &quot;IndexError&quot;, &quot;implementation&quot;: &quot;candidate&quot;, &quot;mode&quot;: &quot;unit&quot;, &quot;target_checks_passed&quot;: false}
-</code></pre>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>lectures/week-07/fixture/demo.py<span class="w"> </span>unit
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{"exercise": "course-synthetic", "failure": "IndexError", "implementation": "candidate", "mode": "unit", "target_checks_passed": false}
+</code></pre></div>
 <p>Exit status 1. The empty string reaches <code>text[0]</code> and raises <code>IndexError</code>, where the
 contract requires <code>ValueError</code>. That is a demonstrated defect: a known input, an expected
 result from the contract, and a different observed result.</p>
 <p><strong>Generate.</strong> A repair proposal checks the length before indexing. It is the <code>repaired</code>
 function in the same file:</p>
-<pre><code class="language-python">def repaired(text: str) -&gt; int:
-    if len(text) == 1 and text in DIGITS:
-        return int(text)
-    raise ValueError(&quot;Invalid level&quot;)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">repaired</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">DIGITS</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Invalid level"</span><span class="p">)</span>
+</code></pre></div>
 <p><strong>Verify.</strong> Run the same, unchanged checks against the proposal:</p>
-<pre><code class="language-sh">python lectures/week-07/fixture/demo.py unit --implementation repaired
-</code></pre>
-<pre><code class="language-text">{&quot;exercise&quot;: &quot;course-synthetic&quot;, &quot;implementation&quot;: &quot;repaired&quot;, &quot;mode&quot;: &quot;unit&quot;, &quot;target_checks_passed&quot;: true}
-</code></pre>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>lectures/week-07/fixture/demo.py<span class="w"> </span>unit<span class="w"> </span>--implementation<span class="w"> </span>repaired
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{"exercise": "course-synthetic", "implementation": "repaired", "mode": "unit", "target_checks_passed": true}
+</code></pre></div>
 <p>Red on the candidate, green on the repair, with the tests untouched in between. The order
-matters: you fix the intended behaviour and review the tests first, a person or an agent
-proposes code, and an actual run judges the proposal. The rest of the page asks a harder
-question about that green result: which faults would these tests have missed?</p>
+matters. First you settle the intended behaviour and review the tests. Then a person or an
+agent proposes code. Then an actual run judges the proposal. The rest of the page asks a
+harder question about that green result: which faults would these tests have missed?</p>
 <h3 id="a-surviving-mutant-is-a-gap-in-the-tests">A surviving mutant is a gap in the tests</h3>
 <p>A <strong>mutant</strong> is a copy of a correct implementation with one small, deliberate fault. Run
 the suite against the mutant. If a test fails, the mutant is <strong>killed</strong>: the suite noticed
-the fault. If every test passes, the mutant <strong>survived</strong>: the suite cannot see that
-change, and it could not see a real bug of the same shape either.</p>
+the fault. If every test passes, the mutant <strong>survived</strong>. The suite cannot see that
+change, so it could not see a real bug of the same shape either.</p>
 <p>The fixture has three hand-written mutants of <code>repaired</code>:</p>
 <table>
 <thead>
@@ -6828,24 +6828,24 @@ change, and it could not see a real bug of the same shape either.</p>
 </table>
 <p><strong>Generate.</strong> Suppose an agent proposes a first suite, <code>example_checks</code>: one accepted
 value and one rejected string.</p>
-<pre><code class="language-python">def example_checks(parser: Parser) -&gt; None:
-    assert parser(&quot;3&quot;) == 3
-    try:
-        parser(&quot;x&quot;)
-    except ValueError:
-        return
-    raise AssertionError(&quot;Expected ValueError for 'x'&quot;)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">example_checks</span><span class="p">(</span><span class="n">parser</span><span class="p">:</span> <span class="n">Parser</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="n">parser</span><span class="p">(</span><span class="s2">"3"</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">parser</span><span class="p">(</span><span class="s2">"x"</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">"Expected ValueError for 'x'"</span><span class="p">)</span>
+</code></pre></div>
 <p>It reads well and passes on the repaired parser. <strong>Verify</strong> it by asking what it would
-notice. The <code>survivors</code> mode first requires the suite to pass on the unmutated original,
-then runs it against each mutant, then adds one test at a time:</p>
-<pre><code class="language-sh">python lectures/week-07/fixture/demo.py survivors
-</code></pre>
-<pre><code class="language-text">{&quot;suite&quot;: &quot;example_checks&quot;, &quot;killed&quot;: 1, &quot;total&quot;: 3, &quot;mutants&quot;: {&quot;all_zero&quot;: &quot;killed&quot;, &quot;nine_to_zero&quot;: &quot;survived&quot;, &quot;accept_trailing&quot;: &quot;survived&quot;}}
-{&quot;suite&quot;: &quot;+ upper_boundary_check&quot;, &quot;killed&quot;: 2, &quot;total&quot;: 3, &quot;mutants&quot;: {&quot;all_zero&quot;: &quot;killed&quot;, &quot;nine_to_zero&quot;: &quot;killed&quot;, &quot;accept_trailing&quot;: &quot;survived&quot;}}
-{&quot;suite&quot;: &quot;+ trailing_check&quot;, &quot;killed&quot;: 3, &quot;total&quot;: 3, &quot;mutants&quot;: {&quot;all_zero&quot;: &quot;killed&quot;, &quot;nine_to_zero&quot;: &quot;killed&quot;, &quot;accept_trailing&quot;: &quot;killed&quot;}}
-{&quot;exercise&quot;: &quot;course-synthetic&quot;, &quot;implementation&quot;: &quot;repaired original plus three fixed mutants&quot;, &quot;mode&quot;: &quot;survivors&quot;, &quot;target_checks_passed&quot;: true}
-</code></pre>
+notice. The <code>survivors</code> mode first checks that the suite passes on the unmutated original.
+Then it runs the suite against each mutant. Then it adds one test at a time:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>lectures/week-07/fixture/demo.py<span class="w"> </span>survivors
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{"suite": "example_checks", "killed": 1, "total": 3, "mutants": {"all_zero": "killed", "nine_to_zero": "survived", "accept_trailing": "survived"}}
+{"suite": "+ upper_boundary_check", "killed": 2, "total": 3, "mutants": {"all_zero": "killed", "nine_to_zero": "killed", "accept_trailing": "survived"}}
+{"suite": "+ trailing_check", "killed": 3, "total": 3, "mutants": {"all_zero": "killed", "nine_to_zero": "killed", "accept_trailing": "killed"}}
+{"exercise": "course-synthetic", "implementation": "repaired original plus three fixed mutants", "mode": "survivors", "target_checks_passed": true}
+</code></pre></div>
 <p>Read the first line as a list of gaps. <code>example_checks</code> kills 1 of 3. Two faults survive:</p>
 <ul>
 <li><code>nine_to_zero</code> survives because no test looks at <code>"9"</code>. The suite checks one value in
@@ -6855,40 +6855,42 @@ then runs it against each mutant, then adds one test at a time:</p>
 </ul>
 <p>Each survivor names the missing observation, so each one tells you what test to write.
 The two tests added in the second and third lines are exactly those:</p>
-<pre><code class="language-python">def upper_boundary_check(parser: Parser) -&gt; None:
-    assert parser(&quot;9&quot;) == 9
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">upper_boundary_check</span><span class="p">(</span><span class="n">parser</span><span class="p">:</span> <span class="n">Parser</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="n">parser</span><span class="p">(</span><span class="s2">"9"</span><span class="p">)</span> <span class="o">==</span> <span class="mi">9</span>
 
 
-def trailing_check(parser: Parser) -&gt; None:
-    try:
-        parser(&quot;12&quot;)
-    except ValueError:
-        return
-    raise AssertionError(&quot;Expected ValueError for '12'&quot;)
-</code></pre>
+<span class="k">def</span><span class="w"> </span><span class="nf">trailing_check</span><span class="p">(</span><span class="n">parser</span><span class="p">:</span> <span class="n">Parser</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">parser</span><span class="p">(</span><span class="s2">"12"</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">"Expected ValueError for '12'"</span><span class="p">)</span>
+</code></pre></div>
 <p>After the first, <code>nine_to_zero</code> is killed and <code>accept_trailing</code> still survives. After the
 second, all three are killed. A new test earns its place when it fails on the mutant and
-passes on the original; a test that passes on both has not closed the gap.</p>
+passes on the original. A test that passes on both has not closed the gap.</p>
 <p>Four rules keep a mutation count honest:</p>
 <ol>
 <li><strong>The original must pass first.</strong> A suite that fails on the unmutated code "kills"
    everything and has shown nothing. The fixture checks this before it counts.</li>
-<li><strong>State the denominator.</strong> "3 of 3" means these three hand-written mutants and no
-   others. A mutation tool for your language applies many operators to your code and
-   produces a much larger set; report the tool, its configuration, the revision and the
-   total alongside the count.</li>
+<li><strong>State the denominator.</strong> The denominator is the total the count is out of. "3 of 3"
+   means these three hand-written mutants and no others. A mutation tool for your language
+   applies many operators (kinds of small change) to your code and produces a much larger
+   set. Report the tool, its configuration, the revision and the total alongside the count.</li>
 <li><strong>A kill is a test failing because of the mutant's change.</strong> That is a failed
-   assertion, or an exception the change makes the code under test raise: the <code>unit</code>
+   assertion, or an exception that the change makes the code under test raise. The <code>unit</code>
    check above caught the candidate through an <code>IndexError</code>, and that counts. A failure
-   that would happen without the change does not: a syntax or import error, a missing
-   dependency, a broken harness. Report a timeout separately, and count it only after you
-   have confirmed that the mutant causes it. The fixture counts only <code>AssertionError</code>,
-   which is a simplification that holds because none of its three mutants raises
-   anything else; it is not the general rule.</li>
-<li><strong>An equivalent mutant leaves the denominator with a written reason.</strong> A mutant that
-   changes only the wording of the <code>ValueError</code> message cannot be killed by any test of
-   this contract, because the contract does not specify the message. Exclude it and say
-   why. Never drop a survivor that the contract can distinguish just to improve the number.</li>
+   that would happen without the change does not count: a syntax or import error, a
+   missing dependency, a broken harness. Report a timeout separately, and count it only
+   after you have confirmed that the mutant causes it. The fixture counts only
+   <code>AssertionError</code>. This simplification works here because none of its three mutants
+   raises anything else. It is not the general rule.</li>
+<li><strong>An equivalent mutant leaves the denominator with a written reason.</strong> An equivalent
+   mutant behaves exactly like the original as far as the contract can tell. For example,
+   a mutant that changes only the wording of the <code>ValueError</code> message cannot be killed by
+   any test of this contract, because the contract does not specify the message. Exclude
+   it and say why. Never drop a survivor that the contract can distinguish just to improve
+   the number.</li>
 </ol>
 <p>Line coverage would not have found these gaps: <code>example_checks</code> already executes every
 line of <code>repaired</code>. Coverage records which lines ran. A mutation result records whether a
@@ -6897,21 +6899,21 @@ change to those lines was noticed. Neither proves the code correct.</p>
 <p>Examples check the inputs you thought of. A <strong>property</strong> is a statement that must hold
 for every input in a family, checked on many generated inputs. The first property people
 write for this parser is a round trip over the valid values, here <code>property_checks</code>:</p>
-<pre><code class="language-python">for number in range(10):
-    result = parser(str(number))
-    assert type(result) is int
-    assert 0 &lt;= result &lt;= 9
-    assert str(result) == str(number)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">number</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">parser</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">number</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">result</span> <span class="o">&lt;=</span> <span class="mi">9</span>
+    <span class="k">assert</span> <span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+</code></pre></div>
 <p>It kills <code>all_zero</code> and <code>nine_to_zero</code> in one statement. Now run it on the faulty
 candidate:</p>
-<pre><code class="language-sh">python lectures/week-07/fixture/demo.py property
-</code></pre>
-<pre><code class="language-text">{&quot;exercise&quot;: &quot;course-synthetic&quot;, &quot;implementation&quot;: &quot;candidate&quot;, &quot;mode&quot;: &quot;property&quot;, &quot;target_checks_passed&quot;: true}
-</code></pre>
-<p>It passes, because the candidate is correct on every valid input. A property is only as
-wide as the inputs it quantifies over, and this one never leaves the ten accepted strings.
-The contract's last line is about <em>every other string</em>, so the property that matches the
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>lectures/week-07/fixture/demo.py<span class="w"> </span>property
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{"exercise": "course-synthetic", "implementation": "candidate", "mode": "property", "target_checks_passed": true}
+</code></pre></div>
+<p>It passes, because the candidate is correct on every valid input. A property covers only
+the inputs it ranges over, and this one never leaves the ten accepted strings. The
+contract's last line is about <em>every other string</em>, so the property that matches the
 contract is:</p>
 <blockquote>
 <p>For every string <code>s</code>: if <code>s</code> is one of the ten digit strings, the parser returns the
@@ -6920,12 +6922,12 @@ corresponding integer; otherwise it raises <code>ValueError</code>.</p>
 <p>The expected side comes from an explicit table of the ten accepted strings, not from the
 parser under test. The <code>shrink</code> mode checks this property on 100 generated strings of zero
 to four characters, drawn from digits, <code>x</code>, space, <code>-</code>, a newline and one non-ASCII digit:</p>
-<pre><code class="language-sh">python lectures/week-07/fixture/demo.py shrink --seed 19
-</code></pre>
-<pre><code class="language-text">{&quot;reason&quot;: &quot;unexpected_IndexError&quot;, &quot;found&quot;: &quot;&quot;, &quot;shrunk&quot;: &quot;&quot;, &quot;path&quot;: [&quot;&quot;]}
-{&quot;reason&quot;: &quot;accepted_invalid_input&quot;, &quot;found&quot;: &quot;1836&quot;, &quot;shrunk&quot;: &quot;00&quot;, &quot;path&quot;: [&quot;1836&quot;, &quot;836&quot;, &quot;36&quot;, &quot;06&quot;, &quot;00&quot;]}
-{&quot;cases&quot;: 100, &quot;counterexamples&quot;: 2, &quot;exercise&quot;: &quot;course-synthetic&quot;, &quot;implementation&quot;: &quot;candidate&quot;, &quot;mode&quot;: &quot;shrink&quot;, &quot;seed&quot;: 19, &quot;target_checks_passed&quot;: false}
-</code></pre>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>lectures/week-07/fixture/demo.py<span class="w"> </span>shrink<span class="w"> </span>--seed<span class="w"> </span><span class="m">19</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{"reason": "unexpected_IndexError", "found": "", "shrunk": "", "path": [""]}
+{"reason": "accepted_invalid_input", "found": "1836", "shrunk": "00", "path": ["1836", "836", "36", "06", "00"]}
+{"cases": 100, "counterexamples": 2, "exercise": "course-synthetic", "implementation": "candidate", "mode": "shrink", "seed": 19, "target_checks_passed": false}
+</code></pre></div>
 <p>Exit status 1, with two different failures. The second was first found as <code>"1836"</code>. That
 input fails, but it does not tell you why: is the problem the length, the digit <code>8</code>, the
 value being above 9? <strong>Shrinking</strong> answers by repeatedly trying a simpler input and
@@ -6981,32 +6983,33 @@ keeping it whenever the <em>same</em> failure still occurs:</p>
 <p>The shrunk counterexample <code>"00"</code> reads as a diagnosis: two characters, nothing special
 about either, and the parser accepts it. The fault is that the length is never checked.
 The first failure, <code>""</code>, was already as small as a string can be, so its path has one
-entry. Two shrunk inputs, two distinct defects, and both match the prediction you made
-from the candidate's code.</p>
+entry. So there are two shrunk inputs for two distinct defects. Both match the prediction
+you made from the candidate's code.</p>
 <p>Keep each shrunk input as a permanent regression, then verify the repair against it and
 against the whole property:</p>
-<pre><code class="language-sh">python lectures/week-07/fixture/demo.py replay --text 00
-python lectures/week-07/fixture/demo.py replay --text 00 --implementation repaired
-python lectures/week-07/fixture/demo.py shrink --seed 19 --implementation repaired
-</code></pre>
-<pre><code class="language-text">{&quot;exercise&quot;: &quot;course-synthetic&quot;, &quot;implementation&quot;: &quot;candidate&quot;, &quot;mismatch&quot;: &quot;accepted_invalid_input&quot;, &quot;mode&quot;: &quot;replay&quot;, &quot;target_checks_passed&quot;: false, &quot;text&quot;: &quot;00&quot;}
-{&quot;exercise&quot;: &quot;course-synthetic&quot;, &quot;implementation&quot;: &quot;repaired&quot;, &quot;mismatch&quot;: null, &quot;mode&quot;: &quot;replay&quot;, &quot;target_checks_passed&quot;: true, &quot;text&quot;: &quot;00&quot;}
-{&quot;cases&quot;: 100, &quot;counterexamples&quot;: 0, &quot;exercise&quot;: &quot;course-synthetic&quot;, &quot;implementation&quot;: &quot;repaired&quot;, &quot;mode&quot;: &quot;shrink&quot;, &quot;seed&quot;: 19, &quot;target_checks_passed&quot;: true}
-</code></pre>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>lectures/week-07/fixture/demo.py<span class="w"> </span>replay<span class="w"> </span>--text<span class="w"> </span><span class="m">00</span>
+python<span class="w"> </span>lectures/week-07/fixture/demo.py<span class="w"> </span>replay<span class="w"> </span>--text<span class="w"> </span><span class="m">00</span><span class="w"> </span>--implementation<span class="w"> </span>repaired
+python<span class="w"> </span>lectures/week-07/fixture/demo.py<span class="w"> </span>shrink<span class="w"> </span>--seed<span class="w"> </span><span class="m">19</span><span class="w"> </span>--implementation<span class="w"> </span>repaired
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{"exercise": "course-synthetic", "implementation": "candidate", "mismatch": "accepted_invalid_input", "mode": "replay", "target_checks_passed": false, "text": "00"}
+{"exercise": "course-synthetic", "implementation": "repaired", "mismatch": null, "mode": "replay", "target_checks_passed": true, "text": "00"}
+{"cases": 100, "counterexamples": 0, "exercise": "course-synthetic", "implementation": "repaired", "mode": "shrink", "seed": 19, "target_checks_passed": true}
+</code></pre></div>
 <p>The first command exits 1 and the other two exit 0. Save the input itself, not only the
-seed: a seed reproduces a failure only while the generator and the runtime stay the same.</p>
+seed. A seed reproduces a failure only while the generator and the runtime stay the same.</p>
 <p><strong>What this helper does and does not do.</strong> The fixture's generator and shrinker are a few
 dozen lines of standard-library Python, written so you can read every step. The
 generator draws from one fixed alphabet with a caller-supplied seed. The shrinker is
-greedy: it deletes one character or replaces one with <code>0</code>, keeps the first change that
-preserves the failure category, and stops when no single change does. It reports the
-first failure of each category and nothing else. It has no input strategies, no
-composition of generators, no database of past failures, and no guarantee that the result
-is the smallest possible input in general; here <code>"00"</code> is the smallest because one
+greedy. At each step it deletes one character or replaces one with <code>0</code>. It keeps the first
+change that preserves the failure category, and it stops when no single change does. It
+reports the first failure of each category and nothing else. It has no input strategies,
+no composition of generators and no database of past failures. It gives
+no guarantee that the result
+is the smallest possible input in general. Here <code>"00"</code> is the smallest because one
 character can never trigger this failure. The older <code>property</code> mode is narrower still: a
 fixed enumeration of ten values with no generation and no shrinking. A property-testing
 library for your project's language does this work properly, with typed strategies and a
-much more thorough shrinker; use one in your project. The idea carries over unchanged:
+much more thorough shrinker. Use one in your project. The idea carries over unchanged:
 state the property from the contract, keep the expected side independent of the code,
 and keep the shrunk input.</p>
 <p>A clean run has limits too. Zero counterexamples in 100 generated strings shows that
@@ -7015,7 +7018,7 @@ different kind.</p>
 <h3 id="an-agent-that-weakens-a-test-to-pass-it">An agent that weakens a test to pass it</h3>
 <p>There are two ways to turn a red test green: change the code so that it meets the
 contract, or change the test so that it stops asking. An agent told to "make the tests
-pass" is being asked for a green run, and the second way is often shorter.</p>
+pass" is being asked for a green run. The second way is often the shorter route to one.</p>
 <p>Start from the red result above: <code>unit</code> fails on the candidate with <code>IndexError</code>.
 <strong>Generate.</strong> The following patch is course-written, in the style of an agent's "fix". It
 ships as <code>lectures/week-07/fixture/weakened-test.patch.txt</code>, with this hand-off message:</p>
@@ -7024,60 +7027,60 @@ ships as <code>lectures/week-07/fixture/weakened-test.patch.txt</code>, with thi
 supported range, so I removed them from the test. All checks pass.</p>
 </blockquote>
 <p>Apply it and rerun the check that was red:</p>
-<pre><code class="language-sh">git apply lectures/week-07/fixture/weakened-test.patch.txt
-python lectures/week-07/fixture/demo.py unit
-</code></pre>
-<pre><code class="language-text">{&quot;exercise&quot;: &quot;course-synthetic&quot;, &quot;implementation&quot;: &quot;candidate&quot;, &quot;mode&quot;: &quot;unit&quot;, &quot;target_checks_passed&quot;: true}
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>apply<span class="w"> </span>lectures/week-07/fixture/weakened-test.patch.txt
+python<span class="w"> </span>lectures/week-07/fixture/demo.py<span class="w"> </span>unit
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{"exercise": "course-synthetic", "implementation": "candidate", "mode": "unit", "target_checks_passed": true}
+</code></pre></div>
 <p>Exit status 0. The summary is true as far as it goes: all checks pass. <strong>Verify</strong> as a
 reviewer would, starting with which files changed:</p>
-<pre><code class="language-sh">git diff --stat
-</code></pre>
-<pre><code class="language-text"> lectures/week-07/fixture/demo.py | 2 +-
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>diff<span class="w"> </span>--stat
+</code></pre></div>
+<div class="highlight"><pre><span></span><code> lectures/week-07/fixture/demo.py | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
-</code></pre>
-<p>The failing test was "fixed" and <code>candidate.py</code>, the code under test, is not in the
-list. That alone is enough to stop and read the diff:</p>
-<pre><code class="language-sh">git diff
-</code></pre>
-<pre><code class="language-text">diff --git a/lectures/week-07/fixture/demo.py b/lectures/week-07/fixture/demo.py
+</code></pre></div>
+<p>The failing test was "fixed", but <code>candidate.py</code>, the code under test, is not in the
+list. That alone is enough reason to stop and read the diff:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>diff
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>diff --git a/lectures/week-07/fixture/demo.py b/lectures/week-07/fixture/demo.py
 --- a/lectures/week-07/fixture/demo.py
 +++ b/lectures/week-07/fixture/demo.py
 @@ -55,7 +55,7 @@ def trailing_check(parser: Parser) -&gt; None:
  def unit_checks(parser: Parser) -&gt; None:
-     &quot;&quot;&quot;Use explicit expected values and reject the wrong exception type.&quot;&quot;&quot;
-     assert parser(&quot;3&quot;) == 3
--    for text in (&quot;&quot;, &quot;12&quot;, &quot;x&quot;):
-+    for text in (&quot;x&quot;,):
+     """Use explicit expected values and reject the wrong exception type."""
+     assert parser("3") == 3
+-    for text in ("", "12", "x"):
++    for text in ("x",):
          try:
              parser(text)
          except ValueError:
-</code></pre>
-<p>(Your output also has an <code>index</code> line with two object IDs after the first line; it is
+</code></pre></div>
+<p>(Your output also has an <code>index</code> line with two object IDs after the first line. It is
 left out here.) Map each removed input to the contract. <code>""</code> and <code>"12"</code> are both covered
 by "rejects every other string by raising ValueError". The hand-off calls them "outside
 the supported range", but the contract says what must happen to exactly those inputs. The
 patch deleted two contract obligations and changed no behaviour.</p>
 <p>Two runs confirm it without relying on reading alone. First, the defect is still there:</p>
-<pre><code class="language-sh">python lectures/week-07/fixture/demo.py replay --text 12
-</code></pre>
-<pre><code class="language-text">{&quot;exercise&quot;: &quot;course-synthetic&quot;, &quot;implementation&quot;: &quot;candidate&quot;, &quot;mismatch&quot;: &quot;accepted_invalid_input&quot;, &quot;mode&quot;: &quot;replay&quot;, &quot;target_checks_passed&quot;: false, &quot;text&quot;: &quot;12&quot;}
-</code></pre>
-<p>Second, the suite has lost the ability to notice a fault it used to notice. <code>mutation</code>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>lectures/week-07/fixture/demo.py<span class="w"> </span>replay<span class="w"> </span>--text<span class="w"> </span><span class="m">12</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{"exercise": "course-synthetic", "implementation": "candidate", "mismatch": "accepted_invalid_input", "mode": "replay", "target_checks_passed": false, "text": "12"}
+</code></pre></div>
+<p>Second, the suite can no longer notice a fault that it used to notice. The <code>mutation</code> mode
 compares <code>weak_checks</code> with <code>strong_checks</code>, which is <code>unit_checks</code> plus the round-trip
 property. Before the patch, the strong suite killed 3 of 3. Now:</p>
-<pre><code class="language-sh">python lectures/week-07/fixture/demo.py mutation
-</code></pre>
-<pre><code class="language-text">{&quot;exercise&quot;: &quot;course-synthetic&quot;, &quot;implementation&quot;: &quot;repaired original plus three fixed mutants&quot;, &quot;mode&quot;: &quot;mutation&quot;, &quot;strong&quot;: {&quot;killed&quot;: 2, &quot;mutants&quot;: {&quot;accept_trailing&quot;: &quot;survived&quot;, &quot;all_zero&quot;: &quot;killed&quot;, &quot;nine_to_zero&quot;: &quot;killed&quot;}, &quot;total&quot;: 3}, &quot;target_checks_passed&quot;: true, &quot;weak&quot;: {&quot;killed&quot;: 0, &quot;mutants&quot;: {&quot;accept_trailing&quot;: &quot;survived&quot;, &quot;all_zero&quot;: &quot;survived&quot;, &quot;nine_to_zero&quot;: &quot;survived&quot;}, &quot;total&quot;: 3}}
-</code></pre>
-<p><code>strong</code> is down to 2 of 3 and <code>accept_trailing</code> is a survivor again. This is the first
-topic of the week used as a review tool: a patch that turns a killed mutant back into a
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>lectures/week-07/fixture/demo.py<span class="w"> </span>mutation
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{"exercise": "course-synthetic", "implementation": "repaired original plus three fixed mutants", "mode": "mutation", "strong": {"killed": 2, "mutants": {"accept_trailing": "survived", "all_zero": "killed", "nine_to_zero": "killed"}, "total": 3}, "target_checks_passed": true, "weak": {"killed": 0, "mutants": {"accept_trailing": "survived", "all_zero": "survived", "nine_to_zero": "survived"}, "total": 3}}
+</code></pre></div>
+<p><code>strong</code> is down to 2 of 3 and <code>accept_trailing</code> is a survivor again. Here the week's first
+topic, mutants, becomes a review tool. A patch that turns a killed mutant back into a
 survivor has weakened the tests, whatever its message says.</p>
 <p>Undo the patch and confirm the checkout is clean again (the second command prints
 nothing):</p>
-<pre><code class="language-sh">git apply -R lectures/week-07/fixture/weakened-test.patch.txt
-git status --short lectures/week-07/fixture
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>apply<span class="w"> </span>-R<span class="w"> </span>lectures/week-07/fixture/weakened-test.patch.txt
+git<span class="w"> </span>status<span class="w"> </span>--short<span class="w"> </span>lectures/week-07/fixture
+</code></pre></div>
 <p>Removing inputs is one form. The same move appears as:</p>
 <table>
 <thead>
@@ -7121,9 +7124,9 @@ git status --short lectures/week-07/fixture
 </tr>
 </tbody>
 </table>
-<p>Sometimes changing a test is right: the requirement changed, or the test was wrong. The
-difference is a reason that points at the contract and a person who owns the decision.
-"The tests now pass" is not a reason.</p>
+<p>Sometimes changing a test is right: the requirement changed, or the test was wrong. What
+makes the change right is a reason that points at the contract, and a person who owns the
+decision. "The tests now pass" is not a reason.</p>
 <h3 id="when-an-agent-proposes-the-tests">When an agent proposes the tests</h3>
 <p>A coding agent can draft a property, a list of mutants or an input generator quickly, and
 this week you will ask yours to. Treat what comes back as claims and candidate code:</p>
@@ -7131,43 +7134,44 @@ this week you will ask yours to. Treat what comes back as claims and candidate c
 <li>read the oracle first: an expected value computed by calling the code under test
   agrees with any bug in it;</li>
 <li>run the proposed tests on a known-bad version and on a repaired one, as this page did
-  with <code>candidate</code> and <code>repaired</code>; a harness that reports nothing on the known-bad
-  version is broken, however it reads; and</li>
+  with <code>candidate</code> and <code>repaired</code>. A harness that reports nothing on the known-bad
+  version is broken, however good it looks; and</li>
 <li>never let the proposal choose its own score, edit the tool that scores it, or decide
   that a survivor is equivalent.</li>
 </ul>
-<p>The same separation appears in tools that generate fuzzing harnesses with models:
-whether a generated target builds, whether it crashes at run time and how much coverage
-it reaches are reported as separate results (tools/oss-fuzz-gen; as_of: 2026-09-05; <a href="https://github.com/google/oss-fuzz-gen/blob/main/README.md">Source 1</a>; <a href="https://github.com/google/oss-fuzz-gen/blob/main/USAGE.md">Source 2</a>; <a href="https://github.com/google/oss-fuzz-gen/blob/main/LICENSE">Source 3</a>), and a validated
-triggering input is kept apart from a candidate patch (tools/fuzzingbrain; as_of: 2026-09-05; <a href="https://github.com/fuzzingbrain/afc-crs-all-you-need-is-a-fuzzing-brain/blob/main/README.md">Source 1</a>). Those cards describe the tools' own
-reporting; they say nothing about this fixture.</p>
+<p>Tools that use models to generate fuzzing harnesses keep the same separation. They report
+as separate results whether a generated target builds, whether it crashes at run time and
+how much coverage it reaches (tools/oss-fuzz-gen; as_of: 2026-09-05; <a href="https://github.com/google/oss-fuzz-gen/blob/main/README.md">Source 1</a>; <a href="https://github.com/google/oss-fuzz-gen/blob/main/USAGE.md">Source 2</a>; <a href="https://github.com/google/oss-fuzz-gen/blob/main/LICENSE">Source 3</a>). They keep a validated triggering
+input apart from a candidate patch (tools/fuzzingbrain; as_of: 2026-09-05; <a href="https://github.com/fuzzingbrain/afc-crs-all-you-need-is-a-fuzzing-brain/blob/main/README.md">Source 1</a>). Those fact cards describe the
+tools' own reporting. They say nothing about this fixture.</p>
 <h2 id="hands-on-exercise">Hands-on exercise</h2>
 <p>The second session is a <a href="activities.en.html">studio on your project's tests</a>. You pick one
-behaviour on your alpha path, plant small faults by hand to find a surviving mutant, kill
-it with a new test, state one property and keep its smallest failing input if it has one,
-and then give your agent a red test and review its diff for weakening. Survivors you do
-not close in the session become items in your task backlog.</p>
+behaviour on your alpha path. You plant small faults by hand to find a surviving mutant,
+and you kill it with a new test. You state one property and keep its smallest failing
+input, if it has one. Then you give your agent a red test and review its diff for
+weakening. Survivors you do not close in the session become items in your task backlog.</p>
 <p>Before the studio, repeat the example on the fixture so that the three results are yours:</p>
 <ol>
 <li>Run <code>survivors</code> and, before reading the output, write down which mutants
    <code>example_checks</code> should kill.</li>
-<li>Run <code>shrink</code> with <code>--seed 7</code> instead of <code>--seed 19</code>. The multi-digit input first found
-   differs, and the two lines swap order. Check whether the shrunk inputs differ too.</li>
+<li>Run <code>shrink</code> with <code>--seed 7</code> instead of <code>--seed 19</code>. The run first finds a different
+   multi-digit input, and the two lines swap order. Check whether the shrunk inputs differ
+   too.</li>
 <li>Apply the patch, find the weakening in the diff without looking at this page, and
    reverse the patch.</li>
 </ol>
 <h2 id="verification">Verification</h2>
 <p>The fixture has its own regression checks, which bind every count on this page:</p>
-<pre><code class="language-sh">python lectures/week-07/fixture/verify_demo.py
-</code></pre>
-<pre><code class="language-text">........
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>lectures/week-07/fixture/verify_demo.py
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>........
 ----------------------------------------------------------------------
 Ran 8 tests in 0.003s
 
 OK
-</code></pre>
-<p>The time on the third line varies. Run it once with the weakened-test patch applied and
-it fails two of the eight checks, including <code>2 != 3</code> for the mutation count: the lesson's
+</code></pre></div>
+<p>The time on the third line varies. If you run it with the weakened-test patch applied,
+it fails two of the eight checks, including <code>2 != 3</code> for the mutation count. The lesson's
 own checks notice the weakening.</p>
 <p>For your own work this week, a result is verified when another reader can reproduce it
 from your record. That record holds, for each claim:</p>
@@ -7368,7 +7372,7 @@ would you add to its family first? Write your answer before comparing with a par
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

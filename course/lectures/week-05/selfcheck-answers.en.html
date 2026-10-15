@@ -6654,52 +6654,52 @@
 
 <h1 id="week-5-self-check-answer-guidance">Week 5 self-check answer guidance</h1>
 <p>Tie each conclusion to an anchor, a scored revision and an observation that another reader
-could repeat. These are sample reasoning paths, not a substitute for recording your own
+could repeat. These are sample lines of reasoning. They do not replace recording your own
 evidence.</p>
 <h2 id="q1">Q1</h2>
-<p>The missing Structure anchor is the map from a behaviour to its change point: four file opens
-without naming the caller also exceeds the three-open limit of level 3. A level-2 score claims
-that a map exists, so it is disproved if no file at the scored revision maps this behaviour to
-its caller and change point; the score is then 1.</p>
+<p>The missing Structure anchor is the map from a behaviour to its change point. Four file opens
+without naming the caller also exceed the level-3 limit of three opens. A level-2 score claims
+that a map exists. So the score is disproved if no file at the scored revision maps this
+behaviour to its caller and change point. In that case the score is 1.</p>
 <h2 id="q2">Q2</h2>
 <p>Level 2 is supported: commands exist, but two of the three fail as written. Record the one
-command that succeeds at the scored revision and its output. To reach level 3, every listed
-command has to run at the scored revision, so repair or remove the two that fail, and at
-least three invariants have to name the checks that protect them.</p>
+command that succeeds at the scored revision, and its output. Level 3 needs two things. First,
+every listed command has to run at the scored revision, so repair or remove the two that fail.
+Second, at least three invariants have to name the checks that protect them.</p>
 <h2 id="q3">Q3</h2>
-<p>The distinguishing input is <code>" PASS "</code> (or another padded value): the rejected variant does
-not strip whitespace, while the refactored variant preserves input normalization. The fixed
-case list, including aliases and the unknown fallback, is the evidence.</p>
+<p>The distinguishing input is <code>" PASS "</code> (or another padded value). The rejected variant does
+not strip whitespace. The refactored variant keeps the input normalization. The evidence is
+the fixed case list, which includes the aliases and the unknown fallback.</p>
 <h2 id="q4">Q4</h2>
-<p>The level-3 claim that the runs use no hidden input is unsupported: the current date is a
-hidden input, so two runs on the same day agree without showing much. Supply a fixed date
+<p>The level-3 claim that the runs use no hidden input is unsupported. The current date is a
+hidden input. Two runs on the same day agree, but that shows little. Supply a fixed date
 or inject a clock, then run the tests twice more at the scored revision.</p>
 <h2 id="q5">Q5</h2>
 <p>Exit 2 establishes that the check rejected the unused import. It does not establish that
-other checks, a clean input or a complete check sequence succeeds; run those separately and
-record their commands and outputs.</p>
+other checks pass, that a clean input passes, or that the complete check sequence succeeds.
+Run those separately and record their commands and outputs.</p>
 <h2 id="q6">Q6</h2>
-<p>Request the scored revision, exact command and path, observed output, and the reason the
-anchor level follows. A bare number cannot be reproduced or challenged.</p>
+<p>Ask for the scored revision, the exact command and path, the observed output, and why that
+evidence meets the anchor level. A bare number cannot be reproduced or challenged.</p>
 <h2 id="q7">Q7</h2>
 <p>A caller test with <code>" PASS "</code> catches the regression because the shorter function returns
-<code>unknown</code>. Run the old and refactored implementations against the same fixed cases and keep
-the failing rejected result alongside the passing result.</p>
+<code>unknown</code>. Run the old and the refactored implementations against the same fixed cases. Keep
+the failing result of the rejected variant next to the passing result.</p>
 <h2 id="q8">Q8</h2>
 <p>Do not run that instruction with a real key or an unpinned installer. Use an isolated safe
-environment, replace the key with a placeholder, pin the dependency, and record the README
-path plus the command and output that can be reproduced without credentials.</p>
+environment, replace the key with a placeholder, and pin the dependency. Record the README
+path, and the command and output that someone can reproduce without credentials.</p>
 <h2 id="q9">Q9</h2>
-<p>Revisit the score downward or leave it unchanged until the six missing cases are explained.
-A smaller passing set does not prove improved readiness: compare the old and new test
-inventories and restore or justify every removed case.</p>
+<p>Lower the score or leave it unchanged until you can explain the six missing cases.
+A smaller passing set does not prove better readiness. Compare the old and new test
+inventories, and restore or justify every removed case.</p>
 <h2 id="spaced-retrieval-weeks-34">Spaced retrieval: Weeks 3–4</h2>
 <p><strong>Retrieval 1.</strong> An instruction file is a request, and an agent in a hurry can skip it. A
 hook that Git runs before the commit is a gate and can refuse the commit. Keep one blocked
 commit and one passing commit as the record that the gate fires and still lets good work
 through.</p>
-<p><strong>Retrieval 2.</strong> The near miss was meant to stay quiet, so <code>observed</code> now differs from
-<code>should_trigger</code>. Keep that row in the trigger record as it is; do not rewrite it. Narrow
+<p><strong>Retrieval 2.</strong> A near miss is a request that looks related but should not trigger the skill.
+This one was meant to stay quiet, so <code>observed</code> now differs from <code>should_trigger</code>. Keep that row in the trigger record as it is; do not rewrite it. Narrow
 the skill's description, describe the change under <code>revision</code>, and run only that request
 again.</p>
 
@@ -6800,7 +6800,7 @@ again.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

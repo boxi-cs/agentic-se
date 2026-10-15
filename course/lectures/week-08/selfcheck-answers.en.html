@@ -6788,93 +6788,96 @@
 <p>Use these explanations after your first attempt. Tie each conclusion to one observed effect
 and one limit.</p>
 <h2 id="q1">Q1</h2>
-<p>The refusal invariant failed: a denied call must leave protected state unchanged. The
-message was right and the order of events was wrong. A response reports what the boundary
-said; only the effect list shows what it did.</p>
+<p>The refusal invariant failed. That rule says a denied call must leave protected state
+unchanged. The message was right, but the order of events was wrong. A response reports
+what the boundary said. Only the effect list shows what it did.</p>
 <h2 id="q2">Q2</h2>
 <p>No. The sentence is data on both surfaces and carries no authority on either. A model
-receives notes, tool results and the user's request as tokens in one context with no
-trustworthy mark of which text may grant permission, so imperative wording can shape its
-next proposal. The decision belongs to a controller that checks each proposed action against
-what the user authorized, after the proposal and before any effect.</p>
+receives notes, tool results and the user's request as tokens in one context. Nothing in
+that context reliably marks which text may grant permission. So an order written in the
+text can shape the model's next proposal. The decision belongs to a controller. It checks
+each proposed action against what the user authorized, after the proposal and before any
+effect.</p>
 <h2 id="q3">Q3</h2>
-<p>The authorized read returned the text; the text steered a second proposal, <code>export</code>; the
-boundary answered <code>tool_denied</code>; and <code>export</code> was already in <code>effects</code>. The failure is
+<p>The authorized read returned the text. The text steered a second proposal, <code>export</code>. The
+boundary answered <code>tool_denied</code>, but <code>export</code> was already in <code>effects</code>. The failure is
 between the proposal and the refusal: the effect was recorded before the permission check
-ran. Proposing <code>export</code> is not the failure; a model will sometimes propose it.</p>
+ran. Proposing <code>export</code> is not the failure. A model will sometimes propose it.</p>
 <h2 id="q4">Q4</h2>
 <p>A permitted <code>read_label</code> must still return the supplied text and record only <code>read_label</code>.
-A deny-all patch passes every denied case while breaking the task the boundary protects; in
-the chain it shows as <code>task_completed</code> being false.</p>
+A deny-all patch passes every denied case, but it breaks the task the boundary protects. In
+the chain, this shows as <code>task_completed</code> being false.</p>
 <h2 id="q5">Q5</h2>
-<p><code>denied_unlisted</code> still fails: <code>delete_label</code> is not <code>export</code>, so the call reaches the
-effect append before the later check refuses it. The contract is an allowlist, in which only
-<code>read_label</code> is permitted and every other name is refused before any effect. The chain only
+<p><code>denied_unlisted</code> still fails. <code>delete_label</code> is not <code>export</code>, so the call reaches the
+effect append before the later check refuses it. The contract is an allowlist: only
+<code>read_label</code> is permitted, and every other name is refused before any effect. The chain only
 ever proposes <code>export</code>, so a patch written against that one attack passes it. Keep the
 case-by-case checks, including a tool nobody wrote down, as the regression.</p>
 <h2 id="q6">Q6</h2>
 <p>Refused calls count against the attempt budget. After two refusals the third call returns
 <code>budget_exhausted</code> and <code>effects</code> stays empty.</p>
 <h2 id="q7">Q7</h2>
-<p>No. The in-memory check covers dispatcher ordering only, and a process that bypasses the
-dispatcher is not constrained by it. The environment answers the credential question:
-inspect what the directory or container the agent runs in actually holds and can reach,
-meaning files, network and credentials. If no credential is present there, there is none to
-read.</p>
+<p>No. The in-memory check covers only the order in which the dispatcher acts. It does not
+limit a process that bypasses the dispatcher. The environment answers the credential
+question. Inspect what the directory or container that the agent runs in actually holds and
+can reach: files, network and credentials. If no credential is present there, there is none
+to read.</p>
 <h2 id="q8">Q8</h2>
 <p>The approval setting decides when a person is asked before a tool call. The environment
 decides what a command can reach whether or not anyone is asked. Switching prompts off
 removes the first control and leaves the second, so the second must be real. If the agent
-can edit its own settings, injected text can ask it to switch approval off, which is why
-that file belongs outside what the agent may write.</p>
+can edit its own settings, injected text can ask it to switch approval off. That is why the
+settings file belongs outside what the agent may write.</p>
 <h2 id="q9">Q9</h2>
 <p>The package's identity and intended source, the exact version and lock digest, its
-transitive dependencies and what its install script does. A plausible name is data, and
-resolving it is already an effect.</p>
+transitive dependencies and what its install script does. A plausible name is data.
+Resolving it (letting a package manager look it up and fetch it) is already an effect.</p>
 <h2 id="q10">Q10</h2>
-<p>Nothing about the dependencies: the scanner looked for a <code>uv.lock</code>, found none and audited
-nothing. Record the scan as "dependencies not scanned", with the command and date, and either
-supply a lock file the tool reads or use a dependency audit that fits the project. A zero
-next to "not audited" is not a clean result.</p>
+<p>Nothing about the dependencies. The scanner looked for a <code>uv.lock</code>, found none and audited
+nothing. Record the scan as "dependencies not scanned", with the command and date. Then
+either supply a lock file the tool reads, or use a dependency audit that fits the project. A
+zero next to "not audited" is not a clean result.</p>
 <h2 id="q11">Q11</h2>
 <p>Pass ordinary JSON text with an in-memory recorder in place of the loader. The starter calls
 <code>pickle.loads</code> on caller text, so the finding is reachable without running any payload.
-Replace the loader with the data-only decoder and remove the import. A JSON-first,
-pickle-fallback parser still fails for two reasons: the file still imports <code>pickle</code>, and the
-verifier also sends six texts that are not JSON, each of which must raise an error without
-reaching a loader.</p>
+Replace the loader with the data-only JSON decoder and remove the import. A parser that
+tries JSON first and falls back to pickle still fails, for two reasons. First, the file
+still imports <code>pickle</code>. Second, the verifier also sends six texts that are not JSON. Each
+of them must raise an error without reaching a loader.</p>
 <h2 id="q12">Q12</h2>
 <p>Record "needs more evidence" and name the missing fact: whether the optional extra is
-installed where the application runs. The deciding check reads that runtime, for example the
-install command that builds it and its installed distributions. A version in the range is a
-fact; on its own it makes the row neither exploitable nor safe.</p>
+installed where the application runs. The deciding check inspects that runtime environment,
+for example the install command that builds it and the packages installed in it. A version
+in the range is a fact. On its own, it makes the row neither exploitable nor safe.</p>
 <h2 id="q13">Q13</h2>
-<p>Whether any code path reads, sends or compares the string as a credential decides the row,
-not how the string looks. If none does, record the search beside a narrow exception and
+<p>How the string looks does not decide the row. What decides it is whether any code path
+reads, sends or compares the string as a credential. If none does, record the search beside
+a narrow exception (one that covers only this finding) and
 rerun the scan. If one does, treat it as a hard-coded credential: move it out of the code,
 and if the value was ever real, revoke it and check the repository history.</p>
 <h2 id="q14">Q14</h2>
-<p>The reproduction stays local and inert: its input stays in memory or goes only to a mock on
-<code>127.0.0.1</code>, it reads no real credential, touches nothing outside its working directory and
-runs only against code on your own machine. Before describing it publicly, read the
-project's security policy; if it asks for private reports, report privately and keep the
-reproducer out of public issues and pull requests.</p>
+<p>The reproduction stays local and inert. Its input stays in memory or goes only to a mock on
+<code>127.0.0.1</code>. It reads no real credential, touches nothing outside its working directory,
+and runs only against code on your own machine. Before you describe it publicly, read the
+project's security policy. If the policy asks for private reports, report privately and
+keep the reproducer out of public issues and pull requests.</p>
 <h2 id="spaced-retrieval-and-transfer">Spaced retrieval and transfer</h2>
 <p><strong>Retrieval 1.</strong> Run the input the review names, an inactive owner trying to edit, against
-your change. Mark the finding confirmed if the edit is allowed, refuted if it is denied on
-the path the review describes, and cannot tell if you have no way to run it, naming the
-missing run.</p>
-<p><strong>Retrieval 2.</strong> The survival tells you that no test in the suite distinguishes the mutant
-from the original, so the suite has a gap at trailing characters. A test of an invalid input
-with a trailing character, expecting rejection, would notice it.</p>
+your change. Mark the finding confirmed if the edit is allowed. Mark it refuted if the edit
+is denied on the path the review describes. Mark it cannot tell if you have no way to run
+it, and name the missing run.</p>
+<p><strong>Retrieval 2.</strong> A surviving mutant is a deliberate small change to the code that every test
+still passes. Its survival tells you that no test in the suite can tell the mutant apart
+from the original. So the suite has a gap at trailing characters. A test that gives an
+invalid input with a trailing character and expects rejection would notice it.</p>
 <p><strong>Transfer.</strong> Add a positive check that <code>read_summary</code> returns its text and records only
 <code>read_summary</code>, and keep the denied <code>export</code> and unlisted-tool checks. Change the allowlist
 before writing the handler.</p>
 <h2 id="decision-with-sufficient-evidence">Decision with sufficient evidence</h2>
-<p>You can accept the dispatcher claim for these inputs: the permitted read crosses the
-boundary, denied, unlisted and malformed attempts add no effect, and every attempt is
-counted. A claim about the environment needs its own evidence: what the directory or
-container holds and can reach. The in-memory result does not supply it.</p>
+<p>You can accept the dispatcher claim for these inputs. The permitted read crosses the
+boundary. Denied, unlisted and malformed attempts add no effect. Every attempt is counted.
+A claim about the environment needs its own evidence: what the directory or container holds
+and can reach. The in-memory result does not supply it.</p>
 
 
 
@@ -6973,7 +6976,7 @@ container holds and can reach. The in-memory result does not supply it.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
