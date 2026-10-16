@@ -10,14 +10,41 @@
   --md-typeset-a-color: #2c3a8c;
 }
 
-[data-md-color-scheme="slate"] {
-  --md-primary-fg-color: #1e2866;
-  --md-primary-fg-color--light: #2c3a8c;
-  --md-primary-fg-color--dark: #141b47;
-  --md-accent-fg-color: #ff8a55;
-  --md-accent-fg-color--transparent: rgba(255, 138, 85, 0.1);
-  --md-typeset-a-color: #a9b6ff;
-  --md-default-bg-color: #14151f;
+/* Screen only, like Material's own dark colours: a page printed from dark mode prints light. */
+@media screen {
+  [data-md-color-scheme="slate"] {
+    --md-primary-fg-color: #1e2866;
+    --md-primary-fg-color--light: #2c3a8c;
+    --md-primary-fg-color--dark: #141b47;
+    --md-accent-fg-color: #ff8a55;
+    --md-accent-fg-color--transparent: rgba(255, 138, 85, 0.1);
+    --md-typeset-a-color: #a9b6ff;
+    --md-default-bg-color: #14151f;
+  }
+}
+
+/* In dark mode the header keeps the deep ink-blue, but text drawn in the primary colour on the page
+   (card titles, buttons) takes the link colour, which reads at 9:1 on the page (the primary reads
+   at 1.3:1). Hovered and focused buttons show dark text on the warm accent. */
+[data-md-color-scheme="slate"] .md-typeset .grid.cards > ul > li > p:first-child strong,
+[data-md-color-scheme="slate"] .md-typeset .md-button {
+  color: var(--md-typeset-a-color);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .md-button {
+  border-color: var(--md-typeset-a-color);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .md-button--primary {
+  background-color: var(--md-typeset-a-color);
+  color: var(--md-default-bg-color);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .md-button:focus,
+[data-md-color-scheme="slate"] .md-typeset .md-button:hover {
+  background-color: var(--md-accent-fg-color);
+  border-color: var(--md-accent-fg-color);
+  color: var(--md-default-bg-color);
 }
 
 /* Headings in a serif, as on the course website, without loading a web font. */
@@ -37,6 +64,7 @@
   margin: 0 0.5em 0.6em 0;
 }
 
+/* The card titles' dark-mode colour is set above, with the buttons'. */
 .md-typeset .grid.cards > ul > li > p:first-child strong {
   color: var(--md-primary-fg-color);
 }
