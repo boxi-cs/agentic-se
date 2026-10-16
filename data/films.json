@@ -29,12 +29,12 @@
     "06-review-before-you-ask": {
       "week": 6,
       "published": true,
-      "summary": "Write your own review of a change first. Then treat each finding in a model’s review as a hypothesis: mark it confirmed, refuted or cannot tell, with the evidence, and for “cannot tell” name the smallest next check. A review that finds nothing does not clear the change, and the person who merges it is responsible for accepting it."
+      "summary": "Write your own review of a change first. Then treat each finding in a model’s review as a hypothesis: mark it confirmed, refuted or cannot tell, with the evidence, and for “cannot tell” name the smallest next check. A review that reports nothing says only that no finding was reported: it does not clear the change, and the person who merges it is responsible for accepting it."
     },
     "07-challenge-green": {
       "week": 7,
       "published": true,
-      "summary": "A green test run rules out only the faults the tests could have noticed. A surviving mutant (a small planted bug the tests missed) shows which test is missing. A property test covers only the inputs it generates, so keep its shrunk counterexample as a regression test. A patch that lets a caught mutant survive again has weakened the tests, whatever its summary says."
+      "summary": "A green test run is evidence only for the faults its tests could have noticed. A surviving mutant (a small planted bug the tests missed) shows which test is missing. A property test covers only the inputs it generates, so keep its shrunk counterexample as a regression test. A patch that lets a caught mutant survive again has weakened the tests, whatever its summary says."
     },
     "08-refuse-before-effects": {
       "week": 8,
@@ -48,7 +48,7 @@
     "10-three-questions": {
       "week": 10,
       "published": true,
-      "summary": "A pass rate is a claim built from checks, records and a count. Before you trust one, ask three questions: can the check fail, was each pass earned, and does the count include every attempt? Report only what the audited records support, as a range where attempts are unresolved, and check again when the scorer, the table or the rubric changes."
+      "summary": "A pass rate is a claim built from checks, records and a count. Before you trust one, ask three questions: can the check fail, was each pass earned, and does the count include every attempt? Report only what the audited records support, as a range where attempts are unresolved, and decide again when the scorer, the table or the rubric changes."
     },
     "11-check-the-summary": {
       "week": 11,
@@ -58,7 +58,7 @@
     "12-has-it-ever-failed": {
       "week": 12,
       "published": true,
-      "summary": "Take the person out of a pipeline stage only after you have seen its check fail on a bad change and its stop path work. “The pipeline runs itself” is a claim about every change: one wrong result refutes it, and a good run proves only that run. In the film the gate stops the first proposal, and a second proposal passes every automatic stage while breaking the contract. A green gate supports a smaller claim: the pipeline agreed on these nine cases."
+      "summary": "Take the person out of a pipeline stage only after you have seen its check fail on a bad change and its stop path work. “The pipeline runs itself” is a claim about every change: one wrong result refutes it, and a good run proves only that run. In the film the gate stops the first proposal, and a second proposal passes every automatic stage while breaking the contract. A green gate supports only a smaller claim: the proposal agrees with the contract on these nine cases."
     }
   }
 }

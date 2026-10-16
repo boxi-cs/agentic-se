@@ -122,7 +122,7 @@ def vtt(srt: str) -> str:
 def page(title: str, description: str, depth: int, body: str, up: str = "") -> str:
     """A page `depth` folders below the site root; `up` replaces the relative way back (the 404 page)."""
     up = up or "../" * depth or "./"
-    body = body.replace("<main>", '<main id="main">', 1)
+    body = re.sub(r"<main(?=[\s>])", '<main id="main"', body, count=1)  # the skip link's target
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -403,8 +403,9 @@ def week_page(course: dict, films: list[dict], note: str, w: dict) -> str:
     # This page is the week's overview, so the course's own overview page is not linked again. Notes lead.
     _, lecture_pages = course_materials(w["week"])
     lecture_pages.sort(key=lambda page: page[1] != "Notes")
+    lead = ' class="lead"'
     materials = "".join(
-        f'\n      <li{' class="lead"' if label == "Notes" else ""}><a href="../../{path}">{MATERIAL_LABELS.get(label, label)}</a></li>'
+        f'\n      <li{lead if label == "Notes" else ""}><a href="../../{path}">{MATERIAL_LABELS.get(label, label)}</a></li>'
         for path, label in lecture_pages
     )
     here = [film for film in films if film["week"] == w["week"]]
@@ -478,9 +479,15 @@ def not_found() -> str:
 
 
 def check_local_links(pages: list[Path]) -> None:
-    """Every local href, src and poster on a built page must resolve to a file, or a folder with an index."""
+    """Every local href, src and poster on a built page must resolve to a file, or a folder with an index;
+    on the site's own pages (not course/) a link to "#id" needs that id on the page (the skip link's #main)."""
     for built in pages:
-        for url in re.findall(r'(?:href|src|poster)="([^"]+)"', built.read_text()):
+        text = built.read_text()
+        for url in re.findall(r'(?:href|src|poster)="([^"]+)"', text):
+            if url.startswith("#") and len(url) > 1 and "course" not in built.relative_to(ROOT).parts[:1]:
+                if f'id="{url[1:]}"' not in text:
+                    raise SystemExit(f"{built.relative_to(ROOT)}: link {url!r} has no target on the page")
+                continue
             path = re.split(r"[#?]", html.unescape(url))[0]
             if re.match(r"[a-z]+:", path) or not path:
                 continue
@@ -494,6 +501,11 @@ def check_local_links(pages: list[Path]) -> None:
 
 def main() -> None:
     course = json.loads((ROOT / "data/course.json").read_text())
+    # course/ and data/course.json must come from the same course commit (a --ref preview can mix them).
+    built_from = (ROOT / "course/SOURCE").read_text().split()[-1]
+    if built_from != course["source"]["commit"]:
+        raise SystemExit(f"course/ is built from {built_from[:7]} but data/course.json from "
+                         f"{course['source']['commit'][:7]}: run both tools at the same --ref")
     episodes = json.loads((ROOT / "data/episodes.json").read_text())["episodes"]
     mapping = json.loads((ROOT / "data/films.json").read_text())
     films = published_films(episodes, mapping)
