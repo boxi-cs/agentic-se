@@ -77,6 +77,6 @@ To preview a course branch before it is merged, pass `--ref <branch>` to `tools/
 `tools/export_data.py`; publish only what was built from `origin/main`.
 
 The films are narrated in English with a synthetic voice made with Google's Gemini text-to-speech
-(`gemini-2.5-pro-tts`, voice Kore; the video repository's `narration.toml`). Every example in them is
+(`gemini-2.5-pro-tts`, voice Kore). Every example in them is
 course-authored and synthetic. The earlier draft voice (`en_US-ljspeech-high`, trained on the public-domain
 LJ Speech data) is in release `videos-2026-10-13`.
