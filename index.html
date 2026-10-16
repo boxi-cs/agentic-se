@@ -5,11 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Agentic Software Engineering: Build, Verify, Evaluate</title>
 <meta name="description" content="Agents generate. You verify, decide and explain.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Agentic Software Engineering">
+<meta property="og:title" content="Agentic Software Engineering: Build, Verify, Evaluate">
+<meta property="og:description" content="Agents generate. You verify, decide and explain.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="./assets/site.css">
 <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <nav class="top">
   <a class="brand" href="./">Agentic Software Engineering</a>
   <span><a href="./approach/">Approach</a><a href="./syllabus/">Syllabus</a><a href="./#schedule">Schedule</a><a href="./#videos">Videos</a><a href="./course/">Course materials</a><a href="https://boxiyu.github.io/">Instructor</a></span>
@@ -18,40 +24,34 @@
   <p class="kicker">Boxi CS · Course</p>
   <h1>Agentic Software Engineering<span>Build, <em>verify</em>, evaluate.</span></h1>
   <p class="tagline">Agents generate. You verify, decide and explain.</p>
-  <p class="lede">A coding agent proposes a change; you decide whether the evidence supports it and whether you can explain it. Every example shows generation and verification. A test you can rerun is evidence; an agent saying “done” is a claim to check.</p>
+  <p class="lede">A coding agent proposes a change. You decide whether the evidence supports it and whether you can explain it. Every example shows both generation and verification. A test you can rerun is evidence. An agent saying “done” is a claim to check.</p>
   <p class="actions">
     <a class="button primary" href="syllabus/">Read the syllabus</a>
     <a class="button" href="approach/">How this course works</a>
     <a class="button" href="course/">Course materials</a>
   </p>
 </header>
-<main>
+<main id="main">
 <section id="approach">
   <h2>How this course works</h2>
-  <ul class="shape"><li><strong>Length:</strong> 12 teaching weeks, then an assessment week (expo and defenses) in week 13.</li><li><strong>Two sessions a week:</strong> the first is a lecture that generates and then verifies, live. The second is a practitioner guest; in a week without a guest it is a studio, where you work on your own project or contribution while staff circulate. Each session is 90 minutes; the plan is one cohort of 60 students.</li><li><strong>Three lines of work:</strong> six assignments (mostly in the first six weeks), four open-source contributions (across two repositories), and one term project (one or two people).</li></ul>
+  <ul class="shape"><li><strong>Length:</strong> 12 teaching weeks, then an assessment week (expo and defenses) in week 13.</li><li><strong>Two sessions a week:</strong> the first is a lecture that generates and then verifies, live. The second is a talk by a practitioner guest. In a week without a guest, it is a studio: you work on your own project or contribution while staff circulate. Each session is 90 minutes. The plan is one cohort of 60 students.</li><li><strong>Three lines of work:</strong> six assignments (mostly in the first six weeks), four open-source contributions (across two repositories), and one term project (one or two people).</li></ul>
   <div class="principles">
-    <div class="principle"><h3>Twelve teaching weeks, then assessment</h3><p>The course follows the public Fall 2026 calendar of Stanford CS146S, with two verification weeks added. Each teaching week has two 90-minute sessions: a lecture with live generation and verification, then a practitioner guest or a studio.</p></div>
-    <div class="principle"><h3>Explain your work without AI</h3><p>CP1 in week 6 and CP2 in week 11 are thirty-minute, in-class paper checkpoints, each worth 7.5 points. The week 13 defense is worth 15 points: without a device, respond to a change or fault introduced in your own code during a fifteen-minute sitting.</p></div>
-    <div class="principle"><h3>Practise making a decision</h3><p>Save a prediction before discussion, inspect a candidate or trace, run a discriminating check, revise after feedback and try a changed input. After checking, choose whether to accept, narrow, recheck or stop.</p></div>
+    <div class="principle"><h3>Generate, then verify</h3><p>Every example shows both steps. A check you can rerun is evidence; an agent saying &quot;done&quot; is a claim.</p></div>
+    <div class="principle"><h3>Predict before you look</h3><p>Each class opens with a decision you can get wrong. Save your prediction, run a check that tells the answers apart, then revise.</p></div>
+    <div class="principle"><h3>Decide, don&#x27;t regenerate</h3><p>When a candidate change passes, choose one: accept it, narrow the task, recheck something specific or stop.</p></div>
+    <div class="principle"><h3>Explain it without the agent</h3><p>You do two checkpoints and a project defense without AI. Together they are worth 30 of 100 marks.</p></div>
   </div>
   <!-- Site text: what the approach page adds. -->
   <p><a href="approach/">The full approach: the three lines of work, the checkpoints and the defense →</a></p>
 </section>
 <section id="syllabus">
-  <h2>Syllabus at a glance</h2>
-  <div class="glance">
-    <div>
-      <h3>What you will be able to do</h3>
-      <ul class="outcomes"><li><strong>LO1:</strong> Explain a coding agent&#x27;s loop, system prompt and tool definitions, and predict how it fails on context, tools and stopping.</li><li><strong>LO2:</strong> Design an agent development workflow: context and specifications, MCP tools, skills, instruction files, hooks, subagents and background tasks.</li><li><strong>LO3:</strong> Write a requirement as a specification an agent can implement and a test can check, and revise it when new evidence arrives.</li><li><strong>LO4:</strong> Make an unfamiliar real codebase agent-ready, and deliver a change in it without breaking callers.</li><li><strong>LO5:</strong> Verify agent-written code with regression and mutation tests, code review, static analysis and security scanning, and defend each acceptance.</li><li><strong>LO6:</strong> Evaluate agents: check that a test can fail, that the denominator is complete and that a judge is reliable, and read small-sample results correctly.</li><li><strong>LO7:</strong> Recognise and mitigate agent security risks (prompt injection, credentials, supply chain), verifying a defense with a local reproduction and a regression.</li><li><strong>LO8:</strong> Describe how a team operates agents (portals, gateways, routing, cost), and how to recover from an incident and prove the recovery with a regression.</li><li><strong>LO9:</strong> Collaborate responsibly: follow upstream rules, disclose AI use honestly, submit no low-effort generated work, and decide again when the inputs change.</li></ul>
-    </div>
-    <div class="prose">
-      <h3>How the work is assessed</h3>
-      <div class="table-wrap"><table><thead><tr><th>Component</th><th class="num">Marks</th><th>When</th><th>AI</th></tr></thead><tbody><tr><td>Term project: four milestones</td><td class="num">20</td><td>Weeks 2, 4, 7 and 12</td><td>allowed</td></tr><tr><td>Project defense</td><td class="num">15</td><td>Week 13</td><td>off</td></tr><tr><td>Four open-source contributions</td><td class="num">30</td><td>Weeks 4, 8, 9 and 12</td><td>allowed</td></tr><tr><td>Six assignments</td><td class="num">15</td><td>Weeks 1-3, 5, 6 and 10</td><td>allowed</td></tr><tr><td>CP1: AI-off diagnosis, test and repair</td><td class="num">7.5</td><td>Week 6</td><td>off</td></tr><tr><td>CP2: AI-off review of unfamiliar code and recovery reasoning</td><td class="num">7.5</td><td>Week 11</td><td>off</td></tr><tr><td>Participation: guest questions, studio, expo</td><td class="num">5</td><td>All term</td><td>—</td></tr></tbody></table></div>
-      <p class="note">Passing requires at least 60/100 overall, at least 15/30 across CP1, CP2 and the defense, and at least 5/15 on the defense.</p>
-    </div>
+  <h2>How the work is assessed</h2>
+  <div class="prose">
+    <div class="table-wrap"><table><thead><tr><th>Component</th><th class="num">Marks</th><th>When</th><th>AI</th></tr></thead><tbody><tr><td>Term project: four milestones</td><td class="num">20</td><td>Weeks 2, 4, 7 and 12</td><td>allowed</td></tr><tr><td>Project defense</td><td class="num">15</td><td>Week 13</td><td>off</td></tr><tr><td>Four open-source contributions</td><td class="num">30</td><td>Weeks 4, 8, 9 and 12</td><td>allowed</td></tr><tr><td>Six assignments</td><td class="num">15</td><td>Weeks 1-3, 5, 6 and 10</td><td>allowed</td></tr><tr><td>CP1: AI-off diagnosis, test and repair</td><td class="num">7.5</td><td>Week 6</td><td>off</td></tr><tr><td>CP2: AI-off review of unfamiliar code and recovery reasoning</td><td class="num">7.5</td><td>Week 11</td><td>off</td></tr><tr><td>Participation: guest questions, studio, expo</td><td class="num">5</td><td>All term</td><td>—</td></tr></tbody></table></div>
+    <p class="note">To pass, you need all three of these: at least 60/100 overall, at least 15/30 across CP1, CP2 and the defense, and at least 5/15 on the defense.</p>
   </div>
   <!-- Site text: what the syllabus page holds (its section headings). -->
-  <p><a href="syllabus/">The full syllabus: the calendar, assessment and resits, the assignments, the term project, open-source contributions, tools and AI use →</a></p>
+  <p><a href="syllabus/">The full syllabus: learning outcomes, the calendar, assessment and resits, the assignments, the term project, open-source contributions, tools and AI use →</a></p>
 </section>
 <section id="schedule">
   <h2>Schedule</h2>
@@ -161,7 +161,6 @@
   <!-- Site text: what course/ holds (the course repository's own English student site). -->
   <p>Everything students work from is public: each week's notes, slides, activities, readings and self-check,
   the assignments, the term project, the rubrics and the assessment policy.</p>
-  <p class="note">Course pages, lecture materials and rubrics are being rearranged to this calendar. Where another page still describes the earlier fourteen-week layout, <a href="syllabus/">the syllabus</a> takes precedence.</p>
   <ul class="facts">
     <li><a href="course/">Start here</a></li>
     <li><a href="course/lectures/week-01/notes.en.html">Week 1 notes</a></li>

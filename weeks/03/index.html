@@ -5,11 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Week 3: Agent skills and the CLI · Agentic Software Engineering</title>
 <meta name="description" content="What a skill encodes; trigger tests and near misses; working from the command line.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Agentic Software Engineering">
+<meta property="og:title" content="Week 3: Agent skills and the CLI · Agentic Software Engineering">
+<meta property="og:description" content="What a skill encodes; trigger tests and near misses; working from the command line.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="../../assets/site.css">
 <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <nav class="top">
   <a class="brand" href="../../">Agentic Software Engineering</a>
   <span><a href="../../approach/">Approach</a><a href="../../syllabus/">Syllabus</a><a href="../../#schedule">Schedule</a><a href="../../#videos">Videos</a><a href="../../course/">Course materials</a><a href="https://boxiyu.github.io/">Instructor</a></span>
@@ -18,7 +24,7 @@
   <p class="kicker"><a href="../../">Agentic Software Engineering</a> · Week 3</p>
   <h1>Agent skills and the CLI</h1>
 </header>
-<main>
+<main id="main">
   <section>
     <h2>This week</h2>
     <dl class="week">
@@ -30,13 +36,12 @@
   <section>
     <h2>Materials</h2>
     <ul class="facts">
-      <li><a href="../../course/site/docs/weeks/week-03.en.html">Week overview</a></li>
+      <li class="lead"><a href="../../course/lectures/week-03/notes.en.html">Notes</a></li>
       <li><a href="../../course/lectures/week-03/README.en.html">Week guide</a></li>
-      <li><a href="../../course/lectures/week-03/notes.en.html">Notes</a></li>
-      <li><a href="../../course/lectures/week-03/slides.en.html">Slide source</a></li>
+      <li><a href="../../course/lectures/week-03/slides.en.html">Slides (text)</a></li>
       <li><a href="../../course/lectures/week-03/activities.en.html">Activities</a></li>
       <li><a href="../../course/lectures/week-03/selfcheck.en.html">Self-check</a></li>
-      <li><a href="../../course/lectures/week-03/selfcheck-answers.en.html">Answer guidance</a></li>
+      <li><a href="../../course/lectures/week-03/selfcheck-answers.en.html">Self-check answers</a></li>
       <li><a href="../../course/lectures/week-03/readings.en.html">Readings</a></li>
     </ul>
   </section>
@@ -50,7 +55,7 @@
       </video>
       <p class="meta">7:05 · subtitles: <a href="../../films/03-the-near-miss/en.vtt">English</a>, <a href="../../films/03-the-near-miss/zh.vtt" lang="zh" hreflang="zh">中文</a> ·
       <a href="https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-13/week-03.mp4">download</a></p>
-      <p>A skill&#x27;s description is ready when three requests that should trigger it and one near miss behave as you predicted, in a run you saved. A structure check does not show that: it reads two files and cannot observe which skill an agent selected.</p>
+      <p>A skill’s description is ready when you have tried three requests that should trigger the skill and one similar request that should not (a near miss), and all four behaved as you predicted in a run you saved. Checking the skill’s files cannot show this: it cannot see which skill the agent picked.</p>
     </article>
   </section>
   <nav class="pager"><a href="../02/">← Week 2</a><a href="../../#schedule">All weeks</a><a href="../04/">Week 4 →</a></nav>

@@ -1,33 +1,40 @@
 {
-  "about": "Hand-maintained: which calendar week each film supports and whether the site publishes it. Keys are the film slugs of data/episodes.json; build.py fails if the two files disagree. See README.md.",
+  "about": "Hand-maintained: which calendar week each film supports and whether the site publishes it. Keys are the film slugs of data/episodes.json; build.py fails if the two files disagree. See README.md. A film's optional summary replaces its script's decision line on the site with plainer wording.",
   "films": {
     "01-agent-loop": {
       "week": 1,
-      "published": true
+      "published": true,
+      "summary": "An agent stopping with “final” does not show that its change is right. Call the work verified only when a passing check runs after the agent’s last edit. Read a real session the same way: the final message is a claim until you can point to the output that backs it."
     },
     "02-keep-the-constraint": {
       "week": 2,
-      "published": true
+      "published": true,
+      "summary": "A rule can get lost on the way from research to plan, code and checks. A plan is complete only when the rule, where it came from, where it applies in the code and one case it must refuse all reach verification. Before a long session is shortened, write the rule and its source into a handoff and check the handoff against the record."
     },
     "03-the-near-miss": {
       "week": 3,
-      "published": true
+      "published": true,
+      "summary": "A skill’s description is ready when you have tried three requests that should trigger the skill and one similar request that should not (a near miss), and all four behaved as you predicted in a run you saved. Checking the skill’s files cannot show this: it cannot see which skill the agent picked."
     },
     "04-request-or-gate": {
       "week": 4,
-      "published": true
+      "published": true,
+      "summary": "Leave a rule as a written request only if it is acceptable for the agent to skip it. Otherwise enforce it with a hook you can test, or a human review step, and keep one record of it blocking and one of it passing. The film shows a hook stopping an unused import before a commit. It then treats a subagent the same way: its role is a contract, and what it hands back is a proposal until you open what it cites."
     },
     "05-same-contract": {
       "week": 5,
-      "published": true
+      "published": true,
+      "summary": "Score how ready a repository is for an agent only from things you observed at a named revision. A tidier folder structure with no new observation does not raise the score."
     },
     "06-review-before-you-ask": {
       "week": 6,
-      "published": true
+      "published": true,
+      "summary": "Write your own review of a change first. Then treat each finding in a model’s review as a hypothesis: mark it confirmed, refuted or cannot tell, with the evidence, and for “cannot tell” name the smallest next check. A review that reports nothing says only that no finding was reported: it does not clear the change, and the person who merges it is responsible for accepting it."
     },
     "07-challenge-green": {
       "week": 7,
-      "published": true
+      "published": true,
+      "summary": "A green test run is evidence only for the faults its tests could have noticed. A surviving mutant (a small planted bug the tests missed) shows which test is missing. A property test covers only the inputs it generates, so keep its shrunk counterexample as a regression test. A patch that lets a caught mutant survive again has weakened the tests, whatever its summary says."
     },
     "08-refuse-before-effects": {
       "week": 8,
@@ -35,19 +42,23 @@
     },
     "09-nobody-was-watching": {
       "week": 9,
-      "published": true
+      "published": true,
+      "summary": "Accept work an agent did unattended only on checks it could not have rewritten, run by you on the revision it returned."
     },
     "10-three-questions": {
       "week": 10,
-      "published": true
+      "published": true,
+      "summary": "A pass rate is a claim built from checks, records and a count. Before you trust one, ask three questions: can the check fail, was each pass earned, and does the count include every attempt? Report only what the audited records support, as a range where attempts are unresolved, and decide again when the scorer, the table or the rubric changes."
     },
     "11-check-the-summary": {
       "week": 11,
-      "published": true
+      "published": true,
+      "summary": "An agent’s summary of its own work is a claim. Before you act on it, check it against the records the team keeps. The film does this six times: on a tool portal’s permissions, a model gateway’s runs, the cost of an accepted change, a routing choice, a draft root-cause analysis and a proposed fix."
     },
     "12-has-it-ever-failed": {
       "week": 12,
-      "published": true
+      "published": true,
+      "summary": "Take the person out of a pipeline stage only after you have seen its check fail on a bad change and its stop path work. “The pipeline runs itself” is a claim about every change: one wrong result refutes it, and a good run proves only that run. In the film the gate stops the first proposal, and a second proposal passes every automatic stage while breaking the contract. A green gate supports only a smaller claim: the proposal agrees with the contract on these nine cases."
     }
   }
 }

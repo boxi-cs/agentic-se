@@ -42,7 +42,8 @@ and has no film.
 A published film appears on its week's page and on the home page. Its poster and subtitle tracks live in
 `films/<slug>/`. A film that is not published is not linked, embedded or listed anywhere, and `build.py`
 removes its folder from `films/`. `data/films.json` may also carry an `edition_note`, one sentence that
-`build.py` then shows under every film's title; there is none at present.
+`build.py` then shows under every film's title; there is none at present. A film may also carry a
+`summary`, a plain-language version of its script's decision line that the week page shows instead of it.
 
 The video files are assets of the
 [`videos-2026-10-13` release](https://github.com/boxi-cs/agentic-se/releases/tag/videos-2026-10-13),
@@ -69,6 +70,11 @@ python3 -m http.server   # preview at http://127.0.0.1:8000/
 ```
 
 Run `tools/course_site.py` before `build.py`: the week pages read `course/`.
+`build.py` also writes the root `404.html` (GitHub Pages shows it for every missing path, so its links
+start at `/agentic-se/`) and checks the local links of every page, `course/` included.
+
+To preview a course branch before it is merged, pass `--ref <branch>` to `tools/course_site.py` and
+`tools/export_data.py`; publish only what was built from `origin/main`.
 
 The films are narrated in English with a draft synthetic voice (`en_US-ljspeech-high`, trained on the
 public-domain LJ Speech data). Every example in them is course-authored and synthetic.

@@ -10,6 +10,8 @@
       
       
       
+        <link rel="canonical" href="https://boxi-cs.github.io/agentic-se/course/lectures/week-02/prompt-dissection.en.html">
+      
       
         <link rel="prev" href="dissection.en.html">
       
@@ -58,10 +60,12 @@
   
     
     
+      
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal">
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -88,7 +92,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../index.html" title="Agentic Software Engineering: Build, Verify, Evaluate" class="md-header__button md-logo" aria-label="Agentic Software Engineering: Build, Verify, Evaluate" data-md-component="logo">
+    <a href="https://boxi-cs.github.io/agentic-se/" title="Agentic Software Engineering: Build, Verify, Evaluate" class="md-header__button md-logo" aria-label="Agentic Software Engineering: Build, Verify, Evaluate" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -116,7 +120,33 @@
     </div>
     
       
+        <form class="md-header__option" data-md-component="palette">
+  
     
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
     
     
     
@@ -275,36 +305,6 @@
   
     
     
-      
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../site/docs/rubric.en.html" class="md-tabs__link">
-          
-  
-  
-  Earlier materials
-
-        </a>
-      </li>
-    
-  
-
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
       <li class="md-tabs__item">
         <a href="../../practice/README.en.html" class="md-tabs__link">
           
@@ -380,7 +380,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../index.html" title="Agentic Software Engineering: Build, Verify, Evaluate" class="md-nav__button md-logo" aria-label="Agentic Software Engineering: Build, Verify, Evaluate" data-md-component="logo">
+    <a href="https://boxi-cs.github.io/agentic-se/" title="Agentic Software Engineering: Build, Verify, Evaluate" class="md-nav__button md-logo" aria-label="Agentic Software Engineering: Build, Verify, Evaluate" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -4677,7 +4677,7 @@
   <span class="md-ellipsis">
     
   
-    Earlier materials
+    Practice and project
   
 
     
@@ -4690,153 +4690,6 @@
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Earlier materials
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
-        
-          
-          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Earlier course pages
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_1">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Earlier course pages
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../site/docs/rubric.en.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Assessment rubric
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
-        
-          
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Practice and project
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4922,10 +4775,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
         
           
-          <label class="md-nav__link" for="__nav_6_3" id="__nav_6_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
             
   
   
@@ -4943,8 +4796,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_3">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -5010,10 +4863,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
         
           
-          <label class="md-nav__link" for="__nav_6_4" id="__nav_6_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
             
   
   
@@ -5031,8 +4884,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_4">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -5098,10 +4951,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
         
           
-          <label class="md-nav__link" for="__nav_6_5" id="__nav_6_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
             
   
   
@@ -5119,8 +4972,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -5186,10 +5039,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
         
           
-          <label class="md-nav__link" for="__nav_6_6" id="__nav_6_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="0">
             
   
   
@@ -5207,8 +5060,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -5274,10 +5127,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_7" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" >
         
           
-          <label class="md-nav__link" for="__nav_6_7" id="__nav_6_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_7" id="__nav_5_7_label" tabindex="0">
             
   
   
@@ -5295,8 +5148,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_7">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_7">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -5362,10 +5215,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_8" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
         
           
-          <label class="md-nav__link" for="__nav_6_8" id="__nav_6_8_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
             
   
   
@@ -5383,8 +5236,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_8_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_8">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -5450,10 +5303,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9" >
         
           
-          <label class="md-nav__link" for="__nav_6_9" id="__nav_6_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_9" id="__nav_5_9_label" tabindex="0">
             
   
   
@@ -5471,8 +5324,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_9">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_9">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -5650,10 +5503,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_10" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_10" >
         
           
-          <label class="md-nav__link" for="__nav_6_10" id="__nav_6_10_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_10" id="__nav_5_10_label" tabindex="0">
             
   
   
@@ -5671,8 +5524,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_10_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_10">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_10">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -5745,10 +5598,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
         
           
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
             
   
   
@@ -5766,8 +5619,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_7">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -6028,10 +5881,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
         
           
-          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
             
   
   
@@ -6049,8 +5902,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_8">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -6136,10 +5989,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3" >
         
           
-          <label class="md-nav__link" for="__nav_8_3" id="__nav_8_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="0">
             
   
   
@@ -6157,8 +6010,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_8_3">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_3">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -6280,10 +6133,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_4" >
         
           
-          <label class="md-nav__link" for="__nav_8_4" id="__nav_8_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7_4" id="__nav_7_4_label" tabindex="0">
             
   
   
@@ -6301,8 +6154,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_8_4">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -6778,19 +6631,20 @@
 
 
 <h1 id="compare-two-production-prompts">Compare two production prompts</h1>
-<p>The Week 1 loop keeps a short tool contract for a model, the <code>CONTRACT</code> text in <code>demo.py</code>.
-A production coding agent sends much more: a role, working rules, a permission policy, a stopping rule and a
-schema for every tool. Two open-source coding agents publish the code that builds that text under the
-Apache-2.0 licence: Codex CLI and Qwen Code. In this activity you read the same four parts in
-both, at fixed commits, and ask the same two questions of every sentence you pick: <strong>what does
-it make the model do</strong>, and <strong>what, if anything, enforces it?</strong></p>
+<p>The Week 1 loop keeps a short tool contract for a model: the <code>CONTRACT</code> text in <code>demo.py</code>.
+A production coding agent sends much more. It sends a role, working rules, a permission
+policy, a stopping rule and a schema for every tool. Two open-source coding agents, Codex CLI
+and Qwen Code, publish the code that builds that text under the Apache-2.0 licence. In this
+activity you read the same four parts in both, at fixed commits. For every sentence you pick,
+you ask the same two questions: <strong>what does it make the model do</strong>, and <strong>what, if anything,
+enforces it?</strong></p>
 <p>You read the original files on GitHub. This page links them and quotes only a few words,
-always naming the project; it does not copy the files. Facts about the files come from two
+always naming the project. It does not copy the files. Facts about the files come from two
 reading pages, one for <a href="../../factsheets/tools/codex-base-instructions.en.html">Codex CLI</a>
 (tools/codex-base-instructions; as_of: 2026-10-09; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/codex-rs/protocol/src/prompts/base_instructions/default.md">Source 1</a>; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/codex-rs/core/src/tools/handlers/plan_spec.rs">Source 2</a>; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/LICENSE">Source 3</a>) and one for
 <a href="../../factsheets/tools/qwen-code-system-prompt.en.html">Qwen Code</a>
-(tools/qwen-code-system-prompt; as_of: 2026-10-09; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/core/prompts.ts">Source 1</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/edit.ts">Source 2</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/todoWrite.ts">Source 3</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/tool-names.ts">Source 4</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/LICENSE">Source 5</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/README.md">Source 6</a>; <a href="https://github.com/QwenLM/qwen-code/releases/tag/v0.25.0">Source 7</a>). Neither agent's files are the complete prompt a release
-sends at run time, and this page does not rank the two products.</p>
+(tools/qwen-code-system-prompt; as_of: 2026-10-09; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/core/prompts.ts">Source 1</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/edit.ts">Source 2</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/todoWrite.ts">Source 3</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/tool-names.ts">Source 4</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/LICENSE">Source 5</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/README.md">Source 6</a>; <a href="https://github.com/QwenLM/qwen-code/releases/tag/v0.25.0">Source 7</a>). For both agents, these files are not the complete prompt that a release
+sends at run time. This page does not rank the two products.</p>
 <h2 id="purpose">Purpose</h2>
 <p><strong>Optional, about 45 minutes.</strong> It earns no marks. It extends the notes' section on
 <a href="notes.en.html#reading-a-production-agents-instructions">reading a production agent's instructions</a>.
@@ -6798,7 +6652,7 @@ Parts 1-4 need only a browser. Part 5 is a written plan.</p>
 <p><strong>Before you start:</strong> your Week 1 <code>run()</code> passes its checks, or you have read its five steps
 in the <a href="../week-01/notes.en.html#build-the-agent-around-a-proposer">Week 1 notes</a>. You can name
 its three tools and its two stop reasons.</p>
-<p><strong>AI use:</strong> red. Write your answers yourself; the point is your own reading.</p>
+<p><strong>AI use:</strong> red (no AI). Write your answers yourself. The point is your own reading.</p>
 <p><strong>Output:</strong> one table for Parts 1-4 and a short Part 5 plan, for your own notes. Nothing is
 handed in.</p>
 <h2 id="the-files">The files</h2>
@@ -6833,17 +6687,17 @@ handed in.</p>
 </tr>
 </tbody>
 </table>
-<p>Open both Codex CLI files, the base instructions <code>default.md</code> and the tool definition
-<code>plan_spec.rs</code>, from the links on its
-<a href="../../factsheets/tools/codex-base-instructions.en.html">reading page</a>; the Qwen Code files are
+<p>Open both Codex CLI files from the links on its
+<a href="../../factsheets/tools/codex-base-instructions.en.html">reading page</a>. They are the base
+instructions <code>default.md</code> and the tool definition <code>plan_spec.rs</code>. The Qwen Code files are
 linked in the table and on its <a href="../../factsheets/tools/qwen-code-system-prompt.en.html">reading page</a>.</p>
-<p><code>default.md</code> is Markdown: read it as it stands. <code>prompts.ts</code> is TypeScript that <em>builds</em> the
-prompt. Text between backticks is what the model receives, and <code>${...}</code> inserts a value,
-often a tool name such as <code>${ToolNames.EDIT}</code>; the names are listed in
+<p><code>default.md</code> is Markdown, so read it as it stands. <code>prompts.ts</code> is TypeScript that <em>builds</em>
+the prompt. Text between backticks is what the model receives. <code>${...}</code> inserts a value,
+often a tool name such as <code>${ToolNames.EDIT}</code>. The names are listed in
 <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/tool-names.ts"><code>tool-names.ts</code></a>.
-Which sections appear depends on the interaction mode, the sandbox configuration and whether
-the directory is a Git repository, and an environment variable can replace the whole default
-base prompt with a file. (tools/qwen-code-system-prompt; as_of: 2026-10-09; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/core/prompts.ts">Source 1</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/edit.ts">Source 2</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/todoWrite.ts">Source 3</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/tool-names.ts">Source 4</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/LICENSE">Source 5</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/README.md">Source 6</a>; <a href="https://github.com/QwenLM/qwen-code/releases/tag/v0.25.0">Source 7</a>) Read the interactive default.</p>
+Which sections appear depends on three things: the interaction mode, the sandbox
+configuration, and whether the directory is a Git repository. Also, an environment variable
+can replace the whole default base prompt with a file. (tools/qwen-code-system-prompt; as_of: 2026-10-09; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/core/prompts.ts">Source 1</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/edit.ts">Source 2</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/todoWrite.ts">Source 3</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/tool-names.ts">Source 4</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/LICENSE">Source 5</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/README.md">Source 6</a>; <a href="https://github.com/QwenLM/qwen-code/releases/tag/v0.25.0">Source 7</a>) Read the interactive default.</p>
 <h2 id="record">Record</h2>
 <p>Use one row per sentence or rule. Pick at least two per part, one from each agent.</p>
 <table>
@@ -6868,18 +6722,23 @@ base prompt with a file. (tools/qwen-code-system-prompt; as_of: 2026-10-09; <a h
 </tr>
 </tbody>
 </table>
-<p>For <strong>what enforces it</strong>, choose one: the <strong>schema</strong> (a malformed call is rejected before the
-tool runs); the <strong>tool's own code</strong> (it checks and returns an error text to the model); a
-<strong>runtime permission or sandbox</strong> outside the model; or <strong>nothing visible</strong>. Write "cannot
-tell" when you did not open the code that would decide, and say which file you would need.</p>
+<p>For <strong>what enforces it</strong>, choose one:</p>
+<ul>
+<li>the <strong>schema</strong>: a malformed call is rejected before the tool runs;</li>
+<li>the <strong>tool's own code</strong>: it checks the call and returns an error text to the model;</li>
+<li>a <strong>runtime permission or sandbox</strong> outside the model;</li>
+<li><strong>nothing visible</strong>.</li>
+</ul>
+<p>Write "cannot tell" when you did not open the code that would decide. Say which file you
+would need.</p>
 <h2 id="part-1-role-and-instructions">Part 1: role and instructions</h2>
 <ol>
 <li>Find the sentence in each file that says what the agent is and what its goal is. Which
    words could change a choice the agent makes on a dashboard repair, and which only name it?</li>
-<li>Find each agent's rule for checking work after a change. The Codex CLI file ties when to
-   run tests and lint to the approval mode; the Qwen Code file asks for the project's own
-   checks before reporting a change complete, and for an honest report when a check failed
-   or was not run. (tools/codex-base-instructions; as_of: 2026-10-09; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/codex-rs/protocol/src/prompts/base_instructions/default.md">Source 1</a>; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/codex-rs/core/src/tools/handlers/plan_spec.rs">Source 2</a>; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/LICENSE">Source 3</a>) (tools/qwen-code-system-prompt; as_of: 2026-10-09; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/core/prompts.ts">Source 1</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/edit.ts">Source 2</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/todoWrite.ts">Source 3</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/tool-names.ts">Source 4</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/LICENSE">Source 5</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/README.md">Source 6</a>; <a href="https://github.com/QwenLM/qwen-code/releases/tag/v0.25.0">Source 7</a>)
+<li>Find each agent's rule for checking work after a change. In the Codex CLI file, the approval
+   mode decides when to run tests and lint. The Qwen Code file asks for the project's own
+   checks before the agent reports a change complete. It also asks for an honest report when
+   a check failed or was not run. (tools/codex-base-instructions; as_of: 2026-10-09; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/codex-rs/protocol/src/prompts/base_instructions/default.md">Source 1</a>; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/codex-rs/core/src/tools/handlers/plan_spec.rs">Source 2</a>; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/LICENSE">Source 3</a>) (tools/qwen-code-system-prompt; as_of: 2026-10-09; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/core/prompts.ts">Source 1</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/edit.ts">Source 2</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/todoWrite.ts">Source 3</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/tool-names.ts">Source 4</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/LICENSE">Source 5</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/README.md">Source 6</a>; <a href="https://github.com/QwenLM/qwen-code/releases/tag/v0.25.0">Source 7</a>)
    For each, describe a run in which the agent reports a change without having run a test.
    Which field in your Week 1 <code>completion.json</code> would show that case, and with what value?</li>
 </ol>
@@ -6887,12 +6746,12 @@ tell" when you did not open the code that would decide, and say which file you w
 <ol>
 <li>Compare <code>update_plan</code> with <code>todo_write</code>: required and optional fields, the allowed status
    values, and where "one step in progress" is written. In <code>todoWrite.ts</code>, read
-   <code>validateTodos</code>: list what it checks, and say whether it checks that limit. For Codex CLI,
+   <code>validateTodos</code>. List what it checks, and say whether it checks that limit. For Codex CLI,
    can you tell from the files you opened? Mark "cannot tell" where you cannot.</li>
 <li>In <code>edit.ts</code>, read the <code>edit</code> tool's description, its parameter schema,
    <code>validateToolParamValues</code> and <code>calculateEdit</code>. Sort each rule into required by the schema,
    checked by code with an error returned to the model, or only asked in the description.
-   Start from two: "at least 3 lines of context" is only asked, while a second match without
+   Start from two rules. "At least 3 lines of context" is only asked. A second match without
    <code>replace_all</code> fails with an error that gives the count. (tools/qwen-code-system-prompt; as_of: 2026-10-09; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/core/prompts.ts">Source 1</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/edit.ts">Source 2</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/todoWrite.ts">Source 3</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/tool-names.ts">Source 4</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/LICENSE">Source 5</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/README.md">Source 6</a>; <a href="https://github.com/QwenLM/qwen-code/releases/tag/v0.25.0">Source 7</a>)
    What does the model see on its next turn when it breaks each kind?</li>
 <li>The Codex CLI file names <code>apply_patch</code> and shows one call. Did you open its schema? If
@@ -6903,23 +6762,23 @@ tell" when you did not open the code that would decide, and say which file you w
 <h2 id="part-3-safety-and-permission-rules">Part 3: safety and permission rules</h2>
 <ol>
 <li>In the Qwen Code file, "Respect Tool Decisions" says the runtime enforces tool
-   permissions, while "Denied Tool Calls" asks the model not to reach a denied action another
-   way, through a shell, a generated script or an alias. (tools/qwen-code-system-prompt; as_of: 2026-10-09; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/core/prompts.ts">Source 1</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/edit.ts">Source 2</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/todoWrite.ts">Source 3</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/tool-names.ts">Source 4</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/LICENSE">Source 5</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/README.md">Source 6</a>; <a href="https://github.com/QwenLM/qwen-code/releases/tag/v0.25.0">Source 7</a>)
+   permissions. "Denied Tool Calls" asks the model not to reach a denied action another
+   way, such as through a shell, a generated script or an alias. (tools/qwen-code-system-prompt; as_of: 2026-10-09; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/core/prompts.ts">Source 1</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/edit.ts">Source 2</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/todoWrite.ts">Source 3</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/tool-names.ts">Source 4</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/LICENSE">Source 5</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/README.md">Source 6</a>; <a href="https://github.com/QwenLM/qwen-code/releases/tag/v0.25.0">Source 7</a>)
    Why might a product need that request as well as the runtime check? For your loop, name
-   one route that <code>tool</code> closes and one that only the environment the agent runs in closes
-   (the dedicated directory or container of the
-   <a href="../../SYLLABUS.en.html#tools-and-model-access">safety practices</a>).</li>
+   one route that <code>tool</code> closes. Then name one route that only the agent's environment
+   closes: the dedicated directory or container described in the
+   <a href="../../SYLLABUS.en.html#tools-and-model-access">safety practices</a>.</li>
 <li>The Codex CLI capabilities list refers to a "Sandbox and approvals" section that the file
    itself does not contain. (tools/codex-base-instructions; as_of: 2026-10-09; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/codex-rs/protocol/src/prompts/base_instructions/default.md">Source 1</a>; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/codex-rs/core/src/tools/handlers/plan_spec.rs">Source 2</a>; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/LICENSE">Source 3</a>) What does that tell you about
    where the rest of the prompt comes from, and what would you need to read next?</li>
 <li>Pick one sentence from "Executing actions with care" or a sandbox section in the Qwen
-   Code file. Describing a sandbox to the model does not create one: which control outside
+   Code file. Describing a sandbox to the model does not create one. Which control outside
    the prompt would have to exist for the sentence to be true?</li>
 </ol>
 <h2 id="part-4-stopping-and-plans">Part 4: stopping and plans</h2>
 <ol>
-<li>Both files ask the agent to keep going until the request is resolved; the Qwen Code file
-    also names an exit, reporting the specific blocker. (tools/codex-base-instructions; as_of: 2026-10-09; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/codex-rs/protocol/src/prompts/base_instructions/default.md">Source 1</a>; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/codex-rs/core/src/tools/handlers/plan_spec.rs">Source 2</a>; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/LICENSE">Source 3</a>)
+<li>Both files ask the agent to keep going until the request is resolved. The Qwen Code file
+    also names a way out: the agent reports the specific blocker. (tools/codex-base-instructions; as_of: 2026-10-09; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/codex-rs/protocol/src/prompts/base_instructions/default.md">Source 1</a>; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/codex-rs/core/src/tools/handlers/plan_spec.rs">Source 2</a>; <a href="https://github.com/openai/codex/blob/2351d9e1b608e6f9d9a3699b71d7eb39ee41cfa4/LICENSE">Source 3</a>)
     (tools/qwen-code-system-prompt; as_of: 2026-10-09; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/core/prompts.ts">Source 1</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/edit.ts">Source 2</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/todoWrite.ts">Source 3</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/packages/core/src/tools/tool-names.ts">Source 4</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/LICENSE">Source 5</a>; <a href="https://github.com/QwenLM/qwen-code/blob/6788c035698a0ada471c958d1e789e96c6cddd9b/README.md">Source 6</a>; <a href="https://github.com/QwenLM/qwen-code/releases/tag/v0.25.0">Source 7</a>) Neither sentence can stop a loop. Which code stops
     your <code>run()</code>, and what would a production agent need in place of your <code>step_limit</code>?</li>
 <li>A plan step marked <code>completed</code> is the model's own claim. Which observation would you need
@@ -6940,13 +6799,13 @@ final reply. Write three things:</p>
 <li><strong>The verification:</strong> which line of a record, or which check, would show the effect.</li>
 </ul>
 <p>Keep this part a written prediction. The scripted proposer in the Week 1 <code>demo.py</code> never
-reads <code>CONTRACT</code>, so adding your sentence there changes nothing you can observe in scripted
-practice. Write the record you would expect with and without the change: did a <code>verify</code> call
-follow the last write, and what were the stop reason and the check? If you later try the
-sentence in a real agent session, one run of each version is one observation, not a rate;
-report it that way. Either way, also say which part of your loop already reports the truth
-regardless of the prompt: <code>last_check</code> stays <code>not_run</code> or <code>check_failed</code> whatever the model
-writes.</p>
+reads <code>CONTRACT</code>. So if you add your sentence there, nothing changes that you can observe in
+scripted practice. Write the record you would expect with and without the change. Did a
+<code>verify</code> call follow the last write? What were the stop reason and the check? You may later
+try the sentence in a real agent session. One run of each version is then one observation,
+not a rate, so report it that way. In both cases, also say which part of your loop already
+reports the truth regardless of the prompt. <code>last_check</code> stays <code>not_run</code> or <code>check_failed</code>,
+whatever the model writes.</p>
 <h2 id="common-mistakes">Common mistakes</h2>
 <table>
 <thead>
@@ -6984,8 +6843,8 @@ writes.</p>
 </tr>
 </tbody>
 </table>
-<p>All files are plain text on GitHub and can be read with a screen reader or keyboard; no
-diagram or colour is needed for any step.</p>
+<p>All files are plain text on GitHub. You can read them with a screen reader or keyboard. No
+step needs a diagram or colour.</p>
 
 
 
@@ -7059,7 +6918,8 @@ diagram or colour is needed for any step.</p>
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
-  <div>v0.9.1 · as_of: <time datetime="2026-09-08">2026-09-08</time></div>
+  <div><a href="https://boxi-cs.github.io/agentic-se/">Course website</a></div>
+  <div>v0.22.0 · as_of: <time datetime="2026-10-14">2026-10-14</time></div>
   <div>
     <a href="../../licenses/LICENSE.txt">MIT License</a> ·
     <a href="../../licenses/LICENSE-CONTENT.txt">Original course content scope</a>
@@ -7083,7 +6943,7 @@ diagram or colour is needed for any step.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.9.1"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.22.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
