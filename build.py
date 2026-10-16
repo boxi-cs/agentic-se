@@ -479,24 +479,31 @@ def not_found() -> str:
 
 
 def check_local_links(pages: list[Path]) -> None:
-    """Every local href, src and poster on a built page must resolve to a file, or a folder with an index;
-    on the site's own pages (not course/) a link to "#id" needs that id on the page (the skip link's #main)."""
+    """Every local href, src and poster on a built page must resolve to a file inside the site, or a folder
+    with an index. On the site's own pages (not course/) a link's "#id" must also exist on the page it
+    opens, this page included (the skip link's #main)."""
     for built in pages:
         text = built.read_text()
+        own = built.relative_to(ROOT).parts[0] != "course"
         for url in re.findall(r'(?:href|src|poster)="([^"]+)"', text):
-            if url.startswith("#") and len(url) > 1 and "course" not in built.relative_to(ROOT).parts[:1]:
-                if f'id="{url[1:]}"' not in text:
-                    raise SystemExit(f"{built.relative_to(ROOT)}: link {url!r} has no target on the page")
+            path, _, fragment = html.unescape(url).partition("#")
+            path = path.split("?")[0]
+            if re.match(r"[a-z]+:", path):
                 continue
-            path = re.split(r"[#?]", html.unescape(url))[0]
-            if re.match(r"[a-z]+:", path) or not path:
-                continue
-            if path.startswith(BASE):
-                target = ROOT / path.removeprefix(BASE)
+            if not path:
+                target = built
+            elif path.startswith(BASE):
+                target = (ROOT / path.removeprefix(BASE)).resolve()
             else:
                 target = (built.parent / path).resolve()
-            if not (target.is_file() or (target / "index.html").is_file()):
+            if not target.is_relative_to(ROOT.resolve()):
+                raise SystemExit(f"{built.relative_to(ROOT)}: link {url!r} leaves the site")
+            if target.is_dir():
+                target = target / "index.html"
+            if not target.is_file():
                 raise SystemExit(f"{built.relative_to(ROOT)}: broken link {url!r}")
+            if own and fragment and target.suffix == ".html" and f'id="{fragment}"' not in target.read_text():
+                raise SystemExit(f"{built.relative_to(ROOT)}: link {url!r} has no target on the page it opens")
 
 
 def main() -> None:
