@@ -46,14 +46,14 @@ removes its folder from `films/`. `data/films.json` may also carry an `edition_n
 `summary`, a plain-language version of its script's decision line that the week page shows instead of it.
 
 The video files are assets of the
-[`videos-2026-10-13` release](https://github.com/boxi-cs/agentic-se/releases/tag/videos-2026-10-13),
+[`videos-2026-10-16` release](https://github.com/boxi-cs/agentic-se/releases/tag/videos-2026-10-16),
 named `week-NN.mp4` after the first two digits of the film's slug, so the repository stays small.
 
 To republish a film after it is re-rendered (its change is merged in the video repository and the new
 render is in that repository's `media/episodes/<slug>/`):
 
 1. copy its `Episode.mp4` to `week-NN.mp4` and upload it to the release in place of the old asset
-   (`gh release upload videos-2026-10-13 week-NN.mp4 --clobber --repo boxi-cs/agentic-se`);
+   (`gh release upload videos-2026-10-16 week-NN.mp4 --clobber --repo boxi-cs/agentic-se`);
 2. run `git fetch` in the video repository's clone: `tools/export_data.py` reads its `origin/main` and
    does not fetch it;
 3. re-run `tools/export_data.py`, `tools/posters.py` and `build.py` (the commands below), and commit.
@@ -76,5 +76,7 @@ start at `/agentic-se/`) and checks the local links of every page, `course/` inc
 To preview a course branch before it is merged, pass `--ref <branch>` to `tools/course_site.py` and
 `tools/export_data.py`; publish only what was built from `origin/main`.
 
-The films are narrated in English with a draft synthetic voice (`en_US-ljspeech-high`, trained on the
-public-domain LJ Speech data). Every example in them is course-authored and synthetic.
+The films are narrated in English with a synthetic voice made with Google's Gemini text-to-speech
+(`gemini-2.5-pro-tts`, voice Kore; the video repository's `narration.toml`). Every example in them is
+course-authored and synthetic. The earlier draft voice (`en_US-ljspeech-high`, trained on the public-domain
+LJ Speech data) is in release `videos-2026-10-13`.

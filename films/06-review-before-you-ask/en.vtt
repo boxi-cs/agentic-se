@@ -1,413 +1,413 @@
 WEBVTT
 
 1
-00:00:00.000 --> 00:00:04.225
+00:00:00.000 --> 00:00:05.142
 The rule: an account can edit a document exactly when it is active,
 
 2
-00:00:04.225 --> 00:00:05.991
+00:00:05.142 --> 00:00:07.291
 and it is an owner or staff.
 
 3
-00:00:06.333 --> 00:00:08.828
+00:00:07.633 --> 00:00:09.998
 Here is a course-written candidate.
 
 4
-00:00:08.828 --> 00:00:12.463
+00:00:09.998 --> 00:00:13.444
 Check only an active staff account, and it behaves.
 
 5
-00:00:12.800 --> 00:00:14.762
+00:00:13.783 --> 00:00:15.794
 But can an inactive owner edit?
 
 6
-00:00:15.800 --> 00:00:18.769
+00:00:16.833 --> 00:00:20.194
 Write your own review before you ask a model.
 
 7
-00:00:18.769 --> 00:00:24.112
+00:00:20.194 --> 00:00:26.244
 Python binds and more tightly than or, so this reads: owner, or staff and active.
 
 8
-00:00:24.450 --> 00:00:26.391
+00:00:26.583 --> 00:00:28.975
 An owner alone makes it true.
 
 9
-00:00:26.391 --> 00:00:30.139
+00:00:28.975 --> 00:00:33.594
 So an inactive owner can edit, and the contract says no.
 
 10
-00:00:30.483 --> 00:00:34.748
+00:00:33.933 --> 00:00:37.835
 A review note names a location, an input, the expected result,
 
 11
-00:00:34.748 --> 00:00:38.256
+00:00:37.835 --> 00:00:41.045
 the observed or traced result, and the consequence.
 
 12
-00:00:38.256 --> 00:00:40.595
+00:00:41.045 --> 00:00:43.184
 Save that note before you read on.
 
 13
-00:00:41.633 --> 00:00:42.913
+00:00:44.233 --> 00:00:45.440
 Then reproduce it.
 
 14
-00:00:42.913 --> 00:00:47.606
+00:00:45.440 --> 00:00:49.863
 Inspect the supplied code, and run the public checks: seven tests.
 
 15
-00:00:47.606 --> 00:00:50.948
+00:00:49.863 --> 00:00:53.012
 On the candidate, two fail: the inactive owner,
 
 16
-00:00:50.948 --> 00:00:54.717
+00:00:53.012 --> 00:00:56.564
 and an inactive account that is both owner and staff.
 
 17
-00:00:55.066 --> 00:00:56.537
+00:00:56.900 --> 00:00:58.504
 The run exits with one.
 
 18
-00:00:56.537 --> 00:00:59.733
+00:00:58.504 --> 00:01:01.991
 Record your actual output, not a prediction of it.
 
 19
-00:01:00.782 --> 00:01:05.333
+00:01:03.033 --> 00:01:07.004
 Now an agent proposes a revision: active, and owner or staff.
 
 20
-00:01:05.682 --> 00:01:07.373
+00:01:07.350 --> 00:01:09.511
 That is still a proposal.
 
 21
-00:01:07.373 --> 00:01:11.701
+00:01:09.511 --> 00:01:15.045
 Inspect the diff, apply only that expression in a separate copy,
 
 22
-00:01:11.701 --> 00:01:13.798
+00:01:15.045 --> 00:01:17.725
 and rerun the unchanged checks.
 
 23
-00:01:13.798 --> 00:01:15.556
+00:01:17.725 --> 00:01:19.973
 In our run all seven pass,
 
 24
-00:01:15.556 --> 00:01:19.614
+00:01:19.973 --> 00:01:25.161
 and they cover the eight combinations of the three booleans.
 
 25
-00:01:19.949 --> 00:01:23.841
+00:01:25.500 --> 00:01:29.164
 Could a lazier patch pass, one that denies everyone?
 
 26
-00:01:23.841 --> 00:01:24.065
+00:01:29.164 --> 00:01:29.376
 No.
 
 27
-00:01:24.065 --> 00:01:26.460
+00:01:29.376 --> 00:01:31.631
 In our run it fails three tests,
 
 28
-00:01:26.460 --> 00:01:31.176
+00:01:31.631 --> 00:01:36.071
 the ones where an active owner or staff member must be allowed.
 
 29
-00:01:31.515 --> 00:01:33.203
+00:01:36.416 --> 00:01:38.152
 And inspect the tests too.
 
 30
-00:01:33.203 --> 00:01:38.330
+00:01:38.152 --> 00:01:43.427
 Changing what they expect, to fit the candidate, would not verify the contract.
 
 31
-00:01:39.364 --> 00:01:43.008
+00:01:44.465 --> 00:01:47.597
 Only now, ask a model to review the same diff,
 
 32
-00:01:43.008 --> 00:01:46.890
+00:01:47.597 --> 00:01:50.933
 with the contract and the exact files in context.
 
 33
-00:01:46.890 --> 00:01:49.662
+00:01:50.933 --> 00:01:53.316
 Treat each comment as a hypothesis.
 
 34
-00:01:49.998 --> 00:01:53.067
+00:01:53.665 --> 00:01:56.793
 A useful comment names a location and a check.
 
 35
-00:01:53.067 --> 00:01:55.269
+00:01:56.793 --> 00:01:59.036
 A confident tone is not evidence.
 
 36
-00:01:55.614 --> 00:01:58.176
+00:01:59.382 --> 00:02:01.999
 The model might catch the precedence bug.
 
 37
-00:01:58.176 --> 00:02:01.238
+00:02:01.999 --> 00:02:05.127
 It might miss it, after seeing only a happy path.
 
 38
-00:02:01.238 --> 00:02:03.300
+00:02:05.127 --> 00:02:07.233
 Or it might invent a requirement.
 
 39
-00:02:03.648 --> 00:02:05.061
+00:02:07.582 --> 00:02:08.836
 And the order matters.
 
 40
-00:02:05.061 --> 00:02:07.566
+00:02:08.836 --> 00:02:11.058
 If you read the model's comments first,
 
 41
-00:02:07.566 --> 00:02:10.649
+00:02:11.058 --> 00:02:13.793
 agreeing with them is not an independent review.
 
 42
-00:02:11.697 --> 00:02:16.305
+00:02:14.832 --> 00:02:19.575
 Here are three claims, written by the course to read like a model review.
 
 43
-00:02:16.305 --> 00:02:19.208
+00:02:19.575 --> 00:02:22.563
 They are synthetic text, not a real model run.
 
 44
-00:02:19.547 --> 00:02:21.944
+00:02:22.899 --> 00:02:25.560
 One: an inactive owner can edit.
 
 45
-00:02:21.944 --> 00:02:25.764
+00:02:25.560 --> 00:02:29.802
 Two: parse the string false before deciding access.
 
 46
-00:02:25.764 --> 00:02:31.157
+00:02:29.802 --> 00:02:35.790
 Three: a caller in another file relies on inactive owners being allowed.
 
 47
-00:02:31.497 --> 00:02:37.127
+00:02:36.132 --> 00:02:42.459
 Every finding gets exactly one disposition: confirmed, refuted, or cannot tell.
 
 48
-00:02:37.127 --> 00:02:40.262
+00:02:42.459 --> 00:02:45.983
 And each disposition needs its own evidence.
 
 49
-00:02:41.296 --> 00:02:45.664
+00:02:47.032 --> 00:02:50.830
 Confirmed needs a reproducible input and an observed result,
 
 50
-00:02:45.664 --> 00:02:48.576
+00:02:50.830 --> 00:02:53.363
 or a source trace that proves the claim.
 
 51
-00:02:48.913 --> 00:02:52.096
+00:02:53.698 --> 00:02:56.490
 For claim one, we already have the input.
 
 52
-00:02:52.096 --> 00:02:56.365
+00:02:56.490 --> 00:03:00.234
 Inactive, owner, not staff: the candidate returns true,
 
 53
-00:02:56.365 --> 00:02:59.004
+00:03:00.234 --> 00:03:02.549
 and the inactive owner test fails.
 
 54
-00:02:59.004 --> 00:02:59.780
+00:03:02.549 --> 00:03:03.229
 Confirmed.
 
 55
-00:03:00.130 --> 00:03:01.983
+00:03:03.565 --> 00:03:05.321
 A comment can sound plausible.
 
 56
-00:03:01.983 --> 00:03:05.999
+00:03:05.321 --> 00:03:09.125
 Without an input, a trace, or a check that fails and then passes,
 
 57
-00:03:05.999 --> 00:03:07.235
+00:03:09.125 --> 00:03:10.296
 it is not confirmed.
 
 58
-00:03:08.278 --> 00:03:12.828
+00:03:11.330 --> 00:03:15.886
 Refuted needs a check or a code reading that contradicts the claim,
 
 59
-00:03:12.828 --> 00:03:15.001
+00:03:15.886 --> 00:03:18.061
 with the relevant input or line.
 
 60
-00:03:15.345 --> 00:03:18.703
+00:03:18.397 --> 00:03:22.016
 Claim two asks the guard to parse the string false.
 
 61
-00:03:18.703 --> 00:03:23.641
+00:03:22.016 --> 00:03:27.337
 But the contract takes booleans only, and so does the function's signature.
 
 62
-00:03:23.641 --> 00:03:25.221
+00:03:27.337 --> 00:03:29.040
 The claim invents scope.
 
 63
-00:03:25.221 --> 00:03:25.748
+00:03:29.040 --> 00:03:29.608
 Refuted.
 
 64
-00:03:26.794 --> 00:03:31.701
+00:03:30.646 --> 00:03:35.492
 Claim three says a caller in another file relies on inactive owners being allowed.
 
 65
-00:03:31.701 --> 00:03:35.351
+00:03:35.492 --> 00:03:39.097
 The function and the checks you were given contain no caller.
 
 66
-00:03:35.694 --> 00:03:37.954
+00:03:39.446 --> 00:03:42.006
 It is tempting to call that refuted.
 
 67
-00:03:37.954 --> 00:03:42.660
+00:03:42.006 --> 00:03:47.337
 But the files you have cannot answer it, so the disposition is cannot tell.
 
 68
-00:03:42.994 --> 00:03:46.717
+00:03:47.680 --> 00:03:51.077
 Record three things: what you inspected, what is missing,
 
 69
-00:03:46.717 --> 00:03:49.917
+00:03:51.077 --> 00:03:53.998
 and the smallest next check that would decide it.
 
 70
-00:03:49.917 --> 00:03:54.488
+00:03:53.998 --> 00:03:58.171
 Here, you request the caller, and the behavior that was agreed for it.
 
 71
-00:03:55.527 --> 00:03:59.812
+00:03:59.212 --> 00:04:02.947
 For each finding, run the smallest safe check you can explain.
 
 72
-00:03:59.812 --> 00:04:04.443
+00:04:02.947 --> 00:04:06.983
 A model can suggest a test, but a person runs it and interprets it.
 
 73
-00:04:04.777 --> 00:04:10.239
+00:04:07.328 --> 00:04:13.154
 Inspect any suggested command before you run it: its scope, its credentials,
 
 74
-00:04:10.239 --> 00:04:12.611
+00:04:13.154 --> 00:04:15.683
 its network use, and its outputs.
 
 75
-00:04:12.611 --> 00:04:15.702
+00:04:15.683 --> 00:04:18.979
 And keep the work in a dedicated directory.
 
 76
-00:04:16.743 --> 00:04:19.853
+00:04:20.028 --> 00:04:23.526
 Suppose the model had reported only the string claim.
 
 77
-00:04:19.853 --> 00:04:22.024
+00:04:23.526 --> 00:04:25.969
 It would have missed the real defect.
 
 78
-00:04:22.024 --> 00:04:25.252
+00:04:25.969 --> 00:04:29.599
 So compare your first finding with every model comment,
 
 79
-00:04:25.252 --> 00:04:27.599
+00:04:29.599 --> 00:04:32.239
 and keep any finding the model left out.
 
 80
-00:04:27.943 --> 00:04:30.559
+00:04:32.578 --> 00:04:35.156
 And if the reviewer reports nothing at all?
 
 81
-00:04:30.559 --> 00:04:35.060
+00:04:35.156 --> 00:04:39.593
 That says only that no finding was reported, for the context it was given.
 
 82
-00:04:35.060 --> 00:04:37.493
+00:04:39.593 --> 00:04:41.991
 It does not prove the change is correct,
 
 83
-00:04:37.493 --> 00:04:40.656
+00:04:41.991 --> 00:04:45.109
 or that a requirement nobody mentioned is satisfied.
 
 84
-00:04:40.993 --> 00:04:45.552
+00:04:45.445 --> 00:04:49.808
 So keep a no-finding result beside three things: the scope the model saw,
 
 85
-00:04:45.552 --> 00:04:48.737
+00:04:49.808 --> 00:04:52.856
 the checks you ran, and the cases it did not cover.
 
 86
-00:04:49.777 --> 00:04:51.449
+00:04:53.893 --> 00:04:55.636
 So who accepts the change?
 
 87
-00:04:51.449 --> 00:04:56.464
+00:04:55.636 --> 00:05:00.864
 In a repository pull request, the person with merge authority owns acceptance.
 
 88
-00:04:56.810 --> 00:05:02.279
+00:05:01.210 --> 00:05:06.334
 The author owns a truthful handoff, and answers four questions: what changed, why,
 
 89
-00:05:02.279 --> 00:05:05.146
+00:05:06.334 --> 00:05:09.021
 what could be wrong, and what was verified.
 
 90
-00:05:05.493 --> 00:05:09.716
+00:05:09.360 --> 00:05:13.584
 A model, or another reviewer, supplies evidence and questions.
 
 91
-00:05:09.716 --> 00:05:11.624
+00:05:13.584 --> 00:05:15.491
 Never an automatic approval.
 
 92
-00:05:11.960 --> 00:05:16.442
+00:05:15.827 --> 00:05:19.247
 The decision is one of four: accept, narrow, recheck or stop.
 
 93
-00:05:16.442 --> 00:05:20.337
+00:05:19.247 --> 00:05:22.219
 If the evidence is incomplete, it is recheck or stop,
 
 94
-00:05:20.337 --> 00:05:23.350
+00:05:22.219 --> 00:05:24.518
 not an approval read off a green command.
 
 95
-00:05:24.393 --> 00:05:28.413
+00:05:25.560 --> 00:05:29.753
 So: pin the base and the candidate, and write down the behavior.
 
 96
-00:05:28.413 --> 00:05:29.984
+00:05:29.753 --> 00:05:31.391
 Review the diff yourself.
 
 97
-00:05:29.984 --> 00:05:34.129
+00:05:31.391 --> 00:05:35.715
 Then ask the model, and keep its output apart from your own notes.
 
 98
-00:05:34.129 --> 00:05:35.323
+00:05:35.715 --> 00:05:36.960
 Check each finding.
 
 99
-00:05:35.323 --> 00:05:39.091
+00:05:36.960 --> 00:05:40.891
 And record the disposition, the evidence, and your decision.
 
 100
-00:05:39.426 --> 00:05:40.876
+00:05:41.226 --> 00:05:42.613
 One question to try.
 
 101
-00:05:40.876 --> 00:05:46.023
+00:05:42.613 --> 00:05:47.534
 A model says: the active staff example passes, so the guard is correct.
 
 102
-00:05:46.023 --> 00:05:49.140
+00:05:47.534 --> 00:05:50.515
 Is that confirmed, refuted, or cannot tell?
 
 103
-00:05:49.140 --> 00:05:51.025
+00:05:50.515 --> 00:05:52.317
 And which case is missing?

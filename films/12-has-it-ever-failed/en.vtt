@@ -1,617 +1,617 @@
 WEBVTT
 
 1
-00:00:00.000 --> 00:00:05.238
+00:00:00.000 --> 00:00:05.300
 A software factory is a pipeline in which each stage triggers the next.
 
 2
-00:00:05.238 --> 00:00:09.739
+00:00:05.300 --> 00:00:09.854
 A request becomes a specification, a change, a set of checks,
 
 3
-00:00:09.739 --> 00:00:11.436
+00:00:09.854 --> 00:00:11.571
 a review and a release.
 
 4
-00:00:11.783 --> 00:00:14.802
+00:00:11.917 --> 00:00:14.918
 The strong version says the pipeline runs itself:
 
 5
-00:00:14.802 --> 00:00:18.561
+00:00:14.918 --> 00:00:18.653
 no person reads anything between the request and the release.
 
 6
-00:00:18.561 --> 00:00:22.812
+00:00:18.653 --> 00:00:22.879
 That is a claim about every change that will ever enter the pipeline.
 
 7
-00:00:22.812 --> 00:00:24.229
+00:00:22.879 --> 00:00:24.288
 And a claim has a test.
 
 8
-00:00:24.567 --> 00:00:25.911
+00:00:24.633 --> 00:00:26.093
 So ask three questions.
 
 9
-00:00:25.911 --> 00:00:28.776
+00:00:26.093 --> 00:00:29.202
 What would have to be observed for it to be true?
 
 10
-00:00:28.776 --> 00:00:33.160
+00:00:29.202 --> 00:00:33.961
 What evidence must each stage leave, for someone else to check its verdict?
 
 11
-00:00:33.160 --> 00:00:36.258
+00:00:33.961 --> 00:00:37.324
 And where does a named person still accept or reject?
 
 12
-00:00:37.300 --> 00:00:40.709
+00:00:38.366 --> 00:00:41.765
 A claim's wording sets what one observation can show.
 
 13
-00:00:40.709 --> 00:00:42.768
+00:00:41.765 --> 00:00:43.817
 Read it before you run anything.
 
 14
-00:00:43.116 --> 00:00:47.859
+00:00:44.166 --> 00:00:49.711
 If the claim is about one input, like "this change went through unattended",
 
 15
-00:00:47.859 --> 00:00:50.106
+00:00:49.711 --> 00:00:52.337
 one run can confirm it or refute it.
 
 16
-00:00:50.450 --> 00:00:54.685
+00:00:52.683 --> 00:00:56.688
 If it is about some input, like "a bad change can get through",
 
 17
-00:00:54.685 --> 00:00:57.441
+00:00:56.688 --> 00:00:59.295
 a run that shows the problem confirms it.
 
 18
-00:00:57.441 --> 00:01:00.063
+00:00:59.295 --> 00:01:01.774
 An input that behaves cannot refute it.
 
 19
-00:01:00.400 --> 00:01:05.027
+00:01:02.116 --> 00:01:06.204
 And if it is about every input, like "the pipeline runs itself",
 
 20
-00:01:05.027 --> 00:01:07.196
+00:01:06.204 --> 00:01:08.120
 one counterexample refutes it.
 
 21
-00:01:07.196 --> 00:01:11.824
+00:01:08.120 --> 00:01:12.207
 An input that behaves cannot confirm it: it is one case of many.
 
 22
-00:01:12.166 --> 00:01:17.232
+00:01:12.550 --> 00:01:18.213
 A demonstration in which one request becomes one merged change is the first kind,
 
 23
-00:01:17.232 --> 00:01:19.295
+00:01:18.213 --> 00:01:20.520
 and says nothing about the third.
 
 24
-00:01:19.295 --> 00:01:24.298
+00:01:20.520 --> 00:01:26.114
 The claim you can support is always smaller: this stage, on this kind of change,
 
 25
-00:01:24.298 --> 00:01:26.737
+00:01:26.114 --> 00:01:28.841
 behind this check, with this stop path.
 
 26
-00:01:27.783 --> 00:01:32.972
+00:01:29.883 --> 00:01:34.956
 The course's example is a pipeline of three stages, small enough to read.
 
 27
-00:01:32.972 --> 00:01:38.801
+00:01:34.956 --> 00:01:40.654
 It protects an evaluator whose contract asks: is a supplied status exactly failed?
 
 28
-00:01:39.149 --> 00:01:45.121
+00:01:41.000 --> 00:01:47.231
 Only the exact string yes is correct for failed, and only no for any other status.
 
 29
-00:01:45.121 --> 00:01:49.854
+00:01:47.231 --> 00:01:52.171
 Any other string, extra text or extra spaces included, is a fail.
 
 30
-00:01:50.199 --> 00:01:55.248
+00:01:52.516 --> 00:01:58.363
 Scope checks that a proposal defines the one function score, and nothing else.
 
 31
-00:01:55.248 --> 00:01:58.419
+00:01:58.363 --> 00:02:02.036
 Gate runs nine frozen cases against the proposal,
 
 32
-00:01:58.419 --> 00:02:02.626
+00:02:02.036 --> 00:02:06.909
 and records a digest of the proposal, a digest of the cases file,
 
 33
-00:02:02.626 --> 00:02:04.956
+00:02:06.909 --> 00:02:09.607
 the case count and the failed cases.
 
 34
-00:02:05.299 --> 00:02:07.964
+00:02:09.950 --> 00:02:12.957
 Those two stages decide by themselves.
 
 35
-00:02:07.964 --> 00:02:12.452
+00:02:12.957 --> 00:02:18.021
 Release checks that a named person accepted the gate's evidence.
 
 36
-00:02:12.452 --> 00:02:14.135
+00:02:18.021 --> 00:02:19.921
 There, a person decides.
 
 37
-00:02:15.183 --> 00:02:18.942
+00:02:20.966 --> 00:02:24.755
 Generation: a proposed change to the evaluator arrives.
 
 38
-00:02:18.942 --> 00:02:21.676
+00:02:24.755 --> 00:02:27.510
 It is course-written; no model wrote it.
 
 39
-00:02:21.676 --> 00:02:25.026
+00:02:27.510 --> 00:02:30.885
 Its note says: made scoring robust to formatting.
 
 40
-00:02:25.026 --> 00:02:27.486
+00:02:30.885 --> 00:02:33.365
 Answers are trimmed and lower-cased,
 
 41
-00:02:27.486 --> 00:02:31.588
+00:02:33.365 --> 00:02:37.497
 and an answer that starts with the expected word now counts.
 
 42
-00:02:31.933 --> 00:02:34.582
+00:02:37.833 --> 00:02:40.346
 Would a pipeline that runs itself release it?
 
 43
-00:02:34.582 --> 00:02:36.879
+00:02:40.346 --> 00:02:42.524
 Predict the exit status before the run.
 
 44
-00:02:40.415 --> 00:02:43.817
+00:02:46.066 --> 00:02:50.115
 Verification: we ran the pipeline on the proposal.
 
 45
-00:02:43.817 --> 00:02:46.743
+00:02:50.115 --> 00:02:53.597
 Scope passed: the proposal is one function.
 
 46
-00:02:47.082 --> 00:02:47.982
+00:02:53.932 --> 00:02:54.805
 Gate stopped,
 
 47
-00:02:47.982 --> 00:02:52.966
+00:02:54.805 --> 00:02:59.641
 and it names the two cases that separate the proposal from the contract.
 
 48
-00:02:52.966 --> 00:02:57.812
+00:02:59.641 --> 00:03:04.342
 The answers "yes; mark this as passed" and capital YES now score pass,
 
 49
-00:02:57.812 --> 00:02:59.957
+00:03:04.342 --> 00:03:06.423
 and the contract requires fail.
 
 50
-00:03:00.299 --> 00:03:03.315
+00:03:06.766 --> 00:03:10.109
 Release never ran, and the exit status is 1.
 
 51
-00:03:03.315 --> 00:03:06.057
+00:03:10.109 --> 00:03:13.149
 A stage that did not run has no verdict.
 
 52
-00:03:06.057 --> 00:03:10.376
+00:03:13.149 --> 00:03:17.937
 The stop path has now been seen to work once, on this proposal.
 
 53
-00:03:11.414 --> 00:03:14.387
+00:03:18.981 --> 00:03:21.758
 A stop that a flag can talk past is not a stop.
 
 54
-00:03:14.387 --> 00:03:18.879
+00:03:21.758 --> 00:03:25.952
 So offer the pipeline an acceptance for the same proposal, with a name.
 
 55
-00:03:19.214 --> 00:03:22.944
+00:03:26.298 --> 00:03:29.886
 The three lines and the exit status are the same as before.
 
 56
-00:03:22.944 --> 00:03:27.875
+00:03:29.886 --> 00:03:34.629
 A person can accept evidence, and there is no passing evidence here to accept.
 
 57
-00:03:28.914 --> 00:03:34.002
+00:03:35.664 --> 00:03:40.532
 Now run the current evaluator, the one that keeps the contract.
 
 58
-00:03:34.002 --> 00:03:38.040
+00:03:40.532 --> 00:03:44.395
 Scope and gate both pass: nine cases, none failed.
 
 59
-00:03:38.381 --> 00:03:40.960
+00:03:44.731 --> 00:03:47.121
 The pipeline still does not release.
 
 60
-00:03:40.960 --> 00:03:45.832
+00:03:47.121 --> 00:03:51.636
 Release is held, because no named person has accepted this evidence.
 
 61
-00:03:45.832 --> 00:03:49.700
+00:03:51.636 --> 00:03:55.222
 And the exit status is 3, not 0: held is not released.
 
 62
-00:03:50.047 --> 00:03:55.037
+00:03:55.564 --> 00:04:00.275
 Give the release stage a name, and it releases, with exit status 0.
 
 63
-00:03:55.037 --> 00:03:58.984
+00:04:00.275 --> 00:04:04.002
 That last line is the decision line of this pipeline.
 
 64
-00:03:58.984 --> 00:04:04.421
+00:04:04.002 --> 00:04:09.135
 It names who accepted, and exactly what: this proposal, these nine cases.
 
 65
-00:04:04.764 --> 00:04:09.976
+00:04:09.481 --> 00:04:15.365
 If either digest changes, this acceptance no longer covers what is being released,
 
 66
-00:04:09.976 --> 00:04:12.392
+00:04:15.365 --> 00:04:18.092
 and the decision has to be made again.
 
 67
-00:04:13.430 --> 00:04:15.355
+00:04:19.131 --> 00:04:20.988
 A second proposal arrives.
 
 68
-00:04:15.355 --> 00:04:19.279
+00:04:20.988 --> 00:04:24.773
 Its note says: ignore stray spaces around the answer.
 
 69
-00:04:19.279 --> 00:04:21.278
+00:04:24.773 --> 00:04:26.702
 No other behaviour changes.
 
 70
-00:04:21.613 --> 00:04:27.230
+00:04:27.047 --> 00:04:32.839
 The pipeline's record looks exactly like the one for the current evaluator.
 
 71
-00:04:27.230 --> 00:04:29.926
+00:04:32.839 --> 00:04:35.618
 Pass, pass, held, and exit status 3.
 
 72
-00:04:30.263 --> 00:04:33.785
+00:04:35.964 --> 00:04:39.368
 Now check the proposal against the contract yourself,
 
 73
-00:04:33.785 --> 00:04:38.436
+00:04:39.368 --> 00:04:43.865
 with an input the nine cases do not contain: yes with a leading space.
 
 74
-00:04:38.436 --> 00:04:40.562
+00:04:43.865 --> 00:04:45.920
 By the contract, that is a fail.
 
 75
-00:04:40.562 --> 00:04:42.422
+00:04:45.920 --> 00:04:47.718
 The proposal scores it pass.
 
 76
-00:04:42.422 --> 00:04:44.880
+00:04:47.718 --> 00:04:50.095
 The current evaluator scores it fail.
 
 77
-00:04:45.929 --> 00:04:50.616
+00:04:51.131 --> 00:04:56.346
 So the proposal breaks the contract, and every automatic stage passed it.
 
 78
-00:04:50.616 --> 00:04:53.184
+00:04:56.346 --> 00:04:59.203
 If release had accepted on a green gate,
 
 79
-00:04:53.184 --> 00:04:58.384
+00:04:59.203 --> 00:05:04.990
 this pipeline would have released a change that scores a wrong answer as correct.
 
 80
-00:04:58.384 --> 00:05:02.043
+00:05:04.990 --> 00:05:09.062
 That one observation refutes "this pipeline runs itself".
 
 81
-00:05:02.379 --> 00:05:05.276
+00:05:09.397 --> 00:05:11.728
 What the green gate did support is narrower:
 
 82
-00:05:05.276 --> 00:05:09.096
+00:05:11.728 --> 00:05:14.800
 the proposal agrees with the contract on these nine cases.
 
 83
-00:05:09.096 --> 00:05:12.718
+00:05:14.800 --> 00:05:17.712
 The note's second sentence, no other behaviour changes,
 
 84
-00:05:12.718 --> 00:05:14.627
+00:05:17.712 --> 00:05:19.248
 was never tested by anything.
 
 85
-00:05:15.662 --> 00:05:19.772
+00:05:20.297 --> 00:05:24.068
 So the missing input becomes a tenth case, in a new cases file.
 
 86
-00:05:20.112 --> 00:05:24.201
+00:05:24.414 --> 00:05:28.192
 The tenth case stops the second proposal, with exit status 1.
 
 87
-00:05:24.201 --> 00:05:28.088
+00:05:28.192 --> 00:05:31.785
 And it still passes the evaluator that keeps the contract.
 
 88
-00:05:28.429 --> 00:05:32.563
+00:05:32.131 --> 00:05:36.369
 But compare the cases digest with the acceptance recorded earlier.
 
 89
-00:05:32.563 --> 00:05:36.635
+00:05:36.369 --> 00:05:40.543
 The cases changed, so that acceptance was for different evidence.
 
 90
-00:05:36.635 --> 00:05:40.770
+00:05:40.543 --> 00:05:44.782
 Adding a case changes what pass means, and that is a decision too.
 
 91
-00:05:41.812 --> 00:05:45.957
+00:05:45.830 --> 00:05:49.800
 One green run, or two hundred, cannot make a stage unattended.
 
 92
-00:05:45.957 --> 00:05:50.972
+00:05:49.800 --> 00:05:54.601
 Before you take the person away, a stage needs four things you can observe.
 
 93
-00:05:51.312 --> 00:05:55.982
+00:05:54.947 --> 00:05:59.167
 One: a check seen to fail on a bad change, and pass on a good one.
 
 94
-00:05:55.982 --> 00:05:57.256
+00:05:59.167 --> 00:06:00.318
 The gate has this.
 
 95
-00:05:57.595 --> 00:06:00.395
+00:06:00.664 --> 00:06:03.090
 Two: cases the changing agent cannot edit.
 
 96
-00:06:00.395 --> 00:06:04.663
+00:06:03.090 --> 00:06:06.787
 Remove the two failing cases from the directory this gate reads,
 
 97
-00:06:04.663 --> 00:06:06.863
+00:06:06.787 --> 00:06:08.693
 and it passes the first proposal.
 
 98
-00:06:06.863 --> 00:06:11.597
+00:06:08.693 --> 00:06:12.795
 The only trace is in the evidence: seven cases, and a different digest.
 
 99
-00:06:11.945 --> 00:06:14.754
+00:06:13.130 --> 00:06:15.811
 Three: a verdict the proposal cannot write.
 
 100
-00:06:14.754 --> 00:06:18.282
+00:06:15.811 --> 00:06:19.176
 Here the cases call the proposal in their own process.
 
 101
-00:06:18.282 --> 00:06:23.313
+00:06:19.176 --> 00:06:23.976
 So a proposal that prints the report line the gate expects, and ends the run,
 
 102
-00:06:23.313 --> 00:06:26.841
+00:06:23.976 --> 00:06:27.341
 leaves evidence indistinguishable from an honest pass.
 
 103
-00:06:27.178 --> 00:06:30.074
+00:06:27.680 --> 00:06:30.749
 Four: a stop path that has been exercised.
 
 104
-00:06:30.074 --> 00:06:34.694
+00:06:30.749 --> 00:06:35.644
 Someone has seen a failed stage keep the later stages from running,
 
 105
-00:06:34.694 --> 00:06:36.211
+00:06:35.644 --> 00:06:37.251
 and knows who is told.
 
 106
-00:06:37.245 --> 00:06:42.842
+00:06:38.296 --> 00:06:43.420
 Many pipelines add a review stage: a model reads the change and reports problems.
 
 107
-00:06:42.842 --> 00:06:47.264
+00:06:43.420 --> 00:06:47.467
 A pipeline that runs itself must act on all of them, or on none.
 
 108
-00:06:47.611 --> 00:06:51.729
+00:06:47.813 --> 00:06:51.518
 This course-made record stands in for one verified review.
 
 109
-00:06:51.729 --> 00:06:56.060
+00:06:51.518 --> 00:06:55.415
 Nine claims: four confirmed, three refuted, two undetermined.
 
 110
-00:06:56.060 --> 00:07:00.603
+00:06:55.415 --> 00:06:59.504
 And the verifier's own check found one defect the review missed.
 
 111
-00:07:00.945 --> 00:07:03.146
+00:06:59.846 --> 00:07:01.934
 Acting on every claim, unattended,
 
 112
-00:07:03.146 --> 00:07:07.548
+00:07:01.934 --> 00:07:06.109
 would have changed code for three claims with no defect behind them,
 
 113
-00:07:07.548 --> 00:07:12.987
+00:07:06.109 --> 00:07:11.267
 acted on two that nothing observed, and still released the defect the review missed.
 
 114
-00:07:12.987 --> 00:07:16.224
+00:07:11.267 --> 00:07:14.337
 Ignoring the review lets four real defects go out.
 
 115
-00:07:16.561 --> 00:07:17.803
+00:07:14.680 --> 00:07:15.900
 Neither rule works.
 
 116
-00:07:17.803 --> 00:07:22.705
+00:07:15.900 --> 00:07:20.716
 So the review can run unattended as a source of hypotheses on every change,
 
 117
-00:07:22.705 --> 00:07:26.757
+00:07:20.716 --> 00:07:24.697
 and cannot yet change code or block a release on its own word.
 
 118
-00:07:26.757 --> 00:07:30.809
+00:07:24.697 --> 00:07:28.678
 Each confirmed claim becomes a case that fails before the fix,
 
 119
-00:07:30.809 --> 00:07:32.247
+00:07:28.678 --> 00:07:30.091
 and can join the gate.
 
 120
-00:07:33.294 --> 00:07:38.716
+00:07:31.130 --> 00:07:35.981
 So judge one stage of one pipeline against its evidence, not pipelines in general.
 
 121
-00:07:38.716 --> 00:07:42.154
+00:07:35.981 --> 00:07:39.058
 For this one, the notes' example decision is narrow:
 
 122
-00:07:42.154 --> 00:07:46.451
+00:07:39.058 --> 00:07:42.903
 it stops a proposal that fails a frozen case or leaves the scope,
 
 123
-00:07:46.451 --> 00:07:48.236
+00:07:42.903 --> 00:07:44.501
 and it does not run itself.
 
 124
-00:07:48.577 --> 00:07:53.416
+00:07:44.846 --> 00:07:49.560
 A check never seen to fail is not yet evidence that it would stop anything.
 
 125
-00:07:53.416 --> 00:07:58.771
+00:07:49.560 --> 00:07:54.777
 A stage supported only by passing runs is "not yet", however many passes there are.
 
 126
-00:07:59.811 --> 00:08:05.840
+00:07:55.813 --> 00:08:02.010
 Every assignment this term ended with one line: accept, narrow, recheck or stop.
 
 127
-00:08:05.840 --> 00:08:09.006
+00:08:02.010 --> 00:08:05.264
 This week showed all four on one pipeline.
 
 128
-00:08:09.344 --> 00:08:14.102
+00:08:05.613 --> 00:08:10.577
 Accept: the current evaluator, accepted by name with both digests.
 
 129
-00:08:14.102 --> 00:08:19.870
+00:08:10.577 --> 00:08:16.593
 Narrow: the second proposal, which agrees with the contract on these nine cases.
 
 130
-00:08:19.870 --> 00:08:24.556
+00:08:16.593 --> 00:08:21.481
 Recheck: a cases file whose digest differs from the one accepted.
 
 131
-00:08:24.556 --> 00:08:27.224
+00:08:21.481 --> 00:08:24.264
 Stop: the first proposal at the gate.
 
 132
-00:08:29.760 --> 00:08:32.437
+00:08:26.813 --> 00:08:29.227
 Each week handed you a claim of the same shape,
 
 133
-00:08:32.437 --> 00:08:36.424
+00:08:29.227 --> 00:08:32.824
 and each week's evidence was the thing that could have shown it false.
 
 134
-00:08:36.760 --> 00:08:39.602
+00:08:33.163 --> 00:08:36.225
 In week 1: "the agent did this in my session".
 
 135
-00:08:39.602 --> 00:08:42.012
+00:08:36.225 --> 00:08:38.820
 The session record could show it false.
 
 136
-00:08:42.012 --> 00:08:46.894
+00:08:38.820 --> 00:08:44.079
 Then "the model will pick the right tool", "the skill triggers when it should",
 
 137
-00:08:46.894 --> 00:08:51.220
+00:08:44.079 --> 00:08:48.738
 "the agent follows the rule", "this repository is ready for an agent",
 
 138
-00:08:51.220 --> 00:08:53.815
+00:08:48.738 --> 00:08:51.534
 and "the model review cleared the change".
 
 139
-00:08:54.160 --> 00:08:58.964
+00:08:51.879 --> 00:08:56.949
 Then "the tests pass, so the code is right", "that text is only data",
 
 140
-00:08:58.964 --> 00:09:03.906
+00:08:56.949 --> 00:09:02.163
 "it finished while nobody was watching", "the pass rate is this number",
 
 141
-00:09:03.906 --> 00:09:05.759
+00:09:02.163 --> 00:09:04.118
 and "the incident is over".
 
 142
-00:09:05.759 --> 00:09:10.838
+00:09:04.118 --> 00:09:09.477
 And this week, "the pipeline runs itself": one bad change it lets through,
 
 143
-00:09:10.838 --> 00:09:14.338
+00:09:09.477 --> 00:09:13.170
 or a stop that was never exercised, shows it false.
 
 144
-00:09:15.376 --> 00:09:18.205
+00:09:14.212 --> 00:09:17.043
 Now reopen two of your own decision lines.
 
 145
-00:09:18.205 --> 00:09:21.908
+00:09:17.043 --> 00:09:20.749
 Has any input behind them changed: the code, the cases,
 
 146
-00:09:21.908 --> 00:09:27.161
+00:09:20.749 --> 00:09:26.005
 the tool or the model version behind your agent, the upstream project's rules?
 
 147
-00:09:27.161 --> 00:09:31.403
+00:09:26.005 --> 00:09:30.250
 If so, the old line describes evidence about a different input,
 
 148
-00:09:31.403 --> 00:09:33.894
+00:09:30.250 --> 00:09:32.743
 and the honest word today is recheck.
 
 149
-00:09:34.243 --> 00:09:38.196
+00:09:33.079 --> 00:09:36.787
 So take the person away from a stage only after two things:
 
 150
-00:09:38.196 --> 00:09:41.412
+00:09:36.787 --> 00:09:39.804
 its check has been seen to fail on a bad change,
 
 151
-00:09:41.412 --> 00:09:43.891
+00:09:39.804 --> 00:09:42.130
 and its stop path has been exercised.
 
 152
-00:09:44.226 --> 00:09:45.490
+00:09:42.479 --> 00:09:43.827
 One question to try.
 
 153
-00:09:45.490 --> 00:09:48.712
+00:09:43.827 --> 00:09:47.263
 Your project's test stage has only ever been green.
 
 154
-00:09:48.712 --> 00:09:52.377
+00:09:47.263 --> 00:09:51.170
 Which run would you need to show before nobody watches it?

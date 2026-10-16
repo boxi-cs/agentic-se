@@ -18,7 +18,7 @@ import shutil
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-RELEASE = "https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-13"
+RELEASE = "https://github.com/boxi-cs/agentic-se/releases/download/videos-2026-10-16"
 # Site text: the instructor, as given by the maintainer and on https://boxiyu.github.io/.
 INSTRUCTOR = {
     "name": "Boxi Yu",
@@ -147,7 +147,7 @@ def page(title: str, description: str, depth: int, body: str, up: str = "") -> s
 </nav>
 {body}
 <footer class="foot">
-  <p>Videos: English narration in a draft synthetic voice (LJ Speech, public domain), with English and
+  <p>Videos: English narration in a synthetic voice (Google Gemini text-to-speech), with English and
   Chinese subtitles. Every example in them is course-authored and synthetic.</p>
   <p>Contact: <a href="mailto:{INSTRUCTOR['email']}">{INSTRUCTOR['email']}</a> ·
   <a href="https://github.com/boxi-cs/agentic-se">Source for this site</a> · Boxi CS</p>
