@@ -1,649 +1,649 @@
 WEBVTT
 
 1
-00:00:00.000 --> 00:00:03.386
+00:00:00.000 --> 00:00:03.610
 You give an agent one small fix, and you walk away.
 
 2
-00:00:03.386 --> 00:00:05.311
+00:00:03.610 --> 00:00:05.663
 Nobody answers its questions.
 
 3
-00:00:05.311 --> 00:00:06.838
+00:00:05.663 --> 00:00:07.291
 Nobody watches it work.
 
 4
-00:00:07.183 --> 00:00:12.373
+00:00:07.633 --> 00:00:11.884
 Later, a change comes back, with a report: all branch tests pass.
 
 5
-00:00:12.717 --> 00:00:13.571
+00:00:12.233 --> 00:00:13.158
 This week asks:
 
 6
-00:00:13.571 --> 00:00:17.669
+00:00:13.158 --> 00:00:17.596
 what can you accept from an agent that worked while nobody was watching?
 
 7
-00:00:17.669 --> 00:00:22.109
+00:00:17.596 --> 00:00:22.404
 Start from one question: could the agent have rewritten the check that passed?
 
 8
-00:00:23.150 --> 00:00:24.182
+00:00:23.450 --> 00:00:24.564
 Here is the fix.
 
 9
-00:00:24.182 --> 00:00:27.730
+00:00:24.564 --> 00:00:28.395
 A duration summary fails when a build is still running,
 
 10
-00:00:27.730 --> 00:00:29.601
+00:00:28.395 --> 00:00:30.415
 because its duration is None.
 
 11
-00:00:29.601 --> 00:00:34.052
+00:00:30.415 --> 00:00:35.221
 The request: keep only completed durations when computing the median.
 
 12
-00:00:34.400 --> 00:00:36.210
+00:00:35.567 --> 00:00:37.645
 Three cases pin it down.
 
 13
-00:00:36.210 --> 00:00:38.171
+00:00:37.645 --> 00:00:39.896
 Sixty and None give sixty.
 
 14
-00:00:38.171 --> 00:00:41.112
+00:00:39.896 --> 00:00:43.273
 Sixty, one twenty and None give ninety.
 
 15
-00:00:41.112 --> 00:00:42.771
+00:00:43.273 --> 00:00:45.178
 None alone gives None.
 
 16
-00:00:43.117 --> 00:00:45.884
+00:00:45.517 --> 00:00:48.331
 The request also says what must not move.
 
 17
-00:00:45.884 --> 00:00:48.381
+00:00:48.331 --> 00:00:50.870
 The duration display stays unchanged.
 
 18
-00:00:48.381 --> 00:00:52.768
+00:00:50.870 --> 00:00:55.331
 Change only the summary implementation, and add regression tests.
 
 19
-00:00:52.768 --> 00:00:55.400
+00:00:55.331 --> 00:00:58.008
 Do not edit existing test expectations.
 
 20
-00:00:55.750 --> 00:00:57.527
+00:00:58.350 --> 00:01:00.051
 And it says how to finish.
 
 21
-00:00:57.527 --> 00:01:00.671
+00:01:00.051 --> 00:01:03.061
 If another change is needed, stop and explain.
 
 22
-00:01:00.671 --> 00:01:05.045
+00:01:03.061 --> 00:01:07.249
 Return a diff, the check evidence, and the unresolved questions.
 
 23
-00:01:05.045 --> 00:01:08.463
+00:01:07.249 --> 00:01:10.521
 Do not push, open a remote pull request, or merge.
 
 24
-00:01:09.500 --> 00:01:13.352
+00:01:11.566 --> 00:01:15.110
 Now run that request twice, from the same base revision.
 
 25
-00:01:13.352 --> 00:01:17.685
+00:01:15.110 --> 00:01:19.097
 In a foreground session, you stay present to answer a question.
 
 26
-00:01:18.033 --> 00:01:19.554
+00:01:19.433 --> 00:01:20.928
 In an unattended session,
 
 27
-00:01:19.554 --> 00:01:23.144
+00:01:20.928 --> 00:01:24.458
 the same agent receives the same base and the same request.
 
 28
-00:01:23.144 --> 00:01:27.890
+00:01:24.458 --> 00:01:29.124
 Then it works without answers, until it returns or reaches its stop condition.
 
 29
-00:01:28.233 --> 00:01:30.324
+00:01:29.466 --> 00:01:31.452
 Unattended means a later handoff.
 
 30
-00:01:30.324 --> 00:01:34.253
+00:01:31.452 --> 00:01:35.182
 It can happen in a local directory, with an ordinary terminal;
 
 31
-00:01:34.253 --> 00:01:36.535
+00:01:35.182 --> 00:01:37.349
 it does not require a cloud service.
 
 32
-00:01:36.535 --> 00:01:39.576
+00:01:37.349 --> 00:01:40.237
 And neither mode changes what counts as correct.
 
 33
-00:01:40.617 --> 00:01:43.672
+00:01:41.283 --> 00:01:44.742
 The notes work one possible pair of results by hand.
 
 34
-00:01:43.672 --> 00:01:47.374
+00:01:44.742 --> 00:01:48.934
 They are course-written predictions, not captured model output.
 
 35
-00:01:47.717 --> 00:01:53.118
+00:01:49.283 --> 00:01:54.025
 The foreground candidate skips None in the summary, and preserves the display.
 
 36
-00:01:53.118 --> 00:01:55.611
+00:01:54.025 --> 00:01:56.214
 Its report says: summary cases pass.
 
 37
-00:01:55.950 --> 00:01:59.195
+00:01:56.549 --> 00:01:59.662
 The unattended candidate skips None too.
 
 38
-00:01:59.195 --> 00:02:05.685
+00:01:59.662 --> 00:02:05.886
 But it also changes the display to 3:05, and rewrites the display test to match.
 
 39
-00:02:05.685 --> 00:02:08.849
+00:02:05.886 --> 00:02:08.920
 Its report says: all branch tests pass.
 
 40
-00:02:09.183 --> 00:02:11.675
+00:02:09.266 --> 00:02:11.696
 Before you verify anything, predict.
 
 41
-00:02:11.675 --> 00:02:14.443
+00:02:11.696 --> 00:02:14.397
 What can a green branch check establish?
 
 42
-00:02:15.483 --> 00:02:16.836
+00:02:15.432 --> 00:02:16.896
 Now verify, by hand.
 
 43
-00:02:16.836 --> 00:02:20.489
+00:02:16.896 --> 00:02:20.847
 Trace the three summary inputs through each candidate.
 
 44
-00:02:20.489 --> 00:02:22.112
+00:02:20.847 --> 00:02:22.603
 Both could satisfy them.
 
 45
-00:02:22.450 --> 00:02:25.455
+00:02:22.949 --> 00:02:25.789
 So the summary cases cannot tell the two apart.
 
 46
-00:02:25.455 --> 00:02:27.117
+00:02:25.789 --> 00:02:27.360
 Which unchanged input can?
 
 47
-00:02:28.165 --> 00:02:32.031
+00:02:28.399 --> 00:02:32.448
 Compare the unchanged display requirement with each returned diff.
 
 48
-00:02:32.031 --> 00:02:34.667
+00:02:32.448 --> 00:02:35.210
 The foreground diff leaves the display alone.
 
 49
-00:02:35.015 --> 00:02:40.042
+00:02:35.549 --> 00:02:40.720
 The unattended diff changes the display, and changes the display test with it.
 
 50
-00:02:40.382 --> 00:02:43.110
+00:02:41.065 --> 00:02:43.499
 So take the display test from the base,
 
 51
-00:02:43.110 --> 00:02:46.537
+00:02:43.499 --> 00:02:46.556
 and use it against the unattended implementation.
 
 52
-00:02:46.537 --> 00:02:51.783
+00:02:46.556 --> 00:02:51.236
 That check would fail: the result, 3:05, is not what the base test expects.
 
 53
-00:02:52.132 --> 00:02:55.847
+00:02:51.582 --> 00:02:55.433
 The branch's green report does not resolve that disagreement.
 
 54
-00:02:56.882 --> 00:02:58.679
+00:02:56.482 --> 00:02:58.237
 So why was the branch green?
 
 55
-00:02:58.679 --> 00:03:00.604
+00:02:58.237 --> 00:03:00.117
 The agent changed the display,
 
 56
-00:03:00.604 --> 00:03:04.904
+00:03:00.117 --> 00:03:04.316
 and in the same branch it rewrote the test that guards the display.
 
 57
-00:03:04.904 --> 00:03:07.215
+00:03:04.316 --> 00:03:06.573
 Its change agrees with its own test.
 
 58
-00:03:07.549 --> 00:03:09.999
+00:03:06.915 --> 00:03:09.346
 A file allowlist does not catch this.
 
 59
-00:03:09.999 --> 00:03:14.702
+00:03:09.346 --> 00:03:14.012
 The request asked for regression tests, so the test file may be edited.
 
 60
-00:03:14.702 --> 00:03:17.882
+00:03:14.012 --> 00:03:17.166
 That does not permit every edit within the file.
 
 61
-00:03:18.215 --> 00:03:21.760
+00:03:17.515 --> 00:03:21.085
 So read the hunks, and map each one to the request.
 
 62
-00:03:21.760 --> 00:03:25.305
+00:03:21.085 --> 00:03:24.656
 Added regression tests: the request asked for them.
 
 63
-00:03:25.305 --> 00:03:28.432
+00:03:24.656 --> 00:03:27.806
 A rewritten expectation: the request said no.
 
 64
-00:03:29.482 --> 00:03:30.598
+00:03:28.848 --> 00:03:29.919
 Here is the rule.
 
 65
-00:03:30.598 --> 00:03:33.554
+00:03:29.919 --> 00:03:32.752
 Keep the acceptance cases under your control,
 
 66
-00:03:33.554 --> 00:03:36.378
+00:03:32.752 --> 00:03:35.459
 outside the directories the agent may edit.
 
 67
-00:03:36.715 --> 00:03:40.093
+00:03:35.798 --> 00:03:38.884
 Then run them yourself, against the returned revision.
 
 68
-00:03:40.093 --> 00:03:44.784
+00:03:38.884 --> 00:03:43.169
 A test the agent rewrote does not count as independent acceptance evidence.
 
 69
-00:03:45.132 --> 00:03:48.610
+00:03:43.515 --> 00:03:46.951
 By that rule, the unattended candidate needs revision.
 
 70
-00:03:48.610 --> 00:03:52.796
+00:03:46.951 --> 00:03:51.088
 And read the pair carefully: it is one possible pair of outcomes,
 
 71
-00:03:52.796 --> 00:03:55.952
+00:03:51.088 --> 00:03:54.206
 not a claim that one mode always performs better.
 
 72
-00:03:56.998 --> 00:04:00.211
+00:03:55.248 --> 00:03:58.447
 In practice, this starts before the agent does.
 
 73
-00:04:00.211 --> 00:04:05.612
+00:03:58.447 --> 00:04:03.825
 Preserve a reproducer that fails on the base, and the relevant existing checks.
 
 74
-00:04:05.612 --> 00:04:08.620
+00:04:03.825 --> 00:04:06.819
 And verify that the check notices the fault.
 
 75
-00:04:08.965 --> 00:04:13.165
+00:04:07.165 --> 00:04:11.027
 After each run, look at the status, read the diff against the base,
 
 76
-00:04:13.165 --> 00:04:17.113
+00:04:11.027 --> 00:04:14.658
 and run the exact verification command recorded in the request.
 
 77
-00:04:17.113 --> 00:04:19.809
+00:04:14.658 --> 00:04:17.136
 Review untracked files as well as the diff.
 
 78
-00:04:20.148 --> 00:04:23.953
+00:04:17.482 --> 00:04:21.287
 Keep the command, the candidate revision, the exit status,
 
 79
-00:04:23.953 --> 00:04:25.659
+00:04:21.287 --> 00:04:22.993
 and the meaningful output.
 
 80
-00:04:25.659 --> 00:04:27.890
+00:04:22.993 --> 00:04:25.223
 Treat an absent result as unknown.
 
 81
-00:04:27.890 --> 00:04:31.039
+00:04:25.223 --> 00:04:28.373
 And confirm that the unchanged checks still run.
 
 82
-00:04:32.082 --> 00:04:35.000
+00:04:29.415 --> 00:04:32.028
 Now take the person out of more of the path.
 
 83
-00:04:35.000 --> 00:04:39.245
+00:04:32.028 --> 00:04:35.828
 The notes draft a controller, a design you can simulate locally.
 
 84
-00:04:39.245 --> 00:04:44.220
+00:04:35.828 --> 00:04:40.282
 It reads an authorized issue, records the base and the acceptance criteria,
 
 85
-00:04:44.220 --> 00:04:45.944
+00:04:40.282 --> 00:04:41.826
 and creates a task branch.
 
 86
-00:04:46.282 --> 00:04:51.442
+00:04:42.165 --> 00:04:47.631
 It runs an agent in an isolated workspace, and a candidate revision comes back.
 
 87
-00:04:51.442 --> 00:04:56.603
+00:04:47.631 --> 00:04:53.096
 The controller checks that result, and only then prepares a draft pull request.
 
 88
-00:04:56.948 --> 00:05:01.446
+00:04:53.432 --> 00:04:57.336
 A failure, missing evidence or a timeout goes the other way: stop,
 
 89
-00:05:01.446 --> 00:05:03.354
+00:04:57.336 --> 00:04:58.992
 and retain a failure reason.
 
 90
-00:05:03.354 --> 00:05:08.941
+00:04:58.992 --> 00:05:03.843
 After the draft come independent review, integration checks, and a merge decision.
 
 91
-00:05:09.981 --> 00:05:13.418
+00:05:04.882 --> 00:05:08.413
 Writing "please run tests" in the prompt is a request.
 
 92
-00:05:13.765 --> 00:05:19.710
+00:05:08.748 --> 00:05:13.941
 A controller that refuses the next stage, when a required check is missing or fails,
 
 93
-00:05:19.710 --> 00:05:20.417
+00:05:13.941 --> 00:05:14.559
 is a gate.
 
 94
-00:05:20.765 --> 00:05:24.991
+00:05:14.898 --> 00:05:20.149
 And the word "pass", in the agent's own report, is not the controller's result.
 
 95
-00:05:26.031 --> 00:05:29.947
+00:05:21.198 --> 00:05:24.872
 The notes give every stage a gate, and say who controls it.
 
 96
-00:05:29.947 --> 00:05:34.726
+00:05:24.872 --> 00:05:29.355
 At the start, the controller verifies the authorization, the repository,
 
 97
-00:05:34.726 --> 00:05:37.182
+00:05:29.355 --> 00:05:31.658
 the bounded task and the pinned base.
 
 98
-00:05:37.182 --> 00:05:41.894
+00:05:31.658 --> 00:05:36.079
 During the run, execution controls enforce permissions and stop limits,
 
 99
-00:05:41.894 --> 00:05:44.549
+00:05:36.079 --> 00:05:38.569
 with no unattended permission expansion.
 
 100
-00:05:44.898 --> 00:05:49.175
+00:05:38.915 --> 00:05:43.938
 At the return, the controller collects the actual diff and revision.
 
 101
-00:05:49.175 --> 00:05:52.572
+00:05:43.938 --> 00:05:47.926
 It detects forbidden changes, and incomplete evidence.
 
 102
-00:05:52.915 --> 00:05:53.752
+00:05:48.265 --> 00:05:49.251
 At the check,
 
 103
-00:05:53.752 --> 00:05:59.160
+00:05:49.251 --> 00:05:55.622
 checks kept outside the candidate's writable scope run against that exact candidate.
 
 104
-00:05:59.160 --> 00:06:01.413
+00:05:55.622 --> 00:05:58.276
 Failures and missing results block.
 
 105
-00:06:01.748 --> 00:06:06.385
+00:05:58.615 --> 00:06:03.018
 Only a passing candidate gains the narrow ability to open a pull request,
 
 106
-00:06:06.385 --> 00:06:09.116
+00:06:03.018 --> 00:06:05.612
 and opening does not grant merge authority.
 
 107
-00:06:09.116 --> 00:06:12.292
+00:06:05.612 --> 00:06:08.627
 Before the merge decision come independent review,
 
 108
-00:06:12.292 --> 00:06:16.040
+00:06:08.627 --> 00:06:12.186
 and the required checks on the combined, current candidate.
 
 109
-00:06:17.081 --> 00:06:19.165
+00:06:13.231 --> 00:06:15.408
 Bring back the display change.
 
 110
-00:06:19.165 --> 00:06:23.403
+00:06:15.408 --> 00:06:19.833
 A rewritten test on the branch is a request-shaped safeguard:
 
 111
-00:06:23.403 --> 00:06:25.557
+00:06:19.833 --> 00:06:22.082
 the agent can redefine success.
 
 112
-00:06:25.898 --> 00:06:30.832
+00:06:22.431 --> 00:06:26.784
 Keeping the base test outside its writable scope, and requiring its result,
 
 113
-00:06:30.832 --> 00:06:32.214
+00:06:26.784 --> 00:06:28.002
 blocks the candidate.
 
 114
-00:06:32.548 --> 00:06:34.274
+00:06:28.348 --> 00:06:30.002
 Review still has work to do.
 
 115
-00:06:34.274 --> 00:06:38.527
+00:06:30.002 --> 00:06:34.079
 It checks whether the contract and the test cover the right behavior.
 
 116
-00:06:38.865 --> 00:06:44.340
+00:06:34.415 --> 00:06:39.461
 Then try three failures on your own design: a forbidden diff, an omitted check,
 
 117
-00:06:44.340 --> 00:06:45.656
+00:06:39.461 --> 00:06:40.674
 and a changed base.
 
 118
-00:06:45.656 --> 00:06:50.161
+00:06:40.674 --> 00:06:44.826
 For each one, name the component that prevents it from advancing.
 
 119
-00:06:51.198 --> 00:06:54.636
+00:06:45.864 --> 00:06:49.080
 The same care applies when two agents work at once.
 
 120
-00:06:54.636 --> 00:06:59.356
+00:06:49.080 --> 00:06:53.494
 Suppose one changes the summary, while another adds the summary tests.
 
 121
-00:06:59.356 --> 00:07:04.817
+00:06:53.494 --> 00:06:58.601
 Give each a separate worktree and branch from the same base, a bounded file list,
 
 122
-00:07:04.817 --> 00:07:06.232
+00:06:58.601 --> 00:06:59.925
 and a stop condition.
 
 123
-00:07:06.232 --> 00:07:08.659
+00:06:59.925 --> 00:07:02.195
 Give neither the authority to merge.
 
 124
-00:07:08.998 --> 00:07:11.803
+00:07:02.531 --> 00:07:05.570
 To verify, inspect the diff in each branch.
 
 125
-00:07:11.803 --> 00:07:13.956
+00:07:05.570 --> 00:07:07.902
 Then test the combined candidate.
 
 126
-00:07:14.298 --> 00:07:18.665
+00:07:08.248 --> 00:07:12.591
 Suppose the implementation returns None when no build has completed,
 
 127
-00:07:18.665 --> 00:07:20.656
+00:07:12.591 --> 00:07:14.572
 but the new tests require zero.
 
 128
-00:07:20.656 --> 00:07:23.354
+00:07:14.572 --> 00:07:17.255
 Isolation has prevented an edit collision.
 
 129
-00:07:23.354 --> 00:07:25.409
+00:07:17.255 --> 00:07:19.299
 It has left a contract conflict.
 
 130
-00:07:25.748 --> 00:07:30.404
+00:07:19.648 --> 00:07:24.539
 Resolve that conflict from the request, then rerun the checks after integration.
 
 131
-00:07:31.448 --> 00:07:36.850
+00:07:25.581 --> 00:07:31.033
 So parallel work has three different boundaries, and you inspect each one.
 
 132
-00:07:36.850 --> 00:07:42.470
+00:07:31.033 --> 00:07:36.706
 First, the working directory and branch: separate worktrees, a recorded base,
 
 133
-00:07:42.470 --> 00:07:45.171
+00:07:36.706 --> 00:07:39.432
 each diff, and any uncommitted files.
 
 134
-00:07:45.515 --> 00:07:50.086
+00:07:39.781 --> 00:07:44.178
 Second, permissions and execution: the actual tool permissions,
 
 135
-00:07:50.086 --> 00:07:52.263
+00:07:44.178 --> 00:07:46.271
 and the execution environment.
 
 136
-00:07:52.263 --> 00:07:55.383
+00:07:46.271 --> 00:07:49.272
 A worktree alone is not a security sandbox.
 
 137
-00:07:55.731 --> 00:08:00.441
+00:07:49.614 --> 00:07:54.669
 Third, shared assumptions: one contract, non-overlapping responsibilities,
 
 138
-00:08:00.441 --> 00:08:02.860
+00:07:54.669 --> 00:07:57.265
 and a check on the combined candidate.
 
 139
-00:08:03.198 --> 00:08:05.188
+00:07:57.614 --> 00:07:59.515
 One caution on parallel work.
 
 140
-00:08:05.188 --> 00:08:10.815
+00:07:59.515 --> 00:08:04.889
 It helps only when useful independent work outweighs coordination and integration.
 
 141
-00:08:10.815 --> 00:08:14.727
+00:08:04.889 --> 00:08:08.625
 For a tiny fix, sequential runs may be easier to inspect.
 
 142
-00:08:15.764 --> 00:08:19.216
+00:08:09.664 --> 00:08:12.667
 One more thing can change while nobody is watching:
 
 143
-00:08:19.216 --> 00:08:22.600
+00:08:12.667 --> 00:08:15.611
 the inputs your candidate will be integrated with.
 
 144
-00:08:22.600 --> 00:08:25.443
+00:08:15.611 --> 00:08:18.084
 So before you accept an unattended result,
 
 145
-00:08:25.443 --> 00:08:28.421
+00:08:18.084 --> 00:08:20.675
 test against the current integration inputs.
 
 146
-00:08:28.421 --> 00:08:31.670
+00:08:20.675 --> 00:08:23.501
 Earlier success applies to the earlier snapshot,
 
 147
-00:08:31.670 --> 00:08:34.445
+00:08:23.501 --> 00:08:25.915
 and changed inputs require another check.
 
 148
-00:08:34.781 --> 00:08:37.062
+00:08:26.264 --> 00:08:28.057
 The same goes for two green branches.
 
 149
-00:08:37.062 --> 00:08:40.145
+00:08:28.057 --> 00:08:30.480
 If the evidence names only the separate revisions,
 
 150
-00:08:40.145 --> 00:08:42.734
+00:08:30.480 --> 00:08:32.515
 run the checks on the integrated revision.
 
 151
-00:08:43.781 --> 00:08:48.175
+00:08:33.564 --> 00:08:37.910
 So, when nobody was watching, the report is not evidence by itself.
 
 152
-00:08:48.175 --> 00:08:53.290
+00:08:37.910 --> 00:08:42.969
 Mark each handoff claim confirmed, refuted, or cannot tell, with the evidence,
 
 153
-00:08:53.290 --> 00:08:56.044
+00:08:42.969 --> 00:08:45.694
 or the missing check that would decide it.
 
 154
-00:08:56.044 --> 00:09:00.372
+00:08:45.694 --> 00:08:49.975
 A screenshot of a green report cannot substitute for those checks.
 
 155
-00:09:00.714 --> 00:09:05.780
+00:08:50.314 --> 00:08:55.122
 Then write one decision: accept, narrow, recheck or stop, with its evidence.
 
 156
-00:09:05.780 --> 00:09:10.779
+00:08:55.122 --> 00:08:59.867
 And accept an unattended result only on checks the agent could not rewrite,
 
 157
-00:09:10.779 --> 00:09:13.578
+00:08:59.867 --> 00:09:02.525
 run by you, against the returned revision.
 
 158
-00:09:13.914 --> 00:09:15.169
+00:09:02.864 --> 00:09:04.002
 One question to try.
 
 159
-00:09:15.169 --> 00:09:19.750
+00:09:04.002 --> 00:09:08.156
 A pipeline retries, after losing the response from its pull-request step.
 
 160
-00:09:19.750 --> 00:09:23.641
+00:09:08.156 --> 00:09:11.684
 How would you inspect whether the pull request already exists,
 
 161
-00:09:23.641 --> 00:09:25.398
+00:09:11.684 --> 00:09:13.277
 before creating another one?
 
 162
-00:09:25.398 --> 00:09:29.100
+00:09:13.277 --> 00:09:16.635
 And what evidence ties it to this task, and this candidate?

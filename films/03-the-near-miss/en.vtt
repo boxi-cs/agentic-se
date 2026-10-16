@@ -1,545 +1,545 @@
 WEBVTT
 
 1
-00:00:00.000 --> 00:00:02.430
+00:00:00.000 --> 00:00:03.683
 Here is the description of one skill.
 
 2
-00:00:02.430 --> 00:00:04.203
+00:00:03.683 --> 00:00:06.371
 And here are four requests.
 
 3
-00:00:04.550 --> 00:00:06.730
+00:00:06.717 --> 00:00:08.571
 Three of them should trigger the skill.
 
 4
-00:00:06.730 --> 00:00:08.184
+00:00:08.571 --> 00:00:09.808
 One should leave it quiet.
 
 5
-00:00:08.533 --> 00:00:09.004
+00:00:10.150 --> 00:00:10.658
 Which one?
 
 6
-00:00:09.004 --> 00:00:11.029
+00:00:10.658 --> 00:00:12.841
 And how would you show that you were right?
 
 7
-00:00:12.067 --> 00:00:13.702
+00:00:13.883 --> 00:00:15.138
 Start without an agent.
 
 8
-00:00:13.702 --> 00:00:17.541
+00:00:15.138 --> 00:00:18.083
 Suppose a project has a release check that you repeat.
 
 9
-00:00:17.541 --> 00:00:21.308
+00:00:18.083 --> 00:00:20.974
 Before you write a skill for it, run it once by hand.
 
 10
-00:00:21.650 --> 00:00:22.631
+00:00:21.317 --> 00:00:22.288
 Three commands.
 
 11
-00:00:22.631 --> 00:00:26.292
+00:00:22.288 --> 00:00:25.915
 The first tells you whether unrelated edits are present.
 
 12
-00:00:26.292 --> 00:00:28.711
+00:00:25.915 --> 00:00:28.311
 The second catches whitespace errors.
 
 13
-00:00:28.711 --> 00:00:30.868
+00:00:28.311 --> 00:00:30.448
 The third is the project's check.
 
 14
-00:00:31.217 --> 00:00:33.709
+00:00:30.783 --> 00:00:33.249
 Note the revision, and keep the output.
 
 15
-00:00:33.709 --> 00:00:37.032
+00:00:33.249 --> 00:00:36.537
 If the check fails, write the failure down and stop.
 
 16
-00:00:37.032 --> 00:00:38.949
+00:00:36.537 --> 00:00:38.434
 Do not hide it behind a skill.
 
 17
-00:00:39.983 --> 00:00:41.616
+00:00:39.483 --> 00:00:41.147
 Now encode the procedure.
 
 18
-00:00:41.616 --> 00:00:44.685
+00:00:41.147 --> 00:00:44.275
 A skill is a directory with a skill file in it.
 
 19
-00:00:44.685 --> 00:00:48.865
+00:00:44.275 --> 00:00:48.534
 The front matter names the skill, and describes when it applies.
 
 20
-00:00:49.200 --> 00:00:51.368
+00:00:48.883 --> 00:00:50.954
 The body explains three things.
 
 21
-00:00:51.368 --> 00:00:53.047
+00:00:50.954 --> 00:00:52.558
 Steps name the commands.
 
 22
-00:00:53.047 --> 00:00:56.194
+00:00:52.558 --> 00:00:55.565
 Judgement states at least one stop or branch.
 
 23
-00:00:56.194 --> 00:01:00.601
+00:00:55.565 --> 00:00:59.774
 Verification names the exact check, and the evidence it leaves.
 
 24
-00:01:01.649 --> 00:01:05.791
+00:01:00.816 --> 00:01:05.002
 Set the skill beside your hand run, and compare them line by line.
 
 25
-00:01:05.791 --> 00:01:06.920
+00:01:05.002 --> 00:01:06.143
 Which step is new?
 
 26
-00:01:06.920 --> 00:01:08.677
+00:01:06.143 --> 00:01:07.919
 Which evidence is preserved?
 
 27
-00:01:08.677 --> 00:01:12.505
+00:01:07.919 --> 00:01:11.787
 And which decision would be impossible from the output alone?
 
 28
-00:01:12.849 --> 00:01:15.721
+00:01:12.133 --> 00:01:15.409
 One thing the skill does not add is permission.
 
 29
-00:01:15.721 --> 00:01:18.960
+00:01:15.409 --> 00:01:19.104
 It is a workflow description, not a permission grant.
 
 30
-00:01:18.960 --> 00:01:20.488
+00:01:19.104 --> 00:01:20.847
 It can suggest a command.
 
 31
-00:01:20.488 --> 00:01:25.377
+00:01:20.847 --> 00:01:26.424
 The shell, the repository's policy and your review still decide whether it runs.
 
 32
-00:01:26.416 --> 00:01:29.553
+00:01:27.466 --> 00:01:30.860
 Which part of the file is on hand when a request arrives?
 
 33
-00:01:29.553 --> 00:01:32.194
+00:01:30.860 --> 00:01:33.719
 Only the metadata: the name and the description.
 
 34
-00:01:32.194 --> 00:01:34.891
+00:01:33.719 --> 00:01:36.637
 They are available before the skill is activated.
 
 35
-00:01:35.232 --> 00:01:40.322
+00:01:36.983 --> 00:01:42.187
 The body is loaded after selection, and bundled resources only when they are needed.
 
 36
-00:01:40.322 --> 00:01:42.988
+00:01:42.187 --> 00:01:44.914
 So the description is the selection surface.
 
 37
-00:01:43.332 --> 00:01:47.605
+00:01:45.249 --> 00:01:50.099
 A long explanation there makes unrelated requests look like matches.
 
 38
-00:01:47.605 --> 00:01:50.496
+00:01:50.099 --> 00:01:53.380
 A vague description makes the skill invisible.
 
 39
-00:01:50.832 --> 00:01:53.751
+00:01:53.716 --> 00:01:56.653
 So say what the skill does, and when it applies.
 
 40
-00:01:53.751 --> 00:01:56.486
+00:01:56.653 --> 00:01:59.407
 Then treat selection as a claim, and test it.
 
 41
-00:01:57.532 --> 00:02:02.565
+00:02:00.449 --> 00:02:05.279
 The course kit has a complete example: a skill for researching a codebase.
 
 42
-00:02:02.565 --> 00:02:04.334
+00:02:05.279 --> 00:02:06.976
 Read only its description.
 
 43
-00:02:04.334 --> 00:02:08.687
+00:02:06.976 --> 00:02:11.152
 Its job is to record existing handlers, tests and request paths,
 
 44
-00:02:08.687 --> 00:02:10.183
+00:02:11.152 --> 00:02:12.588
 with source locations,
 
 45
-00:02:10.183 --> 00:02:15.760
+00:02:12.588 --> 00:02:17.940
 when you need a fact-only map of an unfamiliar codebase before proposing a change.
 
 46
-00:02:16.099 --> 00:02:19.479
+00:02:18.282 --> 00:02:22.108
 Now predict, before you look at its trigger record.
 
 47
-00:02:19.479 --> 00:02:23.589
+00:02:22.108 --> 00:02:26.758
 Trace this request, and cite the files and lines you observed.
 
 48
-00:02:23.589 --> 00:02:26.571
+00:02:26.758 --> 00:02:30.133
 Trigger: it asks for a read-only path record.
 
 49
-00:02:26.916 --> 00:02:31.258
+00:02:30.482 --> 00:02:34.648
 Tell me what the handlers and tests do, before we discuss edits.
 
 50
-00:02:31.258 --> 00:02:34.719
+00:02:34.648 --> 00:02:37.967
 Trigger: it asks for current facts before a change.
 
 51
-00:02:34.719 --> 00:02:38.926
+00:02:37.967 --> 00:02:42.003
 Build a read-only call-path record for this unfamiliar module.
 
 52
-00:02:38.926 --> 00:02:43.065
+00:02:42.003 --> 00:02:45.973
 Trigger: it names the same bounded research job in new words.
 
 53
-00:02:43.399 --> 00:02:47.726
+00:02:46.316 --> 00:02:50.288
 And the fourth: implement the change, and add a regression test.
 
 54
-00:02:47.726 --> 00:02:48.470
+00:02:50.288 --> 00:02:50.971
 Stay quiet.
 
 55
-00:02:48.470 --> 00:02:50.295
+00:02:50.971 --> 00:02:52.647
 It asks for implementation.
 
 56
-00:02:51.331 --> 00:02:53.729
+00:02:53.681 --> 00:02:56.051
 That fourth request is the near miss.
 
 57
-00:02:53.729 --> 00:02:58.069
+00:02:56.051 --> 00:03:00.343
 It is close: the description ends just before a change is proposed,
 
 58
-00:02:58.069 --> 00:03:00.596
+00:03:00.343 --> 00:03:02.841
 and this request asks to implement one.
 
 59
-00:03:00.596 --> 00:03:04.613
+00:03:02.841 --> 00:03:06.812
 But the skill is for a fact-only map, so it should stay quiet.
 
 60
-00:03:04.948 --> 00:03:08.210
+00:03:07.148 --> 00:03:10.506
 And if it does stay quiet, that is not a failure.
 
 61
-00:03:08.210 --> 00:03:09.941
+00:03:10.506 --> 00:03:12.287
 It is the expected result.
 
 62
-00:03:09.941 --> 00:03:13.470
+00:03:12.287 --> 00:03:15.919
 Keep the prediction and the observation side by side.
 
 63
-00:03:13.815 --> 00:03:16.596
+00:03:16.265 --> 00:03:19.056
 The three that should trigger have a rule too.
 
 64
-00:03:16.596 --> 00:03:19.378
+00:03:19.056 --> 00:03:21.847
 They test the description in natural language.
 
 65
-00:03:19.378 --> 00:03:23.672
+00:03:21.847 --> 00:03:26.156
 A request that just names the skill does not count as one of the three.
 
 66
-00:03:24.714 --> 00:03:26.432
+00:03:27.198 --> 00:03:29.354
 Now open the trigger record.
 
 67
-00:03:26.432 --> 00:03:28.334
+00:03:29.354 --> 00:03:31.742
 Every request has three fields.
 
 68
-00:03:28.334 --> 00:03:30.911
+00:03:31.742 --> 00:03:34.976
 Should trigger is the boundary you intend.
 
 69
-00:03:30.911 --> 00:03:33.733
+00:03:34.976 --> 00:03:38.519
 Predicted is what you expected before the run.
 
 70
-00:03:33.733 --> 00:03:36.800
+00:03:38.519 --> 00:03:42.369
 Observed is what the command line actually showed.
 
 71
-00:03:37.148 --> 00:03:40.705
+00:03:42.715 --> 00:03:46.069
 In the kit's record the three agree on every request.
 
 72
-00:03:40.705 --> 00:03:42.316
+00:03:46.069 --> 00:03:47.587
 But read the first line.
 
 73
-00:03:42.316 --> 00:03:45.673
+00:03:47.587 --> 00:03:50.751
 This is a synthetic example written by the course.
 
 74
-00:03:45.673 --> 00:03:48.827
+00:03:50.751 --> 00:03:53.726
 No classmate and no agent session was observed.
 
 75
-00:03:49.164 --> 00:03:53.024
+00:03:54.065 --> 00:03:57.957
 So in this file, observed marks where an observation goes.
 
 76
-00:03:53.024 --> 00:03:53.955
+00:03:57.957 --> 00:03:58.897
 It is not one.
 
 77
-00:03:53.955 --> 00:03:58.812
+00:03:58.897 --> 00:04:03.796
 Label the record synthetic in your notes, and never describe it as a run.
 
 78
-00:03:59.848 --> 00:04:03.060
+00:04:04.831 --> 00:04:07.569
 The course supplies a checker for these two files.
 
 79
-00:04:03.060 --> 00:04:07.557
+00:04:07.569 --> 00:04:11.401
 It checks the front matter and the directory name, the three sections,
 
 80
-00:04:07.557 --> 00:04:10.127
+00:04:11.401 --> 00:04:13.591
 and the record: four to twelve requests,
 
 81
-00:04:10.127 --> 00:04:13.982
+00:04:13.591 --> 00:04:16.876
 at least three that should trigger without naming the skill,
 
 82
-00:04:13.982 --> 00:04:16.102
+00:04:16.876 --> 00:04:18.682
 and at least one that should not.
 
 83
-00:04:16.448 --> 00:04:19.673
+00:04:19.031 --> 00:04:21.924
 Here is our run on the kit's skill and its record.
 
 84
-00:04:19.673 --> 00:04:22.705
+00:04:21.924 --> 00:04:24.642
 Structure checked, and the exit status is zero.
 
 85
-00:04:23.048 --> 00:04:28.120
+00:04:24.981 --> 00:04:30.529
 The lines above it are advice: the words each request shares with the description.
 
 86
-00:04:28.120 --> 00:04:29.975
+00:04:30.529 --> 00:04:32.559
 The near miss shares one word.
 
 87
-00:04:29.975 --> 00:04:30.408
+00:04:32.559 --> 00:04:33.032
 Change.
 
 88
-00:04:31.448 --> 00:04:33.389
+00:04:34.081 --> 00:04:36.361
 But look at what that run passed.
 
 89
-00:04:33.389 --> 00:04:35.918
+00:04:36.361 --> 00:04:39.332
 A record in which nobody observed anything.
 
 90
-00:04:36.264 --> 00:04:38.202
+00:04:39.681 --> 00:04:42.040
 The checker reads files only.
 
 91
-00:04:38.202 --> 00:04:42.812
+00:04:42.040 --> 00:04:47.652
 It runs no model, so it cannot observe which skill an agent selected.
 
 92
-00:04:43.148 --> 00:04:48.167
+00:04:47.998 --> 00:04:53.188
 So a passing structure check is not evidence that an agent selected the skill.
 
 93
-00:04:48.167 --> 00:04:50.741
+00:04:53.188 --> 00:04:55.849
 Do not report its output as a model run.
 
 94
-00:04:51.781 --> 00:04:54.872
+00:04:56.898 --> 00:05:00.181
 The observation has to come from a run of your own.
 
 95
-00:04:54.872 --> 00:04:58.692
+00:05:00.181 --> 00:05:04.237
 Run your coding agent's command line once, on a fixed revision.
 
 96
-00:04:58.692 --> 00:05:02.450
+00:05:04.237 --> 00:05:08.229
 Save the exact request, copied before the run, and the output.
 
 97
-00:05:02.797 --> 00:05:04.753
+00:05:08.565 --> 00:05:10.763
 Set observed to true or false,
 
 98
-00:05:04.753 --> 00:05:09.380
+00:05:10.763 --> 00:05:15.967
 and only from the selection evidence the command line actually reports.
 
 99
-00:05:09.380 --> 00:05:13.877
+00:05:15.967 --> 00:05:21.024
 If it shows no selection, write selection not shown in your run file,
 
 100
-00:05:13.877 --> 00:05:16.288
+00:05:21.024 --> 00:05:23.736
 and explain the basis for each value.
 
 101
-00:05:16.631 --> 00:05:21.976
+00:05:24.081 --> 00:05:28.668
 Save the rest as well: the revision, the exact verification command and its result,
 
 102
-00:05:21.976 --> 00:05:25.132
+00:05:28.668 --> 00:05:31.375
 and the boundary, meaning the files that changed.
 
 103
-00:05:25.132 --> 00:05:28.159
+00:05:31.375 --> 00:05:33.972
 Then another reader can identify what happened.
 
 104
-00:05:28.497 --> 00:05:32.410
+00:05:34.315 --> 00:05:38.095
 And run the agent in a dedicated directory or container,
 
 105
-00:05:32.410 --> 00:05:35.484
+00:05:38.095 --> 00:05:41.065
 with no employer or cloud credentials in it.
 
 106
-00:05:35.484 --> 00:05:40.514
+00:05:41.065 --> 00:05:45.926
 Never put a key in a prompt, a screenshot, a transcript or a repository.
 
 107
-00:05:41.547 --> 00:05:44.322
+00:05:46.965 --> 00:05:50.005
 What if your run disagrees with your prediction?
 
 108
-00:05:44.322 --> 00:05:47.560
+00:05:50.005 --> 00:05:53.552
 A mismatch is evidence about the description's boundary.
 
 109
-00:05:47.560 --> 00:05:50.798
+00:05:53.552 --> 00:05:57.099
 Keep it, describe the description change under revision,
 
 110
-00:05:50.798 --> 00:05:53.169
+00:05:57.099 --> 00:05:59.696
 and recheck only the mismatched requests.
 
 111
-00:05:53.514 --> 00:05:55.468
+00:06:00.031 --> 00:06:01.778
 Suppose the near miss triggered.
 
 112
-00:05:55.468 --> 00:05:59.926
+00:06:01.778 --> 00:06:05.764
 We made that one edit in a copy of the kit's record, and ran the checker.
 
 113
-00:05:59.926 --> 00:06:02.430
+00:06:05.764 --> 00:06:08.002
 One problem: a mismatch needs a revision.
 
 114
-00:06:02.764 --> 00:06:05.579
+00:06:08.348 --> 00:06:11.381
 The tempting repair sets observed back to false.
 
 115
-00:06:05.579 --> 00:06:06.517
+00:06:11.381 --> 00:06:12.392
 We ran that too.
 
 116
-00:06:06.517 --> 00:06:07.573
+00:06:12.392 --> 00:06:13.530
 Structure checked.
 
 117
-00:06:07.573 --> 00:06:10.682
+00:06:13.530 --> 00:06:16.879
 The checker cannot see that the record was rewritten.
 
 118
-00:06:11.030 --> 00:06:14.782
+00:06:17.215 --> 00:06:21.107
 The honest repair keeps the observation and adds a revision,
 
 119
-00:06:14.782 --> 00:06:16.970
+00:06:21.107 --> 00:06:23.377
 with a recheck of that one request.
 
 120
-00:06:16.970 --> 00:06:18.471
+00:06:23.377 --> 00:06:24.934
 Structure checked again.
 
 121
-00:06:18.471 --> 00:06:22.222
+00:06:24.934 --> 00:06:28.826
 Keep both outcomes in your record, the failure and the pass.
 
 122
-00:06:22.564 --> 00:06:23.786
+00:06:29.165 --> 00:06:30.378
 Both records pass.
 
 123
-00:06:23.786 --> 00:06:26.707
+00:06:30.378 --> 00:06:33.278
 Only the run you saved can tell them apart.
 
 124
-00:06:26.707 --> 00:06:30.714
+00:06:33.278 --> 00:06:37.256
 So compare every observed value with your saved transcript.
 
 125
-00:06:31.763 --> 00:06:33.753
+00:06:38.298 --> 00:06:40.291
 So: run the workflow by hand.
 
 126
-00:06:33.753 --> 00:06:35.194
+00:06:40.291 --> 00:06:41.734
 Encode it as a skill.
 
 127
-00:06:35.194 --> 00:06:38.008
+00:06:41.734 --> 00:06:44.552
 Predict three triggers and one near miss.
 
 128
-00:06:38.008 --> 00:06:41.302
+00:06:44.552 --> 00:06:47.851
 Run once, and save what the command line showed.
 
 129
-00:06:41.302 --> 00:06:44.116
+00:06:47.851 --> 00:06:50.669
 Then compare prediction with observation.
 
 130
-00:06:44.463 --> 00:06:48.303
+00:06:51.014 --> 00:06:54.848
 End with one decision line: accept, narrow, recheck or stop,
 
 131
-00:06:48.303 --> 00:06:50.991
+00:06:54.848 --> 00:06:57.532
 followed by the evidence that supports it.
 
 132
-00:06:50.991 --> 00:06:54.063
+00:06:57.532 --> 00:07:00.599
 A passing structure check can go in that record.
 
 133
-00:06:54.063 --> 00:06:57.455
+00:07:00.599 --> 00:07:03.985
 It does not prove that the agent selected your skill.
 
 134
-00:06:57.796 --> 00:06:59.451
+00:07:04.331 --> 00:07:06.077
 One question to take with you.
 
 135
-00:06:59.451 --> 00:07:03.091
+00:07:06.077 --> 00:07:09.919
 What is the nearest request that should stay quiet for your skill?
 
 136
-00:07:03.091 --> 00:07:04.855
+00:07:09.919 --> 00:07:11.782
 Write it down before you submit.
