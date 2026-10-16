@@ -64,7 +64,7 @@ If a film's slug changes, give the new slug its week in `data/films.json` and re
 ```sh
 python3 tools/course_site.py --course ../agentic-se-course    # course/: the course's own English student site
 python3 tools/export_data.py --course ../agentic-se-course --videos ../agentic-se-videos   # data/course.json, data/episodes.json
-~/Documents/agentic-se-videos/.venv/bin/python tools/posters.py --videos ../agentic-se-videos   # films/<slug>/poster.jpg
+../agentic-se-videos/.venv/bin/python tools/posters.py --videos ../agentic-se-videos   # films/<slug>/poster.jpg
 python3 build.py              # index.html, approach/, syllabus/, weeks/NN/, films/<slug>/*.vtt
 python3 -m http.server   # preview at http://127.0.0.1:8000/
 ```
@@ -77,6 +77,6 @@ To preview a course branch before it is merged, pass `--ref <branch>` to `tools/
 `tools/export_data.py`; publish only what was built from `origin/main`.
 
 The films are narrated in English with a synthetic voice made with Google's Gemini text-to-speech
-(`gemini-2.5-pro-tts`, voice Kore). Every example in them is
-course-authored and synthetic. The earlier draft voice (`en_US-ljspeech-high`, trained on the public-domain
-LJ Speech data) is in release `videos-2026-10-13`.
+(`gemini-2.5-pro-tts`, voice Kore). Every example in them is course-authored and synthetic. The earlier
+draft voice (`en_US-ljspeech-high`, trained on the public-domain LJ Speech data) is in release
+`videos-2026-10-13`.
