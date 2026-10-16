@@ -6692,7 +6692,7 @@
 </ul>
 <p>Use the mature coding-agent seat supplied for the course. Do not run an unknown generated command on a credential-bearing host. Treat the capture log like a file that holds credentials until you have checked it, as the <a href="../../site/docs/week0/setup.en.html#request-logs">setup page</a> describes.</p>
 <h2 id="record-the-requests">Record the requests</h2>
-<p>A transcript shows what the agent chose to display. The request shows what it sent: the system text, the tool definitions and every message so far. The course supplies a small recorder, <code>recorder.py</code> in this folder, to capture it. The recorder uses only Python's standard library. It runs on your own computer, between your agent and the model service. It listens on 127.0.0.1 only. It passes every request and reply through unchanged and writes the JSON bodies to a log in a directory you name. It never writes headers, because headers are where a key or sign-in token is normally sent. It also replaces strings that look like keys or tokens, such as <code>sk-</code> keys and <code>Bearer</code> tokens, with <code>[REDACTED]</code>. It refuses to write its log inside a Git repository.</p>
+<p>A transcript shows what the agent chose to display. The request shows what it sent: the system text, the tool definitions and every message so far. The course supplies a small recorder, <code>recorder.py</code> in this folder, to capture it. The recorder uses only Python's standard library. It runs on your own computer, between your agent and the model service. It listens on 127.0.0.1 only. It passes every request and reply through and writes the JSON bodies to a log in a directory you name. It never writes headers, because headers are where a key or sign-in token is normally sent. It also replaces strings that look like keys or tokens, such as <code>sk-</code> keys and <code>Bearer</code> tokens, with <code>[REDACTED]</code>. It refuses to write its log inside a Git repository.</p>
 <p><strong>1. Check the recorder.</strong> From the course checkout:</p>
 <div class="highlight"><pre><span></span><code>python<span class="w"> </span>practice/a1/recorder.py<span class="w"> </span>selfcheck
 </code></pre></div>
@@ -6792,8 +6792,8 @@ Tools offered: 3
 <li><strong>Count.</strong> From the capture, record the number of model requests, the size of the system prompt and the tools grouped by kind.</li>
 <li><strong>Verify.</strong> Run the repository check yourself and save its output. Label each behaviour <code>observed</code> or <code>inferred</code>, with an evidence ID.</li>
 <li><strong>Force failure.</strong> Change one safe input or deny one permission so the agent receives a real failure. Do not fabricate an error. Record the recovery or the reason it stopped, and find the request that carried the failure back to the model.</li>
-<li><strong>Revise.</strong> During the assignment week, get feedback from a peer or the teaching team.
-Then correct one label or explanation. In your explanation, record who gave the feedback and
+<li><strong>Revise.</strong> After feedback from a peer or the teaching team during the assignment week,
+correct one label or explanation. In your explanation, record who gave the feedback and
 the date. If no feedback was available, record the date of your own review instead. Then
 finish the decision line.</li>
 </ol>
@@ -6869,7 +6869,7 @@ predicted_time: TODO
 actual_time: TODO
 decision: {action: accept | narrow | recheck | stop, because: [evidence ID(s)], next: TODO}
 </code></pre></div>
-<p>The outline lists the fields of <code>report.json</code> in plain text. <code>starter/report.json</code> holds them as JSON, except <code>prediction</code>, <code>predicted_time</code> and <code>actual_time</code>, which you add yourself. Evidence paths are relative to your submission directory. If a field still contains the word <code>TODO</code>, or text in angle brackets such as <code>&lt;name&gt;</code>, the check treats it as unfilled.</p>
+<p>The outline lists the fields of <code>report.json</code> in plain text. <code>starter/report.json</code> holds them as JSON, except <code>prediction</code>, <code>predicted_time</code> and <code>actual_time</code>, which you add yourself. Evidence paths are relative to your submission directory. The check reads a field that still contains the word <code>TODO</code>, or text in angle brackets such as <code>&lt;name&gt;</code>, as unfilled.</p>
 
 
 

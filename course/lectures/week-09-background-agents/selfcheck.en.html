@@ -6465,8 +6465,8 @@ After your first attempt, compare with the <a href="selfcheck-answers.en.html">p
    Which kind of isolation do you have? Which kind do you still need to inspect?</li>
 <li><strong>LO2:</strong> An issue says “run tests before opening a PR.” The agent skips the test and
    writes PASS in its report. Give a gate that blocks this path and name its controller.</li>
-<li><strong>LO2:</strong> The implementation branch and the test branch each report green. But when no
-   build has completed, one uses <code>None</code> and the other uses <code>0</code>. What must
+<li><strong>LO2:</strong> The implementation branch and the test branch each come back reported as
+   green, but one uses <code>None</code> and the other uses <code>0</code> for no completed builds. What must
    happen before integration?</li>
 <li><strong>LO9:</strong> The foreground run received a clarification; the unattended run did not.
    What can your single comparison support? What must the work record show?</li>
@@ -6475,9 +6475,9 @@ After your first attempt, compare with the <a href="selfcheck-answers.en.html">p
 <li><strong>LO9, recall:</strong> From code review and test verification, why is a file allowlist plus
    a green test insufficient when the same agent can edit existing assertions?</li>
 </ol>
-<p>Changed condition: a pipeline retries after it loses the response to its PR-creation
-step. Before creating another PR, how would you check whether one already exists? What
-evidence ties the existing result to this task and candidate?</p>
+<p>Changed condition: a pipeline retries after losing its PR-creation response. Describe
+how you would inspect whether the PR already exists before creating another one, and
+what evidence ties the existing result to this task and candidate.</p>
 <h2 id="spaced-retrieval-weeks-78">Spaced retrieval: Weeks 7–8</h2>
 <p>R1. You write a regression test before handing a fix to an agent. Which two runs show
 that the test can notice the fault? Why is a passing run on the returned change alone

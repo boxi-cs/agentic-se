@@ -6648,8 +6648,8 @@ the active assertion in <code>test_overlapping_roles</code>. Inspect the tests t
 expectations to fit the candidate would not verify the contract. Delete <code>week06-copy</code> when
 you finish.</p>
 <h3 id="the-model-reviews-you-verify-each-point">The model reviews; you verify each point</h3>
-<p>Now ask a model to review the same diff. Give it the contract and the exact files as
-context. Treat each comment as a hypothesis. A useful comment names a location and a check.
+<p>Now request a review of the same diff with the contract and the exact files in context.
+Treat each comment as a hypothesis. A useful comment names a location and a check.
 A confident tone is not evidence. The model might catch the precedence bug. It might miss it
 after seeing only a happy path (a normal, expected input). Or it might invent a requirement
 to parse strings, although the contract accepts booleans only.</p>
@@ -6670,7 +6670,7 @@ is your verdict on one comment: confirmed, refuted or cannot tell.</p>
 </tr>
 <tr>
 <td>“Parse the string <code>false</code> before deciding access.”</td>
-<td>Refuted: the contract explicitly takes boolean inputs. The claim invents scope.</td>
+<td>Refuted: boolean inputs are the explicit contract; the claim invents scope.</td>
 </tr>
 <tr>
 <td>“A caller in another file relies on inactive owners being allowed.”</td>
@@ -6679,7 +6679,7 @@ is your verdict on one comment: confirmed, refuted or cannot tell.</p>
 </tbody>
 </table>
 <p>If the model only reports the string claim, it misses the actual inactive-owner defect.
-Compare your first finding with every model comment. Keep any finding that the model left out.</p>
+Compare your first finding with every model comment; keep any finding the model omitted.</p>
 <p>The same precedence pattern appears under other names. Here is a guard for archived items,
 written twice:</p>
 <div class="highlight"><pre><span></span><code>allowed = is_owner or is_staff and not archived
@@ -6716,8 +6716,8 @@ relevant tests in context. For every finding, choose exactly one disposition:</p
 </tr>
 </tbody>
 </table>
-<p>Finish with one sentence about the review's coverage. When a reviewer reports no finding,
-it only means that it found nothing in the context it was given. It does not prove that
+<p>Finish with one sentence about the review's coverage: a reviewer reporting no finding
+only says that no finding was reported for the supplied context. It does not prove that
 the change is correct or that an unmentioned requirement is satisfied.</p>
 <h2 id="verification">Verification</h2>
 <p>Use a short, repeatable review loop:</p>

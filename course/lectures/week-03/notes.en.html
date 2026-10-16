@@ -6655,9 +6655,9 @@
 <li>preserve command output, the exact request, the repository revision, and the final
   verification result as evidence.</li>
 </ul>
-<p>A skill describes a workflow. It does not grant permission to do anything. A skill can
-suggest a command, but the normal shell, repository policy, and your review still decide
-whether the command runs. The course wrote the examples on this page. They are not
+<p>The skill is a workflow description, not a permission grant. A skill can
+suggest a command; the normal shell, repository policy, and your review still decide
+whether it runs. The course wrote the examples on this page. They are not
 observations of a real model.</p>
 <h2 id="minimal-example">Minimal example</h2>
 <h3 id="do-the-workflow-once-by-hand">Do the workflow once by hand</h3>
@@ -6667,10 +6667,10 @@ one run without an agent:</p>
 git<span class="w"> </span>diff<span class="w"> </span>--check
 python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>-q
 </code></pre></div>
-<p>The first command shows whether unrelated edits are present. The second catches
-whitespace errors. The last command runs the project's check. Record the revision with
-<code>git rev-parse --short HEAD</code> and keep the output. If the check fails, write down the
-failure and stop. Do not hide it behind a skill.</p>
+<p>The first command tells you whether unrelated edits are present, the second catches
+whitespace errors, and the last command is the project's check. Record the revision with
+<code>git rev-parse --short HEAD</code> and keep the output. If the check fails, write the failure
+and stop; do not hide it behind a skill.</p>
 <h3 id="encode-the-procedure">Encode the procedure</h3>
 <p>A skill is a directory containing a <code>SKILL.md</code>. Its YAML front matter names the skill and
 describes <strong>when</strong> it applies. The body explains steps, judgement, and verification.
@@ -6689,18 +6689,17 @@ name: release-check
 Run <span class="sb">`git diff --check`</span> and <span class="sb">`python -m pytest -q`</span>; include the revision and output.
 </code></pre></div>
 <p>The description is the selection surface: the agent reads it to decide whether to use
-the skill. The format uses progressive disclosure, so the agent loads each part only when
-it needs it. The metadata is available before activation. The body is loaded after the
-agent selects the skill, and bundled resources are loaded only when needed
-(tools/agent-skills; as_of: 2026-10-07; <a href="https://agentskills.io/specification">Source 1</a>). A long explanation in the description makes unrelated requests
-look like matches. A vague description makes the skill invisible. Compare the hand run
-with the skill line by line. Which step is new? Which evidence is preserved? Which
-decision would be impossible from the output alone?</p>
+the skill. The format uses progressive disclosure: metadata is available before
+activation, while the body is loaded after selection and bundled resources only when
+needed (tools/agent-skills; as_of: 2026-10-07; <a href="https://agentskills.io/specification">Source 1</a>). A long explanation in the description makes unrelated
+requests look like matches. A vague description makes the skill invisible. Compare the
+hand run with the skill line by line: which step is new, which evidence is preserved, and
+which decision would be impossible from the output alone?</p>
 <h3 id="test-selection-including-a-near-miss">Test selection, including a near miss</h3>
 <p>The course kit contains three complete examples: <a href="../../capstone/kit/skills/research-codebase/">research-codebase</a>,
 <a href="../../capstone/kit/skills/plan-change/">plan-change</a> and <a href="../../capstone/kit/skills/review-diff/">review-diff</a>.
-First read only the description in each <code>SKILL.md</code>. For <code>research-codebase</code>, make your
-predictions before you look at its trigger record. From the course checkout, print the
+First read only the description in each <code>SKILL.md</code>. For <code>research-codebase</code>, predict
+before you look at its trigger record. From the course checkout, print the
 description and the four requests without their recorded values. Write trigger or quiet
 for each request before you read on:</p>
 <div class="highlight"><pre><span></span><code>grep<span class="w"> </span><span class="s1">'^description:'</span><span class="w"> </span>capstone/kit/skills/research-codebase/SKILL.md
@@ -6738,11 +6737,11 @@ grep<span class="w"> </span><span class="s1">'prompt:'</span><span class="w"> </
 </tr>
 </tbody>
 </table>
-<p>Now open <code>trigger-test.yaml</code>. Each row has three fields: <code>should_trigger</code> (the intended
-boundary), <code>predicted</code> (written before the run) and <code>observed</code>. Compare your prediction
-with <code>observed</code>. If <code>observed</code> differs from <code>should_trigger</code>, keep the row as it is. Do not
-rewrite history. Describe how you changed the description under <code>revision</code>, and recheck
-only those prompts. Sometimes only your prediction was wrong and the boundary held. That
+<p>Now open <code>trigger-test.yaml</code>. Besides <code>id</code> and <code>prompt</code>, each row has <code>should_trigger</code> (the
+intended boundary), <code>predicted</code> (written before the run) and <code>observed</code>. Compare your prediction
+with <code>observed</code>. When <code>observed</code> differs from <code>should_trigger</code>, keep the row instead of
+rewriting history, describe the description change under <code>revision</code>, and recheck only
+those prompts. Sometimes only your prediction was wrong and the boundary held. That
 row stays as it is and needs no <code>revision</code>.</p>
 <p>Then run the checker on the kit example, from the course checkout:</p>
 <div class="highlight"><pre><span></span><code>python<span class="w"> </span>lectures/week-03/fixture/skill_check.py<span class="w"> </span><span class="se">\</span>
@@ -6828,8 +6827,8 @@ repository revision fixed while you compare predictions.</p>
 <li><strong>Check (10 minutes).</strong> Run the structure checker and compare prediction with
    observation. Record one correction or a justified “no change.” The decision line at the
    end of <a href="../../practice/a3/README.en.html">A3</a> must say <strong>accept, narrow, recheck, or
-   stop</strong>. After the decision, give the evidence ID that supports it. This is the <code>id</code> of
-   an <code>evidence</code> entry in A3's <code>report.json</code>. The <a href="activities.en.html#a3-handoff">studio page</a> shows where each studio
+   stop</strong>, followed by the evidence ID that supports it: the <code>id</code> of an <code>evidence</code> entry in
+   A3's <code>report.json</code>. The <a href="activities.en.html#a3-handoff">studio page</a> shows where each studio
    file goes in that record.</li>
 </ol>
 <h2 id="verification">Verification</h2>

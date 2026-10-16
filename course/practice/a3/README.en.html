@@ -6616,7 +6616,7 @@
 <h1 id="a3-turn-a-manual-workflow-into-a-skill">A3: Turn a manual workflow into a skill</h1>
 <h2 id="at-a-glance">At a glance</h2>
 <ul>
-<li><strong>Task:</strong> perform a small workflow by hand and write it down as one skill. Then test its trigger and its near miss. The trigger is a request that should activate the skill. A near miss is a similar request that should not.</li>
+<li><strong>Task:</strong> perform a small workflow by hand and write it down as one skill. Then test its trigger and its near miss. The trigger is the part of the skill's description that says when to use it; test it with a request that should activate the skill. A near miss is a similar request that should not.</li>
 <li><strong>Week:</strong> <a href="../../lectures/week-03/README.en.html">3</a></li>
 <li><strong>Weight:</strong> 2.5 points</li>
 <li><strong>Due:</strong> Sunday 23:59 in the listed week</li>
@@ -6641,8 +6641,8 @@
 <li><strong>Generate.</strong> Ask the agent to draft one <code>SKILL.md</code>. It needs a name, a trigger, a non-trigger (when not to use it), steps, limits and a verification step.</li>
 <li><strong>Verify the trigger.</strong> Send one request that should activate the skill. Inspect the trace or the activation marker that the agent produces.</li>
 <li><strong>Verify the near miss.</strong> Send a similar request that should not activate the skill. Record what you observed. If the skill activates when it should not, record that too.</li>
-<li><strong>Revise.</strong> During the assignment week, get feedback from a peer or the teaching team.
-Then tighten one trigger or limit and rerun both cases. Record who gave the feedback and the
+<li><strong>Revise.</strong> After feedback from a peer or the teaching team during the assignment week,
+tighten one trigger or limit and rerun both cases. Record who gave the feedback and the
 date. If no feedback was available, record the date of your own review instead, and explain
 your choice in the decision line.</li>
 </ol>
@@ -6678,7 +6678,7 @@ predicted_time: TODO
 actual_time: TODO
 decision: {action: accept | narrow | recheck | stop, because: [evidence ID(s)], next: TODO}
 </code></pre></div>
-<p>The outline lists the fields of <code>report.json</code> in plain text. <code>starter/report.json</code> holds them as JSON, except <code>predicted_time</code> and <code>actual_time</code>, which you add yourself. Evidence paths are relative to your submission directory. If a field still contains the word <code>TODO</code>, or text in angle brackets such as <code>&lt;name&gt;</code>, the check treats it as unfilled.</p>
+<p>The outline lists the fields of <code>report.json</code> in plain text. <code>starter/report.json</code> holds them as JSON, except <code>predicted_time</code> and <code>actual_time</code>, which you add yourself. Evidence paths are relative to your submission directory. The check reads a field that still contains the word <code>TODO</code>, or text in angle brackets such as <code>&lt;name&gt;</code>, as unfilled.</p>
 
 
 

@@ -6795,8 +6795,8 @@ function in the same file:</p>
 <div class="highlight"><pre><span></span><code>{"exercise": "course-synthetic", "implementation": "repaired", "mode": "unit", "target_checks_passed": true}
 </code></pre></div>
 <p>Red on the candidate, green on the repair, with the tests untouched in between. The order
-matters. First you settle the intended behaviour and review the tests. Then a person or an
-agent proposes code. Then an actual run judges the proposal. The rest of the page asks a
+matters: you fix the intended behaviour and review the tests first, a person or an agent
+proposes code, and an actual run judges the proposal. The rest of the page asks a
 harder question about that green result: which faults would these tests have missed?</p>
 <h3 id="a-surviving-mutant-is-a-gap-in-the-tests">A surviving mutant is a gap in the tests</h3>
 <p>A <strong>mutant</strong> is a copy of a correct implementation with one small, deliberate fault. Run
@@ -6837,8 +6837,8 @@ value and one rejected string.</p>
     <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">"Expected ValueError for 'x'"</span><span class="p">)</span>
 </code></pre></div>
 <p>It reads well and passes on the repaired parser. <strong>Verify</strong> it by asking what it would
-notice. The <code>survivors</code> mode first checks that the suite passes on the unmutated original.
-Then it runs the suite against each mutant. Then it adds one test at a time:</p>
+notice. The <code>survivors</code> mode first requires the suite to pass on the unmutated original,
+then runs it against each mutant, then adds one test at a time:</p>
 <div class="highlight"><pre><span></span><code>python<span class="w"> </span>lectures/week-07/fixture/demo.py<span class="w"> </span>survivors
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>{"suite": "example_checks", "killed": 1, "total": 3, "mutants": {"all_zero": "killed", "nine_to_zero": "survived", "accept_trailing": "survived"}}
@@ -6911,9 +6911,9 @@ candidate:</p>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>{"exercise": "course-synthetic", "implementation": "candidate", "mode": "property", "target_checks_passed": true}
 </code></pre></div>
-<p>It passes, because the candidate is correct on every valid input. A property covers only
-the inputs it ranges over, and this one never leaves the ten accepted strings. The
-contract's last line is about <em>every other string</em>, so the property that matches the
+<p>It passes, because the candidate is correct on every valid input. A property is only as
+wide as the inputs it quantifies over, and this one never leaves the ten accepted strings.
+The contract's last line is about <em>every other string</em>, so the property that matches the
 contract is:</p>
 <blockquote>
 <p>For every string <code>s</code>: if <code>s</code> is one of the ten digit strings, the parser returns the
@@ -7018,7 +7018,7 @@ different kind.</p>
 <h3 id="an-agent-that-weakens-a-test-to-pass-it">An agent that weakens a test to pass it</h3>
 <p>There are two ways to turn a red test green: change the code so that it meets the
 contract, or change the test so that it stops asking. An agent told to "make the tests
-pass" is being asked for a green run. The second way is often the shorter route to one.</p>
+pass" is being asked for a green run, and the second way is often shorter.</p>
 <p>Start from the red result above: <code>unit</code> fails on the candidate with <code>IndexError</code>.
 <strong>Generate.</strong> The following patch is course-written, in the style of an agent's "fix". It
 ships as <code>lectures/week-07/fixture/weakened-test.patch.txt</code>, with this hand-off message:</p>
@@ -7040,7 +7040,7 @@ reviewer would, starting with which files changed:</p>
  1 file changed, 1 insertion(+), 1 deletion(-)
 </code></pre></div>
 <p>The failing test was "fixed", but <code>candidate.py</code>, the code under test, is not in the
-list. That alone is enough reason to stop and read the diff:</p>
+list. That alone is enough to stop and read the diff:</p>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>diff
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>diff --git a/lectures/week-07/fixture/demo.py b/lectures/week-07/fixture/demo.py
@@ -7124,9 +7124,9 @@ git<span class="w"> </span>status<span class="w"> </span>--short<span class="w">
 </tr>
 </tbody>
 </table>
-<p>Sometimes changing a test is right: the requirement changed, or the test was wrong. What
-makes the change right is a reason that points at the contract, and a person who owns the
-decision. "The tests now pass" is not a reason.</p>
+<p>Sometimes changing a test is right: the requirement changed, or the test was wrong. The
+difference is a reason that points at the contract and a person who owns the decision.
+"The tests now pass" is not a reason.</p>
 <h3 id="when-an-agent-proposes-the-tests">When an agent proposes the tests</h3>
 <p>A coding agent can draft a property, a list of mutants or an input generator quickly, and
 this week you will ask yours to. Treat what comes back as claims and candidate code:</p>
@@ -7134,14 +7134,14 @@ this week you will ask yours to. Treat what comes back as claims and candidate c
 <li>read the oracle first: an expected value computed by calling the code under test
   agrees with any bug in it;</li>
 <li>run the proposed tests on a known-bad version and on a repaired one, as this page did
-  with <code>candidate</code> and <code>repaired</code>. A harness that reports nothing on the known-bad
-  version is broken, however good it looks; and</li>
+  with <code>candidate</code> and <code>repaired</code>; a harness that reports nothing on the known-bad
+  version is broken, however it reads; and</li>
 <li>never let the proposal choose its own score, edit the tool that scores it, or decide
   that a survivor is equivalent.</li>
 </ul>
-<p>Tools that use models to generate fuzzing harnesses keep the same separation. They report
+<p>Two tools that use models to generate fuzzing harnesses keep the same separation. One reports
 as separate results whether a generated target builds, whether it crashes at run time and
-how much coverage it reaches (tools/oss-fuzz-gen; as_of: 2026-09-05; <a href="https://github.com/google/oss-fuzz-gen/blob/main/README.md">Source 1</a>; <a href="https://github.com/google/oss-fuzz-gen/blob/main/USAGE.md">Source 2</a>; <a href="https://github.com/google/oss-fuzz-gen/blob/main/LICENSE">Source 3</a>). They keep a validated triggering
+how much coverage it reaches (tools/oss-fuzz-gen; as_of: 2026-09-05; <a href="https://github.com/google/oss-fuzz-gen/blob/main/README.md">Source 1</a>; <a href="https://github.com/google/oss-fuzz-gen/blob/main/USAGE.md">Source 2</a>; <a href="https://github.com/google/oss-fuzz-gen/blob/main/LICENSE">Source 3</a>). The other keeps a validated triggering
 input apart from a candidate patch (tools/fuzzingbrain; as_of: 2026-09-05; <a href="https://github.com/fuzzingbrain/afc-crs-all-you-need-is-a-fuzzing-brain/blob/main/README.md">Source 1</a>). Those fact cards describe the
 tools' own reporting. They say nothing about this fixture.</p>
 <h2 id="hands-on-exercise">Hands-on exercise</h2>

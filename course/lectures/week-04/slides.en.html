@@ -6985,7 +6985,7 @@ Stop: do not change lockfiles for this task.
 <h2 id="request-versus-gate">Request versus gate</h2>
 <p><strong>Request:</strong> “Run the focused test and report it.”</p>
 <p><strong>Gate:</strong> “At <code>before_commit</code>, exit 2 when a staged Python file has an unused import.”</p>
-<p>The agent can skip a request. Git still runs the gate.</p>
+<p>A request can be skipped. Git still runs the gate.</p>
 <hr />
 <h2 id="generate-then-verify">Generate, then verify</h2>
 <p><strong>Generated proposal:</strong> add <code>import json</code> to <code>report.py</code>.</p>
@@ -7103,7 +7103,7 @@ FAIL: files under tests/ changed; the original focused test fails
 <h2 id="fresh-context-smaller-boundary">Fresh context, smaller boundary</h2>
 <p>Pass the implementer only the role contract, the research record and named files.</p>
 <p>Pass the reviewer the issue, diff and evidence. Do not pass the implementer's private plan.</p>
-<p>A fresh context makes the contract visible. It does not make the reviewer always right.</p>
+<p>A fresh context makes the contract visible; it does not make the reviewer infallible.</p>
 <hr />
 <h2 id="studio-output">Studio output</h2>
 <p>You will keep:</p>

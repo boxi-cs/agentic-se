@@ -6638,9 +6638,9 @@ be able to reproduce from the proposal, schema and checks.</p>
 read-only boundary. The schema constrains the path. The negative case attempts a write
 under <code>reports/</code> and expects the state to stay unchanged.</p>
 <h2 id="q2">Q2</h2>
-<p>The plan phase lost the boundary. Before editing, read the current permission test and the
-export handler, and record the paths and unknowns. Then write a case that tells an allowed
-path apart from a forbidden one.</p>
+<p>The plan phase lost the boundary. Read the current permission test and the export handler,
+and record the paths and unknowns. Then write a case that tells an allowed path apart from
+a forbidden one before editing.</p>
 <h2 id="q3">Q3</h2>
 <p>For example: “Given a row without <code>id</code>, when export is requested, then no file is written
 and the result is <code>invalid row: id</code>.” Run it against a fresh temporary directory and check

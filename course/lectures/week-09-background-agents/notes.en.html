@@ -6660,8 +6660,8 @@ and unresolved questions. Do not push, open a remote PR or merge.
 <p><strong>Generate.</strong> In a foreground session, the student stays present to answer a question.
 In an unattended session, the same agent receives the same base revision and request,
 then works without answers until it returns or reaches its stop condition. Unattended
-means the agent hands its result back to you later. This can happen in a local directory
-with an ordinary terminal. It does not require a cloud service. Neither mode changes what counts as correct.</p>
+means a later handoff; it can happen in a local directory with an ordinary terminal.
+It does not require a cloud service. Neither mode changes what counts as correct.</p>
 <p>Before reading the candidates, predict what a green branch check can establish.</p>
 <table>
 <thead>
@@ -6708,9 +6708,9 @@ exit 0
 exit 1
 </code></pre></div>
 <p>Both branch reports were accurate. The unattended branch's own tests pass because the
-branch rewrote the display test. The base copy of that test fails on the same code. A
-green report from the branch cannot settle that disagreement. This pair shows one possible
-outcome. It does not claim that one mode always performs better.</p>
+branch rewrote the display test. The base copy of that test fails on the same code. The
+branch's green report does not resolve that disagreement. This is a possible pair of
+outcomes, not a claim that one mode always performs better.</p>
 <p>A file allowlist (the list of files the agent may edit) permits edits to the test file.
 It does not permit every edit within that file. Read the hunks, the blocks of changed
 lines in the diff:</p>
@@ -6728,11 +6728,10 @@ unattended candidate needs revision.</p>
 <p><strong>Generate.</strong> Suppose another agent adds the summary tests while the implementation
 agent changes the summary. Give each a separate worktree and branch from the same base,
 with a bounded file list and a stop condition. Give neither authority to merge.</p>
-<p><strong>Verify.</strong> Inspect the diff in each branch, then test the combined candidate. Suppose the
-implementation returns <code>None</code> when no build has completed, but the new tests require <code>0</code>.
-Isolation stopped the two agents from editing the same lines. It did not stop them from
-disagreeing about the contract, the behavior the request defines. Resolve the conflict
-from the request, then rerun the checks after integration.</p>
+<p><strong>Verify.</strong> Inspect the diff in each branch, then test the combined candidate. If the
+implementation returns <code>None</code> for no completed builds but the new tests require <code>0</code>,
+isolation has prevented an edit collision while leaving a contract conflict.
+Resolve the conflict from the request, then rerun the checks after integration.</p>
 <table>
 <thead>
 <tr>
@@ -6755,8 +6754,8 @@ from the request, then rerun the checks after integration.</p>
 </tr>
 </tbody>
 </table>
-<p>Parallel work helps only when the useful independent work is worth more than the cost of
-coordinating and integrating it. For a tiny fix, sequential runs may be easier to inspect. A second session is not automatically
+<p>Parallelism helps only when useful independent work outweighs coordination and integration.
+For a tiny fix, sequential runs may be easier to inspect. A second session is not automatically
 an independent reviewer if it helped implement the change.</p>
 <h3 id="an-issue-to-pull-request-pipeline">An issue-to-pull-request pipeline</h3>
 <p><strong>Generate.</strong> Draft a controller, a program that runs each stage in turn. It reads an
@@ -6788,7 +6787,7 @@ missing or fails is a gate. The agent's own “PASS” text is not the controlle
 </tr>
 <tr>
 <td>Run</td>
-<td>Execution controls enforce permissions and stop limits; permissions never widen during an unattended run</td>
+<td>Execution controls enforce permissions and stop limits; no unattended permission expansion</td>
 </tr>
 <tr>
 <td>Return</td>
@@ -6796,7 +6795,7 @@ missing or fails is a gate. The agent's own “PASS” text is not the controlle
 </tr>
 <tr>
 <td>Check</td>
-<td>Checks kept where the candidate cannot write run against that exact candidate; a failure or a missing result blocks</td>
+<td>Checks retained outside the candidate's writable scope run against that exact candidate; failures and missing results block</td>
 </tr>
 <tr>
 <td>Open PR</td>
@@ -6808,10 +6807,10 @@ missing or fails is a gate. The agent's own “PASS” text is not the controlle
 </tr>
 </tbody>
 </table>
-<p>In the display example, the agent rewrote the test inside its own branch. That test
-protects you only as much as a request does, because the agent can redefine success. Keep
-the base test where the agent cannot write, and require its result: then the candidate is
-blocked. Review still checks whether the contract and the test cover the right behavior.
+<p>For the display change, a branch-local rewritten test is a request-shaped safeguard:
+the agent can redefine success. Keeping the base test outside its writable scope and
+requiring its result blocks the candidate. Review still checks whether the
+contract and the test cover the right behavior.
 When a stage fails, retry only that bounded stage. First check whether it already created
 a branch or PR, so the retry does not duplicate work.</p>
 <h2 id="hands-on-exercise">Hands-on exercise</h2>
@@ -6825,10 +6824,11 @@ candidates by the
 <a href="activities.en.html#when-an-agent-seat-is-unavailable">studio's route for that case</a>.</p>
 <h2 id="verification">Verification</h2>
 <ol>
-<li>Before generation, save a reproducer (a check that shows the fault) that fails on the
-   base, and keep the relevant existing checks. Verify that the check notices the fault;
-   otherwise recheck the test. In the example, <code>verify.py base --tests acceptance</code> is that
-   reproducer. On the base it exits with status 1, and two of the request's four cases fail.</li>
+<li>Before generation, preserve a reproducer that fails on the base and the relevant
+   existing checks. A reproducer is a check that shows the fault. Verify that the check
+   notices the fault; otherwise recheck the test. In the example,
+   <code>verify.py base --tests acceptance</code> is that reproducer. On the base it exits with
+   status 1, and two of the request's four cases fail.</li>
 <li>After each run, use <code>git status --short</code>, <code>git diff BASE_SHA</code> and the project's exact
    verification command recorded in the request. Review untracked files as well as the diff.</li>
 <li>Keep command, candidate revision, exit status and the meaningful failing/passing output.

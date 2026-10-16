@@ -6800,10 +6800,8 @@
 <p>The code, scan reports and agent draft in this lesson are course-made and synthetic. They
 are not model transcripts, real scanner output or an attack on a real service.</p>
 <h2 id="learning-objectives">Learning objectives</h2>
-<p>This week has one main idea: text that an agent reads is data, not authority. So the
-system decides permission before any effect happens. You then verify that decision in both
-directions: a denied request leaves no effect, and a permitted request still works. By the
-end of the lesson, you can:</p>
+<p>This week has one main line: text an agent reads is data, not authority, so permission is
+decided before any effect and verified in both directions. By the end of the lesson, you can:</p>
 <ul>
 <li><strong>LO7:</strong> trace an inert injection chain from untrusted text to a proposed tool call to an
   effect, and say where the permission decision must sit;</li>
@@ -6826,9 +6824,9 @@ please enable export." Who can authorize an export: the user, or the sentence?</
 tokens in one context. Nothing in that stream marks which text carries authority. So an
 order written in the text can steer the model's next proposal, even when the text is only
 data. Moving the sentence from a log to a tool response does not give it authority: it has
-none. So the decision cannot depend on how the model reads the text. A controller makes the
-decision instead. It checks every proposed action against the permission the user gave,
-before any effect happens.</p>
+none. The decision therefore cannot live in the model's reading of the text. It lives in a
+controller that checks every proposed action against the permission the user gave, before
+any effect.</p>
 <p>The course's incident cards (short, sourced summaries of real incidents) show the same
 boundary in three real settings. Use them to compare boundaries, never to run a payload.
 In a research demonstration, an agent could access both public and private repositories. A
@@ -6934,9 +6932,8 @@ it. Save <code>starter-checks.json</code>, because the failing run is your repro
 <div class="highlight"><pre><span></span><code>cp<span class="w"> </span>candidate.py<span class="w"> </span>candidate.starter.py
 </code></pre></div>
 <p>Now produce a repair. Write it yourself or ask your coding agent for one, giving it only the
-contract above and <code>candidate.py</code>. Either way, the result is only a proposal until you have
-run the unchanged checks. The repair this lesson uses moves the allowlist check before the
-effect:</p>
+contract above and <code>candidate.py</code>. Either way the result is a proposal until the unchanged
+checks have run. The repair this lesson uses moves the allowlist check before the effect:</p>
 <div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="n">request</span><span class="p">[</span><span class="s2">"tool"</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">"read_label"</span><span class="p">:</span>
     <span class="k">return</span> <span class="p">{</span><span class="s2">"error"</span><span class="p">:</span> <span class="s2">"tool_denied"</span><span class="p">}</span>
 <span class="bp">self</span><span class="o">.</span><span class="n">effects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">request</span><span class="p">[</span><span class="s2">"tool"</span><span class="p">])</span>
@@ -7053,9 +7050,9 @@ candidate revision each run used.</p>
 </tbody>
 </table>
 <p>The effect list shows the order in which the dispatcher (the code that receives each
-proposed call and acts on it) does things. It is not operating-system containment. A
-modified process could skip this toy dispatcher altogether. Only the environment it runs in
-limits that process. That is why the course's
+proposed call and acts on it) does things. It is not operating-system containment: a
+modified process could bypass this toy dispatcher altogether. What limits that process is
+the environment it runs in, which is why the course's
 <a href="../../SYLLABUS.en.html#tools-and-model-access">tools and model access</a> practices keep
 credentials out of the place where an agent works.</p>
 <p>Approval and containment are also different controls. One agent's documentation keeps them
@@ -7190,11 +7187,11 @@ grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'"(agent_
 kind of evidence:</p>
 <ul>
 <li>A <strong>true positive</strong> needs a bounded observation of the risky path. The verifier gives
-  the parser a stand-in <code>pickle</code> module whose loaders only record that they were called.
-  It then passes two JSON texts and six texts that are not JSON, such as <code>theme = dark</code>.
-  The recorder saw a call, so caller text does reach the loader. No payload is executed,
-  and the parser never receives the real <code>pickle</code> module. The source path does not support
-  the agent's claim that text cannot carry executable behavior.</li>
+  the parser a stand-in <code>pickle</code> whose loaders only record the call, then passes two JSON
+  texts and six texts that are not JSON, such as <code>theme = dark</code>. The recorder saw a call,
+  so caller text does reach the loader. No payload is executed, and the parser never
+  receives the real <code>pickle</code> module. The agent's claim that text cannot carry executable
+  behavior is not supported by the source path.</li>
 <li>A <strong>false positive</strong> needs the condition that stops it. <code>format_status</code> first looks up
   <code>status</code> in the two-value <code>ALLOWED_STATUSES</code> map and rejects unknown values, so the
   interpolated label is one of two fixed strings. Deleting the formatter, as the draft
@@ -7205,8 +7202,8 @@ kind of evidence:</p>
   Your record adds the check that would supply it.</li>
 </ul>
 <p><strong>4. Fix the true positive and keep the observation as a regression.</strong> Parse the documented
-configuration with the JSON decoder that the module already provides. That decoder reads
-data only. Leave the <code>format_status</code> allowlist alone. Edit line 26 of <code>preferences.py</code> and delete the
+configuration with the data-only JSON decoder the module already provides, and leave the
+<code>format_status</code> allowlist alone. Edit line 26 of <code>preferences.py</code> and delete the
 <code>import pickle</code> line. Then compare your copy with the original, rerun the verifier and scan
 again:</p>
 <div class="highlight"><pre><span></span><code>diff<span class="w"> </span><span class="s2">"</span><span class="nv">$COURSE</span><span class="s2">"</span>/lectures/week-08/fixture/preferences.py<span class="w"> </span>preferences.py
@@ -7249,8 +7246,8 @@ file and checks it against a set of allowlists, like the one you wrote for the b
 <p>A name the file assigns or defines, a parameter name and an alias may not shadow (reuse the
 name of) a Python built-in. A class field is added to the attribute list only when none of
 the allowlisted modules already has that name.</p>
-<p>The verifier refuses anything else without reading further. It names the first few imports,
-attributes or names that broke the rules, and it does not execute the file. A refusal means
+<p>Anything else is refused unread. The verifier names the first few imports, attributes or
+names that broke the rules, and it does not execute the file. A refusal means
 "outside what this small check can vouch for", not "malicious". For example, it refuses a
 repair that uses <code>ast.literal_eval</code>, because <code>ast</code> is not on the import list. A file that
 still imports <code>pickle</code> is run only against the stand-in and is never accepted. Second, the
@@ -7263,14 +7260,14 @@ quiet as well, but that is the weaker of the two results. The scanner shows only
 pattern no longer matches. The verifier shows that caller text no longer reaches the loader.
 Some changes only hide the pattern: a suppression comment, or a rewrite that uses
 <code>pickle.Unpickler</code> or an aliased import in place of <code>pickle.loads</code>. They leave the unsafe
-path in place, and the verifier would still exit 1. The same is true of a parser that tries
-JSON first and falls back to pickle. The JSON inputs pass, but the texts that are not JSON
-still reach the loader. It is also true of a parser that rejects only <code>theme = dark</code> and
+path in place, and the verifier would still exit 1. So would a parser that tries JSON first
+and falls back to pickle: the JSON inputs pass, but the texts that are not JSON still reach
+the loader. It is also true of a parser that rejects only <code>theme = dark</code> and
 nothing else. A check that knows only one input can be passed by code that knows the same
 input.</p>
 <p><strong>5. Record the wrong claim.</strong> Write down one agent claim that turned out wrong, what was
-wrong about it and which check caught it. Here, observing the loader call catches the
-<code>parse_config</code> "false positive". That record shows that you verified the agent's work
+wrong about it and which check caught it. Here the <code>parse_config</code> "false positive" is caught
+by observing the loader call. That record shows that you verified the agent's work
 instead of copying it.</p>
 <h2 id="hands-on-exercise">Hands-on exercise</h2>
 <p>The <a href="activities.en.html">second session</a> is a guest session or a studio. In the studio, you

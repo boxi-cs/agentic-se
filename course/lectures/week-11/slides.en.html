@@ -7388,13 +7388,9 @@ result: 1 of 3 route choices supported by the evaluator
 </ul>
 <hr />
 <h2 id="act-only-on-what-you-confirmed">Act only on what you confirmed</h2>
-<p>A mitigation that rests on timing must:</p>
-<ul>
-<li>be reversible</li>
-<li>state its rollback condition</li>
-<li>end with a check of the user path</li>
-</ul>
-<p>Repair code only after a check that can see the cause has run.</p>
+<p>A mitigation that rests on timing must be reversible,
+state its rollback condition and end with a check of the user path.</p>
+<p>A code repair waits for a check that can see its cause.</p>
 <p>Drop what rests on a refuted claim.</p>
 <hr />
 <!-- _class: challenge -->

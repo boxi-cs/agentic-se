@@ -6798,9 +6798,9 @@ test.</p>
 <p>Check it on generated inputs. Use a property-testing library for your language if your
 project has one or you can add one in a few minutes. Otherwise, write a seeded loop that
 builds 100 inputs, as the course fixture does. Include inputs the contract rejects.</p>
-<p>If the property fails, shrink the input before you debug. Remove or simplify parts of the
-failing input, one change at a time. Keep a change only if the same failure still occurs.
-Stop when no single change keeps it failing. Save the shrunk input as an ordinary test
+<p>If the property fails, shrink before you debug: remove or simplify parts of the failing
+input, keeping each change only while the same failure still occurs, until no single
+change keeps it failing. Save the shrunk input as an ordinary test
 with a fixed input. Then decide whether the code or the contract is wrong. If the property
 holds, record how many inputs you used, from what generator, and one family of inputs it
 did not cover.</p>

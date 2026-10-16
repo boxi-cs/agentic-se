@@ -6544,8 +6544,8 @@ of the wrong kind.</p>
 </li>
 <li>
 <p><a href="budget_ledger.py">budget_ledger.py</a> replays a per-run ledger through the small <code>Budget</code>
-  class at the top of the file. The class reserves a worst case before sending and settles
-  to the actual cost after the reply. When a reply is lost, it keeps the whole reservation. Its units are
+  class at the top of the file: reserve a worst case before sending, settle to the actual
+  cost after the reply, and keep the whole reservation when a reply is lost. Its units are
   course-made numbers, not prices. Change the numbers with <code>--cap</code>, <code>--reserve</code>, <code>--actual</code>
   and <code>--lost-reply N</code>.</p>
 </li>

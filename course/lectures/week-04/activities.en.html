@@ -6698,8 +6698,8 @@ cat<span class="w"> </span>blocked.txt
 </code></pre></div>
 <p>The command must not create the commit. <code>blocked.txt</code> must contain the hook's finding and
 <code>exit status: 1</code>. Git reports 1 for a commit that a hook stopped. The hook's own exit code
-is 2. If Git makes the commit, or the record shows an error instead of the finding, stop.
-Inspect the wrapper before you go on. Do not rewrite the record to make it look blocked.</p>
+is 2. If it commits, or the record shows an error in place of the finding, stop and inspect
+the wrapper before proceeding; do not rewrite the record to make it look blocked.</p>
 <p>Now fix the violation and capture the passing run:</p>
 <div class="highlight"><pre><span></span><code><span class="nb">printf</span><span class="w"> </span><span class="s1">'value = 1\n'</span><span class="w"> </span>&gt;<span class="w"> </span>src/report.py
 git<span class="w"> </span>add<span class="w"> </span>src/report.py
@@ -6828,7 +6828,7 @@ wrote it, so say so in <code>role-review.md</code>. Do not record it as a model 
 <div class="highlight"><pre><span></span><code>Decision: accept | narrow | recheck | stop — evidence: blocked.txt, passed.txt, agent-hooks.txt and role-review.md
 </code></pre></div>
 <p>Choose the word that matches your evidence. A clean hook run can support accepting the
-staged-path rule. It cannot support accepting application behavior that nobody tested.</p>
+staged-path invariant; it cannot support accepting untested application behavior.</p>
 
 
 

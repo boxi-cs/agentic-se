@@ -6781,27 +6781,26 @@ entry names the scope, the allowed command, the expected evidence and the stop c
 <span class="k">-</span><span class="w"> </span>After editing: run <span class="sb">`python -m pytest tests/test_parser.py -q`</span> and report the result.
 <span class="k">-</span><span class="w"> </span>Stop: do not change <span class="sb">`pyproject.toml`</span>, lockfiles or files outside this repository.
 </code></pre></div>
-<p>A hurried agent can skip the request “please run the parser tests”. A reviewer can check
-the stop rule, but the rule is still only an instruction until a gate enforces it. An
-instruction file gives the agent context and a way to decide. It does not, by itself, make
-the filesystem or Git refuse an action.</p>
+<p>The request “please run the parser tests” can be skipped by a hurried agent. The stop
+rule can be checked by a reviewer, but it is still an instruction until a gate enforces
+it. An instruction file gives context and a decision procedure; it does not make the
+filesystem or Git refuse an action by itself.</p>
 <h3 id="a-request-and-a-gate-have-different-jobs">A request and a gate have different jobs</h3>
 <p>A request is a message to the agent: “run the focused test and report the output.” A gate
 is attached to an event the repository controls: “before a commit, refuse staged Python
-files with an unused import.” The agent may skip the request. Git runs the hook even
-when the agent forgets the request. A hook therefore enforces one narrow rule that must
-always hold (an invariant). It does not replace tests or review.</p>
+files with an unused import.” The agent may omit the request. Git invokes the hook even
+when the agent forgets the request. A hook is therefore a narrow invariant, not a
+replacement for tests or review. An invariant is a rule that must always hold.</p>
 <p>The studio uses the course-written hook in
 <a href="example/pre_commit.py"><code>example/pre_commit.py</code></a>. It reads a JSON event and checks for protected
 paths. It also reports an unused Python import, without importing or running the file. In the
 studio you wrap it as <code>.git/hooks/pre-commit</code>, and the wrapper passes in the list of staged
-paths. The hook returns exit code 2 when it finds a problem and exit code 0 when the list is
-clean.</p>
+paths. It returns exit code 2 for a finding and exit code 0 for a clean list.</p>
 <p><strong>Generated proposal:</strong> add <code>import json</code> to <code>report.py</code>, stage it, and commit. The hook
 should stop the commit because <code>json</code> is unused. <strong>Verification:</strong> read the hook output,
 fix the import, stage again and commit. The second run should print <code>PASS</code> and exit 0.
-Keep both records. A blocked run shows that the gate fired. It does not show that the
-final change is correct.</p>
+Keep both records. A blocked run is evidence that the gate fired; it is not evidence that
+the final change is correct.</p>
 <h3 id="hooks-on-the-agents-own-events">Hooks on the agent's own events</h3>
 <p>A Git hook waits for the commit. Some agents let you attach a command to events in their
 own loop. Then a gate can act earlier. Two events matter here:</p>
@@ -6951,11 +6950,10 @@ tools and output contract. For a bounded parser change, use three roles:</p>
 </tr>
 </tbody>
 </table>
-<p>After each hand-back, the parent agent or the person decides whether to continue. The
-subagent cannot add tools to its allowlist. It cannot declare its own work correct. It
-cannot quietly replace a missing file or report. A generated hand-back is still only a
-proposal. Open every location it cites, run the check it states, and record what the check
-does not show.</p>
+<p>The parent agent or person chooses whether to continue after each hand-back. The
+subagent cannot enlarge its allowlist, declare its own work correct or silently replace a
+missing artifact. A generated hand-back is still a proposal: open every cited location,
+run the stated check and record what the check does not establish.</p>
 <p><strong>Generated proposal:</strong> ask a researcher to “find the parser.” <strong>Verification:</strong> reject a
 hand-back that names no file and function. Ask for the bounded report again or stop. Then
 pass only <code>research.md</code> and the named files to the implementer. Give a reviewer the issue, the
@@ -7015,8 +7013,8 @@ report does not claim that a model run happened.</p>
 </ul>
 <h2 id="common-mistakes">Common mistakes</h2>
 <ul>
-<li>Treating an instruction as a permission boundary. For a rule that must always hold, add
-  a testable hook or a human review step. Keep the request as useful context.</li>
+<li>Treating an instruction as a permission boundary. Add a testable hook or a human
+  review step for the invariant; keep the request for useful context.</li>
 <li>Writing a hook that edits files or runs arbitrary commands. Read and parse the staged
   paths, refuse malformed input, and return a clear nonzero status.</li>
 <li>Giving every subagent the whole repository and every tool. Narrow its files and tools,

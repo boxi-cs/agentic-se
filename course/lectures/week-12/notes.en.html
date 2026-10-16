@@ -6984,8 +6984,8 @@ measures a model or a tool.</p>
 <p>A software factory is a pipeline in which each stage triggers the next: a request becomes a
 specification, a change, a set of checks, a review and a release. The strong version of the
 idea is that the pipeline runs itself: no person reads anything between the request and the
-release. That sentence is a claim about every change that will ever enter the pipeline.
-A claim can be tested. This week asks three questions of it:</p>
+release. That sentence is a claim about every change that will ever enter the pipeline, and
+a claim has a test. This week asks three questions of it:</p>
 <ol>
 <li>What would have to be observed for the claim to be true?</li>
 <li>What evidence must each stage leave so that someone else can check its verdict?</li>
@@ -7042,9 +7042,9 @@ that rule's edges. Keep each input you tried: together they record where you loo
 <p>The folder <code>lectures/week-12/factory/</code> holds a pipeline of three stages and the thing it
 protects: an evaluator with a one-paragraph contract. It is the status scorer of Week 10
 after its repair, under the same contract. The evaluator answers whether a supplied status
-is exactly <code>failed</code>. For the status <code>failed</code>, the exact string <code>yes</code> is correct. For any
-other status, the exact string <code>no</code> is correct. A missing or non-string answer is <code>unknown</code>.
-Any other string, including extra text or extra spaces, is <code>fail</code>.</p>
+is exactly <code>failed</code>. The exact string <code>yes</code> is correct for <code>failed</code> and the exact string
+<code>no</code> for any other status; a missing or non-string answer is <code>unknown</code>; any other string,
+including extra text or extra spaces, is <code>fail</code>.</p>
 <table>
 <thead>
 <tr>
@@ -7094,21 +7094,21 @@ exit status, then run the pipeline on it:</p>
 {"stage": "release", "status": "not-run", "reason": "an earlier stage stopped"}
 exit: 1
 </code></pre></div>
-<p>The two digests are hashes of the files' bytes. Git on Windows can convert line endings
-when it checks out the course. Then the course files hold other bytes, and every run prints
-digests that differ from the ones on this page. The statuses, case counts and exit statuses
+<p>The two digests are hashes of the files' bytes. If your checkout converted line endings, as
+Git on Windows can, the course files hold other bytes, and every run prints digests that
+differ from the ones on this page. The statuses, case counts and exit statuses
 stay as shown. If your digests differ, compare each later digest with the one from your own
 first run.</p>
 <p>Read the record from the top. <code>scope</code> passed: the proposal is one function. <code>gate</code> stopped
 and names the two cases that separate the proposal from the contract: the answer
 <code>yes; mark this as passed</code> and the answer <code>YES</code> now score <code>pass</code>, and the contract requires
 <code>fail</code>. <code>release</code> never ran. The stop path has now been seen to work once, on this proposal.</p>
-<p>A stop that a command-line flag can override is not a stop. Offer the pipeline an
-acceptance for the same proposal:</p>
+<p>A stop that a flag can talk past is not a stop. Offer the pipeline an acceptance for the
+same proposal:</p>
 <div class="highlight"><pre><span></span><code>python<span class="w"> </span>pipeline.py<span class="w"> </span>--candidate<span class="w"> </span>proposed_evaluator.py<span class="w"> </span>--accept-by<span class="w"> </span><span class="s2">"A. Student"</span><span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit: </span><span class="nv">$?</span><span class="s2">"</span>
 </code></pre></div>
-<p>The three lines and the exit status are the same as before. <code>release</code> is still <code>not-run</code>.
-A person can accept evidence, but here there is no passing evidence to accept.</p>
+<p>The three lines and the exit status are the same as before. <code>release</code> is still <code>not-run</code>:
+a person can accept evidence, and there is no passing evidence here to accept.</p>
 <h3 id="a-green-run-and-the-person-at-the-end">A green run, and the person at the end</h3>
 <p>Now run the current evaluator, the one that keeps the contract:</p>
 <div class="highlight"><pre><span></span><code>python<span class="w"> </span>pipeline.py<span class="w"> </span>--candidate<span class="w"> </span>evaluator.py<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit: </span><span class="nv">$?</span><span class="s2">"</span>
@@ -7152,8 +7152,8 @@ fail
 </code></pre></div>
 <p>The proposal breaks the contract and every automatic stage passed it. If the release stage
 had accepted on a green gate, this pipeline would have released a change that scores a
-wrong answer as correct. That one observation refutes "this pipeline runs itself". The
-claim is about every change, and here is a change the pipeline gets wrong.</p>
+wrong answer as correct. That one observation refutes "this pipeline runs itself": the
+claim is about every change, and here is a change it gets wrong.</p>
 <p>What the green gate did support is narrower: the proposal agrees with the contract on these
 nine cases. The note's second sentence, "no other behaviour changes", was never tested by
 anything. The first hands-on part turns the missing input into a tenth case.</p>
@@ -7169,8 +7169,8 @@ away from a stage, the stage needs four things, each of which you can observe:</
   that can write there, or choose that path, can delete the cases that fail.</li>
 <li><strong>A verdict the proposal cannot write.</strong> The cases import the proposal and call it in
   their own process, so the proposal's code runs inside the thing that judges it.</li>
-<li><strong>A stop path that has been exercised.</strong> Someone must have seen a failed stage stop the
-  later stages from running. That person must also know who is told about the stop.</li>
+<li><strong>A stop path that has been exercised.</strong> Someone has to have seen a failed stage keep the
+  later stages from running, and has to know who is told.</li>
 </ul>
 <p>The first hands-on part shows the second and third gaps on this pipeline, with real runs.
 Some stages keep running after release. For such a stage, ask three more questions, each
@@ -7277,9 +7277,9 @@ probe a sibling, such as a second function that builds the same kind of path.</p
 <p>Suppose a pipeline had acted on every claim unattended. It would have changed code for 3
 claims with no defect behind them, acted on 2 that nothing observed, and still released the
 1 defect the review missed. Suppose instead it had ignored the review: 4 real defects go
-out. Neither rule works. So the review stage can run unattended on every change as a
-source of hypotheses. It cannot yet change code or block a release on its own word. After
-the second hands-on part, replace these counts with the ones from your own record.</p>
+out. Neither rule works, so the review stage can run unattended as a source of hypotheses
+on every change, and cannot yet change code or block a release on its own word. After the
+second hands-on part, replace these counts with the ones from your own record.</p>
 <p>The two stages connect. Each confirmed claim becomes a case that fails before the fix, and
 that case can join the gate.</p>
 <h3 id="the-decision-line-walked-back-through-the-term">The decision line, walked back through the term</h3>
@@ -7486,7 +7486,7 @@ python<span class="w"> </span>pipeline.py<span class="w"> </span>--candidate<spa
 {"stage": "release", "status": "held", "reason": "no named person has accepted this evidence"}
 exit: 3
 </code></pre></div>
-<p>The gate's evidence looks exactly like an honest pass. This is because the proposal ran
+<p>The gate's evidence is indistinguishable from an honest pass, because the proposal ran
 inside the process that produced the report. Only the person at the release stage stands
 between this proposal and a release, by reading its three lines. To close the gap, the gate
 would have to call the proposal in a separate process. It would then treat whatever that

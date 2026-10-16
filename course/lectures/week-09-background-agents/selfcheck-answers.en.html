@@ -6615,8 +6615,8 @@ The duration example is the course-written one from the <a href="notes.en.html">
 a model run.</p>
 <h2 id="q1">Q1</h2>
 <p>Not as returned. Each report describes the branch's own tests. The unattended branch
-rewrote the display test, so its green run compares <code>3:05</code> with <code>3:05</code>. For the next check,
-you take the display test as it stood on the base and run it against the returned revision.
+rewrote the display test, so its green run compares <code>3:05</code> with <code>3:05</code>. The next check is
+the display test as it stood on the base, run by you against the returned revision.
 It expects <code>3m 05s</code>, the candidate returns <code>3:05</code>, and the check fails. The behavior to
 preserve is the unchanged duration display. Check the summary cases, and also read every
 changed hunk (block of changed lines) against the request. The display change and the

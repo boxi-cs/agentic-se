@@ -6751,10 +6751,10 @@
 <li>score Structure, Documentation, Tests and Checks from observable anchors, name a disproving observation, and explain what evidence would change the score (LO4, LO5);</li>
 <li>keep repository text and generated commands inside the approved safety boundary (LO7).</li>
 </ul>
-<p>A repository is agent-ready when a fresh session can find the relevant code, learn the local contract, run a short check and report what it did not check. Readiness depends on evidence you can show at a named revision (a specific commit). It does not depend on how tidy the file tree looks.</p>
+<p>A repository is agent-ready when a fresh session can find the relevant code, learn the local contract, run a short check and report what it did not check. Readiness is a property of evidence at a named revision, not a feeling about how tidy the tree looks. A named revision is a specific commit.</p>
 <h2 id="minimal-example">Minimal example</h2>
 <h3 id="one-task-three-states-of-one-function">One task, three states of one function</h3>
-<p>The task is deliberately small. Replace a chain of status conditionals with a lookup table. The new code must keep three behaviours: it still normalizes whitespace and case, it still accepts both aliases for <code>passed</code> (<code>ok</code> and <code>pass</code>), and it still falls back to <code>unknown</code>. The public fixture contains the same function in three states:</p>
+<p>The task is deliberately small: replace a chain of status conditionals with a lookup while keeping the whitespace and case normalization, both aliases for <code>passed</code> (<code>ok</code> and <code>pass</code>) and the <code>unknown</code> fallback. The public fixture contains the same function in three states:</p>
 <ul>
 <li><code>before.py</code> is the disordered starting point: the caller and contract are not written beside the function;</li>
 <li><code>rejected.py</code> is a tempting proposal that removes <code>strip()</code>;</li>
@@ -6777,9 +6777,9 @@ python<span class="w"> </span>lectures/week-05/fixture/verify.py<span class="w">
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>{"cases": 10, "failures": [], "if_statement_count": 3, "passed": 10, "scope": "course synthetic fixture; public feedback, not a grade", "variant": "before"}
 </code></pre></div>
-<p><code>before</code> and <code>refactored</code> both pass all ten cases; only <code>if_statement_count</code> differs (3 and 0). The cases cannot tell the two states apart, and that is the point. The behaviour is the same. What changed is how much a fresh session (a new agent session with no memory of earlier work) has to guess. In <code>before.py</code> a session must infer the contract from a chain of conditionals. In <code>refactored.py</code> the lookup table and the fallback are visible beside the change point. In a real project, a prepared repository would also name its entry point, contract and offline check in its instruction file. The agent still needs permission to read and edit. But the repository has removed the guesses that could be avoided.</p>
+<p><code>before</code> and <code>refactored</code> both pass all ten cases; only <code>if_statement_count</code> differs (3 and 0). The cases cannot tell the two states apart, which is the point: behaviour is preserved, and what changed is how much a fresh session has to guess. A fresh session is a new agent session with no memory of earlier work. In <code>before.py</code> a session must infer the contract from a chain of conditionals. In <code>refactored.py</code> the lookup table and the fallback are visible beside the change point. In a real project, a prepared repository would also name its entry point, contract and offline check in its instruction file. The agent still needs permission to read and edit. But the repository has removed the guesses that could be avoided.</p>
 <h3 id="what-the-comparison-can-and-cannot-show">What the comparison can and cannot show</h3>
-<p>The fixture is one function, so it cannot show every kind of blocker. The rows below are only illustrations. They show the kinds of observation you will record on a whole repository in the studio. They are not results of the commands above.</p>
+<p>The fixture is one function, so it cannot show every kind of blocker. The rows below are illustrative: they are the kinds of observation you will record in the studio on a whole repository, not results of the commands above.</p>
 <table>
 <thead>
 <tr>
@@ -6823,7 +6823,7 @@ python<span class="w"> </span>lectures/week-05/fixture/verify.py<span class="w">
 <li><strong>3:</strong> checked entries are accurate, the change point has one responsibility, and the probe reaches it in three file opens or fewer;</li>
 <li><strong>4:</strong> a deliberate boundary violation fails a test or check.</li>
 </ul>
-<p>The evidence is a behaviour, the files you opened in order, the change point as <code>path:line</code> and, at level 4, the failing result.</p>
+<p>Evidence is a behaviour, the files opened in order, a <code>path:line</code> change point and, at level 4, the failing result.</p>
 <h3 id="documentation">Documentation</h3>
 <ul>
 <li><strong>1:</strong> no instruction file (A5's table calls it a context file) or no runnable command;</li>
@@ -6837,20 +6837,20 @@ python<span class="w"> </span>lectures/week-05/fixture/verify.py<span class="w">
 <li><strong>1:</strong> no runnable test exercises the change point;</li>
 <li><strong>2:</strong> one run passes but a hidden input, nondeterminism or a deliberate break goes undetected;</li>
 <li><strong>3:</strong> two repeatable runs agree, stay within the chosen budget, use no hidden input, and a deliberate break fails;</li>
-<li><strong>4:</strong> failure messages identify the broken behaviour, and mutation evidence explains the remaining gaps. (Mutation evidence: you plant small faults in the code on purpose and record which ones the tests miss. Week 7 teaches it.)</li>
+<li><strong>4:</strong> failure messages identify the broken behaviour and mutation evidence (small faults planted in the code on purpose, with a record of which ones the tests miss; Week 7 teaches it) accounts for surviving gaps.</li>
 </ul>
 <p>The evidence is the two run summaries, the hidden-input search, and the deliberate-break result.</p>
 <h3 id="checks">Checks</h3>
 <ul>
-<li><strong>1:</strong> no automatic gate (a check that must pass before work can move on);</li>
-<li><strong>2:</strong> you can run a gate by hand but it is not required, or the gate ignores an unused import;</li>
+<li><strong>1:</strong> no automatic gate (an executable check attached to an event the repository controls);</li>
+<li><strong>2:</strong> a gate can be run by hand but is not required, or it ignores an unused import;</li>
 <li><strong>3:</strong> one offline command runs the required gates and exits non-zero for an unused import;</li>
 <li><strong>4:</strong> the gate runs before a commit is offered, and the project scanner stops a secret canary (a fake key such as <code>sk-EXAMPLE</code>, planted to see whether it is caught).</li>
 </ul>
 <p>The evidence is the gate command, its failing and passing output, and the point where the gate is required.</p>
 <h2 id="hands-on-exercise">Hands-on exercise</h2>
-<p>Use the <a href="activities.en.html">studio activity</a> on your own project or contribution target repository. First, freeze a baseline: record the named commit you start from. Give the agent only the files it needs to answer one bounded question. Treat its proposal as untrusted text and inspect it. Then run the repository's documented check and inspect the diff. If a command needs a credential, network access or an unknown install, do not run it. Stop and revise the boundary instead.</p>
-<p>Your first score is a four-row table with one evidence link and one disproving observation per row. Then remove one blocker that is within your scope—for example, reconcile two test commands, add a map from a behaviour to its module, or make a check command deterministic. Run the same probe at the new commit and score again. A tidier directory does not raise a score unless an observation changes.</p>
+<p>Use the <a href="activities.en.html">studio activity</a> on your own project or contribution target repository. First freeze a baseline at a named commit. Give the agent only the files it needs to answer one bounded question. Treat its proposal as untrusted text and inspect it. Then run the repository's documented check and inspect the diff. If a command needs a credential, network access or an unknown install, do not run it. Stop and revise the boundary instead.</p>
+<p>Your first score is a four-row table with one evidence link and one disproving observation per row. Then remove one blocker that is within your scope—for example, reconcile two test commands, add a map from a behaviour to its module, or make a check command deterministic. Run the same probe at the new commit and score again. A tidy directory without a changed observation does not raise a score.</p>
 <p>The <a href="activities.en.html#90-minute-route">studio page</a> gives the timetable for the 90 minutes. Ask for help at the first failed command.</p>
 <p><a id="supported-execution"></a></p>
 <h2 id="supported-execution">Supported execution</h2>
@@ -6899,7 +6899,7 @@ git<span class="w"> </span>diff<span class="w"> </span>--name-only
 <tr>
 <td>Running a generated command blindly</td>
 <td>It asks for a key, network or an unpinned install</td>
-<td>Stop and inspect the trust boundary. Run it only in a dedicated directory or container that holds no credentials. If you cannot, record the missing prerequisite</td>
+<td>Stop, inspect the trust boundary, and run it only in a dedicated directory or container that holds no credentials; otherwise record the missing prerequisite</td>
 </tr>
 <tr>
 <td>Raising a score after deleting tests</td>

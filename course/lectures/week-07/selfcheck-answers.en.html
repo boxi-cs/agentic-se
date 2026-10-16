@@ -6739,10 +6739,10 @@ repair of the parser with the original test restored.</p>
 handler widened from <code>ValueError</code> to <code>Exception</code>; an expected value copied from the
 current output; a skip or expected-failure marker on the red test; a stub replacing the
 function under test; a property narrowed to fewer cases or filtered inputs; a lowered
-threshold in the gate. Changing an expected result is right when three things hold. The
-requirement changed or the test was wrong. The reason points at the contract or
-specification. The person who owns that decision made it. The change to the requirement
-and the change to the test are then reviewed together.</p>
+threshold in the gate. Changing an expected result is right when the requirement changed
+or the test was wrong, the reason points at the contract or specification, and the person
+who owns that decision made it. The change to the requirement and the change to the test
+are then reviewed together.</p>
 <h2 id="spaced-retrieval-and-transfer">Spaced retrieval and transfer</h2>
 <p><strong>Retrieval 1.</strong> A hook is a gate when one run shows it blocking the bad commit with a
 non-zero exit and a second run shows it passing a good commit. A passing commit alone

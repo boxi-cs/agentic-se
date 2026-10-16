@@ -6819,9 +6819,9 @@ case-by-case checks, including a tool nobody wrote down, as the regression.</p>
 <h2 id="q7">Q7</h2>
 <p>No. The in-memory check covers only the order in which the dispatcher acts. It does not
 limit a process that bypasses the dispatcher. The environment answers the credential
-question. Inspect what the directory or container that the agent runs in actually holds and
-can reach: files, network and credentials. If no credential is present there, there is none
-to read.</p>
+question: inspect what the directory or container the agent runs in actually holds and can
+reach, meaning files, network and credentials. If no credential is present there, there is
+none to read.</p>
 <h2 id="q8">Q8</h2>
 <p>The approval setting decides when a person is asked before a tool call. The environment
 decides what a command can reach whether or not anyone is asked. Switching prompts off
@@ -6866,7 +6866,7 @@ keep the reproducer out of public issues and pull requests.</p>
 your change. Mark the finding confirmed if the edit is allowed. Mark it refuted if the edit
 is denied on the path the review describes. Mark it cannot tell if you have no way to run
 it, and name the missing run.</p>
-<p><strong>Retrieval 2.</strong> A surviving mutant is a deliberate small change to the code that every test
+<p><strong>Retrieval 2.</strong> A surviving mutant is a changed copy of the code that every test
 still passes. Its survival tells you that no test in the suite can tell the mutant apart
 from the original. So the suite has a gap at trailing characters. A test that gives an
 invalid input with a trailing character and expects rejection would notice it.</p>

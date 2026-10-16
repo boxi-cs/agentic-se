@@ -6637,7 +6637,7 @@
 <p>Use the mature coding-agent seat supplied for the course. Do not run an unknown generated command on a credential-bearing host.</p>
 <h2 id="tasks">Tasks</h2>
 <ol>
-<li><strong>Specify.</strong> Choose two or three read or write operations. For each, define the name, description, required arguments and errors, and a safe rule for when to retry.</li>
+<li><strong>Specify.</strong> Choose two or three read or write operations. For each, define the name, description, required arguments and errors. Also define a safe rule for when to retry.</li>
 <li><strong>Generate.</strong> Ask the agent to propose handlers and schemas. Review the proposal before you put it in the server.</li>
 <li><strong>Verify selection.</strong> Run a request where the right tool is clearly different from the other tools. Record which call the agent selected and the result.</li>
 <li><strong>Verify arguments.</strong> Run a valid call and an invalid-argument call. Check that the server returns structured feedback without a traceback.</li>
@@ -6655,10 +6655,9 @@ Work in that copy. Run the checks from the course checkout:</p>
 <div class="highlight"><pre><span></span><code>python<span class="w"> </span>practice/a2/protocol_check.py<span class="w"> </span>path/to/submission/tool_server.py
 python<span class="w"> </span>practice/a2/check.py<span class="w"> </span>path/to/submission
 </code></pre></div>
-<p><code>protocol_check.py</code> is an envelope smoke test: a quick check of the message format only. It
-checks the handshake, the shape of the tool list, one valid call and one refused invalid call.
-It never calls a model, so it does not show that a model can choose and use your tool. When it
-passes, its output states this limit.</p>
+<p><code>protocol_check.py</code> is an envelope smoke test. It checks the handshake, the shape of the
+tool list, one valid call and one refused invalid call. It never calls a model, so it does not
+show that a model can choose and use your tool. When it passes, its output states this limit.</p>
 <p>The check calls your first listed tool three times: valid, invalid, valid. By default it sends
 the string <code>alpha</code> for each required argument. If your first tool needs other values, pass them
 as JSON. This form works on the starter server:</p>
@@ -6693,7 +6692,7 @@ predicted_time: TODO
 actual_time: TODO
 decision: {action: accept | narrow | recheck | stop, because: [evidence ID(s)], next: TODO}
 </code></pre></div>
-<p>The outline lists the fields of <code>report.json</code> in plain text. <code>starter/report.json</code> holds them as JSON, except <code>predicted_time</code> and <code>actual_time</code>, which you add yourself. Evidence paths are relative to your submission directory. If a field still contains the word <code>TODO</code>, or text in angle brackets such as <code>&lt;name&gt;</code>, the check treats it as unfilled.</p>
+<p>The outline lists the fields of <code>report.json</code> in plain text. <code>starter/report.json</code> holds them as JSON, except <code>predicted_time</code> and <code>actual_time</code>, which you add yourself. Evidence paths are relative to your submission directory. The check reads a field that still contains the word <code>TODO</code>, or text in angle brackets such as <code>&lt;name&gt;</code>, as unfilled.</p>
 
 
 

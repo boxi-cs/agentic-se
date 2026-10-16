@@ -6829,7 +6829,7 @@ team works this way, those jobs move into shared services. Four pieces recur:</p
 </tr>
 </tbody>
 </table>
-<p>Each piece concentrates authority. One review reaches every agent, and so does one mistake.
+<p>Each piece concentrates authority, so one review reaches every agent and so does one mistake.
 For each piece this lesson does the same two steps. <strong>Generate:</strong> a record stands in for what
 a team's agents and services produced. Its <code>agent_summary</code> field is the claim, written as if
 an agent had reported on its own work. <strong>Verify:</strong> you check the records by hand, write the
@@ -6869,16 +6869,15 @@ G3 code.open_draft_pr reaches: ci-dashboard
 result: OVER-BROAD - grants reaching beyond the task: 1; calls outside the task that a grant allowed: 1
 </code></pre></div>
 <p>The summary is true, and that is the lesson. Every call was checked against a grant, and the
-one uncovered call was refused. The portal worked exactly as configured. Even so, the agent
-read a private repository that the task never needed, because grant G2 names every
-repository. Checking each call against its grant is not enough. When the grant itself reaches
+one uncovered call was refused. The portal worked exactly as configured, and the agent still
+read a private repository the task never needed, because grant G2 names every
+repository. Checking each call against its grant is not enough: when the grant itself reaches
 further than the task, every call passes. In one public demonstration, an agent had a single
 GitHub MCP connection that could reach both public and private repositories. Injected text in
 a public issue led the agent to write private information into a public pull request. The
 people who disclosed it recommend limiting repository access (incidents/github-mcp; as_of: 2026-09-05; <a href="https://invariantlabs.ai/blog/mcp-github-vulnerability">Source 1</a>).</p>
-<p>Treat a grant like code. It has an owner and a reason. It also has a test showing that a call
-outside the grant is denied and leaves no effect. Narrow G2 in a copy and watch the same
-session again:</p>
+<p>Treat a grant like code: it has an owner, a reason and a test showing that a call outside it
+is denied and leaves no effect. Narrow G2 in a copy and watch the same session again:</p>
 <div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>week11-org
 cp<span class="w"> </span>lectures/week-11/fixture/org_check.py<span class="w"> </span>lectures/week-11/fixture/org-*.json<span class="w"> </span>week11-org/
 </code></pre></div>
@@ -6901,7 +6900,7 @@ result: WITHIN THE TASK - every grant reaches only the task's repositories; 2 ca
 <p>Call 3 is now the denied call that tests the grant. Delete <code>week11-org</code> when you have
 finished the week's practice.</p>
 <h3 id="model-gateway-what-it-refuses">Model gateway: what it refuses</h3>
-<p>A gateway is one controlled point between the code that calls a model and the service that
+<p>A gateway is one controlled place between code that wants a model and the service that
 answers. Describe a gateway by what it refuses:</p>
 <table>
 <thead>
@@ -6924,7 +6923,7 @@ answers. Describe a gateway by what it refuses:</p>
 </tr>
 <tr>
 <td>Cap each run</td>
-<td>Before sending, it refuses any request that would go past the run's request or token cap</td>
+<td>It refuses, before sending, a request past the run's request or token cap</td>
 <td>A request past the cap appears as sent</td>
 </tr>
 <tr>
@@ -6947,9 +6946,8 @@ still tracked (tools/litellm; as_of: 2026-09-05; <a href="https://docs.litellm.a
 tokens per run and lists two routes. Its fallback, named <code>replay</code>, answers from a recorded
 reply, and its placeholder key is <code>sk-EXAMPLE</code>. Each run records the gateway's decisions and
 the lines the agent's side logged. The agent's summary reads: "All six runs followed the
-gateway policy." Replay the policy over each run by hand. Before each request is sent, add
-its reservation (the most tokens it could use) to what the run has already used. Also search
-the logged lines for the key. Then run:</p>
+gateway policy." Replay the policy over each run by hand, adding each request's reservation
+before it is sent, and search the logged lines for the key. Then run:</p>
 <div class="highlight"><pre><span></span><code>python<span class="w"> </span>lectures/week-11/fixture/org_check.py<span class="w"> </span>gateway<span class="w"> </span>lectures/week-11/fixture/org-gateway.json
 </code></pre></div>
 <p>It exits 1 and prints:</p>
@@ -6966,13 +6964,12 @@ result: POLICY NOT ENFORCED - 2 runs differ from the policy (R2, R4); the key re
 <p>Three separate failures refute the summary. A fifth request was sent. A request went to a
 route nobody listed. The key appears in a log on the agent's side (the check calls that side
 the sandbox side). R3 is the gateway working: 1000 tokens remained, and the third request was
-still refused because it could have used 1200. R6 matches the policy on every request but
-still leaks the key. A policy replay and a key search are therefore two different checks.</p>
+still refused because it could have used 1200. R6 matches the policy on every request and
+still leaks the key, so a policy replay and a key search are two different checks.</p>
 <h3 id="a-budget-reserves-before-it-spends">A budget reserves before it spends</h3>
-<p>R3 shows the rule that makes a cap protect anything. Before sending a request, the gateway
-reserves the request's worst case, the most it could cost. After the reply, the gateway
-settles: it replaces the reservation with the actual amount. A gateway that only reported
-spending afterwards would protect nobody's money. The whole rule is the <code>Budget</code>
+<p>R3 shows the rule that makes a cap protect anything: the gateway reserves a request's worst
+case before sending it and settles to the actual amount after the reply. A gateway that only
+reported spending afterwards would protect nobody's money. The whole rule is the <code>Budget</code>
 class at the top of <a href="fixture/budget_ledger.py"><code>budget_ledger.py</code></a>, about twenty lines. Read
 <code>reserve</code> and <code>settle</code> now.</p>
 <p>The units are course-made numbers, not prices. A run's cap is 10 units. Each request reserves
@@ -6999,9 +6996,9 @@ request 3: sent, reply cost 1; spent 6 of 10
 request 4: sent, reply cost 1; spent 7 of 10
 request 5: refused before sending (Request exceeds the remaining budget.) spent 7 of 10
 </code></pre></div>
-<p>One lost reply cost the run three requests. A timeout marks the point where observation
-stopped. It does not show that nothing happened. The incident later in this lesson turns on
-the same idea.</p>
+<p>One lost reply cost the run three requests. A timeout marks where observation stopped; it
+does not show that nothing happened. The incident later in this lesson turns on the same
+idea.</p>
 <p>A cap is a hard stop, not a warning. Design an agent task so that its required work finishes
 inside the cap, or so that it stops and reports. Splitting the work across runs to get around
 a cap defeats the protection.</p>
@@ -7072,8 +7069,8 @@ check fails, the policy escalates the task to a more capable route. Here the eva
 fixed set of cases plus the scorer that decides each one. You audited this kind of check in
 Week 10. The cases are frozen: they do not change between the routes you compare. A cheaper
 route may be a smaller model, fewer requests, a smaller output limit or no model call at
-all. Whether it is good enough is something you measure. Run the same frozen cases on both
-routes and compare the results case by case.</p>
+all. Whether it is good enough is a measurement: run the same frozen cases on both routes
+and compare them case by case.</p>
 <p><a href="fixture/org-routes.json"><code>org-routes.json</code></a> holds a policy, three route choices and the
 evaluator results behind them. The policy is "Send each task to the cheapest route that
 passes at least 90% of its frozen evaluator cases". The route names are placeholders. The
@@ -7099,9 +7096,9 @@ label-flaky-test: 10 frozen cases; current route route-large; chosen route route
   route-small: NOT SUPPORTED - the results for route-small are for r1 and the route is now r2; rerun the frozen cases
 result: 1 of 3 route choices supported by the evaluator
 </code></pre></div>
-<p>All three choices satisfy the 90% rule, but only one is supported. In the first task, the
-cheaper route passes 11 of 12. It loses the one case that the current route gets right, and a
-pass rate hides which case was lost. In the third task, the two routes fail the same case,
+<p>All three choices satisfy the 90% rule, but only one is supported. In the first task the
+cheaper route passes 11 of 12 and loses the one case the current route gets right: a rate
+hides which case was lost. In the third task, the two routes fail the same case,
 but the cheaper route's results are for an older revision. A route can keep its name and
 still change its behaviour. So you rerun the frozen cases whenever a route or a model
 changes. Even a fresh, complete pass says nothing about inputs that are not among the frozen
@@ -7146,7 +7143,7 @@ For each risk, name the check that would detect it:</p>
 <p>Apply the boundary test from the security week (Week 8) to each piece. A denied call must
 stay denied through every route, and permitted work must still succeed.</p>
 <h3 id="an-incident-observe-before-you-repair">An incident: observe before you repair</h3>
-<p>Operating agents also means handling the day something breaks. In the <code>ci-dashboard</code>
+<p>Operating agents includes the day something breaks. In the <code>ci-dashboard</code>
 example, revision R2 of the dashboard went live at 10:05:00. (This R2 is a revision of the
 application, not gateway run R2 above.) A user then reported that the project page was slow.
 Before anyone changes code, an agent drafts a root-cause analysis. The draft in
@@ -7233,10 +7230,10 @@ review findings in <a href="../week-06/notes.en.html#the-model-reviews-you-verif
   does not tell you which code to repair.</li>
 </ul>
 <p>Act only on what you confirmed. A mitigation that rests on timing alone, such as rolling back
-a revision, must be reversible and must state its rollback condition. It must end with a
-check of the user path, the action the user reported. Do not repair code until you have run a
-check that can see the cause. Drop any part of a proposal that rests on a refuted claim. Keep
-the claim's lines, though, if they show something else worth following up.</p>
+a revision, must be reversible, state its rollback condition and end with a check of the user
+path. A code repair waits until a check that can see its cause has run. Drop any part of a
+proposal that rests on a refuted claim. Keep the claim's lines, though, if they show
+something else worth following up.</p>
 <h3 id="the-continuing-dashboard-case">The continuing dashboard case</h3>
 <p>A second incident on the same example. The dashboard acknowledges a retry request for build
 42, then the reply is lost. The operator retries and a second job is created.
@@ -7292,14 +7289,14 @@ attempts for that same operation.</p>
 </table>
 <p><strong>Decision:</strong> which evidence tells a failed request apart from a request that took effect but
 whose reply was lost? The client's timeout cannot. A timeout only marks where the client
-stopped observing; it does not prove that nothing happened. The stored job and its operation
-key can.</p>
+stopped observing; it does not prove that nothing happened. The persisted job and its
+operation key can.</p>
 <p><strong>Write the requirement before any repair.</strong> A repeated request with the same key and the
 same build returns the existing job and creates none. This property is called idempotency:
 repeating the same operation has the effect of doing it once. The same key with a different
 build is a conflict and creates nothing. A new intended retry uses a new key and gets a new
 job. Two deliveries of the same request that arrive together still create one job. These are
-the four rows below. The last column is what a repair must show:</p>
+the four rows below, and the last column is what a repair must show:</p>
 <table>
 <thead>
 <tr>
@@ -7338,7 +7335,7 @@ the four rows below. The last column is what a repair must show:</p>
 </table>
 <p><strong>Generate.</strong> Ask the agent for a small repair tied to this chain of events. Suppose the agent
 replies with the obvious one: look the key up, and insert a job only if none is found. Its
-summary says the duplicate is fixed. For the incident as it happened (row 1), that is true.</p>
+summary says the duplicate is fixed, and on the incident as it happened (row 1) that is true.</p>
 <p><strong>Verify with a regression.</strong> <a href="fixture/retry_replay.py"><code>retry_replay.py</code></a> plays the four
 rows against an in-memory database with one of three handlers: <code>unprotected</code> (the incident
 build), <code>check-then-insert</code> (the agent's proposal) and <code>repaired</code>. It exits 0 only when
@@ -7369,11 +7366,11 @@ rows meeting the repaired requirement: 3 of 4
 <p>Row 1, the incident as reported, now passes. Row 2 still stores two jobs. Both requests
 looked the key up before either one inserted a job, so both found nothing. A regression that
 replayed only the reported sequence would have accepted this repair.</p>
-<p>The real repair lets the database enforce identity. It stores a unique
-<code>(pipeline, operation_key)</code> with the job in one statement. A repeated matching request then
-returns the existing job, and the same key with another build is refused. A batch with one
-conflicting row saves nothing. A lookup followed by a separate insert can still race: two
-requests can both look before either one inserts. So the uniqueness rule and the
+<p>The real repair puts identity where the database can enforce it: a unique
+<code>(pipeline, operation_key)</code> stored with the job in one statement, so that a repeated matching
+request returns the existing job, the same key with another build is refused, and a batch
+with one conflicting row saves nothing. A lookup followed by a separate insert can still
+race: two requests can both look before either one inserts. So the uniqueness rule and the
 all-or-nothing write (atomicity) belong in the database, where jobs are stored.</p>
 <div class="highlight"><pre><span></span><code>python<span class="w"> </span>lectures/week-11/fixture/retry_replay.py<span class="w"> </span>repaired
 </code></pre></div>

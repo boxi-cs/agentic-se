@@ -6610,7 +6610,7 @@ failing output. Then restore the path and make the smallest change that makes th
 pass. If your project cannot run locally, use a pure Python function in the scratch
 directory, and write that limit down in the record.</p>
 <p>The example compares only the returned text. It never looks at a directory, so it does not
-yet observe “no file is written”. It also cannot express the notes' third case, a row
+yet observe “no file is written”, and it cannot express the notes' third case, a row
 without <code>id</code>, because <code>export_result</code> takes only a path. In your own checker, also read or
 list the state that case 2 says must not change.</p>
 <h2 id="3-tighten-one-model-facing-schema-20-minutes">3. Tighten one model-facing schema (20 minutes)</h2>

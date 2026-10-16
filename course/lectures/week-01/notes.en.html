@@ -6741,8 +6741,8 @@ lets us inspect the loop without making a model request.</p>
 </tbody>
 </table>
 <p>Despite its name, <code>bash</code> does not accept arbitrary shell commands. For example,
-<code>echo 4 &gt; result.txt</code> is refused. The tool's code enforces this restriction. A prompt
-that asks the model to be careful would not enforce it.</p>
+<code>echo 4 &gt; result.txt</code> is refused. This restriction is in the tool's code; a prompt
+asking the model to be careful would not enforce it.</p>
 <p>In class the instructor builds steps 1-3 of <code>run()</code> on screen, and you type along in
 your copy. Steps 4 and 5 are yours. These are the five public steps that <code>run()</code> must
 follow:</p>
@@ -6795,8 +6795,8 @@ also makes an earlier passing check stale (out of date). After that write,
 <p>A request can carry system or developer instructions, user context, assistant
 calls and tool results. Tool definitions travel beside these messages. A tool
 definition names the operation, describes what it is for and declares the shape of
-its arguments. A system prompt describes the agent's role and workflow. It does not
-run any tests.</p>
+its arguments. A system prompt describes the agent's role and workflow; it does not
+execute tests.</p>
 <p><a href="readings.en.html#primary-source-reading">Source 1 and Source 2</a> are instruction and
 tool files that open-source agents have published, fixed at one version. Read one
 stopping instruction and one schema constraint. Then find the same parts in the
@@ -6883,7 +6883,7 @@ Treat the recorder's log like a file that holds credentials until you have check
 <li><strong>Decision:</strong> end A1 with accept, narrow, recheck or stop and the specific evidence
   supporting it. Keep one AI-use note with the work and reuse its ID.</li>
 </ul>
-<p>The loop's turn budget puts an upper limit on the number of requests. It does not
+<p>The loop's turn budget guarantees a bound on requests. It does not
 prove that the agent made progress. It does not check that the result means what
 the task asked for. It also does not put a secure process boundary around Python
 code that can be edited. Keep these properties apart when you interpret a trace.</p>

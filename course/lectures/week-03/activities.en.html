@@ -6789,8 +6789,8 @@ it leaves.</p>
 fill in <code>observed</code>, the checker reports
 <code>A mismatch needs 'revision' with description_change, rechecked.</code> for these placeholders.
 That is expected, and it is no reason to change them. If any observation differs from
-<code>should_trigger</code>, add a <code>revision</code> section. It names how you changed the description, and
-you recheck exactly those IDs. Do not rewrite the original prediction or the first
+<code>should_trigger</code>, add a <code>revision</code> section naming the description change and recheck
+exactly those IDs. Do not rewrite the original prediction or the first
 observation. First change the description and send those prompts again. Then append a
 block like this one to <code>trigger-test.yaml</code>. It shows the shape for one mismatch: a
 <code>matching-paraphrase</code> request that stayed quiet at first.</p>
@@ -6937,7 +6937,7 @@ You do not need the starter's <code>SKILL.md</code> and <code>manual-workflow.md
 <p><code>PASS: record is internally consistent; inspect the evidence yourself.</code> means that the
 record is consistent. It does not mean that the agent selected the skill. Your CLI may show
 no selection marker. In that case, the A3 page tells you not to count a plausible
-activation as proof. Ask for support before you record a trial. A3 is due this week.</p>
+activation as proof and to ask for support before you record a trial. A3 is due this week.</p>
 
 
 

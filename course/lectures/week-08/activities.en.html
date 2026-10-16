@@ -6691,8 +6691,8 @@ it with your prediction. Which field shows that the refusal came too late?</p>
 the smallest change that meets the contract. Edit only <code>candidate.py</code>; leave <code>chain.py</code>,
 <code>exercise.py</code> and the expectations alone. If you have no working agent today, write the
 repair yourself and say so in your record. Then run the block below in the same shell. The
-output shown comes from the repair in the notes. That repair moves the allowlist check
-before the effect:</p>
+output shown is for the repair from the notes, which moves the allowlist check before the
+effect:</p>
 <div class="highlight"><pre><span></span><code>diff<span class="w"> </span>candidate.starter.py<span class="w"> </span>candidate.py
 python<span class="w"> </span>chain.py<span class="w"> </span>&gt;<span class="w"> </span>chain-after.txt<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit </span><span class="nv">$?</span><span class="s2">"</span>
 python<span class="w"> </span>exercise.py<span class="w"> </span>&gt;<span class="w"> </span>repaired-checks.json<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit </span><span class="nv">$?</span><span class="s2">"</span>
@@ -6742,11 +6742,11 @@ claim you would accept as written.</p>
 and the raw observation. For the deserialization finding, confirm that the recorder saw a
 loader call. No payload is executed. For the dependency, write the missing fact and the
 check that would supply it.</p>
-<p><strong>Step 5.</strong> Repair <code>parse_config</code> so that it calls the JSON decoder that the module already
-provides. That decoder reads data only. Also delete the <code>import pickle</code> line. The verifier
-rejects a file that still imports <code>pickle</code>. It refuses to run any file that uses an
-import, attribute or name outside the short lists in the notes. Do not keep a loader as a
-fallback for text that is not JSON. Do not change <code>verify_triage.py</code> or the draft. Then:</p>
+<p><strong>Step 5.</strong> Repair <code>parse_config</code> so that it calls the data-only JSON decoder the module
+already provides, and delete the <code>import pickle</code> line: the verifier rejects a file that
+still imports <code>pickle</code>, and does not run a file that uses an import, attribute or name
+outside the short lists in the notes. Do not keep a loader as a fallback for text that is
+not JSON. Do not change <code>verify_triage.py</code> or the draft. Then:</p>
 <div class="highlight"><pre><span></span><code>python<span class="w"> </span>verify_triage.py<span class="w"> </span>&gt;<span class="w"> </span>triage-after.json<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"exit </span><span class="nv">$?</span><span class="s2">"</span>
 grep<span class="w"> </span><span class="s1">'"repaired"'</span><span class="w"> </span>triage-before.json<span class="w"> </span>triage-after.json
 </code></pre></div>

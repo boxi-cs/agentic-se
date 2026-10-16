@@ -6629,8 +6629,8 @@ demonstration's directory named in that week's activity. In week 8 that is
 as a source or citation in a data file is not a destination. For the week 8 demonstration,
 the check prints three <code>https://</code> lines from <code>scan/advisories.json</code>. They record where the
 advisory data came from, and no script opens them. For any other external address, stop
-and ask for help. This check does not catch a bare hostname without a scheme (such as
-<code>https://</code>). So also read what the demonstration's scripts import. The week 8 scripts
+and ask for help. This check does not catch a hostname written without <code>http://</code> or
+<code>https://</code>. So also read what the demonstration's scripts import. The week 8 scripts
 import no network module.</p>
 <p>These checks apply to agent-generated code and commands as well as work you write yourself.
 Before you grant permission for a proposed command, check its scope. Then verify its result
@@ -6638,9 +6638,9 @@ against an acceptance criterion. Keep the work product, verification results and
 explanation together with one AI-use note. Share only the excerpts the assignment requires.</p>
 <h3 id="request-logs">Request logs</h3>
 <p>A request log records what an agent sent to its model and what came back, like the capture
-you make in week 1 for A1. Until you have checked it, treat it like a file that holds
-credentials. Keep it in a private directory outside every repository. Do not commit,
-upload, paste or screenshot it. Share only excerpts you have read line by line. A tool that
+you make in week 1 for A1. Treat it like a file that holds credentials until you have
+checked it: keep it in a private directory outside every repository; do not commit, upload,
+paste or screenshot it; and share only excerpts you have read line by line. A tool that
 redacts keys can miss a format it does not know. If a key appears in a log, follow practice
 3: revoke the key with the provider and notify the teaching team.</p>
 <h2 id="try-a-small-request">Try a small request</h2>
