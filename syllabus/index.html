@@ -10,23 +10,25 @@
 <meta property="og:site_name" content="Agentic Software Engineering">
 <meta property="og:title" content="Syllabus · Agentic Software Engineering: Build, Verify, Evaluate">
 <meta property="og:description" content="Learning outcomes, schedule, assessment and policies.">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap" media="print" onload="this.media='all'">
+<script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Google+Sans+Code:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="../assets/site.css">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<nav class="top">
-  <a class="brand" href="../">Agentic Software Engineering</a>
-  <span><a href="../approach/">Approach</a><a href="../syllabus/">Syllabus</a><a href="../#schedule">Schedule</a><a href="../#videos">Videos</a><a href="../course/">Course materials</a><a href="https://boxiyu.github.io/">Instructor</a></span>
-</nav>
-<header class="hero hero-week">
-  <p class="kicker"><a href="../">Agentic Software Engineering</a> · Syllabus</p>
+<header class="topbar">
+  <a class="brand" href="../"><span class="brand-mark">ASE</span><span class="brand-text"><b>Agentic Software Engineering</b><span>Build, verify, evaluate</span></span></a>
+  <nav class="navlinks" aria-label="Site"><a href="../approach/">Approach</a><a href="../syllabus/">Syllabus</a><a href="../#schedule">Schedule</a><a href="../#videos">Videos</a><a href="../course/">Materials</a><a class="ext" href="https://boxiyu.github.io/">Instructor ↗</a></nav>
+  <button class="iconbtn" id="theme" type="button" aria-label="Dark theme">☾</button>
+</header>
+<div class="hero-band"><header class="wrap hero hero-week">
+  <span class="pill"><a href="../">Agentic Software Engineering</a>· Syllabus</span>
   <h1>Syllabus</h1>
   <p class="meta">Last updated 2026-10-15</p>
-</header>
-<main id="main" class="prose">
-  <nav class="toc"><ul><li><a href="#overview">Overview</a></li><li><a href="#how-the-course-is-designed">How the course is designed</a></li><li><a href="#learning-outcomes">Learning outcomes</a></li><li><a href="#outcomes-in-teaching-and-individual-assessment">Outcomes in teaching and individual assessment</a></li><li><a href="#calendar">Calendar</a></li><li><a href="#assessment">Assessment</a></li><li><a href="#assignments">Assignments</a></li><li><a href="#term-project">Term project</a></li><li><a href="#open-source-contributions">Open-source contributions</a></li><li><a href="#workload-and-participation">Workload and participation</a></li><li><a href="#privacy-fairness-and-accessibility">Privacy, fairness and accessibility</a></li><li><a href="#tools-and-model-access">Tools and model access</a></li><li><a href="#ai-use-and-responsibility">AI use and responsibility</a></li></ul></nav>
+</header></div>
+<main id="main" class="wrap"><div class="prose">
+  <nav class="toc" aria-label="Contents"><b>Contents</b><ul><li><a href="#overview">Overview</a></li><li><a href="#how-the-course-is-designed">How the course is designed</a></li><li><a href="#learning-outcomes">Learning outcomes</a></li><li><a href="#outcomes-in-teaching-and-individual-assessment">Outcomes in teaching and individual assessment</a></li><li><a href="#calendar">Calendar</a></li><li><a href="#assessment">Assessment</a></li><li><a href="#assignments">Assignments</a></li><li><a href="#term-project">Term project</a></li><li><a href="#open-source-contributions">Open-source contributions</a></li><li><a href="#workload-and-participation">Workload and participation</a></li><li><a href="#privacy-fairness-and-accessibility">Privacy, fairness and accessibility</a></li><li><a href="#tools-and-model-access">Tools and model access</a></li><li><a href="#ai-use-and-responsibility">AI use and responsibility</a></li></ul></nav>
 <p>English is the first teaching language. By the end of the course you can deliver changes in a real codebase with a coding agent, confirm that the agent got them right, and explain and modify your own work without an agent.</p>
 <p>The topics, their order and the position of the deadlines follow the public Fall 2026 calendar of Stanford&#x27;s <a href="https://themodernsoftware.dev/">CS146S: The Modern Software Developer</a>; only that public structure is followed. This course adds three things: two weeks on verification (weeks 7 and 10); a project defense; and one decision line at the end of every assignment (accept, narrow, recheck or stop), with the evidence behind it. The course is not affiliated with Stanford University. Every assignment, lecture note and rubric here is written for this course.</p>
 <h2 id="overview">Overview</h2>
@@ -63,12 +65,27 @@
 <ul><li><strong>Coding agent</strong>: you use a mature coding agent directly. The course states the capabilities it needs (instruction files, hooks, a permission mode, MCP, subagents, a readable session record) and names no vendor.</li><li><strong>Seats and credit</strong>: every student has a working agent seat or credit when teaching starts, at no cost to the student. The course first uses teaching credit from partners or providers, and its budget buys the rest. How much partners provide is not yet confirmed.</li><li><strong>Safety</strong>: run the agent in a dedicated directory or container. Keep residency, employer and cloud credentials out of that environment. Keep keys out of repositories, prompts, screenshots and logs. Run the injection demonstration offline, against the local machine only. The <a href="../course/site/docs/week0/setup.en.html">Week 0 setup page</a> explains each practice and how to check it.</li><li><strong>Other tools</strong>: pytest, one mutation-testing tool and one property-testing library, Semgrep, gitleaks, pip-audit.</li></ul>
 <h2 id="ai-use-and-responsibility">AI use and responsibility</h2>
 <p>You do the checkpoints and the defense alone. You may use an agent for all other work, and you note that use once in the work. Nobody infers authorship from writing style. When evidence is contradictory, it goes to a human process.</p>
-</main>
+</div></main>
 <footer class="foot">
+  <div class="wrap">
   <p>Videos: English narration in a synthetic voice (Google Gemini text-to-speech), with English and
   Chinese subtitles. Every example in them is course-authored and synthetic.</p>
   <p>Contact: <a href="mailto:boxi.yu@ul.ie">boxi.yu@ul.ie</a> ·
   <a href="https://github.com/boxi-cs/agentic-se">Source for this site</a> · Boxi CS</p>
+  </div>
 </footer>
+<script>
+(function () {
+  var root = document.documentElement, button = document.getElementById("theme");
+  function dark() { return root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches; }
+  function label() { button.textContent = dark() ? "\u2600" : "\u263E"; button.setAttribute("aria-label", dark() ? "Light theme" : "Dark theme"); }
+  label();
+  button.addEventListener("click", function () {
+    root.dataset.theme = dark() ? "light" : "dark";
+    try { localStorage.setItem("theme", root.dataset.theme); } catch (e) {}
+    label();
+  });
+})();
+</script>
 </body>
 </html>

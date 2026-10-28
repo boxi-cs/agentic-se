@@ -10,22 +10,24 @@
 <meta property="og:site_name" content="Agentic Software Engineering">
 <meta property="og:title" content="Approach · Agentic Software Engineering: Build, Verify, Evaluate">
 <meta property="og:description" content="Agents generate. You verify, decide and explain.">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap" media="print" onload="this.media='all'">
+<script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Google+Sans+Code:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="../assets/site.css">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<nav class="top">
-  <a class="brand" href="../">Agentic Software Engineering</a>
-  <span><a href="../approach/">Approach</a><a href="../syllabus/">Syllabus</a><a href="../#schedule">Schedule</a><a href="../#videos">Videos</a><a href="../course/">Course materials</a><a href="https://boxiyu.github.io/">Instructor</a></span>
-</nav>
-<header class="hero hero-week">
-  <p class="kicker"><a href="../">Agentic Software Engineering</a> · Approach</p>
+<header class="topbar">
+  <a class="brand" href="../"><span class="brand-mark">ASE</span><span class="brand-text"><b>Agentic Software Engineering</b><span>Build, verify, evaluate</span></span></a>
+  <nav class="navlinks" aria-label="Site"><a href="../approach/">Approach</a><a href="../syllabus/">Syllabus</a><a href="../#schedule">Schedule</a><a href="../#videos">Videos</a><a href="../course/">Materials</a><a class="ext" href="https://boxiyu.github.io/">Instructor ↗</a></nav>
+  <button class="iconbtn" id="theme" type="button" aria-label="Dark theme">☾</button>
+</header>
+<div class="hero-band"><header class="wrap hero hero-week">
+  <span class="pill"><a href="../">Agentic Software Engineering</a>· Approach</span>
   <h1>How this course works</h1>
   <p class="lede">Agents generate. You verify, decide and explain.</p>
-</header>
-<main id="main" class="prose">
+</header></div>
+<main id="main" class="wrap"><div class="prose">
 <p>A coding agent proposes a change. You decide whether the evidence supports it and whether you can explain it. Every example shows both generation and verification. A test you can rerun is evidence. An agent saying “done” is a claim to check.</p>
 <h2 id="twelve-teaching-weeks-then-assessment">Twelve teaching weeks, then assessment</h2>
 <p>The topics and their order follow the public Fall 2026 calendar of Stanford&#x27;s <a href="https://themodernsoftware.dev/">CS146S</a>, with two verification weeks added. This course is not affiliated with Stanford University. Each teaching week has two 90-minute sessions. The first is a lecture with live generation and verification. The second is a practitioner guest or a studio. When no guest is available, you work on your project or contribution in a studio, with support from the teaching team. Week 13 has the project expo, followed by individual defenses. The <a href=".././#schedule">schedule</a> gives topics and deadlines.</p>
@@ -38,12 +40,27 @@
 <h2 id="practise-making-a-decision">Practise making a decision</h2>
 <p>Save a prediction before discussion. Inspect a candidate change or a trace. Run a discriminating check, that is, a check that can tell a right result from a wrong one. Revise after feedback, and try a changed input. After checking, choose whether to accept, narrow, recheck or stop. Another generation call helps only when it answers a question you can name.</p>
 <p>Follow the safety practices in <a href="../course/site/docs/week0/setup.en.html">Week 0 setup</a> before using your supplied coding agent. <a href="../course/site/docs/staff.en.html">Ask for help</a> when an access problem or a concept stops you from making progress.</p>
-</main>
+</div></main>
 <footer class="foot">
+  <div class="wrap">
   <p>Videos: English narration in a synthetic voice (Google Gemini text-to-speech), with English and
   Chinese subtitles. Every example in them is course-authored and synthetic.</p>
   <p>Contact: <a href="mailto:boxi.yu@ul.ie">boxi.yu@ul.ie</a> ·
   <a href="https://github.com/boxi-cs/agentic-se">Source for this site</a> · Boxi CS</p>
+  </div>
 </footer>
+<script>
+(function () {
+  var root = document.documentElement, button = document.getElementById("theme");
+  function dark() { return root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches; }
+  function label() { button.textContent = dark() ? "\u2600" : "\u263E"; button.setAttribute("aria-label", dark() ? "Light theme" : "Dark theme"); }
+  label();
+  button.addEventListener("click", function () {
+    root.dataset.theme = dark() ? "light" : "dark";
+    try { localStorage.setItem("theme", root.dataset.theme); } catch (e) {}
+    label();
+  });
+})();
+</script>
 </body>
 </html>
