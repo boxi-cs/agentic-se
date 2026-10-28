@@ -10,21 +10,23 @@
 <meta property="og:site_name" content="Agentic Software Engineering">
 <meta property="og:title" content="Week 10: Evaluating agents · Agentic Software Engineering">
 <meta property="og:description" content="Can the check fail, was the pass earned, is the denominator complete; pass@k on a small table; calibrating a model judge.">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap" media="print" onload="this.media='all'">
+<script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Google+Sans+Code:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="../../assets/site.css">
 <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<nav class="top">
-  <a class="brand" href="../../">Agentic Software Engineering</a>
-  <span><a href="../../approach/">Approach</a><a href="../../syllabus/">Syllabus</a><a href="../../#schedule">Schedule</a><a href="../../#videos">Videos</a><a href="../../course/">Course materials</a><a href="https://boxiyu.github.io/">Instructor</a></span>
-</nav>
-<header class="hero hero-week">
-  <p class="kicker"><a href="../../">Agentic Software Engineering</a> · Week 10</p>
-  <h1>Evaluating agents</h1>
+<header class="topbar">
+  <a class="brand" href="../../"><span class="brand-mark">ASE</span><span class="brand-text"><b>Agentic Software Engineering</b><span>Build, verify, evaluate</span></span></a>
+  <nav class="navlinks" aria-label="Site"><a href="../../approach/">Approach</a><a href="../../syllabus/">Syllabus</a><a href="../../#schedule">Schedule</a><a href="../../#videos">Videos</a><a href="../../course/">Materials</a><a class="ext" href="https://boxiyu.github.io/">Instructor ↗</a></nav>
+  <button class="iconbtn" id="theme" type="button" aria-label="Dark theme">☾</button>
 </header>
-<main id="main">
+<div class="hero-band"><header class="wrap hero hero-week">
+  <span class="pill"><a href="../../">Agentic Software Engineering</a>· Week 10 of 13</span>
+  <h1>Evaluating agents</h1>
+</header></div>
+<main id="main" class="wrap">
   <section>
     <h2>This week</h2>
     <dl class="week">
@@ -61,10 +63,25 @@
   <nav class="pager"><a href="../09/">← Week 9</a><a href="../../#schedule">All weeks</a><a href="../11/">Week 11 →</a></nav>
 </main>
 <footer class="foot">
+  <div class="wrap">
   <p>Videos: English narration in a synthetic voice (Google Gemini text-to-speech), with English and
   Chinese subtitles. Every example in them is course-authored and synthetic.</p>
   <p>Contact: <a href="mailto:boxi.yu@ul.ie">boxi.yu@ul.ie</a> ·
   <a href="https://github.com/boxi-cs/agentic-se">Source for this site</a> · Boxi CS</p>
+  </div>
 </footer>
+<script>
+(function () {
+  var root = document.documentElement, button = document.getElementById("theme");
+  function dark() { return root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches; }
+  function label() { button.textContent = dark() ? "\u2600" : "\u263E"; button.setAttribute("aria-label", dark() ? "Light theme" : "Dark theme"); }
+  label();
+  button.addEventListener("click", function () {
+    root.dataset.theme = dark() ? "light" : "dark";
+    try { localStorage.setItem("theme", root.dataset.theme); } catch (e) {}
+    label();
+  });
+})();
+</script>
 </body>
 </html>

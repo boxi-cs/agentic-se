@@ -10,154 +10,195 @@
 <meta property="og:site_name" content="Agentic Software Engineering">
 <meta property="og:title" content="Agentic Software Engineering: Build, Verify, Evaluate">
 <meta property="og:description" content="Agents generate. You verify, decide and explain.">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap" media="print" onload="this.media='all'">
+<script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Google+Sans+Code:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="./assets/site.css">
 <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<nav class="top">
-  <a class="brand" href="./">Agentic Software Engineering</a>
-  <span><a href="./approach/">Approach</a><a href="./syllabus/">Syllabus</a><a href="./#schedule">Schedule</a><a href="./#videos">Videos</a><a href="./course/">Course materials</a><a href="https://boxiyu.github.io/">Instructor</a></span>
-</nav>
-<header class="hero">
-  <p class="kicker">Boxi CS · Course</p>
+<header class="topbar">
+  <a class="brand" href="./"><span class="brand-mark">ASE</span><span class="brand-text"><b>Agentic Software Engineering</b><span>Build, verify, evaluate</span></span></a>
+  <nav class="navlinks" aria-label="Site"><a href="./approach/">Approach</a><a href="./syllabus/">Syllabus</a><a href="./#schedule">Schedule</a><a href="./#videos">Videos</a><a href="./course/">Materials</a><a class="ext" href="https://boxiyu.github.io/">Instructor ↗</a></nav>
+  <button class="iconbtn" id="theme" type="button" aria-label="Dark theme">☾</button>
+</header>
+<div class="hero-band">
+<header class="wrap hub-hero">
+  <div>
+  <span class="pill">Boxi CS · Course</span>
   <h1>Agentic Software Engineering<span>Build, <em>verify</em>, evaluate.</span></h1>
+  <p class="byline">Designed by <a href="https://boxiyu.github.io/">Boxi Yu</a></p>
   <p class="tagline">Agents generate. You verify, decide and explain.</p>
   <p class="lede">A coding agent proposes a change. You decide whether the evidence supports it and whether you can explain it. Every example shows both generation and verification. A test you can rerun is evidence. An agent saying “done” is a claim to check.</p>
   <p class="actions">
-    <a class="button primary" href="syllabus/">Read the syllabus</a>
+    <a class="button primary" href="syllabus/">Read the syllabus →</a>
     <a class="button" href="approach/">How this course works</a>
     <a class="button" href="course/">Course materials</a>
   </p>
+  </div>
+  <div class="term" role="img" aria-label="A coding agent says it is done; a test run shows one failure; you decide what to do next.">
+    <div class="term-bar"><i></i><i></i><i></i><span>generate, then verify</span><small>synthetic example</small></div>
+    <pre><span class="p">$</span> agent <span class="k">"fix the date parser for leap years"</span>
+<span class="c">  edited parser.py, added 2 tests</span>
+<span class="c">  agent:</span> done <span class="ok">✓</span>   <span class="w"># a claim</span>
+
+<span class="p">$</span> pytest -q tests/test_parser.py
+<span class="ok">  ....</span><span class="bad">F</span>   <span class="bad">1 failed</span>: test_feb_29_1900
+<span class="w">  # the evidence says otherwise</span>
+
+<span class="c">  decide:</span> accept · <span class="k">narrow the task</span> · recheck · stop
+<span class="p">$</span> <span class="cur"></span></pre>
+  </div>
 </header>
-<main id="main">
+</div>
+<main id="main" class="wrap">
+<!-- Site text: the key figures, counted from the calendar, the films and the assessment table. -->
+<div class="stats">
+  <div><b>12</b>Teaching weeks<small>then an assessment week</small></div>
+  <div><b>12</b>Films<small>1 h 43 min in all</small></div>
+  <div><b>7</b>Assessed parts<small>100 marks in all</small></div>
+  <div><b>30</b>Marks without AI<small>checkpoints and the defense</small></div>
+</div>
 <section id="approach">
-  <h2>How this course works</h2>
+  <div class="sec-h"><h2>How this course works</h2><span>generate · verify · decide · explain</span></div>
   <ul class="shape"><li><strong>Length:</strong> 12 teaching weeks, then an assessment week (expo and defenses) in week 13.</li><li><strong>Two sessions a week:</strong> the first is a lecture that generates and then verifies, live. The second is a talk by a practitioner guest. In a week without a guest, it is a studio: you work on your own project or contribution while staff circulate. Each session is 90 minutes. The plan is one cohort of 60 students.</li><li><strong>Three lines of work:</strong> six assignments (mostly in the first six weeks), four open-source contributions (across two repositories), and one term project (one or two people).</li></ul>
   <div class="principles">
-    <div class="principle"><h3>Generate, then verify</h3><p>Every example shows both steps. A check you can rerun is evidence; an agent saying &quot;done&quot; is a claim.</p></div>
-    <div class="principle"><h3>Predict before you look</h3><p>Each class opens with a decision you can get wrong. Save your prediction, run a check that tells the answers apart, then revise.</p></div>
-    <div class="principle"><h3>Decide, don&#x27;t regenerate</h3><p>When a candidate change passes, choose one: accept it, narrow the task, recheck something specific or stop.</p></div>
-    <div class="principle"><h3>Explain it without the agent</h3><p>You do two checkpoints and a project defense without AI. Together they are worth 30 of 100 marks.</p></div>
+    <div class="principle"><b>01</b><h3>Generate, then verify</h3><p>Every example shows both steps. A check you can rerun is evidence; an agent saying &quot;done&quot; is a claim.</p></div>
+    <div class="principle"><b>02</b><h3>Predict before you look</h3><p>Each class opens with a decision you can get wrong. Save your prediction, run a check that tells the answers apart, then revise.</p></div>
+    <div class="principle"><b>03</b><h3>Decide, don&#x27;t regenerate</h3><p>When a candidate change passes, choose one: accept it, narrow the task, recheck something specific or stop.</p></div>
+    <div class="principle"><b>04</b><h3>Explain it without the agent</h3><p>You do two checkpoints and a project defense without AI. Together they are worth 30 of 100 marks.</p></div>
   </div>
   <!-- Site text: what the approach page adds. -->
-  <p><a href="approach/">The full approach: the three lines of work, the checkpoints and the defense →</a></p>
+  <p><a class="more" href="approach/">The full approach: the three lines of work, the checkpoints and the defense →</a></p>
 </section>
 <section id="syllabus">
-  <h2>How the work is assessed</h2>
+  <div class="sec-h"><h2>How the work is assessed</h2><span>100 marks</span></div>
   <div class="prose">
-    <div class="table-wrap"><table><thead><tr><th>Component</th><th class="num">Marks</th><th>When</th><th>AI</th></tr></thead><tbody><tr><td>Term project: four milestones</td><td class="num">20</td><td>Weeks 2, 4, 7 and 12</td><td>allowed</td></tr><tr><td>Project defense</td><td class="num">15</td><td>Week 13</td><td>off</td></tr><tr><td>Four open-source contributions</td><td class="num">30</td><td>Weeks 4, 8, 9 and 12</td><td>allowed</td></tr><tr><td>Six assignments</td><td class="num">15</td><td>Weeks 1-3, 5, 6 and 10</td><td>allowed</td></tr><tr><td>CP1: AI-off diagnosis, test and repair</td><td class="num">7.5</td><td>Week 6</td><td>off</td></tr><tr><td>CP2: AI-off review of unfamiliar code and recovery reasoning</td><td class="num">7.5</td><td>Week 11</td><td>off</td></tr><tr><td>Participation: guest questions, studio, expo</td><td class="num">5</td><td>All term</td><td>—</td></tr></tbody></table></div>
+    <div class="table-wrap"><table><thead><tr><th>Component</th><th class="num">Marks</th><th>When</th><th>AI</th></tr></thead><tbody><tr><td>Term project: four milestones</td><td class="num">20</td><td>Weeks 2, 4, 7 and 12</td><td><span class="ai ai-allowed">allowed</span></td></tr><tr><td>Project defense</td><td class="num">15</td><td>Week 13</td><td><span class="ai ai-off">off</span></td></tr><tr><td>Four open-source contributions</td><td class="num">30</td><td>Weeks 4, 8, 9 and 12</td><td><span class="ai ai-allowed">allowed</span></td></tr><tr><td>Six assignments</td><td class="num">15</td><td>Weeks 1-3, 5, 6 and 10</td><td><span class="ai ai-allowed">allowed</span></td></tr><tr><td>CP1: AI-off diagnosis, test and repair</td><td class="num">7.5</td><td>Week 6</td><td><span class="ai ai-off">off</span></td></tr><tr><td>CP2: AI-off review of unfamiliar code and recovery reasoning</td><td class="num">7.5</td><td>Week 11</td><td><span class="ai ai-off">off</span></td></tr><tr><td>Participation: guest questions, studio, expo</td><td class="num">5</td><td>All term</td><td>—</td></tr></tbody></table></div>
     <p class="note">To pass, you need all three of these: at least 60/100 overall, at least 15/30 across CP1, CP2 and the defense, and at least 5/15 on the defense.</p>
   </div>
   <!-- Site text: what the syllabus page holds (its section headings). -->
-  <p><a href="syllabus/">The full syllabus: learning outcomes, the calendar, assessment and resits, the assignments, the term project, open-source contributions, tools and AI use →</a></p>
+  <p><a class="more" href="syllabus/">The full syllabus: learning outcomes, the calendar, assessment and resits, the assignments, the term project, open-source contributions, tools and AI use →</a></p>
 </section>
 <section id="schedule">
-  <h2>Schedule</h2>
+  <div class="sec-h"><h2>Schedule</h2><span>W01 – W13</span></div>
+  <div class="table-wrap">
   <table class="schedule">
     <thead><tr><th>Week</th><th>Topic</th><th>Due</th></tr></thead>
     <tbody>
-    <tr><td>1</td><td><a href="weeks/01/">The internals of coding agents</a></td><td>A1</td></tr>
-    <tr><td>2</td><td><a href="weeks/02/">Advanced context engineering</a></td><td>A2; project proposal</td></tr>
-    <tr><td>3</td><td><a href="weeks/03/">Agent skills and the CLI</a></td><td>A3</td></tr>
-    <tr><td>4</td><td><a href="weeks/04/">Customizing your agent and repository</a></td><td>Contribution 1; project technical specification</td></tr>
-    <tr><td>5</td><td><a href="weeks/05/">Agent-ready codebases</a></td><td>A4</td></tr>
-    <tr><td>6</td><td><a href="weeks/06/">Agentic code review</a></td><td>A5; CP1</td></tr>
-    <tr><td>7</td><td><a href="weeks/07/">Tests that notice a fault</a></td><td>Project alpha and task backlog</td></tr>
-    <tr><td>8</td><td><a href="weeks/08/">Security</a></td><td>Contribution 2</td></tr>
-    <tr><td>9</td><td><a href="weeks/09/">Background agents</a></td><td>Contribution 3</td></tr>
-    <tr><td>10</td><td><a href="weeks/10/">Evaluating agents</a></td><td>A6</td></tr>
-    <tr><td>11</td><td><a href="weeks/11/">Building an AI-native team</a></td><td>CP2</td></tr>
-    <tr><td>12</td><td><a href="weeks/12/">The software factory and what comes next</a></td><td>Contribution 4; final project</td></tr>
-    <tr><td>13</td><td><a href="weeks/13/">Assessment week</a></td><td>—</td></tr>
+    <tr><td><span class="wk">W01</span></td><td><a href="weeks/01/">The internals of coding agents</a></td><td>A1</td></tr>
+    <tr><td><span class="wk">W02</span></td><td><a href="weeks/02/">Advanced context engineering</a></td><td>A2; project proposal</td></tr>
+    <tr><td><span class="wk">W03</span></td><td><a href="weeks/03/">Agent skills and the CLI</a></td><td>A3</td></tr>
+    <tr><td><span class="wk">W04</span></td><td><a href="weeks/04/">Customizing your agent and repository</a></td><td>Contribution 1; project technical specification</td></tr>
+    <tr><td><span class="wk">W05</span></td><td><a href="weeks/05/">Agent-ready codebases</a></td><td>A4</td></tr>
+    <tr><td><span class="wk">W06</span></td><td><a href="weeks/06/">Agentic code review</a></td><td>A5; CP1</td></tr>
+    <tr><td><span class="wk">W07</span></td><td><a href="weeks/07/">Tests that notice a fault</a></td><td>Project alpha and task backlog</td></tr>
+    <tr><td><span class="wk">W08</span></td><td><a href="weeks/08/">Security</a></td><td>Contribution 2</td></tr>
+    <tr><td><span class="wk">W09</span></td><td><a href="weeks/09/">Background agents</a></td><td>Contribution 3</td></tr>
+    <tr><td><span class="wk">W10</span></td><td><a href="weeks/10/">Evaluating agents</a></td><td>A6</td></tr>
+    <tr><td><span class="wk">W11</span></td><td><a href="weeks/11/">Building an AI-native team</a></td><td>CP2</td></tr>
+    <tr><td><span class="wk">W12</span></td><td><a href="weeks/12/">The software factory and what comes next</a></td><td>Contribution 4; final project</td></tr>
+    <tr><td><span class="wk">W13</span></td><td><a href="weeks/13/">Assessment week</a></td><td>—</td></tr>
     </tbody>
   </table>
+  </div>
   <!-- Site text: what the labels in the schedule stand for (the syllabus's assessment table); the deadline sentence is the syllabus's. -->
   <p class="note">A1–A6: assignments · Contribution 1–4: open-source contributions · CP1, CP2: 30-minute checkpoints on paper, without AI. The deadline for work due in a week is Sunday 23:59 of that week.</p>
 </section>
 <section id="videos">
-  <h2>Videos</h2>
+  <div class="sec-h"><h2>Videos</h2><span>12 films · 1 h 43 min</span></div>
   <!-- Site text: what the films are, how they attach to weeks, and their count and total length. -->
   <p class="note">Short films, each showing one decision through worked examples: generate, then verify.
   Each is made for one teaching week and is listed under it. 12 films, 1 h 43 min in all.</p>
   <div class="cards">
   <a class="card" href="weeks/01/#film-01-agent-loop">
-    <img src="films/01-agent-loop/poster.jpg" alt="" loading="lazy" width="960" height="540">
-    <span class="card-week">Week 1 · 8:15</span>
+    <span class="poster"><img src="films/01-agent-loop/poster.jpg" alt="" loading="lazy" width="960" height="540"></span>
+    <span class="card-week"><span class="wk">W01</span><span>8:15</span></span>
     <span class="card-title">Done is a claim</span>
     <span class="card-topic">The internals of coding agents</span>
+    <span class="card-go">Watch →</span>
   </a>
   <a class="card" href="weeks/02/#film-02-keep-the-constraint">
-    <img src="films/02-keep-the-constraint/poster.jpg" alt="" loading="lazy" width="960" height="540">
-    <span class="card-week">Week 2 · 8:48</span>
+    <span class="poster"><img src="films/02-keep-the-constraint/poster.jpg" alt="" loading="lazy" width="960" height="540"></span>
+    <span class="card-week"><span class="wk">W02</span><span>8:48</span></span>
     <span class="card-title">Four places to lose a rule</span>
     <span class="card-topic">Advanced context engineering</span>
+    <span class="card-go">Watch →</span>
   </a>
   <a class="card" href="weeks/03/#film-03-the-near-miss">
-    <img src="films/03-the-near-miss/poster.jpg" alt="" loading="lazy" width="960" height="540">
-    <span class="card-week">Week 3 · 7:12</span>
+    <span class="poster"><img src="films/03-the-near-miss/poster.jpg" alt="" loading="lazy" width="960" height="540"></span>
+    <span class="card-week"><span class="wk">W03</span><span>7:12</span></span>
     <span class="card-title">The near miss</span>
     <span class="card-topic">Agent skills and the CLI</span>
+    <span class="card-go">Watch →</span>
   </a>
   <a class="card" href="weeks/04/#film-04-request-or-gate">
-    <img src="films/04-request-or-gate/poster.jpg" alt="" loading="lazy" width="960" height="540">
-    <span class="card-week">Week 4 · 7:16</span>
+    <span class="poster"><img src="films/04-request-or-gate/poster.jpg" alt="" loading="lazy" width="960" height="540"></span>
+    <span class="card-week"><span class="wk">W04</span><span>7:16</span></span>
     <span class="card-title">A request or a gate</span>
     <span class="card-topic">Customizing your agent and repository</span>
+    <span class="card-go">Watch →</span>
   </a>
   <a class="card" href="weeks/05/#film-05-same-contract">
-    <img src="films/05-same-contract/poster.jpg" alt="" loading="lazy" width="960" height="540">
-    <span class="card-week">Week 5 · 8:57</span>
+    <span class="poster"><img src="films/05-same-contract/poster.jpg" alt="" loading="lazy" width="960" height="540"></span>
+    <span class="card-week"><span class="wk">W05</span><span>8:57</span></span>
     <span class="card-title">Is it ready for an agent?</span>
     <span class="card-topic">Agent-ready codebases</span>
+    <span class="card-go">Watch →</span>
   </a>
   <a class="card" href="weeks/06/#film-06-review-before-you-ask">
-    <img src="films/06-review-before-you-ask/poster.jpg" alt="" loading="lazy" width="960" height="540">
-    <span class="card-week">Week 6 · 5:53</span>
+    <span class="poster"><img src="films/06-review-before-you-ask/poster.jpg" alt="" loading="lazy" width="960" height="540"></span>
+    <span class="card-week"><span class="wk">W06</span><span>5:53</span></span>
     <span class="card-title">Review before you ask</span>
     <span class="card-topic">Agentic code review</span>
+    <span class="card-go">Watch →</span>
   </a>
   <a class="card" href="weeks/07/#film-07-challenge-green">
-    <img src="films/07-challenge-green/poster.jpg" alt="" loading="lazy" width="960" height="540">
-    <span class="card-week">Week 7 · 9:51</span>
+    <span class="poster"><img src="films/07-challenge-green/poster.jpg" alt="" loading="lazy" width="960" height="540"></span>
+    <span class="card-week"><span class="wk">W07</span><span>9:51</span></span>
     <span class="card-title">Would the tests notice?</span>
     <span class="card-topic">Tests that notice a fault</span>
+    <span class="card-go">Watch →</span>
   </a>
   <a class="card" href="weeks/08/#film-08-refuse-before-effects">
-    <img src="films/08-refuse-before-effects/poster.jpg" alt="" loading="lazy" width="960" height="540">
-    <span class="card-week">Week 8 · 8:25</span>
+    <span class="poster"><img src="films/08-refuse-before-effects/poster.jpg" alt="" loading="lazy" width="960" height="540"></span>
+    <span class="card-week"><span class="wk">W08</span><span>8:25</span></span>
     <span class="card-title">The refusal said no</span>
     <span class="card-topic">Security</span>
+    <span class="card-go">Watch →</span>
   </a>
   <a class="card" href="weeks/09/#film-09-nobody-was-watching">
-    <img src="films/09-nobody-was-watching/poster.jpg" alt="" loading="lazy" width="960" height="540">
-    <span class="card-week">Week 9 · 9:17</span>
+    <span class="poster"><img src="films/09-nobody-was-watching/poster.jpg" alt="" loading="lazy" width="960" height="540"></span>
+    <span class="card-week"><span class="wk">W09</span><span>9:17</span></span>
     <span class="card-title">Nobody was watching</span>
     <span class="card-topic">Background agents</span>
+    <span class="card-go">Watch →</span>
   </a>
   <a class="card" href="weeks/10/#film-10-three-questions">
-    <img src="films/10-three-questions/poster.jpg" alt="" loading="lazy" width="960" height="540">
-    <span class="card-week">Week 10 · 9:48</span>
+    <span class="poster"><img src="films/10-three-questions/poster.jpg" alt="" loading="lazy" width="960" height="540"></span>
+    <span class="card-week"><span class="wk">W10</span><span>9:48</span></span>
     <span class="card-title">Before you trust 75%</span>
     <span class="card-topic">Evaluating agents</span>
+    <span class="card-go">Watch →</span>
   </a>
   <a class="card" href="weeks/11/#film-11-check-the-summary">
-    <img src="films/11-check-the-summary/poster.jpg" alt="" loading="lazy" width="960" height="540">
-    <span class="card-week">Week 11 · 8:58</span>
+    <span class="poster"><img src="films/11-check-the-summary/poster.jpg" alt="" loading="lazy" width="960" height="540"></span>
+    <span class="card-week"><span class="wk">W11</span><span>8:58</span></span>
     <span class="card-title">Check the summary</span>
     <span class="card-topic">Building an AI-native team</span>
+    <span class="card-go">Watch →</span>
   </a>
   <a class="card" href="weeks/12/#film-12-has-it-ever-failed">
-    <img src="films/12-has-it-ever-failed/poster.jpg" alt="" loading="lazy" width="960" height="540">
-    <span class="card-week">Week 12 · 9:52</span>
+    <span class="poster"><img src="films/12-has-it-ever-failed/poster.jpg" alt="" loading="lazy" width="960" height="540"></span>
+    <span class="card-week"><span class="wk">W12</span><span>9:52</span></span>
     <span class="card-title">Has it ever failed?</span>
     <span class="card-topic">The software factory and what comes next</span>
+    <span class="card-go">Watch →</span>
   </a>
   </div>
 </section>
 <section id="materials">
-  <h2>Course materials</h2>
+  <div class="sec-h"><h2>Course materials</h2><span>all public</span></div>
   <!-- Site text: what course/ holds (the course repository's own English student site). -->
   <p>Everything students work from is public: each week's notes, slides, activities, readings and self-check,
   the assignments, the term project, the rubrics and the assessment policy.</p>
@@ -171,7 +212,7 @@
   </ul>
 </section>
 <section>
-  <h2>Teaching team</h2>
+  <div class="sec-h"><h2>Teaching team</h2></div>
   <div class="people">
     <a class="person" href="https://boxiyu.github.io/">
       <img src="https://boxiyu.github.io/assets/img/prof_pic.jpg" alt="Boxi Yu" width="120" height="120" loading="lazy">
@@ -182,10 +223,25 @@
 </section>
 </main>
 <footer class="foot">
+  <div class="wrap">
   <p>Videos: English narration in a synthetic voice (Google Gemini text-to-speech), with English and
   Chinese subtitles. Every example in them is course-authored and synthetic.</p>
   <p>Contact: <a href="mailto:boxi.yu@ul.ie">boxi.yu@ul.ie</a> ·
   <a href="https://github.com/boxi-cs/agentic-se">Source for this site</a> · Boxi CS</p>
+  </div>
 </footer>
+<script>
+(function () {
+  var root = document.documentElement, button = document.getElementById("theme");
+  function dark() { return root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches; }
+  function label() { button.textContent = dark() ? "\u2600" : "\u263E"; button.setAttribute("aria-label", dark() ? "Light theme" : "Dark theme"); }
+  label();
+  button.addEventListener("click", function () {
+    root.dataset.theme = dark() ? "light" : "dark";
+    try { localStorage.setItem("theme", root.dataset.theme); } catch (e) {}
+    label();
+  });
+})();
+</script>
 </body>
 </html>

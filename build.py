@@ -30,9 +30,39 @@ INSTRUCTOR = {
 FONTS = (
     '<link rel="preconnect" href="https://fonts.googleapis.com">'
     '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
-    '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1'
-    '&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap" media="print" onload="this.media=\'all\'">'
+    '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400'
+    '&family=Google+Sans+Code:wght@400;500;600&display=swap">'
 )
+# Before the stylesheet: a theme the reader picked with the top bar's button (else the system's).
+THEME_EARLY = (
+    "<script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')"
+    "document.documentElement.dataset.theme=t}catch(e){}</script>"
+)
+# At the end of the page: the theme button.
+SCRIPT = """<script>
+(function () {
+  var root = document.documentElement, button = document.getElementById("theme");
+  function dark() { return root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches; }
+  function label() { button.textContent = dark() ? "\\u2600" : "\\u263E"; button.setAttribute("aria-label", dark() ? "Light theme" : "Dark theme"); }
+  label();
+  button.addEventListener("click", function () {
+    root.dataset.theme = dark() ? "light" : "dark";
+    try { localStorage.setItem("theme", root.dataset.theme); } catch (e) {}
+    label();
+  });
+})();
+</script>"""
+# Site text: the home page's terminal, one generate-then-verify loop (a course-authored, synthetic example).
+TERMINAL = """<span class="p">$</span> agent <span class="k">"fix the date parser for leap years"</span>
+<span class="c">  edited parser.py, added 2 tests</span>
+<span class="c">  agent:</span> done <span class="ok">✓</span>   <span class="w"># a claim</span>
+
+<span class="p">$</span> pytest -q tests/test_parser.py
+<span class="ok">  ....</span><span class="bad">F</span>   <span class="bad">1 failed</span>: test_feb_29_1900
+<span class="w">  # the evidence says otherwise</span>
+
+<span class="c">  decide:</span> accept · <span class="k">narrow the task</span> · recheck · stop
+<span class="p">$</span> <span class="cur"></span>"""
 
 
 def esc(text: str) -> str:
@@ -135,23 +165,28 @@ def page(title: str, description: str, depth: int, body: str, up: str = "") -> s
 <meta property="og:site_name" content="Agentic Software Engineering">
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(description)}">
+{THEME_EARLY}
 {FONTS}
 <link rel="stylesheet" href="{up}assets/site.css">
 <link rel="icon" href="{up}assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<nav class="top">
-  <a class="brand" href="{up}">Agentic Software Engineering</a>
-  <span><a href="{up}approach/">Approach</a><a href="{up}syllabus/">Syllabus</a><a href="{up}#schedule">Schedule</a><a href="{up}#videos">Videos</a><a href="{up}course/">Course materials</a><a href="{INSTRUCTOR['homepage']}">Instructor</a></span>
-</nav>
+<header class="topbar">
+  <a class="brand" href="{up}"><span class="brand-mark">ASE</span><span class="brand-text"><b>Agentic Software Engineering</b><span>Build, verify, evaluate</span></span></a>
+  <nav class="navlinks" aria-label="Site"><a href="{up}approach/">Approach</a><a href="{up}syllabus/">Syllabus</a><a href="{up}#schedule">Schedule</a><a href="{up}#videos">Videos</a><a href="{up}course/">Materials</a><a class="ext" href="{INSTRUCTOR['homepage']}">Instructor ↗</a></nav>
+  <button class="iconbtn" id="theme" type="button" aria-label="Dark theme">☾</button>
+</header>
 {body}
 <footer class="foot">
+  <div class="wrap">
   <p>Videos: English narration in a synthetic voice (Google Gemini text-to-speech), with English and
   Chinese subtitles. Every example in them is course-authored and synthetic.</p>
   <p>Contact: <a href="mailto:{INSTRUCTOR['email']}">{INSTRUCTOR['email']}</a> ·
   <a href="https://github.com/boxi-cs/agentic-se">Source for this site</a> · Boxi CS</p>
+  </div>
 </footer>
+{SCRIPT}
 </body>
 </html>
 """
@@ -230,8 +265,8 @@ def home(course: dict, films: list[dict]) -> str:
     # Principles: the course home's four cards. The calendar, the lines of work and the checkpoints are in
     # the list above them and on the approach page.
     principles = "\n".join(
-        f"""    <div class="principle"><h3>{md_inline(card['title'])}</h3><p>{md_inline(card['text'])}</p></div>"""
-        for card in course["principles"]
+        f"""    <div class="principle"><b>{k:02d}</b><h3>{md_inline(card['title'])}</h3><p>{md_inline(card['text'])}</p></div>"""
+        for k, card in enumerate(course["principles"], 1)
     )
     syllabus = course["syllabus"]["markdown"]
     overview = section(syllabus, "Overview")
@@ -240,7 +275,16 @@ def home(course: dict, films: list[dict]) -> str:
         for label in ("Length", "Two sessions a week", "Three lines of work")
     )
     assessment = section(syllabus, "Assessment").split("\n\n")
-    table_html = markdown(next(block for block in assessment if block.startswith("|")))[0]
+    table_md = next(block for block in assessment if block.startswith("|"))
+    table_html = markdown(table_md)[0]
+    # The AI column as a small badge: red when the work is done without AI.
+    table_html = re.sub(r"<td>(off|allowed)</td>", r'<td><span class="ai ai-\1">\1</span></td>', table_html)
+    # Key figures for the strip under the hero, counted from the calendar, the films and the assessment table.
+    rows_md = [[c.strip() for c in line.strip().strip("|").split("|")] for line in table_md.splitlines()[2:]]
+    head_md = [c.strip().lower() for c in table_md.splitlines()[0].strip().strip("|").split("|")]
+    marks, ai = head_md.index("marks"), head_md.index("ai")
+    ai_off = sum(float(row[marks]) for row in rows_md if row[ai] == "off")
+    teaching = sum(1 for w in course["weeks"] if not w["topic"].lower().startswith("assessment"))
     # The passing rule is the paragraph that names the overall threshold.
     passing = next(block for block in assessment if "60/100" in block and not block.startswith("|"))
     deadline = next(
@@ -250,61 +294,81 @@ def home(course: dict, films: list[dict]) -> str:
     total = sum(film["seconds"] for film in films)
     cards = "\n".join(
         f"""  <a class="card" href="weeks/{film['week']:02d}/#film-{film['slug']}">
-    <img src="films/{film['slug']}/poster.jpg" alt="" loading="lazy" width="960" height="540">
-    <span class="card-week">Week {film['week']} · {minutes(film['seconds'])}</span>
+    <span class="poster"><img src="films/{film['slug']}/poster.jpg" alt="" loading="lazy" width="960" height="540"></span>
+    <span class="card-week"><span class="wk">W{film['week']:02d}</span><span>{minutes(film['seconds'])}</span></span>
     <span class="card-title">{esc(film['title'])}</span>
     <span class="card-topic">{esc(weeks[film['week']]['topic'])}</span>
+    <span class="card-go">Watch →</span>
   </a>"""
         for film in films
     )
     rows = "\n".join(
-        f"""    <tr><td>{w['week']}</td><td><a href="weeks/{w['week']:02d}/">{esc(w['topic'])}</a></td>"""
+        f"""    <tr><td><span class="wk">W{w['week']:02d}</span></td><td><a href="weeks/{w['week']:02d}/">{esc(w['topic'])}</a></td>"""
         f"""<td>{inline(w['deliverables'])}</td></tr>"""
         for w in course["weeks"]
     )
-    body = f"""<header class="hero">
-  <p class="kicker">Boxi CS · Course</p>
+    marks_off = f"{ai_off:g}"
+    body = f"""<div class="hero-band">
+<header class="wrap hub-hero">
+  <div>
+  <span class="pill">Boxi CS · Course</span>
   <h1>Agentic Software Engineering<span>Build, <em>verify</em>, evaluate.</span></h1>
+  <p class="byline">Designed by <a href="{INSTRUCTOR['homepage']}">{esc(INSTRUCTOR['name'])}</a></p>
   <p class="tagline">{inline(course['tagline'])}</p>
   <p class="lede">{md_inline(intro)}</p>
   <p class="actions">
-    <a class="button primary" href="syllabus/">Read the syllabus</a>
+    <a class="button primary" href="syllabus/">Read the syllabus →</a>
     <a class="button" href="approach/">How this course works</a>
     <a class="button" href="course/">Course materials</a>
   </p>
+  </div>
+  <div class="term" role="img" aria-label="A coding agent says it is done; a test run shows one failure; you decide what to do next.">
+    <div class="term-bar"><i></i><i></i><i></i><span>generate, then verify</span><small>synthetic example</small></div>
+    <pre>{TERMINAL}</pre>
+  </div>
 </header>
-<main>
+</div>
+<main class="wrap">
+<!-- Site text: the key figures, counted from the calendar, the films and the assessment table. -->
+<div class="stats">
+  <div><b>{teaching}</b>Teaching weeks<small>then an assessment week</small></div>
+  <div><b>{len(films)}</b>Films<small>{hours_minutes(total)} in all</small></div>
+  <div><b>{len(rows_md)}</b>Assessed parts<small>100 marks in all</small></div>
+  <div><b>{marks_off}</b>Marks without AI<small>checkpoints and the defense</small></div>
+</div>
 <section id="approach">
-  <h2>How this course works</h2>
+  <div class="sec-h"><h2>How this course works</h2><span>generate · verify · decide · explain</span></div>
   <ul class="shape">{shape}</ul>
   <div class="principles">
 {principles}
   </div>
   <!-- Site text: what the approach page adds. -->
-  <p><a href="approach/">The full approach: the three lines of work, the checkpoints and the defense →</a></p>
+  <p><a class="more" href="approach/">The full approach: the three lines of work, the checkpoints and the defense →</a></p>
 </section>
 <section id="syllabus">
-  <h2>How the work is assessed</h2>
+  <div class="sec-h"><h2>How the work is assessed</h2><span>100 marks</span></div>
   <div class="prose">
     {table_html}
     <p class="note">{md_inline(passing.split(". ")[0])}.</p>
   </div>
   <!-- Site text: what the syllabus page holds (its section headings). -->
-  <p><a href="syllabus/">The full syllabus: learning outcomes, the calendar, assessment and resits, the assignments, the term project, open-source contributions, tools and AI use →</a></p>
+  <p><a class="more" href="syllabus/">The full syllabus: learning outcomes, the calendar, assessment and resits, the assignments, the term project, open-source contributions, tools and AI use →</a></p>
 </section>
 <section id="schedule">
-  <h2>Schedule</h2>
+  <div class="sec-h"><h2>Schedule</h2><span>W01 – W{len(course['weeks']):02d}</span></div>
+  <div class="table-wrap">
   <table class="schedule">
     <thead><tr><th>Week</th><th>Topic</th><th>Due</th></tr></thead>
     <tbody>
 {rows}
     </tbody>
   </table>
+  </div>
   <!-- Site text: what the labels in the schedule stand for (the syllabus's assessment table); the deadline sentence is the syllabus's. -->
   <p class="note">A1–A6: assignments · Contribution 1–4: open-source contributions · CP1, CP2: 30-minute checkpoints on paper, without AI. {md_inline(deadline)}</p>
 </section>
 <section id="videos">
-  <h2>Videos</h2>
+  <div class="sec-h"><h2>Videos</h2><span>{len(films)} films · {hours_minutes(total)}</span></div>
   <!-- Site text: what the films are, how they attach to weeks, and their count and total length. -->
   <p class="note">Short films, each showing one decision through worked examples: generate, then verify.
   Each is made for one teaching week and is listed under it. {len(films)} films, {hours_minutes(total)} in all.</p>
@@ -313,7 +377,7 @@ def home(course: dict, films: list[dict]) -> str:
   </div>
 </section>
 <section id="materials">
-  <h2>Course materials</h2>
+  <div class="sec-h"><h2>Course materials</h2><span>all public</span></div>
   <!-- Site text: what course/ holds (the course repository's own English student site). -->
   <p>Everything students work from is public: each week's notes, slides, activities, readings and self-check,
   the assignments, the term project, the rubrics and the assessment policy.</p>
@@ -327,7 +391,7 @@ def home(course: dict, films: list[dict]) -> str:
   </ul>
 </section>
 <section>
-  <h2>Teaching team</h2>
+  <div class="sec-h"><h2>Teaching team</h2></div>
   <div class="people">
     <a class="person" href="{INSTRUCTOR['homepage']}">
       <img src="{INSTRUCTOR['photo']}" alt="{esc(INSTRUCTOR['name'])}" width="120" height="120" loading="lazy">
@@ -342,14 +406,14 @@ def home(course: dict, films: list[dict]) -> str:
 
 def approach_page(course: dict) -> str:
     body_html, contents = markdown(local_links(course["approach"], "../"))
-    body = f"""<header class="hero hero-week">
-  <p class="kicker"><a href="../">Agentic Software Engineering</a> · Approach</p>
+    body = f"""<div class="hero-band"><header class="wrap hero hero-week">
+  <span class="pill"><a href="../">Agentic Software Engineering</a>· Approach</span>
   <h1>How this course works</h1>
   <p class="lede">{inline(course['tagline'])}</p>
-</header>
-<main class="prose">
+</header></div>
+<main class="wrap"><div class="prose">
 {body_html}
-</main>"""
+</div></main>"""
     return page(f"Approach · {course['title']}", course["tagline"], 1, body)
 
 
@@ -420,11 +484,11 @@ def week_page(course: dict, films: list[dict], note: str, w: dict) -> str:
     )
     prev_link = f'<a href="../{w["week"] - 1:02d}/">← Week {w["week"] - 1}</a>' if w["week"] > 1 else "<span></span>"
     next_link = f'<a href="../{w["week"] + 1:02d}/">Week {w["week"] + 1} →</a>' if w["week"] < last else "<span></span>"
-    body = f"""<header class="hero hero-week">
-  <p class="kicker"><a href="../../">Agentic Software Engineering</a> · Week {w['week']}</p>
+    body = f"""<div class="hero-band"><header class="wrap hero hero-week">
+  <span class="pill"><a href="../../">Agentic Software Engineering</a>· Week {w['week']} of {last}</span>
   <h1>{esc(w['topic'])}</h1>
-</header>
-<main>
+</header></div>
+<main class="wrap">
   <section>
     <h2>This week</h2>
     <dl class="week">
@@ -446,15 +510,15 @@ def syllabus_page(course: dict) -> str:
     source = course["syllabus"]["markdown"]  # already edited for a public page by tools/export_data.py
     body_html, contents = markdown(local_links(source, "../"))
     toc = "".join(f'<li><a href="#{anchor}">{esc(title)}</a></li>' for anchor, title in contents)
-    body = f"""<header class="hero hero-week">
-  <p class="kicker"><a href="../">Agentic Software Engineering</a> · Syllabus</p>
+    body = f"""<div class="hero-band"><header class="wrap hero hero-week">
+  <span class="pill"><a href="../">Agentic Software Engineering</a>· Syllabus</span>
   <h1>Syllabus</h1>
   <p class="meta">Last updated {esc(course['syllabus']['updated'])}</p>
-</header>
-<main class="prose">
-  <nav class="toc"><ul>{toc}</ul></nav>
+</header></div>
+<main class="wrap"><div class="prose">
+  <nav class="toc" aria-label="Contents"><b>Contents</b><ul>{toc}</ul></nav>
 {body_html}
-</main>"""
+</div></main>"""
     return page(f"Syllabus · {course['title']}", "Learning outcomes, schedule, assessment and policies.", 1, body)
 
 
@@ -463,11 +527,11 @@ BASE = "/agentic-se/"
 
 
 def not_found() -> str:
-    body = f"""<header class="hero hero-week">
-  <p class="kicker">404</p>
+    body = f"""<div class="hero-band"><header class="wrap hero hero-week">
+  <span class="pill">404</span>
   <h1>Page not found</h1>
-</header>
-<main>
+</header></div>
+<main class="wrap">
   <p class="lede">There is no page at this address.</p>
   <p class="actions">
     <a class="button primary" href="{BASE}">Course home</a>
